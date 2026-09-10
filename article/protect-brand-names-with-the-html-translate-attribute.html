@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protect Brand Names with the HTML Translate Attribute - html</title>
+    <meta name="description" content="This article explains the purpose and implementation of the HTML translate attribute, focusing on how it prevents automated translation tools from distorting proprietary brand names and trademarks. You will learn why automated translation poses a risk to">
+    <link rel="canonical" href="https://salivity.github.io/html/article/protect-brand-names-with-the-html-translate-attribute">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Protect Brand Names with the HTML Translate Attribute - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/protect-brand-names-with-the-html-translate-attribute" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains the purpose and implementation of the HTML translate attribute, focusing on how it prevents automated translation tools from distorting proprietary brand names and trademarks. You will learn why automated translation poses a risk to" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="protect-brand-names-with-the-html-translate-attribute">Protect
+Brand Names with the HTML Translate Attribute</h1>
+<p>This article explains the purpose and implementation of the HTML
+<code>translate</code> attribute, focusing on how it prevents automated
+translation tools from distorting proprietary brand names and
+trademarks. You will learn why automated translation poses a risk to
+brand integrity, how the attribute functions within the Document Object
+Model (DOM), and the best practices for implementing it in your web
+projects.</p>
+<h3 id="the-problem-with-automated-translation">The Problem with
+Automated Translation</h3>
+<p>Modern web browsers and search engines offer built-in machine
+translation tools that automatically detect and translate page content
+into the user's preferred language. While this improves accessibility,
+automated translation algorithms cannot reliably distinguish between
+common vocabulary words and proper nouns, such as brand names,
+trademarks, or proprietary product lines.</p>
+<p>Without explicit instructions, a brand name like "Apple" might be
+translated literally into the local word for the fruit, "Target" into a
+word for an aim or mark, or "Subway" into an underground railway. These
+literal translations dilute brand identity, confuse users, and can
+undermine trademark consistency across international markets.</p>
+<h3 id="the-purpose-of-the-translate-attribute">The Purpose of the
+<code>translate</code> Attribute</h3>
+<p>The <code>translate</code> attribute is a standard HTML5 global
+attribute designed to control whether an element's text content and the
+values of its translatable attributes should be translated by automated
+localization tools.</p>
+<p>When protecting brand names, its primary purpose is to establish
+explicit translation boundaries. Setting the attribute to
+<code>no</code> directs user-agent translation features, third-party
+translation widgets, and search engine crawlers to leave the specified
+text in its original language.</p>
+<h3 id="how-to-implement-translateno">How to Implement
+<code>translate="no"</code></h3>
+<p>The attribute accepts two keyword values: <code>yes</code> and
+<code>no</code>. To protect a brand name, apply
+<code>translate="no"</code> to the element containing the proprietary
+term.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Protecting an inline brand name --&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Welcome to the official store for <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> translate</span><span class="op">=</span><span class="st">&quot;no&quot;</span><span class="dt">&gt;</span>Greenlight<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> software.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Protecting a logo or header element --&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">h1</span><span class="ot"> translate</span><span class="op">=</span><span class="st">&quot;no&quot;</span><span class="dt">&gt;</span>SoundWave Audio<span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Because <code>translate</code> is an enumerated global attribute, its
+value is inherited by child elements. If an entire section—such as a
+navigation bar or product catalog containing model numbers and brand
+assets—needs to remain untranslated, you can apply the attribute to the
+parent container:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">nav</span><span class="ot"> translate</span><span class="op">=</span><span class="st">&quot;no&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">ul</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>CloudScale Engine<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>DataForge Analytics<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>NetShield Security<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">ul</span><span class="dt">&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">nav</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Any child element within that container will inherit
+<code>translate="no"</code> unless explicitly overridden with
+<code>translate="yes"</code>.</p>
+<h3 id="legacy-support-and-fallbacks">Legacy Support and Fallbacks</h3>
+<p>Before the <code>translate</code> attribute became a standard part of
+the HTML specification, many translation engines relied on proprietary
+class names. Most notably, Google Translate used the
+<code>class="notranslate"</code> convention.</p>
+<p>Modern translation engines support the standardized
+<code>translate="no"</code> attribute. However, for maximum
+compatibility with older enterprise translation tools or legacy
+translation scripts, developers frequently combine both approaches:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> translate</span><span class="op">=</span><span class="st">&quot;no&quot;</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;notranslate&quot;</span><span class="dt">&gt;</span>BrandName<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="best-practices">Best Practices</h3>
+<ul>
+<li><strong>Apply surgically:</strong> Restrict
+<code>translate="no"</code> only to proper nouns, trademarks, model
+numbers, and phrases that lose legal or commercial meaning when
+translated. Avoid applying it to full sentences containing descriptive
+text.</li>
+<li><strong>Protect metadata:</strong> The attribute also prevents the
+translation of attributes within the element, such as
+<code>title</code>, <code>alt</code>, and <code>placeholder</code>.
+Ensure that necessary descriptive accessibility text, such as complex
+<code>alt</code> descriptions, is separated from untranslatable brand
+terms where possible.</li>
+<li><strong>Maintain semantic structure:</strong> Use inline semantic
+elements like <code>&lt;span&gt;</code> or
+<code>&lt;strong translate="no"&gt;</code> rather than generic
+<code>&lt;div&gt;</code> containers when isolating brand terms within
+body text to avoid breaking document flow.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

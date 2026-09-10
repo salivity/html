@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purpose of the HTML usemap Attribute - html</title>
+    <meta name="description" content="This article explains the role and functionality of the HTML usemap attribute. It covers how the attribute establishes a relationship between an image and a client-side image map, allowing developers to create clickable hotspot regions across a single gr">
+    <link rel="canonical" href="https://salivity.github.io/html/article/purpose-of-the-html-usemap-attribute">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Purpose of the HTML usemap Attribute - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/purpose-of-the-html-usemap-attribute" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains the role and functionality of the HTML usemap attribute. It covers how the attribute establishes a relationship between an image and a client-side image map, allowing developers to create clickable hotspot regions across a single gr" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="purpose-of-the-html-usemap-attribute">Purpose of the HTML usemap
+Attribute</h1>
+<p>This article explains the role and functionality of the HTML
+<code>usemap</code> attribute. It covers how the attribute establishes a
+relationship between an image and a client-side image map, allowing
+developers to create clickable hotspot regions across a single graphic
+without complex scripts.</p>
+<p>The primary purpose of the <code>usemap</code> attribute is to link
+an <code>&lt;img&gt;</code> element to a <code>&lt;map&gt;</code>
+element, transforming a standard graphic into an interactive,
+client-side image map. Instead of treating the entire image as a single
+clickable link, the <code>usemap</code> attribute allows specific
+geometric regions within that image to navigate to different
+destinations or trigger distinct user actions.</p>
+<h3 id="how-the-connection-works">How the Connection Works</h3>
+<p>The connection is established using a fragment identifier:</p>
+<ol type="1">
+<li><strong>The <code>&lt;map&gt;</code> Element</strong>: The
+<code>&lt;map&gt;</code> tag contains a <code>name</code> attribute that
+uniquely identifies the map configuration (for example,
+<code>&lt;map name="navigation-map"&gt;</code>).</li>
+<li><strong>The <code>usemap</code> Attribute</strong>: The
+<code>&lt;img&gt;</code> tag references that map using the
+<code>usemap</code> attribute, prefixing the map's name with a hash
+symbol (for example,
+<code>&lt;img src="diagram.png" usemap="#navigation-map" alt="Diagram"&gt;</code>).</li>
+</ol>
+<p>The hash symbol (<code>#</code>) indicates that the value corresponds
+to the name of a <code>&lt;map&gt;</code> defined within the same
+document.</p>
+<h3 id="the-role-of-area-elements">The Role of <code>&lt;area&gt;</code>
+Elements</h3>
+<p>Inside the targeted <code>&lt;map&gt;</code> element, multiple
+<code>&lt;area&gt;</code> tags define the interactive hotspots. Each
+<code>&lt;area&gt;</code> specifies:</p>
+<ul>
+<li><strong><code>shape</code></strong>: The geometric form of the
+region, such as <code>rect</code> (rectangle), <code>circle</code>, or
+<code>poly</code> (polygon).</li>
+<li><strong><code>coords</code></strong>: The exact pixel coordinates
+that outline the shape relative to the top-left corner of the
+image.</li>
+<li><strong><code>href</code></strong>: The target URL or anchor link
+triggered when a user clicks within that shape.</li>
+<li><strong><code>alt</code></strong>: An alternative text description
+for screen readers and search engines to ensure accessibility.</li>
+</ul>
+<h3 id="why-use-usemap">Why Use <code>usemap</code></h3>
+<p>Before modern responsive layouts and canvas-based graphics,
+<code>usemap</code> was the standard method for creating interactive
+interfaces like geographic maps, floor plans, schematics, and
+navigational menus out of a single static visual asset.</p>
+<p>Using <code>usemap</code> eliminates the need to slice a single
+graphic into multiple separate image files and align them with tables or
+CSS grids. It also allows the browser to handle click coordinates
+natively on the client side, ensuring instant responsiveness without
+requiring JavaScript event listeners for coordinate tracking.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

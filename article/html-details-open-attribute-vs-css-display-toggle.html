@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Details Open Attribute vs CSS Display Toggle - html</title>
+    <meta name="description" content="Toggling visibility with the HTML <details> open attribute differs fundamentally from manipulating CSS display properties. While both approaches can show or hide content from the screen, the <details> element provides native semantic meaning, automatic a">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-details-open-attribute-vs-css-display-toggle">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Details Open Attribute vs CSS Display Toggle - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-details-open-attribute-vs-css-display-toggle" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Toggling visibility with the HTML <details> open attribute differs fundamentally from manipulating CSS display properties. While both approaches can show or hide content from the screen, the <details> element provides native semantic meaning, automatic a" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-details-open-attribute-vs-css-display-toggle">HTML Details
+Open Attribute vs CSS Display Toggle</h1>
+<p>Toggling visibility with the HTML <code>&lt;details&gt;</code>
+<code>open</code> attribute differs fundamentally from manipulating CSS
+<code>display</code> properties. While both approaches can show or hide
+content from the screen, the <code>&lt;details&gt;</code> element
+provides native semantic meaning, automatic accessibility support,
+built-in event handling, and integration with browser features like
+find-in-page. Conversely, CSS display toggling only alters the visual
+rendering pipeline unless manually augmented with JavaScript and ARIA
+attributes.</p>
+<h3 id="accessibility-and-keyboard-navigation">Accessibility and
+Keyboard Navigation</h3>
+<p>The native <code>&lt;details&gt;</code> element and its
+<code>&lt;summary&gt;</code> child automatically establish an accessible
+disclosure pattern. Browsers assign the <code>&lt;summary&gt;</code>
+element an interactive role, mapping keyboard inputs (Enter and Space)
+to toggle the content without extra code. Assistive technologies such as
+screen readers automatically announce whether the disclosure widget is
+expanded or collapsed.</p>
+<p>When visibility is controlled using CSS (such as switching between
+<code>display: none</code> and <code>display: block</code>), the browser
+treats it purely as a visual style change. To make a CSS-toggled
+container accessible, developers must manually:</p>
+<ul>
+<li>Bind keyboard listeners (<code>Enter</code>, <code>Space</code>) to
+the trigger element.</li>
+<li>Set appropriate ARIA attributes, including
+<code>aria-expanded="true|false"</code> and
+<code>aria-controls</code>.</li>
+<li>Ensure the trigger element is focusable and conveys a button
+role.</li>
+</ul>
+<h3 id="browser-find-in-page-integration">Browser Find-in-Page
+Integration</h3>
+<p>Modern browsers support "hidden until found" mechanisms for native
+<code>&lt;details&gt;</code> elements. When a user searches for text
+with Ctrl+F or Cmd+F, the browser can search through collapsed
+<code>&lt;details&gt;</code> blocks. If a match is found inside, the
+browser automatically adds the <code>open</code> attribute and expands
+the section to reveal the highlighted result.</p>
+<p>Content hidden with <code>display: none</code> is entirely excluded
+from the rendering tree. Browsers will not search within elements styled
+with <code>display: none</code>, preventing users from locating
+collapsed text using native page search.</p>
+<h3 id="event-dispatching-and-state-synchronization">Event Dispatching
+and State Synchronization</h3>
+<p>The <code>&lt;details&gt;</code> element fires a native
+<code>toggle</code> event whenever its state changes between open and
+closed. This event fires after the <code>open</code> attribute is added
+or removed, allowing developers to detect user interaction or run
+asynchronous operations without attaching manual click listeners to a
+trigger.</p>
+<p>In contrast, toggling <code>display</code> via CSS classes does not
+produce a specialized disclosure event. Tracking state transitions
+requires writing custom JavaScript event handlers on the toggle controls
+or observing DOM mutations.</p>
+<h3 id="dom-state-and-css-targeting">DOM State and CSS Targeting</h3>
+<p>The <code>open</code> attribute is a standard boolean HTML attribute.
+Its presence reflects directly in the DOM and can be targeted natively
+in CSS using the attribute selector:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>details<span class="ex">[</span><span class="ss">open</span><span class="ex">]</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* Styles for the expanded state */</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Because the state resides on the element itself, it persists across
+DOM operations that preserve HTML attributes. With pure CSS toggling,
+the state typically depends on external classes, parent states, or
+hidden inputs (such as the checkbox hack), which decouples the state
+from standard HTML semantics.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

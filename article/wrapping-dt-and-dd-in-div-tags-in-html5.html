@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wrapping dt and dd in div Tags in HTML5 - html</title>
+    <meta name="description" content="Modern HTML5 explicitly permits wrapping <dt> and <dd> pairs inside <div> elements within a <dl> (description list). This article explains why the HTML specification was updated to allow this pattern, the exact structural rules required for it to remain">
+    <link rel="canonical" href="https://salivity.github.io/html/article/wrapping-dt-and-dd-in-div-tags-in-html5">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Wrapping dt and dd in div Tags in HTML5 - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/wrapping-dt-and-dd-in-div-tags-in-html5" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Modern HTML5 explicitly permits wrapping <dt> and <dd> pairs inside <div> elements within a <dl> (description list). This article explains why the HTML specification was updated to allow this pattern, the exact structural rules required for it to remain" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="wrapping-dt-and-dd-in-div-tags-in-html5">Wrapping dt and dd in
+div Tags in HTML5</h1>
+<p>Modern HTML5 explicitly permits wrapping <code>&lt;dt&gt;</code> and
+<code>&lt;dd&gt;</code> pairs inside <code>&lt;div&gt;</code> elements
+within a <code>&lt;dl&gt;</code> (description list). This article
+explains why the HTML specification was updated to allow this pattern,
+the exact structural rules required for it to remain valid, how it
+impacts the accessibility tree, and the styling problems it solves for
+modern web layouts.</p>
+<h2 id="the-evolution-of-the-dl-content-model">The Evolution of the
+<code>&lt;dl&gt;</code> Content Model</h2>
+<p>In HTML 4.01 and early drafts of HTML5, the content model for the
+description list element (<code>&lt;dl&gt;</code>) strictly allowed only
+<code>&lt;dt&gt;</code> (description term) and <code>&lt;dd&gt;</code>
+(description details) elements as direct children. While semantically
+sound, this limitation created severe layout challenges for front-end
+developers trying to style individual key-value pairs using modern CSS
+techniques like Flexbox or Grid.</p>
+<p>Recognizing that developers were either abandoning
+<code>&lt;dl&gt;</code> entirely or writing invalid HTML to achieve
+their desired designs, the W3C and WHATWG updated the HTML Living
+Standard. Under the revised specification, <code>&lt;div&gt;</code>
+elements are explicitly permitted as direct children of
+<code>&lt;dl&gt;</code>, provided they only serve to group corresponding
+<code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> elements.</p>
+<h2 id="rules-for-valid-usage">Rules for Valid Usage</h2>
+<p>To maintain valid HTML5 syntax when grouping description terms and
+definitions, specific nesting constraints must be followed:</p>
+<ol type="1">
+<li><strong>Permitted Children of <code>&lt;dl&gt;</code></strong>: A
+<code>&lt;dl&gt;</code> element may contain zero or more
+<code>&lt;div&gt;</code> elements, or zero or more groups of
+<code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> elements, mixed with
+script-supporting elements (<code>&lt;script&gt;</code> and
+<code>&lt;template&gt;</code>).</li>
+<li><strong>Permitted Children of the Wrapping
+<code>&lt;div&gt;</code></strong>: When a <code>&lt;div&gt;</code> is
+used as a direct child of a <code>&lt;dl&gt;</code>, that
+<code>&lt;div&gt;</code> may only contain one or more
+<code>&lt;dt&gt;</code> elements followed by one or more
+<code>&lt;dd&gt;</code> elements, along with script-supporting elements.
+General elements like <code>&lt;p&gt;</code>, <code>&lt;h2&gt;</code>,
+or standalone text are not permitted as direct children of this grouping
+<code>&lt;div&gt;</code>.</li>
+<li><strong>Consistent Grouping</strong>: While the specification
+technically allows mixing bare
+<code>&lt;dt&gt;</code>/<code>&lt;dd&gt;</code> elements with
+<code>&lt;div&gt;</code>-wrapped groups, standard practice dictates
+wrapping every pair or grouping uniformly throughout the list.</li>
+</ol>
+<h3 id="code-example">Code Example</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">dl</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;user-profile&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;field-group&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">dt</span><span class="dt">&gt;</span>Name<span class="dt">&lt;/</span><span class="kw">dt</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">dd</span><span class="dt">&gt;</span>Alex Johnson<span class="dt">&lt;/</span><span class="kw">dd</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;field-group&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">dt</span><span class="dt">&gt;</span>Role<span class="dt">&lt;/</span><span class="kw">dt</span><span class="dt">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">dd</span><span class="dt">&gt;</span>Systems Architect<span class="dt">&lt;/</span><span class="kw">dd</span><span class="dt">&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;field-group&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">dt</span><span class="dt">&gt;</span>Languages<span class="dt">&lt;/</span><span class="kw">dt</span><span class="dt">&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">dd</span><span class="dt">&gt;</span>TypeScript<span class="dt">&lt;/</span><span class="kw">dd</span><span class="dt">&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">dd</span><span class="dt">&gt;</span>Go<span class="dt">&lt;/</span><span class="kw">dd</span><span class="dt">&gt;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">dl</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In the example above, multiple <code>&lt;dd&gt;</code> tags can also
+coexist under a single <code>&lt;dt&gt;</code> within the same
+<code>&lt;div&gt;</code>, reflecting a one-to-many term-to-description
+relationship.</p>
+<h2 id="semantic-integrity-and-accessibility">Semantic Integrity and
+Accessibility</h2>
+<p>A primary concern when introducing structural wrappers into semantic
+markup is accessibility. The <code>&lt;div&gt;</code> tag carries no
+inherent semantic meaning; it functions purely as an element of generic
+grouping.</p>
+<p>When user agents (browsers) and assistive technologies (such as
+screen readers) parse a <code>&lt;dl&gt;</code> containing
+<code>&lt;div&gt;</code> wrappers, the accessibility tree correctly
+preserves the list's semantic roles. The parent element remains a
+description list, <code>&lt;dt&gt;</code> remains a term, and
+<code>&lt;dd&gt;</code> remains the associated description. The
+intermediate <code>&lt;div&gt;</code> is treated as a presentation
+container and does not sever the relationship between terms and
+descriptions.</p>
+<h2 id="css-and-layout-advantages">CSS and Layout Advantages</h2>
+<p>Before this specification update, displaying a
+<code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> horizontally on the
+same line or creating card-like borders around individual entries
+required cumbersome workarounds, such as clearing floats, absolute
+positioning, or JavaScript DOM manipulation.</p>
+<p>Wrapping pairs in a <code>&lt;div&gt;</code> provides a direct CSS
+hook:</p>
+<ul>
+<li><strong>Flexbox Layouts</strong>: Applying
+<code>display: flex;</code> to the wrapper allows terms and values to
+easily align side-by-side or horizontally space apart with
+<code>justify-content: space-between</code>.</li>
+<li><strong>CSS Grid Integration</strong>: The wrapper can act as an
+independent subgrid or a standard grid item within a larger layout.</li>
+<li><strong>Visual Boundaries</strong>: Borders, backgrounds, padding,
+and drop shadows can be cleanly applied to individual key-value groups
+without styling artifacts.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

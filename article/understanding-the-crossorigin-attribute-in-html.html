@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding the crossorigin Attribute in HTML - html</title>
+    <meta name="description" content="The crossorigin attribute in HTML tells the browser how to handle Cross-Origin Resource Sharing (CORS) when fetching external assets like images, scripts, fonts, and media. By default, browsers load cross-origin resources without CORS validation, which r">
+    <link rel="canonical" href="https://salivity.github.io/html/article/understanding-the-crossorigin-attribute-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Understanding the crossorigin Attribute in HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/understanding-the-crossorigin-attribute-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The crossorigin attribute in HTML tells the browser how to handle Cross-Origin Resource Sharing (CORS) when fetching external assets like images, scripts, fonts, and media. By default, browsers load cross-origin resources without CORS validation, which r" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="understanding-the-crossorigin-attribute-in-html">Understanding
+the crossorigin Attribute in HTML</h1>
+<p>The <code>crossorigin</code> attribute in HTML tells the browser how
+to handle Cross-Origin Resource Sharing (CORS) when fetching external
+assets like images, scripts, fonts, and media. By default, browsers load
+cross-origin resources without CORS validation, which restricts
+programmatic access to their content for security reasons. Applying the
+<code>crossorigin</code> attribute forces the browser to make a formal
+CORS request, allowing web applications to safely access and manipulate
+external data—such as reading pixel data from a canvas or capturing
+detailed script error logs—provided the remote server grants the proper
+permissions.</p>
+<h2 id="what-is-the-crossorigin-attribute">What is the
+<code>crossorigin</code> Attribute?</h2>
+<p>When an HTML element loads a resource from a different origin
+(domain, protocol, or port), the browser typically treats that resource
+as opaque. The <code>crossorigin</code> attribute changes this behavior
+by instructing the browser to include CORS headers in the HTTP
+request.</p>
+<p>This attribute is supported on several HTML elements:</p>
+<ul>
+<li><code>&lt;img&gt;</code></li>
+<li><code>&lt;audio&gt;</code></li>
+<li><code>&lt;video&gt;</code></li>
+<li><code>&lt;script&gt;</code></li>
+<li><code>&lt;link&gt;</code> (particularly for stylesheets, fonts, and
+preloaded assets)</li>
+</ul>
+<h2 id="attribute-values">Attribute Values</h2>
+<p>The <code>crossorigin</code> attribute accepts two primary keyword
+values:</p>
+<h3 id="1-anonymous">1. <code>anonymous</code></h3>
+<p>Setting <code>crossorigin="anonymous"</code> (or simply writing
+<code>crossorigin</code> as a boolean attribute) sends a CORS request
+without transmitting user credentials such as HTTP cookies, TLS client
+certificates, or HTTP authentication.</p>
+<ul>
+<li><strong>Request Behavior:</strong> The browser sends an
+<code>Origin</code> HTTP header with the request.</li>
+<li><strong>Server Requirement:</strong> The server must respond with an
+<code>Access-Control-Allow-Origin</code> header that matches the
+requesting origin or uses the wildcard <code>*</code>.</li>
+<li><strong>Credential Handling:</strong> Even if the user has an active
+session or cookies for the external domain, the browser will not send
+them.</li>
+</ul>
+<h3 id="2-use-credentials">2. <code>use-credentials</code></h3>
+<p>Setting <code>crossorigin="use-credentials"</code> tells the browser
+to include user credentials (cookies, certificates, and authentication
+headers) along with the cross-origin request.</p>
+<ul>
+<li><strong>Request Behavior:</strong> The browser sends the
+<code>Origin</code> header and passes all associated credentials.</li>
+<li><strong>Server Requirement:</strong> The server must explicitly
+allow credentials by responding with
+<code>Access-Control-Allow-Credentials: true</code> and an
+<code>Access-Control-Allow-Origin</code> header that explicitly
+specifies the requesting origin. A wildcard <code>*</code> is not
+permitted when credentials are used.</li>
+</ul>
+<h2 id="how-the-request-flow-works">How the Request Flow Works</h2>
+<ol type="1">
+<li><strong>The Request:</strong> When the browser encounters an element
+with <code>crossorigin</code>, it attaches the <code>Origin</code>
+header containing the domain of the current page.</li>
+<li><strong>Server Evaluation:</strong> The target server inspects the
+<code>Origin</code> header and determines whether to allow the request
+based on its CORS configuration.</li>
+<li><strong>The Response:</strong>
+<ul>
+<li>If allowed, the server returns the requested resource alongside the
+appropriate <code>Access-Control-Allow-*</code> headers. The browser
+exposes the resource fully to client-side APIs.</li>
+<li>If the server fails to include the appropriate CORS headers, the
+browser blocks access to the resource and logs a CORS policy error in
+the developer console.</li>
+</ul></li>
+</ol>
+<h2 id="primary-use-cases">Primary Use Cases</h2>
+<h3 id="unlocking-canvas-pixel-access">Unlocking
+<code>&lt;canvas&gt;</code> Pixel Access</h3>
+<p>When an external image is drawn onto an HTML
+<code>&lt;canvas&gt;</code>, the canvas becomes "tainted" by default,
+preventing methods like <code>toDataURL()</code>, <code>toBlob()</code>,
+or <code>getImageData()</code> from functioning. Adding
+<code>crossorigin="anonymous"</code> to the <code>&lt;img&gt;</code> tag
+lets the canvas read the raw pixel data, provided the image host sends
+correct CORS headers.</p>
+<h3 id="detailed-javascript-error-reporting">Detailed JavaScript Error
+Reporting</h3>
+<p>Scripts loaded from a third-party CDN hide their internal errors,
+logging generic messages like <code>"Script error."</code> in
+<code>window.onerror</code> to prevent cross-site data leakage. Adding
+<code>crossorigin="anonymous"</code> to the <code>&lt;script&gt;</code>
+tag allows the browser to capture full stack traces and line numbers for
+remote scripts.</p>
+<h3 id="preloading-web-fonts">Preloading Web Fonts</h3>
+<p>Web fonts fetched via
+<code>&lt;link rel="preload" as="font" ...&gt;</code> must always use
+the <code>crossorigin</code> attribute (even if the font is on the same
+domain). Font fetching specifications mandate that fonts be fetched
+using anonymous CORS mode; omitting the attribute causes the browser to
+fetch the resource twice.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

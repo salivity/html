@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Avoid Consecutive BR Tags in HTML - html</title>
+    <meta name="description" content="Using multiple consecutive <br> tags to force visual spacing in HTML is a common bad practice that harms website accessibility, complicates maintenance, and breaks responsive design. HTML is intended to define the structure and semantic meaning of conten">
+    <link rel="canonical" href="https://salivity.github.io/html/article/why-avoid-consecutive-br-tags-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Why Avoid Consecutive BR Tags in HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/why-avoid-consecutive-br-tags-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Using multiple consecutive <br> tags to force visual spacing in HTML is a common bad practice that harms website accessibility, complicates maintenance, and breaks responsive design. HTML is intended to define the structure and semantic meaning of conten" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="why-avoid-consecutive-br-tags-in-html">Why Avoid Consecutive BR
+Tags in HTML</h1>
+<p>Using multiple consecutive <code>&lt;br&gt;</code> tags to force
+visual spacing in HTML is a common bad practice that harms website
+accessibility, complicates maintenance, and breaks responsive design.
+HTML is intended to define the structure and semantic meaning of
+content, while CSS is designed to control layout and appearance. Relying
+on stacked break tags bypasses modern web standards and creates
+unpredictable visual and navigational issues across different devices
+and assistive technologies.</p>
+<h3 id="1-severe-accessibility-issues">1. Severe Accessibility
+Issues</h3>
+<p>Screen readers and assistive technologies interpret HTML
+semantically. When a screen reader encounters multiple
+<code>&lt;br&gt;</code> tags, it often announces each one individually,
+reading out words like "blank," "new line," or "empty line" repeatedly.
+This creates an irritating, confusing, and disruptive experience for
+visually impaired users who are trying to navigate your content
+efficiently.</p>
+<h3 id="2-violation-of-semantic-html">2. Violation of Semantic HTML</h3>
+<p>The <code>&lt;br&gt;</code> element has a specific semantic purpose:
+to represent a line break that is an inherent part of the content
+itself, such as in physical addresses, poems, or song lyrics. It is not
+an empty layout spacer. Using structural markup to solve presentation
+problems violates the fundamental web design principle of separating
+content (HTML) from presentation (CSS).</p>
+<h3 id="3-lack-of-responsiveness">3. Lack of Responsiveness</h3>
+<p>Consecutive line breaks create fixed, rigid vertical space that does
+not scale dynamically. A gap created by four <code>&lt;br&gt;</code>
+tags might look acceptable on a 27-inch desktop monitor, but on a
+smaller mobile screen, it can push critical content entirely off the
+display. Modern web layouts require fluid spacing that automatically
+adjusts to varying screen dimensions and orientations.</p>
+<h3 id="4-difficult-maintenance-and-scalability">4. Difficult
+Maintenance and Scalability</h3>
+<p>Managing spacing directly in HTML markup creates a maintenance
+nightmare. If you decide to adjust your website's vertical rhythm or
+whitespace across dozens or hundreds of pages, you would have to
+manually add or delete individual <code>&lt;br&gt;</code> tags across
+every file. In contrast, managing spacing via CSS allows you to update a
+single value in a stylesheet to apply consistent changes site-wide
+instantly.</p>
+<h3 id="the-correct-approach-use-css-for-spacing">The Correct Approach:
+Use CSS for Spacing</h3>
+<p>Instead of stacking break tags, use standard CSS properties to create
+predictable, accessible, and responsive spacing:</p>
+<ul>
+<li><strong>Paragraphs (<code>&lt;p&gt;</code>):</strong> Wrap discrete
+blocks of text in <code>&lt;p&gt;</code> elements, which naturally
+provide semantic structure and default spacing.</li>
+<li><strong>Margins and Padding:</strong> Use CSS properties like
+<code>margin-bottom</code>, <code>margin-top</code>, or
+<code>padding</code> to control whitespace around elements.</li>
+<li><strong>Modern Layout Gaps:</strong> When using CSS Flexbox or Grid,
+utilize the <code>gap</code> property to easily manage uniform space
+between elements without relying on extra markup.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

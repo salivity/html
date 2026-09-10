@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding the dir="rtl" Attribute in HTML - html</title>
+    <meta name="description" content="The dir="rtl" attribute in HTML is essential for internationalizing web content for right-to-left (RTL) languages such as Arabic, Hebrew, Persian, and Urdu. This article explains the technical purpose of the attribute, how it informs the browser's bidire">
+    <link rel="canonical" href="https://salivity.github.io/html/article/understanding-the-dir-rtl-attribute-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Understanding the dir="rtl" Attribute in HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/understanding-the-dir-rtl-attribute-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The dir="rtl" attribute in HTML is essential for internationalizing web content for right-to-left (RTL) languages such as Arabic, Hebrew, Persian, and Urdu. This article explains the technical purpose of the attribute, how it informs the browser's bidire" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="understanding-the-dirrtl-attribute-in-html">Understanding the
+dir="rtl" Attribute in HTML</h1>
+<p>The <code>dir="rtl"</code> attribute in HTML is essential for
+internationalizing web content for right-to-left (RTL) languages such as
+Arabic, Hebrew, Persian, and Urdu. This article explains the technical
+purpose of the attribute, how it informs the browser's bidirectional
+text rendering, why it must be set in the HTML markup rather than
+through CSS, and how it governs document flow and interface alignment
+across modern web applications.</p>
+<h3 id="establishing-the-base-direction">Establishing the Base
+Direction</h3>
+<p>The primary function of <code>dir="rtl"</code> is to set the base
+directionality of an HTML element and its descendants. While many
+writing systems read from left to right (LTR), languages like Arabic and
+Hebrew are read from right to left. Declaring <code>dir="rtl"</code>
+instructs the rendering engine to start inline content on the right side
+of the container and progress toward the left.</p>
+<h3 id="resolving-bidirectional-text-and-punctuation">Resolving
+Bidirectional Text and Punctuation</h3>
+<p>Most RTL content is inherently bidirectional (BiDi) because it often
+includes numbers, brand names, or technical terms written in LTR scripts
+like the Latin alphabet. Browsers use the Unicode Bidirectional
+Algorithm to determine how to order mixed characters.</p>
+<p>Without an explicit base direction, the algorithm attempts to guess
+the orientation based on the first strongly typed character, which
+frequently results in layout errors:</p>
+<ul>
+<li><strong>Neutral Characters:</strong> Punctuation marks (periods,
+question marks, exclamation points, and commas) and spaces do not
+possess inherent directionality. Without <code>dir="rtl"</code>, a
+terminal period at the end of an Arabic sentence will erroneously
+display on the far right instead of the far left.</li>
+<li><strong>Mixed Strings:</strong> Phone numbers, dates, and embedded
+English words can break apart and reverse their intended visual sequence
+unless an overarching RTL base direction anchors them correctly.</li>
+</ul>
+<h3 id="html-attribute-vs-css-direction-rtl">HTML Attribute vs. CSS
+<code>direction: rtl</code></h3>
+<p>Although CSS provides the <code>direction: rtl</code> property, web
+standards mandate using the HTML <code>dir</code> attribute for
+specifying text direction.</p>
+<ol type="1">
+<li><strong>Semantic Content Integrity:</strong> Direction is a
+fundamental property of the content itself, not merely a stylistic
+choice. If a stylesheet fails to load, text rendered without the HTML
+attribute will break structurally.</li>
+<li><strong>Accessibility:</strong> Assistive technologies, such as
+screen readers, rely on HTML attributes to dictate content
+appropriately. Many screen readers ignore CSS directional properties,
+leading to incorrect pronunciation or inverted reading orders for
+visually impaired users.</li>
+<li><strong>Clipboard Behavior:</strong> Copying text from an element
+controlled solely by CSS can result in reversed text strings when pasted
+into plain-text editors, whereas the HTML attribute preserves standard
+bidirectional text storage.</li>
+</ol>
+<h3 id="interface-and-layout-behavior">Interface and Layout
+Behavior</h3>
+<p>Setting <code>dir="rtl"</code> affects the entire user interface, not
+just text alignment:</p>
+<ul>
+<li><strong>Default Alignment:</strong> Text defaults to right-aligned
+(<code>text-align: right</code>) without requiring additional alignment
+rules.</li>
+<li><strong>Scrollbars:</strong> Browsers typically place the vertical
+scrollbar on the left side of the window or container in an RTL
+context.</li>
+<li><strong>Form Inputs:</strong> Input fields and textareas
+automatically align their placeholders and text entry cursors to the
+right edge.</li>
+<li><strong>Table Columns:</strong> HTML tables invert their column
+ordering, rendering the first declared <code>&lt;th&gt;</code> or
+<code>&lt;td&gt;</code> on the right side.</li>
+</ul>
+<h3 id="implementation-best-practice">Implementation Best Practice</h3>
+<p>To properly configure an entire document for an RTL language, declare
+the <code>dir</code> attribute on the root <code>&lt;html&gt;</code>
+element alongside the corresponding language code:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE</span> html<span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="ot"> lang</span><span class="op">=</span><span class="st">&quot;ar&quot;</span><span class="ot"> dir</span><span class="op">=</span><span class="st">&quot;rtl&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">&quot;UTF-8&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">title</span><span class="dt">&gt;</span>عنوان الصفحة<span class="dt">&lt;/</span><span class="kw">title</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>هذا النص مكتوب باللغة العربية.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>For localized segments within an LTR document—such as an Arabic quote
+in an English article—apply <code>dir="rtl"</code> directly to the
+containing element (e.g.,
+<code>&lt;blockquote dir="rtl" lang="ar"&gt;</code>) to ensure only that
+block follows right-to-left layout rules.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

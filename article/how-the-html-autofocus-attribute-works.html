@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How the HTML Autofocus Attribute Works - html</title>
+    <meta name="description" content="The autofocus attribute in HTML is a boolean attribute designed to automatically set keyboard focus to a specified form control as soon as a webpage loads. By directing the user's cursor immediately to a key input field—such as a search bar or login in">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-the-html-autofocus-attribute-works">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How the HTML Autofocus Attribute Works - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-the-html-autofocus-attribute-works" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The autofocus attribute in HTML is a boolean attribute designed to automatically set keyboard focus to a specified form control as soon as a webpage loads. By directing the user's cursor immediately to a key input field—such as a search bar or login in" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-the-html-autofocus-attribute-works">How the HTML Autofocus
+Attribute Works</h1>
+<p>The <code>autofocus</code> attribute in HTML is a boolean attribute
+designed to automatically set keyboard focus to a specified form control
+as soon as a webpage loads. By directing the user's cursor immediately
+to a key input field—such as a search bar or login input—it streamlines
+user interaction and eliminates the need for an initial manual click or
+tap. While convenient, the attribute must be used judiciously to avoid
+creating accessibility obstacles and unexpected page scrolling behavior
+for end users.</p>
+<h2 id="core-functionality">Core Functionality</h2>
+<p>When applied to an HTML element, the <code>autofocus</code> attribute
+instructs the browser to place focus on that control immediately after
+the document finishes loading, or as soon as the element's associated
+dialog or modal appears.</p>
+<p>Because it is a boolean attribute, its presence alone activates the
+behavior:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;text&quot;</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;search&quot;</span><span class="ot"> placeholder</span><span class="op">=</span><span class="st">&quot;Search...&quot;</span><span class="ot"> autofocus</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>You can write it simply as <code>autofocus</code>, or explicitly as
+<code>autofocus="autofocus"</code>, though the standalone keyword is the
+standard modern convention.</p>
+<h2 id="supported-elements">Supported Elements</h2>
+<p>The <code>autofocus</code> attribute can be applied to standard
+interactive form controls, including:</p>
+<ul>
+<li><code>&lt;input&gt;</code> (text fields, checkboxes, radio buttons,
+etc.)</li>
+<li><code>&lt;textarea&gt;</code></li>
+<li><code>&lt;select&gt;</code></li>
+<li><code>&lt;button&gt;</code></li>
+</ul>
+<p>It can also be applied to any HTML element that has been made
+focusable using the <code>tabindex</code> attribute.</p>
+<h2 id="key-rules-and-browser-behavior">Key Rules and Browser
+Behavior</h2>
+<ol type="1">
+<li><strong>One Element per Page:</strong> Only one element in a
+document should have the <code>autofocus</code> attribute. If multiple
+elements contain the attribute, the browser will typically grant focus
+to the first one encountered in the DOM, ignoring subsequent
+occurrences.</li>
+<li><strong>Page Scrolling:</strong> Applying <code>autofocus</code> to
+an element located below the fold can cause the browser to automatically
+scroll down to that element upon page load, disorienting users who
+expect to start at the top of the page.</li>
+<li><strong>Overriding by User Interaction:</strong> If a user begins
+interacting with the page before the document fully loads, modern
+browsers may cancel the autofocus request to avoid interrupting the
+user's active context.</li>
+</ol>
+<h2 id="accessibility-and-user-experience-considerations">Accessibility
+and User Experience Considerations</h2>
+<p>While <code>autofocus</code> reduces friction in specific scenarios,
+it introduces several accessibility and usability concerns:</p>
+<ul>
+<li><strong>Screen Reader Interruption:</strong> Screen reader users
+often rely on reading the document structure from the top down to
+understand the context of the page. An autofocusing element pulls their
+focus directly to an input, potentially skipping key navigation links,
+headings, or introductory content.</li>
+<li><strong>Mobile Devices:</strong> On smartphones and tablets,
+focusing an input automatically triggers the on-screen virtual keyboard.
+This can obscure a large portion of the viewport before the user has had
+an opportunity to view the surrounding page content.</li>
+<li><strong>Loss of Spatial Context:</strong> Unexpected jumping to an
+input field can confuse users with cognitive disabilities or motor
+impairments who rely on visual predictability.</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li><strong>Use on Single-Purpose Pages:</strong> Reserve
+<code>autofocus</code> primarily for pages or views where filling out an
+input is the sole reason for the visit (such as a dedicated search
+engine homepage or a login screen).</li>
+<li><strong>Modal Dialogs:</strong> Use <code>autofocus</code> inside
+dynamically opened dialogs or modal windows, directing focus to the
+first interactive field or the primary action button to keep keyboard
+navigation trapped properly within the modal.</li>
+<li><strong>Avoid on Content-Heavy Pages:</strong> Do not use
+<code>autofocus</code> on long-form articles, eCommerce product pages,
+or homepages where the user needs to read or orient themselves before
+taking an action.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

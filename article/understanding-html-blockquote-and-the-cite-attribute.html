@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding HTML Blockquote and the Cite Attribute - html</title>
+    <meta name="description" content="This guide provides a clear overview of the HTML <blockquote> element, its semantic role in web development, and the specific functionality of its cite attribute. You will learn how browsers render long-form quotations, the difference between machine-rea">
+    <link rel="canonical" href="https://salivity.github.io/html/article/understanding-html-blockquote-and-the-cite-attribute">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Understanding HTML Blockquote and the Cite Attribute - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/understanding-html-blockquote-and-the-cite-attribute" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This guide provides a clear overview of the HTML <blockquote> element, its semantic role in web development, and the specific functionality of its cite attribute. You will learn how browsers render long-form quotations, the difference between machine-rea" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1
+id="understanding-html-blockquote-and-the-cite-attribute">Understanding
+HTML Blockquote and the Cite Attribute</h1>
+<p>This guide provides a clear overview of the HTML
+<code>&lt;blockquote&gt;</code> element, its semantic role in web
+development, and the specific functionality of its <code>cite</code>
+attribute. You will learn how browsers render long-form quotations, the
+difference between machine-readable citation metadata and user-visible
+sources, and best practices for implementing quotations accessibly and
+correctly.</p>
+<h2 id="the-function-of-the-blockquote-element">The Function of the
+<code>&lt;blockquote&gt;</code> Element</h2>
+<p>The HTML <code>&lt;blockquote&gt;</code> element indicates that the
+enclosed text represents an extended quotation from an outside source.
+Unlike the inline <code>&lt;q&gt;</code> element—which is meant for
+short, inline phrases surrounded automatically by quotation
+marks—<code>&lt;blockquote&gt;</code> is a block-level element designed
+for larger sections of text, such as paragraphs, poems, or dialogue.</p>
+<p>By default, most web browsers render <code>&lt;blockquote&gt;</code>
+content with an indentation via applied left and right margins. However,
+its primary value lies in semantics: it signals to search engines,
+screen readers, and automated parsers that the text originates
+elsewhere.</p>
+<h2 id="how-the-cite-attribute-works">How the <code>cite</code>
+Attribute Works</h2>
+<p>The <code>&lt;blockquote&gt;</code> element accepts an optional
+<code>cite</code> attribute. The purpose of this attribute is to supply
+a valid URL pointing to the original source of the quotation.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">blockquote</span><span class="ot"> cite</span><span class="op">=</span><span class="st">&quot;https://www.example.com/original-article&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>This is a quoted passage taken directly from the source document.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">blockquote</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="key-behaviors-of-the-cite-attribute">Key Behaviors of the
+<code>cite</code> Attribute</h3>
+<ul>
+<li><strong>Machine-Readable Only:</strong> Web browsers do not display
+the value of the <code>cite</code> attribute to the end user by default.
+It exists purely as metadata for user agents, web scrapers, and
+accessibility tools.</li>
+<li><strong>Must Be a URL:</strong> The value should be a valid web
+address pointing to the online location of the quoted material, or a
+resource identifier. It is not meant for plain text author names or book
+titles.</li>
+</ul>
+<h2 id="providing-visible-attribution">Providing Visible
+Attribution</h2>
+<p>Because the <code>cite</code> attribute is invisible to regular
+users, you should provide visible attribution directly inside or
+adjacent to the quotation. Standard practice is to use the HTML
+<code>&lt;cite&gt;</code> element (an inline tag) within a
+<code>&lt;footer&gt;</code> or a paragraph to name the source or author
+clearly.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">blockquote</span><span class="ot"> cite</span><span class="op">=</span><span class="st">&quot;https://www.example.com/speeches/gettysburg&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Four score and seven years ago our fathers brought forth on this continent, a new nation...<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">footer</span><span class="dt">&gt;</span>— Abraham Lincoln, <span class="dt">&lt;</span><span class="kw">cite</span><span class="dt">&gt;</span>Gettysburg Address<span class="dt">&lt;/</span><span class="kw">cite</span><span class="dt">&gt;&lt;/</span><span class="kw">footer</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">blockquote</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this setup:</p>
+<ul>
+<li>The <code>cite</code> <strong>attribute</strong> on
+<code>&lt;blockquote&gt;</code> provides the direct link for machines
+and search engines.</li>
+<li>The <code>&lt;cite&gt;</code> <strong>tag</strong> marks the
+human-readable title of the work for site visitors.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Meta Theme Color Impacts Mobile Browsers - html</title>
+    <meta name="description" content="The <meta name="theme-color"> tag allows web developers to customize the visual appearance of a mobile browser's surrounding interface, commonly referred to as the browser "chrome." By assigning a specific color to this tag, web pages can tint the addres">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-meta-theme-color-impacts-mobile-browsers">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How Meta Theme Color Impacts Mobile Browsers - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-meta-theme-color-impacts-mobile-browsers" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The <meta name="theme-color"> tag allows web developers to customize the visual appearance of a mobile browser's surrounding interface, commonly referred to as the browser "chrome." By assigning a specific color to this tag, web pages can tint the addres" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-meta-theme-color-impacts-mobile-browsers">How Meta Theme
+Color Impacts Mobile Browsers</h1>
+<p>The <code>&lt;meta name="theme-color"&gt;</code> tag allows web
+developers to customize the visual appearance of a mobile browser's
+surrounding interface, commonly referred to as the browser "chrome." By
+assigning a specific color to this tag, web pages can tint the address
+bar, system status bar, and application switcher to blend seamlessly
+with the site's design, creating an immersive and native app-like
+experience for mobile users.</p>
+<h3 id="understanding-browser-chrome">Understanding Browser Chrome</h3>
+<p>In web design, "browser chrome" refers to the user interface elements
+of the browser window outside of the actual webpage content. This
+includes the URL address bar, the tab strip, the navigation buttons, and
+integration with the mobile operating system's top status bar (which
+displays the clock, battery level, and network indicators).</p>
+<p>Without specific instructions, mobile browsers typically render this
+chrome using default neutral colors, such as white, gray, or black. The
+<code>&lt;meta name="theme-color"&gt;</code> tag overrides this default
+behavior.</p>
+<h3 id="basic-implementation">Basic Implementation</h3>
+<p>The tag is placed inside the <code>&lt;head&gt;</code> element of an
+HTML document. It accepts any valid CSS color format, including hex
+codes, RGB, HSL, or named colors.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">&quot;UTF-8&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;viewport&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;theme-color&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;#0f172a&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">title</span><span class="dt">&gt;</span>Document<span class="dt">&lt;/</span><span class="kw">title</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When a mobile browser loads this page, it detects the hex value and
+dynamically applies it to the surrounding interface elements. Most
+modern browsers automatically adjust the foreground text and icon colors
+(such as the URL text and system icons) to either black or white to
+maintain sufficient contrast against the chosen background color.</p>
+<h3 id="supporting-dark-mode-and-media-queries">Supporting Dark Mode and
+Media Queries</h3>
+<p>Modern mobile browsers support conditional theme colors based on the
+user's system preferences. By incorporating the <code>media</code>
+attribute, developers can declare distinct colors for light and dark
+display modes:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Theme color for light mode --&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;theme-color&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;#ffffff&quot;</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(prefers-color-scheme: light)&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Theme color for dark mode --&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;theme-color&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;#121212&quot;</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(prefers-color-scheme: dark)&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When a user switches their operating system between light and dark
+themes, the browser immediately swaps the chrome color without requiring
+a page reload.</p>
+<h3 id="dynamic-updates-with-javascript">Dynamic Updates with
+JavaScript</h3>
+<p>The theme color is not static and can be manipulated via JavaScript
+to reflect in-page events, scroll positions, or state changes:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">updateThemeColor</span>(color) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> metaThemeColor <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&#39;meta[name=&quot;theme-color&quot;]&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (metaThemeColor) {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    metaThemeColor<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">&#39;content&#39;</span><span class="op">,</span> color)<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>This technique is frequently used during transitions between page
+sections or to alert the user to specific application states, such as
+switching to an error state or entering a checkout funnel.</p>
+<h3 id="browser-and-platform-support">Browser and Platform Support</h3>
+<ul>
+<li><strong>Google Chrome on Android:</strong> Fully supports the tag,
+tinting both the address bar and the Android system status bar when the
+page is active.</li>
+<li><strong>Safari on iOS:</strong> Supported since iOS 15. In tab bar
+mode, the top and bottom chrome adopt the declared color, creating a
+unified viewport.</li>
+<li><strong>Progressive Web Apps (PWAs):</strong> When installed to a
+mobile home screen, PWAs use the theme color to style the window frame
+and status bar, completely replacing default operating system
+borders.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Tree Hierarchy and Nested HTML Tags Explained - html</title>
+    <meta name="description" content="The Document Object Model (DOM) is an in-memory, tree-structured representation of an HTML document that browsers use to render web pages and enable programmatic manipulation via JavaScript. This article explains the fundamentals of the DOM tree hierarch">
+    <link rel="canonical" href="https://salivity.github.io/html/article/dom-tree-hierarchy-and-nested-html-tags-explained">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="DOM Tree Hierarchy and Nested HTML Tags Explained - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/dom-tree-hierarchy-and-nested-html-tags-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Document Object Model (DOM) is an in-memory, tree-structured representation of an HTML document that browsers use to render web pages and enable programmatic manipulation via JavaScript. This article explains the fundamentals of the DOM tree hierarch" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="dom-tree-hierarchy-and-nested-html-tags-explained">DOM Tree
+Hierarchy and Nested HTML Tags Explained</h1>
+<p>The Document Object Model (DOM) is an in-memory, tree-structured
+representation of an HTML document that browsers use to render web pages
+and enable programmatic manipulation via JavaScript. This article
+explains the fundamentals of the DOM tree hierarchy, detailing how the
+nested structure of raw HTML code maps directly into parent, child, and
+sibling nodes within the browser's memory.</p>
+<h2 id="what-is-the-dom-tree-hierarchy">What Is the DOM Tree
+Hierarchy?</h2>
+<p>When a web browser loads an HTML file, it parses the markup and
+converts it into an object-oriented model known as the DOM. Because HTML
+documents are inherently structured through containment—with elements
+placed inside other elements—the browser organizes these objects into a
+hierarchical tree structure.</p>
+<p>In this hierarchy, every part of the document is represented as a
+node:</p>
+<ul>
+<li><strong>Document Node:</strong> The root of the entire tree,
+representing the web page itself.</li>
+<li><strong>Element Nodes:</strong> The HTML tags (such as
+<code>&lt;html&gt;</code>, <code>&lt;body&gt;</code>,
+<code>&lt;div&gt;</code>, or <code>&lt;p&gt;</code>) that define the
+structure.</li>
+<li><strong>Text Nodes:</strong> The actual text content contained
+within an HTML element. Text nodes are always leaf nodes, meaning they
+cannot have children.</li>
+<li><strong>Attribute Nodes:</strong> The attributes assigned to
+elements (such as <code>class</code>, <code>id</code>, or
+<code>href</code>), accessible through their corresponding element
+nodes.</li>
+</ul>
+<h2 id="how-nested-html-maps-to-the-dom">How Nested HTML Maps to the
+DOM</h2>
+<p>The relationship between nested HTML tags and DOM nodes is a direct
+one-to-one mapping governed by parent-child relationships:</p>
+<ol type="1">
+<li><strong>Parent Nodes:</strong> An outer HTML tag acts as a parent
+node to any tags enclosed between its opening and closing tags.</li>
+<li><strong>Child Nodes:</strong> Any HTML tags directly nested inside
+an outer tag become its child nodes.</li>
+<li><strong>Sibling Nodes:</strong> Tags that share the exact same
+immediate parent are sibling nodes.</li>
+<li><strong>Descendant and Ancestor Nodes:</strong> Deeply nested
+elements are descendants of all elements wrapping them, while the
+wrapping elements are ancestors to the enclosed nodes.</li>
+</ol>
+<h3 id="visualizing-the-mapping">Visualizing the Mapping</h3>
+<p>Consider this basic HTML snippet:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">article</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">h1</span><span class="dt">&gt;</span>Article Title<span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>This is a paragraph with a <span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;#&quot;</span><span class="dt">&gt;</span>link<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span>.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">article</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When the browser parses this snippet, it constructs the following
+branch in the DOM tree:</p>
+<ul>
+<li><code>&lt;article&gt;</code> (Element Node - Parent)
+<ul>
+<li><code>&lt;h1&gt;</code> (Element Node - Child of
+<code>&lt;article&gt;</code>, Sibling of <code>&lt;p&gt;</code>)
+<ul>
+<li><code>"Article Title"</code> (Text Node - Child of
+<code>&lt;h1&gt;</code>)</li>
+</ul></li>
+<li><code>&lt;p&gt;</code> (Element Node - Child of
+<code>&lt;article&gt;</code>, Sibling of <code>&lt;h1&gt;</code>)
+<ul>
+<li><code>"This is a paragraph with a "</code> (Text Node - Child of
+<code>&lt;p&gt;</code>, Sibling of <code>&lt;a&gt;</code>)</li>
+<li><code>&lt;a&gt;</code> (Element Node - Child of
+<code>&lt;p&gt;</code>, Sibling of text nodes)
+<ul>
+<li><code>"link"</code> (Text Node - Child of
+<code>&lt;a&gt;</code>)</li>
+</ul></li>
+<li><code>"."</code> (Text Node - Child of <code>&lt;p&gt;</code>,
+Sibling of <code>&lt;a&gt;</code>)</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>In this structure, the <code>&lt;article&gt;</code> tag does not just
+visually contain the other elements; it becomes the direct parent object
+of both the <code>&lt;h1&gt;</code> and <code>&lt;p&gt;</code> nodes.
+The <code>&lt;a&gt;</code> tag is nested inside the
+<code>&lt;p&gt;</code> tag, making it a child of <code>&lt;p&gt;</code>
+and a descendant of <code>&lt;article&gt;</code>.</p>
+<h2 id="why-the-dom-hierarchy-matters">Why the DOM Hierarchy
+Matters</h2>
+<p>Understanding this mapping is essential for web development because
+both CSS and JavaScript rely entirely on the DOM tree:</p>
+<ul>
+<li><strong>JavaScript Traversal and Manipulation:</strong> Developers
+navigate the tree using properties like <code>parentElement</code>,
+<code>children</code>, <code>nextElementSibling</code>, or methods like
+<code>querySelector()</code>. Knowing the nesting structure ensures
+accurate element selection and dynamic DOM updates.</li>
+<li><strong>CSS Inheritance and Specificity:</strong> CSS rules cascade
+down the tree. Child elements inherit certain styles (like
+<code>font-family</code> or <code>color</code>) from their ancestors,
+and selectors such as <code>article &gt; p</code> (direct child) or
+<code>article p</code> (descendant) match elements based strictly on
+their hierarchical position.</li>
+<li><strong>Event Bubbling:</strong> When an event (such as a click)
+occurs on a leaf node like a button or a link, it travels up the
+hierarchy through each ancestor node, a mechanism directly determined by
+the nested HTML structure.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

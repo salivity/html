@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using Popovertarget and Popovertargetaction in HTML - html</title>
+    <meta name="description" content="The HTML Popover API provides a native, JavaScript-free way to display floating content like tooltips, menus, and dialogs directly in the browser's top layer. This article explains how the popovertarget and popovertargetaction attributes work together on">
+    <link rel="canonical" href="https://salivity.github.io/html/article/using-popovertarget-and-popovertargetaction-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Using Popovertarget and Popovertargetaction in HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/using-popovertarget-and-popovertargetaction-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML Popover API provides a native, JavaScript-free way to display floating content like tooltips, menus, and dialogs directly in the browser's top layer. This article explains how the popovertarget and popovertargetaction attributes work together on" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="using-popovertarget-and-popovertargetaction-in-html">Using
+Popovertarget and Popovertargetaction in HTML</h1>
+<p>The HTML Popover API provides a native, JavaScript-free way to
+display floating content like tooltips, menus, and dialogs directly in
+the browser's top layer. This article explains how the
+<code>popovertarget</code> and <code>popovertargetaction</code>
+attributes work together on button elements to open, close, and toggle
+popover elements declaratively using pure HTML.</p>
+<h3 id="the-foundation-the-popover-element">The Foundation: The Popover
+Element</h3>
+<p>Before using target attributes, you must define the popover element
+itself. Adding the <code>popover</code> attribute to any HTML element
+(commonly a <code>&lt;div&gt;</code>) instructs the browser to hide the
+element by default, remove it from standard page flow, and render it in
+the top layer when activated. To connect a trigger to this element,
+assign it a unique <code>id</code>.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;my-popover&quot;</span><span class="ot"> popover</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>This is native popover content.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="the-popovertarget-attribute">The <code>popovertarget</code>
+Attribute</h3>
+<p>The <code>popovertarget</code> attribute connects an invoking
+control—typically a <code>&lt;button&gt;</code> or
+<code>&lt;input type="button"&gt;</code>—to the target popover.</p>
+<p>Its value must match the <code>id</code> of the element containing
+the <code>popover</code> attribute. By default, clicking a button with a
+valid <code>popovertarget</code> will toggle the visibility of the
+linked popover without requiring an <code>addEventListener</code>
+script.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Clicking this toggles the visibility of #my-popover --&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> popovertarget</span><span class="op">=</span><span class="st">&quot;my-popover&quot;</span><span class="dt">&gt;</span>Toggle Popover<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="the-popovertargetaction-attribute">The
+<code>popovertargetaction</code> Attribute</h3>
+<p>While <code>popovertarget</code> specifies <em>which</em> element to
+control, <code>popovertargetaction</code> specifies <em>what</em> action
+the button should perform.</p>
+<p>The <code>popovertargetaction</code> attribute accepts three
+values:</p>
+<ul>
+<li><strong><code>toggle</code></strong>: The default behavior. If the
+popover is hidden, the button opens it; if it is visible, the button
+closes it.</li>
+<li><strong><code>show</code></strong>: Exclusively opens the popover.
+If the popover is already open, clicking the button does nothing.</li>
+<li><strong><code>hide</code></strong>: Exclusively closes the popover.
+This is most commonly placed on a "Close" button located inside the
+popover itself.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Explicit show button --&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> popovertarget</span><span class="op">=</span><span class="st">&quot;info-box&quot;</span><span class="ot"> popovertargetaction</span><span class="op">=</span><span class="st">&quot;show&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  Open Info</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;info-box&quot;</span><span class="ot"> popover</span><span class="dt">&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Detailed information goes here.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Explicit close button inside the popover --&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> popovertarget</span><span class="op">=</span><span class="st">&quot;info-box&quot;</span><span class="ot"> popovertargetaction</span><span class="op">=</span><span class="st">&quot;hide&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    Close</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="native-benefits-and-behaviors">Native Benefits and
+Behaviors</h3>
+<p>Pairing <code>popovertarget</code> and
+<code>popovertargetaction</code> provides several built-in browser
+features automatically:</p>
+<ul>
+<li><strong>Focus Management and Keyboard Support:</strong> Pressing the
+<code>Escape</code> key automatically closes an active popover.</li>
+<li><strong>Light Dismiss:</strong> When using the default
+<code>popover="auto"</code> mode, clicking outside the popover
+automatically closes it and updates internal state tracking.</li>
+<li><strong>Top Layer Stacking:</strong> Popovers controlled by these
+attributes are placed in the browser's top layer, preventing
+<code>z-index</code> conflicts and overflow clipping from parent
+elements.</li>
+<li><strong>Accessibility:</strong> Browsers automatically expose the
+relationship between the trigger button and the popover element to
+assistive technologies without requiring manual ARIA expanded
+states.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disabled Form Elements in HTML Form Submission - html</title>
+    <meta name="description" content="When submitting an HTML form natively, understanding how the browser serializes field data is critical for backend data integrity. Under the HTML specification, any form element marked with the disabled attribute is completely excluded from the form data">
+    <link rel="canonical" href="https://salivity.github.io/html/article/disabled-form-elements-in-html-form-submission">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Disabled Form Elements in HTML Form Submission - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/disabled-form-elements-in-html-form-submission" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="When submitting an HTML form natively, understanding how the browser serializes field data is critical for backend data integrity. Under the HTML specification, any form element marked with the disabled attribute is completely excluded from the form data" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="disabled-form-elements-in-html-form-submission">Disabled Form
+Elements in HTML Form Submission</h1>
+<p>When submitting an HTML form natively, understanding how the browser
+serializes field data is critical for backend data integrity. Under the
+HTML specification, any form element marked with the
+<code>disabled</code> attribute is completely excluded from the form
+data serialization process. This means the browser will neither include
+the element's name nor its value in the submission payload, regardless
+of whether the form uses a <code>GET</code> or <code>POST</code> method.
+This article explains the technical mechanics behind this behavior,
+compares it to the <code>readonly</code> attribute, and outlines common
+workarounds for sending uneditable data.</p>
+<h2 id="the-html-serialization-algorithm">The HTML Serialization
+Algorithm</h2>
+<p>Native form submission relies on a browser algorithm that constructs
+entry lists from form controls. For a field to be serialized into the
+request body or query string, it must qualify as a "submittable element"
+that is also a "successful control."</p>
+<p>According to the HTML standard, an element is barred from being a
+successful control if its <code>disabled</code> attribute is present.
+During serialization:</p>
+<ul>
+<li>The browser iterates over all controls associated with the
+form.</li>
+<li>It checks for the <code>disabled</code> state.</li>
+<li>If <code>disabled</code> is set to true, the browser skips the
+element entirely.</li>
+<li>No key-value pair is generated for that input—it does not transmit
+as an empty string (<code>name=</code>), nor as <code>null</code>. It
+simply does not exist in the outgoing payload.</li>
+</ul>
+<p>This behavior applies universally across native input types,
+including <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>,
+<code>&lt;textarea&gt;</code>, and <code>&lt;button&gt;</code>.</p>
+<h2 id="disabled-vs-readonly">Disabled vs. Readonly</h2>
+<p>Developers frequently confuse the <code>disabled</code> attribute
+with the <code>readonly</code> attribute, but their serialization
+behaviors are fundamentally different:</p>
+<ul>
+<li><strong><code>disabled</code>:</strong> Prevents user interaction,
+removes the element from keyboard focus navigation, styles the element
+as inactive by default, and <strong>omits</strong> the element from form
+submission serialization.</li>
+<li><strong><code>readonly</code>:</strong> Prevents user modification
+of the value, maintains focusability and keyboard navigation, and
+<strong>includes</strong> the element and its value during form
+submission serialization.</li>
+</ul>
+<p>If a field must remain visible and unchangeable to the user while
+still sending its value to the server, <code>readonly</code> is usually
+the appropriate semantic choice for text-based inputs.</p>
+<h2 id="common-workarounds">Common Workarounds</h2>
+<p>Because disabled inputs are excluded from native submission,
+scenarios requiring a field to be both non-editable and submitted
+require alternative approaches.</p>
+<h3 id="1-using-hidden-inputs">1. Using Hidden Inputs</h3>
+<p>For input types that do not support <code>readonly</code>
+effectively—such as <code>&lt;select&gt;</code>, checkboxes, and radio
+buttons—the most reliable pattern is to disable the visible control and
+mirror its value into a hidden input:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">select</span><span class="ot"> disabled</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">option</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;standard&quot;</span><span class="ot"> selected</span><span class="dt">&gt;</span>Standard Plan<span class="dt">&lt;/</span><span class="kw">option</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">select</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;hidden&quot;</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;plan&quot;</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;standard&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>The browser ignores the disabled <code>&lt;select&gt;</code>, but
+successfully serializes the
+<code>&lt;input type="hidden"&gt;</code>.</p>
+<h3 id="2-enabling-elements-via-javascript-on-submit">2. Enabling
+Elements via JavaScript on Submit</h3>
+<p>If you have multiple disabled fields that must be sent, you can use
+JavaScript to remove the <code>disabled</code> attribute immediately
+before the form submits:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> form <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&#39;form&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>form<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;submit&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> disabledFields <span class="op">=</span> form<span class="op">.</span><span class="fu">querySelectorAll</span>(<span class="st">&#39;:disabled&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  disabledFields<span class="op">.</span><span class="fu">forEach</span>(field <span class="kw">=&gt;</span> {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    field<span class="op">.</span><span class="at">disabled</span> <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p>Because this runs just before the serialization algorithm executes,
+the browser processes the inputs as standard, active controls and
+includes them in the payload.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

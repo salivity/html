@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Drag and Drop API: ondragstart and ondrop - html</title>
+    <meta name="description" content="The HTML Drag and Drop API allows web applications to implement native, intuitive drag-and-drop interfaces using standard DOM event listeners and the DataTransfer object. This article examines how the lifecycle of a drag-and-drop operation functions, foc">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-drag-and-drop-api-ondragstart-and-ondrop">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Drag and Drop API: ondragstart and ondrop - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-drag-and-drop-api-ondragstart-and-ondrop" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML Drag and Drop API allows web applications to implement native, intuitive drag-and-drop interfaces using standard DOM event listeners and the DataTransfer object. This article examines how the lifecycle of a drag-and-drop operation functions, foc" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-drag-and-drop-api-ondragstart-and-ondrop">HTML Drag and
+Drop API: ondragstart and ondrop</h1>
+<p>The HTML Drag and Drop API allows web applications to implement
+native, intuitive drag-and-drop interfaces using standard DOM event
+listeners and the <code>DataTransfer</code> object. This article
+examines how the lifecycle of a drag-and-drop operation functions,
+focusing specifically on how <code>ondragstart</code> initializes the
+operation and defines data, how intermediate events like
+<code>ondragover</code> permit drop targets, and how <code>ondrop</code>
+completes the interaction by extracting data and updating the
+application state.</p>
+<h2 id="the-drag-and-drop-lifecycle">The Drag and Drop Lifecycle</h2>
+<p>A drag-and-drop interaction consists of a source element, a dragged
+payload, and a target element. The browser orchestrates this interaction
+by firing sequential events as the user clicks, moves, and releases an
+element:</p>
+<ol type="1">
+<li><strong>Initiation</strong>: The user clicks and drags a source
+element (<code>ondragstart</code>).</li>
+<li><strong>Traversal</strong>: The dragged element moves across
+potential targets (<code>ondragenter</code>, <code>ondragover</code>,
+<code>ondragleave</code>).</li>
+<li><strong>Completion</strong>: The user releases the mouse over a
+valid target (<code>ondrop</code>), followed by cleanup on the source
+(<code>ondragend</code>).</li>
+</ol>
+<h2 id="initiating-the-drag-with-ondragstart">Initiating the Drag with
+<code>ondragstart</code></h2>
+<p>To make an HTML element draggable, it must have the attribute
+<code>draggable="true"</code>. When a user begins dragging this element,
+the browser fires the <code>dragstart</code> event, handled by the
+<code>ondragstart</code> property or an event listener.</p>
+<p>The primary responsibility of <code>ondragstart</code> is to populate
+the <code>event.dataTransfer</code> object. The
+<code>dataTransfer</code> object holds the data being dragged from the
+source to the drop zone.</p>
+<p>Key actions inside <code>ondragstart</code>:</p>
+<ul>
+<li><strong>Set Payload</strong>: Call
+<code>event.dataTransfer.setData(format, data)</code> to specify the
+data format (e.g., <code>'text/plain'</code>,
+<code>'application/json'</code>) and the content.</li>
+<li><strong>Set Permitted Effects</strong>: Configure
+<code>event.dataTransfer.effectAllowed</code> (e.g.,
+<code>'copy'</code>, <code>'move'</code>, <code>'link'</code>) to govern
+the visual feedback and allowed actions.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> item <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;drag-item&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>item<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;dragstart&#39;</span><span class="op">,</span> (<span class="bu">event</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">event</span><span class="op">.</span><span class="at">dataTransfer</span><span class="op">.</span><span class="fu">setData</span>(<span class="st">&#39;text/plain&#39;</span><span class="op">,</span> <span class="bu">event</span><span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">id</span>)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">event</span><span class="op">.</span><span class="at">dataTransfer</span><span class="op">.</span><span class="at">effectAllowed</span> <span class="op">=</span> <span class="st">&#39;move&#39;</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<h2 id="the-intermediary-step-ondragover">The Intermediary Step:
+<code>ondragover</code></h2>
+<p>A drop target cannot trigger an <code>ondrop</code> event unless the
+browser default behavior is explicitly overridden. By default, browsers
+reject drop operations on most DOM elements.</p>
+<p>To mark an element as a valid drop zone, you must attach an
+<code>ondragover</code> listener and invoke
+<code>event.preventDefault()</code>:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> dropZone <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;drop-zone&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dropZone<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;dragover&#39;</span><span class="op">,</span> (<span class="bu">event</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">event</span><span class="op">.</span><span class="fu">preventDefault</span>()<span class="op">;</span> <span class="co">// Required to allow a drop</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">event</span><span class="op">.</span><span class="at">dataTransfer</span><span class="op">.</span><span class="at">dropEffect</span> <span class="op">=</span> <span class="st">&#39;move&#39;</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<h2 id="receiving-data-with-ondrop">Receiving Data with
+<code>ondrop</code></h2>
+<p>When a user releases the dragged item over a valid drop target that
+has handled <code>ondragover</code>, the <code>drop</code> event fires
+on that target, captured via <code>ondrop</code>.</p>
+<p>Key actions inside <code>ondrop</code>:</p>
+<ul>
+<li><strong>Prevent Default Handling</strong>: Call
+<code>event.preventDefault()</code> to stop the browser's default
+behavior, such as navigating to a URL if text or a link was
+dropped.</li>
+<li><strong>Retrieve Data</strong>: Access the data set during
+<code>dragstart</code> using
+<code>event.dataTransfer.getData(format)</code>.</li>
+<li><strong>Mutate the DOM</strong>: Use the extracted data to
+manipulate the DOM, update component state, or trigger application
+logic.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dropZone<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;drop&#39;</span><span class="op">,</span> (<span class="bu">event</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">event</span><span class="op">.</span><span class="fu">preventDefault</span>()<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> draggedElementId <span class="op">=</span> <span class="bu">event</span><span class="op">.</span><span class="at">dataTransfer</span><span class="op">.</span><span class="fu">getData</span>(<span class="st">&#39;text/plain&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> draggedElement <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(draggedElementId)<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (draggedElement) {</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    dropZone<span class="op">.</span><span class="fu">appendChild</span>(draggedElement)<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<h2 id="interaction-summary">Interaction Summary</h2>
+<p>The coordination between <code>ondragstart</code> and
+<code>ondrop</code> hinges on the shared <code>dataTransfer</code>
+context. <code>ondragstart</code> writes the necessary identifiers or
+values into the payload, the target's <code>ondragover</code> signals to
+the browser that an incoming drop is permitted, and <code>ondrop</code>
+reads the payload to finalize the interaction. Without
+<code>ondragstart</code>, no data is packaged; without
+<code>ondragover</code> preventing defaults, <code>ondrop</code> will
+never execute.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using crossorigin anonymous on HTML Media Elements - html</title>
+    <meta name="description" content="The crossorigin="anonymous" attribute on HTML media elements (<audio> and <video>) configures the browser to request cross-origin media files using Cross-Origin Resource Sharing (CORS) without sending user credentials. This article explains how the attri">
+    <link rel="canonical" href="https://salivity.github.io/html/article/using-crossorigin-anonymous-on-html-media-elements">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Using crossorigin anonymous on HTML Media Elements - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/using-crossorigin-anonymous-on-html-media-elements" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The crossorigin="anonymous" attribute on HTML media elements (<audio> and <video>) configures the browser to request cross-origin media files using Cross-Origin Resource Sharing (CORS) without sending user credentials. This article explains how the attri" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="using-crossorigin-anonymous-on-html-media-elements">Using
+crossorigin anonymous on HTML Media Elements</h1>
+<p>The <code>crossorigin="anonymous"</code> attribute on HTML media
+elements (<code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code>)
+configures the browser to request cross-origin media files using
+Cross-Origin Resource Sharing (CORS) without sending user credentials.
+This article explains how the attribute alters network requests, enables
+programmatic access to media data in APIs like Canvas and Web Audio,
+prevents canvas tainting, and highlights the server-side requirements
+necessary to avoid playback failures.</p>
+<h2 id="how-the-attribute-changes-network-requests">How the Attribute
+Changes Network Requests</h2>
+<p>By default, HTML media elements load cross-origin resources without
+CORS. The browser fetches the resource in <code>no-cors</code> mode,
+allowing playback while blocking programmatic access to the underlying
+media data to protect user privacy.</p>
+<p>When you add <code>crossorigin="anonymous"</code>:</p>
+<ol type="1">
+<li><strong>CORS Request Triggered:</strong> The browser sends standard
+CORS headers with the HTTP request, specifically the <code>Origin</code>
+header identifying your site's domain.</li>
+<li><strong>Credentials Omitted:</strong> The browser excludes sensitive
+credentials—such as HTTP cookies, client-side SSL certificates, and
+Basic Authentication headers—from the request.</li>
+<li><strong>Strict Validation Enforced:</strong> The browser inspects
+the response to ensure the server explicitly grants access. If the
+server does not include the appropriate CORS headers, the browser aborts
+the request, and the media fails to load.</li>
+</ol>
+<h2 id="key-impacts-on-media-usage">Key Impacts on Media Usage</h2>
+<h3 id="1-eliminating-canvas-tainting">1. Eliminating Canvas
+Tainting</h3>
+<p>A primary reason to use <code>crossorigin="anonymous"</code> on
+<code>&lt;video&gt;</code> elements is to manipulate video frames inside
+an HTML5 <code>&lt;canvas&gt;</code>.</p>
+<p>If a cross-origin video is drawn to a canvas without CORS:</p>
+<ul>
+<li>The canvas becomes "tainted."</li>
+<li>Calling methods such as <code>canvas.toDataURL()</code>,
+<code>canvas.toBlob()</code>, or <code>ctx.getImageData()</code> throws
+a <code>SecurityError</code>.</li>
+</ul>
+<p>Setting <code>crossorigin="anonymous"</code> ensures the video frames
+are recognized as secure data, allowing the canvas to be exported or
+analyzed frame-by-frame.</p>
+<h3 id="2-enabling-web-audio-api-processing">2. Enabling Web Audio API
+Processing</h3>
+<p>Using an <code>&lt;audio&gt;</code> or <code>&lt;video&gt;</code>
+element with the Web Audio API requires accessing raw audio samples via
+<code>AudioContext.createMediaElementSource()</code>.</p>
+<p>Without <code>crossorigin="anonymous"</code>, cross-origin media
+streams processed through Web Audio are silenced for security purposes.
+Applying the attribute enables the processing, filtering, and
+visualization of cross-origin audio data.</p>
+<h3 id="3-capturing-webgl-textures">3. Capturing WebGL Textures</h3>
+<p>Using video frames as textures in WebGL requires clean cross-origin
+data. Without <code>crossorigin="anonymous"</code>, uploading non-CORS
+video frames via <code>gl.texImage2D()</code> fails or marks the WebGL
+context as insecure, preventing rendering.</p>
+<h2 id="server-side-requirement-access-control-allow-origin">Server-Side
+Requirement: <code>Access-Control-Allow-Origin</code></h2>
+<p>Using <code>crossorigin="anonymous"</code> makes media playback
+dependent on the host server's response headers. For the media to load,
+the server hosting the media file must return the following header:</p>
+<pre class="http"><code>Access-Control-Allow-Origin: *</code></pre>
+<p><em>(Or specify the exact requesting domain instead of
+<code>*</code>)</em></p>
+<p>If this header is omitted, the browser blocks the resource entirely,
+triggering an error event on the media element and preventing standard
+playback.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

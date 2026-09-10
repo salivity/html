@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How the HTML Dialog Traps Modal Keyboard Focus - html</title>
+    <meta name="description" content="This article provides a technical overview of how the native HTML <dialog> element natively manages keyboard focus when displayed as a modal. By calling the showModal() API method, the browser automatically restricts keyboard navigation to elements withi">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-the-html-dialog-traps-modal-keyboard-focus">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How the HTML Dialog Traps Modal Keyboard Focus - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-the-html-dialog-traps-modal-keyboard-focus" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides a technical overview of how the native HTML <dialog> element natively manages keyboard focus when displayed as a modal. By calling the showModal() API method, the browser automatically restricts keyboard navigation to elements withi" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-the-html-dialog-traps-modal-keyboard-focus">How the HTML
+Dialog Traps Modal Keyboard Focus</h1>
+<p>This article provides a technical overview of how the native HTML
+<code>&lt;dialog&gt;</code> element natively manages keyboard focus when
+displayed as a modal. By calling the <code>showModal()</code> API
+method, the browser automatically restricts keyboard navigation to
+elements within the dialog. This built-in focus containment is achieved
+through browser-level inertness, placement in the top layer, and
+standardized focus restoration, removing the need for manual JavaScript
+event listeners.</p>
+<h3 id="the-mechanism-of-showmodal-vs-show">The Mechanism of
+<code>showModal()</code> vs. <code>show()</code></h3>
+<p>The <code>&lt;dialog&gt;</code> element supports two opening methods:
+<code>show()</code> and <code>showModal()</code>. Focus trapping occurs
+exclusively when using <code>showModal()</code>. Calling
+<code>show()</code> displays the element as a standard, non-modal
+dialog, allowing users to freely interact with and tab through the rest
+of the web page. In contrast, <code>showModal()</code> activates the
+browser's built-in modal behavior rules defined by the HTML
+specification.</p>
+<h3 id="document-inertness-and-the-top-layer">Document Inertness and the
+Top Layer</h3>
+<p>When <code>showModal()</code> is executed, the browser performs two
+major actions:</p>
+<ol type="1">
+<li><strong>Top Layer Placement:</strong> The dialog is pushed to the
+browser's internal "top layer," a rendering layer that sits above all
+other z-index contexts and document flows.</li>
+<li><strong>Blocking Outer Interaction (Inertness):</strong> The browser
+marks all other elements in the document outside the
+<code>&lt;dialog&gt;</code> subtree as inert. This functions identically
+to applying the HTML <code>inert</code> attribute to the rest of the
+DOM.</li>
+</ol>
+<p>Because the rest of the document becomes inert, all background
+elements are removed from the sequential navigation order (the tab
+order) and accessibility trees. Pointer events, text selection, and
+keyboard focus are completely ignored outside the dialog.</p>
+<h3 id="sequential-focus-navigation">Sequential Focus Navigation</h3>
+<p>Because all background nodes are blocked, the sequential focus
+navigation loop naturally constrains itself to the contents of the
+modal:</p>
+<ul>
+<li><strong>Initial Focus:</strong> When the modal opens, the user agent
+automatically assigns focus to the first focusable element containing
+the <code>autofocus</code> attribute. If no element has
+<code>autofocus</code>, focus falls to the first sequentially focusable
+child element (such as an <code>&lt;input&gt;</code>,
+<code>&lt;button&gt;</code>, or <code>&lt;a&gt;</code>). If no focusable
+descendants exist, focus is placed on the <code>&lt;dialog&gt;</code>
+container itself.</li>
+<li><strong>The Tab Loop:</strong> When a user presses <code>Tab</code>
+or <code>Shift + Tab</code>, the browser searches for the next or
+previous focusable element within the active navigation context. Since
+background elements are marked inert, the browser wraps navigation
+around: pressing <code>Tab</code> on the last focusable element in the
+dialog shifts focus back to the first focusable element, and pressing
+<code>Shift + Tab</code> on the first element moves focus to the
+last.</li>
+</ul>
+<h3 id="automatic-focus-restoration">Automatic Focus Restoration</h3>
+<p>Native focus trapping also handles clean exit states. When the
+<code>&lt;dialog&gt;</code> is closed—either by calling
+<code>dialog.close()</code> or by the user pressing the
+<code>Escape</code> key—the browser removes the inert state from the
+rest of the document. The browser then automatically returns keyboard
+focus to the document element that originally had focus before the modal
+was invoked, maintaining an unbroken keyboard navigation flow.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

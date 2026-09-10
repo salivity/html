@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Pattern Attribute for Postal Code Validation - html</title>
+    <meta name="description" content="The pattern attribute in HTML provides built-in, client-side validation by checking user input against a specified regular expression (regex) before a form can be submitted. When dealing with complex inputs like postal codes, which vary widely in format">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-pattern-attribute-for-postal-code-validation">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Pattern Attribute for Postal Code Validation - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-pattern-attribute-for-postal-code-validation" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The pattern attribute in HTML provides built-in, client-side validation by checking user input against a specified regular expression (regex) before a form can be submitted. When dealing with complex inputs like postal codes, which vary widely in format" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-pattern-attribute-for-postal-code-validation">HTML Pattern
+Attribute for Postal Code Validation</h1>
+<p>The <code>pattern</code> attribute in HTML provides built-in,
+client-side validation by checking user input against a specified
+regular expression (regex) before a form can be submitted. When dealing
+with complex inputs like postal codes, which vary widely in format and
+structure across different countries, the <code>pattern</code> attribute
+ensures that data conforms to the required syntax directly within the
+browser without requiring custom JavaScript.</p>
+<h3 id="how-the-pattern-attribute-works">How the <code>pattern</code>
+Attribute Works</h3>
+<p>The <code>pattern</code> attribute is used primarily on
+<code>&lt;input&gt;</code> elements of types such as <code>text</code>,
+<code>search</code>, <code>url</code>, <code>tel</code>, and
+<code>email</code>. It accepts a regular expression compiled using
+JavaScript’s regex syntax.</p>
+<p>When a user attempts to submit a form containing an input with a
+<code>pattern</code>, the browser checks the value against the
+regex:</p>
+<ul>
+<li>If the input matches the pattern, the input is marked as valid,
+allowing the form submission to proceed.</li>
+<li>If the input fails to match, the browser cancels the submission,
+marks the input as invalid, and displays a localized validation message
+to the user.</li>
+</ul>
+<p>In HTML5, the regex provided in the <code>pattern</code> attribute is
+implicitly anchored. This means the browser automatically treats the
+pattern as if it begins with <code>^</code> and ends with
+<code>$</code>, requiring the entire input value to match the pattern,
+not just a substring.</p>
+<h3 id="handling-complex-formats-postal-codes">Handling Complex Formats:
+Postal Codes</h3>
+<p>Postal codes represent a common validation challenge because they
+often combine digits, letters, spaces, and hyphens in strict sequences.
+Standard input types like <code>type="number"</code> are insufficient
+because they strip leading zeros, reject letters, and do not allow
+specific punctuation.</p>
+<p>By using the <code>pattern</code> attribute with
+<code>type="text"</code>, developers can enforce precise formats:</p>
+<ul>
+<li><p><strong>US ZIP Code (5 digits or ZIP+4):</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  type</span><span class="op">=</span><span class="st">&quot;text&quot;</span><span class="ot"> </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ot">  name</span><span class="op">=</span><span class="st">&quot;zip&quot;</span><span class="ot"> </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ot">  pattern</span><span class="op">=</span><span class="st">&quot;^\d{5}(-\d{4})?$&quot;</span><span class="ot"> </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ot">  title</span><span class="op">=</span><span class="st">&quot;Five-digit ZIP code or ZIP+4 (e.g., 12345 or 12345-6789)&quot;</span><span class="ot"> </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ot">  required</span><span class="dt">&gt;</span></span></code></pre></div></li>
+<li><p><strong>Canadian Postal Code (A1A 1A1 format):</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  type</span><span class="op">=</span><span class="st">&quot;text&quot;</span><span class="ot"> </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ot">  name</span><span class="op">=</span><span class="st">&quot;postal_code&quot;</span><span class="ot"> </span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ot">  pattern</span><span class="op">=</span><span class="st">&quot;[A-Za-z]\d[A-Za-z][ ]?\d[A-Za-z]\d&quot;</span><span class="ot"> </span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ot">  title</span><span class="op">=</span><span class="st">&quot;Canadian postal code (e.g., A1A 1A1)&quot;</span><span class="ot"> </span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ot">  required</span><span class="dt">&gt;</span></span></code></pre></div></li>
+<li><p><strong>UK Postal Code:</strong></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  type</span><span class="op">=</span><span class="st">&quot;text&quot;</span><span class="ot"> </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ot">  name</span><span class="op">=</span><span class="st">&quot;postcode&quot;</span><span class="ot"> </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ot">  pattern</span><span class="op">=</span><span class="st">&quot;[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}&quot;</span><span class="ot"> </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ot">  title</span><span class="op">=</span><span class="st">&quot;Valid UK postcode (e.g., SW1A 1AA)&quot;</span><span class="ot"> </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ot">  required</span><span class="dt">&gt;</span></span></code></pre></div></li>
+</ul>
+<h3 id="the-role-of-the-title-attribute">The Role of the
+<code>title</code> Attribute</h3>
+<p>When an input fails validation against a <code>pattern</code>, modern
+browsers display a generic message, such as "Please match the requested
+format." To provide meaningful feedback, developers should always pair
+the <code>pattern</code> attribute with a descriptive <code>title</code>
+attribute. The text inside the <code>title</code> attribute is typically
+incorporated into the browser's validation tooltip, informing users of
+the exact format required.</p>
+<h3 id="styling-and-form-state">Styling and Form State</h3>
+<p>Inputs with a <code>pattern</code> attribute integrate natively with
+CSS pseudo-classes:</p>
+<ul>
+<li><code>:valid</code> applies styles when the content matches the
+pattern.</li>
+<li><code>:invalid</code> applies styles when the content fails to
+match.</li>
+</ul>
+<p>This allows for immediate visual feedback—such as green or red
+borders—as soon as the user finishes typing or when the form is
+submitted.</p>
+<h3 id="security-consideration">Security Consideration</h3>
+<p>While the <code>pattern</code> attribute significantly improves the
+user experience by catching formatting mistakes early, it operates
+entirely on the client side. Users can bypass browser validation by
+disabling JavaScript, editing the DOM, or sending raw HTTP requests.
+Consequently, server-side validation using the same regular expression
+rules remains essential to secure and sanitize incoming postal code
+data.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

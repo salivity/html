@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why HTML Image Tags Need Intrinsic Dimensions - html</title>
+    <meta name="description" content="Including intrinsic width and height attributes on HTML <img> elements is one of the most effective ways to eliminate unexpected layout shifts while a webpage loads. When browsers know an image's aspect ratio before the file downloads, they can reserve t">
+    <link rel="canonical" href="https://salivity.github.io/html/article/why-html-image-tags-need-intrinsic-dimensions">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Why HTML Image Tags Need Intrinsic Dimensions - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/why-html-image-tags-need-intrinsic-dimensions" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Including intrinsic width and height attributes on HTML <img> elements is one of the most effective ways to eliminate unexpected layout shifts while a webpage loads. When browsers know an image's aspect ratio before the file downloads, they can reserve t" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="why-html-image-tags-need-intrinsic-dimensions">Why HTML Image
+Tags Need Intrinsic Dimensions</h1>
+<p>Including intrinsic <code>width</code> and <code>height</code>
+attributes on HTML <code>&lt;img&gt;</code> elements is one of the most
+effective ways to eliminate unexpected layout shifts while a webpage
+loads. When browsers know an image's aspect ratio before the file
+downloads, they can reserve the correct amount of space in the layout.
+Omitting these attributes causes page elements to jump suddenly,
+damaging the user experience and negatively impacting search engine
+rankings through Core Web Vitals metrics.</p>
+<h3 id="understanding-layout-shifts-and-cls">Understanding Layout Shifts
+and CLS</h3>
+<p>When a browser renders a web page, it parses the HTML and builds the
+Document Object Model (DOM) before downloading external assets like
+images. If an <code>&lt;img&gt;</code> tag lacks <code>width</code> and
+<code>height</code> attributes, the browser assigns it an initial height
+of zero pixels.</p>
+<p>Once the image finishes downloading, the browser determines its
+actual dimensions and reflows the page to make space for it. This sudden
+movement pushes surrounding text, buttons, and other elements downward.
+This phenomenon is measured by Google's Cumulative Layout Shift (CLS)
+metric. High CLS scores frustrate users, frequently leading to
+accidental clicks on the wrong links or ads, and directly harm a
+website's search visibility.</p>
+<h3 id="how-modern-browsers-use-intrinsic-dimensions">How Modern
+Browsers Use Intrinsic Dimensions</h3>
+<p>Modern browsers resolve this problem by calculating an image's
+default aspect ratio directly from its HTML <code>width</code> and
+<code>height</code> attributes. Even before the image data arrives over
+the network, the rendering engine creates an accurate placeholder box
+matching the asset's proportions. When the image file finishes
+downloading, it simply fills this pre-allocated space without altering
+the positions of surrounding content.</p>
+<h3 id="compatibility-with-responsive-css">Compatibility with Responsive
+CSS</h3>
+<p>A common misconception is that hardcoding HTML <code>width</code> and
+<code>height</code> attributes prevents images from being responsive. In
+modern web standards, HTML attributes set the intrinsic aspect ratio,
+while CSS controls the rendered display size.</p>
+<p>When you apply standard responsive CSS:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>img {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">max-width</span><span class="ch">:</span> <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">height</span><span class="ch">:</span> <span class="bu">auto</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The browser references the HTML attributes to compute the aspect
+ratio (width divided by height). It then applies this ratio to the
+responsive CSS rules, dynamically calculating the correct fluid height
+while reserving the layout space in advance.</p>
+<h3 id="best-practices-for-implementation">Best Practices for
+Implementation</h3>
+<p>To properly configure images and prevent layout shifts:</p>
+<ul>
+<li><strong>Always provide raw pixel values:</strong> Specify the
+natural pixel dimensions directly in the HTML attributes without units
+(for example,
+<code>&lt;img src="photo.jpg" width="800" height="600" alt="..."&gt;</code>).</li>
+<li><strong>Match the source file:</strong> Ensure the provided
+attributes accurately reflect the image file's real aspect ratio to
+avoid distortion.</li>
+<li><strong>Combine with lazy loading:</strong> If using
+<code>loading="lazy"</code>, intrinsic dimensions are mandatory. Without
+reserved space, all off-screen images stack at the top of the page on
+initial load, causing the browser to load them simultaneously and
+defeating the purpose of lazy loading.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

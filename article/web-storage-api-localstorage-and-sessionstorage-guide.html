@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Storage API: LocalStorage and SessionStorage Guide - html</title>
+    <meta name="description" content="The Web Storage API provides mechanisms for browsers to store key-value pairs locally within a user's browser in a more intuitive and efficient manner than traditional HTTP cookies. This article examines the core functions of the Web Storage API, compari">
+    <link rel="canonical" href="https://salivity.github.io/html/article/web-storage-api-localstorage-and-sessionstorage-guide">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Web Storage API: LocalStorage and SessionStorage Guide - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/web-storage-api-localstorage-and-sessionstorage-guide" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Web Storage API provides mechanisms for browsers to store key-value pairs locally within a user's browser in a more intuitive and efficient manner than traditional HTTP cookies. This article examines the core functions of the Web Storage API, compari" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="web-storage-api-localstorage-and-sessionstorage-guide">Web
+Storage API: LocalStorage and SessionStorage Guide</h1>
+<p>The Web Storage API provides mechanisms for browsers to store
+key-value pairs locally within a user's browser in a more intuitive and
+efficient manner than traditional HTTP cookies. This article examines
+the core functions of the Web Storage API, comparing
+<code>localStorage</code> and <code>sessionStorage</code>, outlining
+their standard JavaScript methods, performance benefits, security
+considerations, and practical use cases in modern web applications.</p>
+<h2 id="what-is-the-web-storage-api">What is the Web Storage API?</h2>
+<p>The Web Storage API allows web applications to save data directly
+inside the client's web browser. Unlike cookies, this data is never
+automatically transmitted to the server with HTTP requests, which
+reduces network overhead and speeds up page load times. Storage is
+bounded by the same-origin policy, meaning data stored by an application
+on one domain cannot be accessed by scripts running on another
+domain.</p>
+<p>The API consists of two primary storage mechanisms:
+<code>localStorage</code> and <code>sessionStorage</code>. Both share
+identical programming interfaces but differ significantly in data
+persistence and scope.</p>
+<h2 id="localstorage-vs-sessionstorage"><code>localStorage</code> vs.
+<code>sessionStorage</code></h2>
+<h3 id="localstorage"><code>localStorage</code></h3>
+<p><code>localStorage</code> provides persistent client-side storage.
+Data saved using <code>localStorage</code> remains available
+indefinitely—surviving page reloads, browser tab closures, and complete
+browser restarts. The data persists until explicitly cleared by the web
+application's code or cleared manually by the user through browser
+settings.</p>
+<p><strong>Common use cases:</strong></p>
+<ul>
+<li>Storing user interface preferences (such as light/dark theme
+selection).</li>
+<li>Caching non-sensitive application settings.</li>
+<li>Saving offline draft content or shopping cart state.</li>
+</ul>
+<h3 id="sessionstorage"><code>sessionStorage</code></h3>
+<p><code>sessionStorage</code> maintains data only for the duration of
+the current page session. A session lasts as long as the specific
+browser tab or window remains open. While <code>sessionStorage</code>
+survives page reloads and restores, opening the same URL in a new tab
+creates an entirely new, isolated storage context. Closing the tab or
+window permanently wipes the stored data.</p>
+<p><strong>Common use cases:</strong></p>
+<ul>
+<li>Managing multi-step form data across page navigation.</li>
+<li>Preserving temporary scroll positions or transient UI states.</li>
+<li>Storing single-session interaction flags.</li>
+</ul>
+<h2 id="core-methods-and-usage">Core Methods and Usage</h2>
+<p>Both mechanisms store data strictly as string key-value pairs and
+utilize the same set of methods:</p>
+<ul>
+<li><strong><code>setItem(key, value)</code></strong>: Adds a key-value
+pair, or updates the value if the key already exists.</li>
+<li><strong><code>getItem(key)</code></strong>: Retrieves the string
+value associated with the specified key, returning <code>null</code> if
+the key does not exist.</li>
+<li><strong><code>removeItem(key)</code></strong>: Deletes the specified
+key and its associated value.</li>
+<li><strong><code>clear()</code></strong>: Clears all key-value pairs
+stored within that origin's storage instance.</li>
+<li><strong><code>length</code></strong>: A property indicating the
+total number of stored items.</li>
+</ul>
+<p>Complex data types, such as objects and arrays, must be serialized
+using <code>JSON.stringify()</code> before storage and deserialized
+using <code>JSON.parse()</code> upon retrieval.</p>
+<h2 id="advantages-over-cookies">Advantages over Cookies</h2>
+<ul>
+<li><strong>Higher Capacity</strong>: Cookies are typically capped at 4
+KB per domain, whereas Web Storage generally provides 5 MB to 10 MB of
+storage per origin, depending on the browser.</li>
+<li><strong>Reduced Bandwidth</strong>: Cookie data travels with every
+single HTTP request header to the server. Web Storage data remains
+entirely local, eliminating unnecessary bandwidth consumption.</li>
+<li><strong>Simpler Interface</strong>: Native JavaScript manipulation
+of cookies requires complex string parsing, whereas the Web Storage API
+provides a straightforward, object-based interface.</li>
+</ul>
+<h2 id="limitations-and-security-considerations">Limitations and
+Security Considerations</h2>
+<p>While powerful, the Web Storage API has distinct technical and
+security boundaries:</p>
+<ul>
+<li><strong>Synchronous Execution</strong>: Web Storage operations are
+synchronous and run on the browser's main thread. Writing or reading
+large amounts of data can block UI rendering and degrade
+performance.</li>
+<li><strong>Cross-Site Scripting (XSS) Vulnerability</strong>: Web
+Storage is fully accessible to any JavaScript running within the same
+origin. Consequently, sensitive data such as authentication tokens,
+passwords, or personal identifiable information (PII) should never be
+stored in <code>localStorage</code> or <code>sessionStorage</code>, as
+it can be extracted by malicious scripts injected through XSS
+vulnerabilities.</li>
+<li><strong>String-Only Storage</strong>: Non-string values must always
+undergo manual serialization, adding slight overhead for complex data
+structures. Applications requiring structured querying, asynchronous
+access, or larger data quotas should utilize IndexedDB instead.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

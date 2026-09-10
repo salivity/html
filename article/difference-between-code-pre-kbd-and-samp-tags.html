@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difference Between code, pre, kbd, and samp Tags - html</title>
+    <meta name="description" content="HTML provides several semantic elements specifically designed to represent computer-related text, each carrying a unique programmatic meaning. While browsers typically render them in a default monospace font, their underlying semantic purposes are distin">
+    <link rel="canonical" href="https://salivity.github.io/html/article/difference-between-code-pre-kbd-and-samp-tags">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Difference Between code, pre, kbd, and samp Tags - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/difference-between-code-pre-kbd-and-samp-tags" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="HTML provides several semantic elements specifically designed to represent computer-related text, each carrying a unique programmatic meaning. While browsers typically render them in a default monospace font, their underlying semantic purposes are distin" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="difference-between-code-pre-kbd-and-samp-tags">Difference
+Between code, pre, kbd, and samp Tags</h1>
+<p>HTML provides several semantic elements specifically designed to
+represent computer-related text, each carrying a unique programmatic
+meaning. While browsers typically render them in a default monospace
+font, their underlying semantic purposes are distinct:
+<code>&lt;code&gt;</code> marks code snippets, <code>&lt;pre&gt;</code>
+preserves formatting and whitespace, <code>&lt;kbd&gt;</code> indicates
+user input, and <code>&lt;samp&gt;</code> represents computer output.
+Understanding these distinctions ensures your markup remains accessible,
+machine-readable, and semantically accurate.</p>
+<h3 id="the-code-tag-defining-computer-code">The
+<code>&lt;code&gt;</code> Tag: Defining Computer Code</h3>
+<p>The <code>&lt;code&gt;</code> element is an inline tag used to mark a
+fragment of computer code. This can include programming language syntax,
+XML or HTML tags, file names, directory paths, or script
+expressions.</p>
+<p>Semantically, <code>&lt;code&gt;</code> communicates to screen
+readers and search engines that the enclosed text is meant to be
+interpreted as programming or markup syntax rather than human language.
+By default, it does not preserve white spaces or line breaks.</p>
+<ul>
+<li><strong>Example:</strong>
+<code>&lt;code&gt;const total = price * tax;&lt;/code&gt;</code></li>
+</ul>
+<h3 id="the-pre-tag-preformatted-text">The <code>&lt;pre&gt;</code> Tag:
+Preformatted Text</h3>
+<p>The <code>&lt;pre&gt;</code> tag stands for "preformatted text."
+Unlike standard HTML elements that collapse consecutive spaces and
+ignore line breaks, <code>&lt;pre&gt;</code> displays the enclosed text
+exactly as it is written in the HTML source code, preserving tabs,
+spaces, and line breaks.</p>
+<p>Semantically, <code>&lt;pre&gt;</code> is not restricted to code; it
+can be used for ASCII art, poetry, or any text where layout and spacing
+are critical to meaning. When displaying multi-line code blocks, best
+practice is to nest a <code>&lt;code&gt;</code> tag inside a
+<code>&lt;pre&gt;</code> tag
+(<code>&lt;pre&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;</code>) to
+combine preformatting with the code semantic.</p>
+<h3 id="the-kbd-tag-keyboard-and-user-input">The
+<code>&lt;kbd&gt;</code> Tag: Keyboard and User Input</h3>
+<p>The <code>&lt;kbd&gt;</code> element represents user input, typically
+entered via a keyboard, voice commands, or other input devices.</p>
+<p>Semantically, <code>&lt;kbd&gt;</code> denotes an instruction or
+action that the user is expected to perform. It is commonly used for
+keyboard shortcuts, terminal commands that a user must type, or button
+labels in a software interface.</p>
+<ul>
+<li><strong>Example:</strong> Press <kbd>Ctrl</kbd> + <kbd>C</kbd> to
+copy.</li>
+</ul>
+<h3 id="the-samp-tag-sample-program-output">The
+<code>&lt;samp&gt;</code> Tag: Sample Program Output</h3>
+<p>The <code>&lt;samp&gt;</code> element defines sample output from a
+computer program, script, or operating system.</p>
+<p>Semantically, <code>&lt;samp&gt;</code> informs user agents that the
+text is the result or response generated by an application, rather than
+code to be executed or input to be entered. Common use cases include
+console logs, terminal responses, system error messages, and program
+return values.</p>
+<ul>
+<li><strong>Example:</strong> The terminal returned: <samp>Error 404:
+File not found</samp>.</li>
+</ul>
+<h3 id="semantic-summary">Semantic Summary</h3>
+<ul>
+<li><strong><code>&lt;code&gt;</code></strong>: The instructions or
+syntax of a language (what is written).</li>
+<li><strong><code>&lt;pre&gt;</code></strong>: The structural
+presentation of whitespace (how it is visually spaced).</li>
+<li><strong><code>&lt;kbd&gt;</code></strong>: The input provided by the
+user (what goes in).</li>
+<li><strong><code>&lt;samp&gt;</code></strong>: The output produced by
+the machine (what comes out).</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

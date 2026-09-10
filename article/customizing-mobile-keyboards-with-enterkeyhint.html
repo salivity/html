@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizing Mobile Keyboards with enterkeyhint - html</title>
+    <meta name="description" content="The enterkeyhint attribute is a global HTML attribute that customizes the label or icon displayed on the Enter or action key of mobile virtual keyboards. By aligning the Enter key's appearance with the expected user action, developers can significantly i">
+    <link rel="canonical" href="https://salivity.github.io/html/article/customizing-mobile-keyboards-with-enterkeyhint">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Customizing Mobile Keyboards with enterkeyhint - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/customizing-mobile-keyboards-with-enterkeyhint" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The enterkeyhint attribute is a global HTML attribute that customizes the label or icon displayed on the Enter or action key of mobile virtual keyboards. By aligning the Enter key's appearance with the expected user action, developers can significantly i" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="customizing-mobile-keyboards-with-enterkeyhint">Customizing
+Mobile Keyboards with enterkeyhint</h1>
+<p>The <code>enterkeyhint</code> attribute is a global HTML attribute
+that customizes the label or icon displayed on the Enter or action key
+of mobile virtual keyboards. By aligning the Enter key's appearance with
+the expected user action, developers can significantly improve mobile
+form usability and reduce user confusion. This article explains how
+<code>enterkeyhint</code> works, details its supported values, and
+highlights best practices for implementing it in web applications.</p>
+<h2 id="how-the-enterkeyhint-attribute-works">How the
+<code>enterkeyhint</code> Attribute Works</h2>
+<p>When a user focuses on a text input (<code>&lt;input&gt;</code> or
+<code>&lt;textarea&gt;</code>) on a mobile device, a virtual keyboard
+appears. By default, the action key—typically the Enter key in the
+lower-right corner—displays a generic icon, a return arrow, or text
+based on the input type.</p>
+<p>Applying the <code>enterkeyhint</code> attribute instructs the
+browser to request a specific label or icon from the operating system's
+on-screen keyboard. This gives users immediate visual context regarding
+what happens when they tap that key.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Example of an input configured for search --&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;text&quot;</span><span class="ot"> enterkeyhint</span><span class="op">=</span><span class="st">&quot;search&quot;</span><span class="ot"> placeholder</span><span class="op">=</span><span class="st">&quot;Search articles...&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="supported-values">Supported Values</h2>
+<p>The <code>enterkeyhint</code> attribute accepts seven standardized
+values, each designed for a specific user interaction:</p>
+<ul>
+<li><strong><code>enter</code></strong>: Typically displays a return
+arrow or the word "Return" / "Enter". It indicates that pressing the key
+will insert a newline character or perform standard entry behavior.</li>
+<li><strong><code>done</code></strong>: Displays "Done" or a checkmark
+icon. It indicates that the user has completed typing and that the
+keyboard should typically close.</li>
+<li><strong><code>go</code></strong>: Displays "Go" or a forward arrow.
+It signals that the action will navigate the user to the destination of
+the entered text (such as entering a URL or initiating a primary
+action).</li>
+<li><strong><code>next</code></strong>: Displays "Next" or an arrow
+pointing forward. It indicates that tapping the key will move focus to
+the next input field in a sequence.</li>
+<li><strong><code>previous</code></strong>: Displays "Previous" or a
+backward arrow. It indicates moving focus to the previous input field
+(rarely used, but supported).</li>
+<li><strong><code>search</code></strong>: Displays a magnifying glass
+icon or "Search". It indicates that the input will execute a search
+query.</li>
+<li><strong><code>send</code></strong>: Displays a paper airplane icon
+or "Send". It indicates that the message or form data will be dispatched
+immediately.</li>
+</ul>
+<h2 id="practical-implementation">Practical Implementation</h2>
+<p>Here is an example demonstrating different <code>enterkeyhint</code>
+configurations across a multi-step form:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">form</span><span class="ot"> action</span><span class="op">=</span><span class="st">&quot;/submit&quot;</span><span class="ot"> method</span><span class="op">=</span><span class="st">&quot;post&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Signals moving to the next field --&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> for</span><span class="op">=</span><span class="st">&quot;first-name&quot;</span><span class="dt">&gt;</span>First Name<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;text&quot;</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;first-name&quot;</span><span class="ot"> enterkeyhint</span><span class="op">=</span><span class="st">&quot;next&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Signals navigation or lookup --&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> for</span><span class="op">=</span><span class="st">&quot;zip&quot;</span><span class="dt">&gt;</span>Zip Code<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;text&quot;</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;zip&quot;</span><span class="ot"> enterkeyhint</span><span class="op">=</span><span class="st">&quot;go&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Signals final submission in a chat or comment box --&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> for</span><span class="op">=</span><span class="st">&quot;comment&quot;</span><span class="dt">&gt;</span>Comment<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">textarea</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;comment&quot;</span><span class="ot"> enterkeyhint</span><span class="op">=</span><span class="st">&quot;send&quot;</span><span class="dt">&gt;&lt;/</span><span class="kw">textarea</span><span class="dt">&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">form</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="important-considerations">Important Considerations</h2>
+<ul>
+<li><strong>Visual Only</strong>: The <code>enterkeyhint</code>
+attribute only alters the visual representation of the key. It does not
+automatically bind actions such as form submission or focus shifting.
+Developers must still handle form submission logic or JavaScript
+<code>keydown</code> events manually.</li>
+<li><strong>Virtual Keyboards Only</strong>: This attribute affects only
+on-screen virtual keyboards on devices like smartphones and tablets. It
+has no effect on physical hardware keyboards.</li>
+<li><strong>Platform Fallbacks</strong>: The operating system determines
+how the hint is rendered. If an operating system does not support a
+specific keyword icon, it will fall back to a generic default key
+without breaking functionality.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

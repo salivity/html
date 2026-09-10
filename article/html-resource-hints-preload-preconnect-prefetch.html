@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Resource Hints: Preload, Preconnect, Prefetch - html</title>
+    <meta name="description" content="HTML resource hints optimize web performance by instructing the browser to prepare or fetch necessary assets before they are encountered in the document. By leveraging <link> attributes such as dns-prefetch, preconnect, and preload, developers can minimi">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-resource-hints-preload-preconnect-prefetch">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Resource Hints: Preload, Preconnect, Prefetch - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-resource-hints-preload-preconnect-prefetch" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="HTML resource hints optimize web performance by instructing the browser to prepare or fetch necessary assets before they are encountered in the document. By leveraging <link> attributes such as dns-prefetch, preconnect, and preload, developers can minimi" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-resource-hints-preload-preconnect-prefetch">HTML Resource
+Hints: Preload, Preconnect, Prefetch</h1>
+<p>HTML resource hints optimize web performance by instructing the
+browser to prepare or fetch necessary assets before they are encountered
+in the document. By leveraging <code>&lt;link&gt;</code> attributes such
+as <code>dns-prefetch</code>, <code>preconnect</code>, and
+<code>preload</code>, developers can minimize network latency,
+accelerate page load times, and improve Core Web Vitals. This guide
+explains how each hint operates, when to implement it, and how they
+differ from one another.</p>
+<hr />
+<h2 id="what-are-resource-hints">What Are Resource Hints?</h2>
+<p>When a browser loads a web page, it processes HTML line by line. When
+it finds an external asset (such as an image, script, or stylesheet), it
+must resolve the domain, negotiate a secure connection, and download the
+file. Resource hints preempt this sequence by informing the browser
+about critical network activities ahead of time, reducing idle wait
+time.</p>
+<hr />
+<h2 id="1-dns-prefetch">1. <code>dns-prefetch</code></h2>
+<p><code>dns-prefetch</code> instructs the browser to resolve the IP
+address of an external domain (DNS lookup) before a request is
+officially made.</p>
+<h3 id="how-it-works">How It Works</h3>
+<p>A typical connection to an external domain requires a DNS lookup, a
+TCP handshake, and an optional TLS negotiation.
+<code>dns-prefetch</code> handles only the first step: translating the
+human-readable domain name (e.g., <code>fonts.googleapis.com</code>)
+into an IP address.</p>
+<h3 id="example-syntax">Example Syntax</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;dns-prefetch&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;https://example-cdn.com&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="when-to-use-it">When to Use It</h3>
+<ul>
+<li>For external domains that will be contacted later during the
+browsing session.</li>
+<li>As a low-overhead fallback for older browsers that do not support
+<code>preconnect</code>.</li>
+<li>For non-critical third-party services like analytics, ad networks,
+or user tracking scripts.</li>
+</ul>
+<hr />
+<h2 id="2-preconnect">2. <code>preconnect</code></h2>
+<p><code>preconnect</code> goes a step further than
+<code>dns-prefetch</code>. It initiates the complete connection setup,
+which includes the DNS lookup, TCP three-way handshake, and TLS
+negotiation.</p>
+<h3 id="how-it-works-1">How It Works</h3>
+<p>By establishing the full socket connection ahead of time, the browser
+can immediately transmit the actual HTTP request as soon as the resource
+is needed, saving round-trip times (RTT).</p>
+<h3 id="example-syntax-1">Example Syntax</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;preconnect&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;https://fonts.gstatic.com&quot;</span><span class="ot"> crossorigin</span><span class="dt">&gt;</span></span></code></pre></div>
+<p><em>Note: Use the <code>crossorigin</code> attribute if the resources
+requested from that origin require CORS (such as fonts).</em></p>
+<h3 id="when-to-use-it-1">When to Use It</h3>
+<ul>
+<li>Origins hosting critical assets required in the initial viewport,
+such as web fonts or content delivery networks (CDNs).</li>
+<li>Third-party domains you know the page will definitely request data
+from within the next few seconds.</li>
+</ul>
+<p><em>Caution: Opening sockets consumes network resources and memory.
+Limit <code>preconnect</code> to no more than two to four critical
+origins per page.</em></p>
+<hr />
+<h2 id="3-preload">3. <code>preload</code></h2>
+<p><code>preload</code> instructs the browser to download a specific,
+high-priority resource for the current page immediately, even if the
+resource is hidden deep in CSS, JavaScript, or lower in the HTML.</p>
+<h3 id="how-it-works-2">How It Works</h3>
+<p>Unlike <code>dns-prefetch</code> and <code>preconnect</code>, which
+target domain origins, <code>preload</code> targets a single, specific
+file. The browser downloads the file asynchronously and stores it in the
+cache at high priority without executing it until required.</p>
+<h3 id="example-syntax-2">Example Syntax</h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Preload a critical web font --&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;preload&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/fonts/main.woff2&quot;</span><span class="ot"> as</span><span class="op">=</span><span class="st">&quot;font&quot;</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;font/woff2&quot;</span><span class="ot"> crossorigin</span><span class="dt">&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Preload a critical hero image --&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;preload&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/images/hero.webp&quot;</span><span class="ot"> as</span><span class="op">=</span><span class="st">&quot;image&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="required-attributes">Required Attributes</h3>
+<ul>
+<li><code>as</code>: Defines the content type (e.g.,
+<code>script</code>, <code>style</code>, <code>font</code>,
+<code>image</code>, <code>fetch</code>). Omitting <code>as</code> makes
+the preloaded resource compete with other requests at a default priority
+and can lead to double downloads.</li>
+<li><code>crossorigin</code>: Mandatory when preloading fonts, even if
+hosted on the same origin.</li>
+</ul>
+<h3 id="when-to-use-it-2">When to Use It</h3>
+<ul>
+<li>Hero images above the fold to improve Largest Contentful Paint
+(LCP).</li>
+<li>Critical web fonts referenced inside external CSS files.</li>
+<li>Critical scripts or stylesheets that must run as soon as parsing
+completes.</li>
+</ul>
+<p><em>Caution: Preloading too many resources can cause bandwidth
+contention, delaying other essential assets.</em></p>
+<hr />
+<h2 id="summary-comparison">Summary Comparison</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Attribute</th>
+<th style="text-align: left;">Scope</th>
+<th style="text-align: left;">What It Does</th>
+<th style="text-align: left;">Best Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td
+style="text-align: left;"><strong><code>dns-prefetch</code></strong></td>
+<td style="text-align: left;">Origin</td>
+<td style="text-align: left;">Resolves DNS only</td>
+<td style="text-align: left;">Third-party analytics, low-priority
+origins, fallback for <code>preconnect</code></td>
+</tr>
+<tr>
+<td
+style="text-align: left;"><strong><code>preconnect</code></strong></td>
+<td style="text-align: left;">Origin</td>
+<td style="text-align: left;">Resolves DNS, TCP, and TLS</td>
+<td style="text-align: left;">High-priority third-party domains (e.g.,
+Font CDNs, API endpoints)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>preload</code></strong></td>
+<td style="text-align: left;">Specific File</td>
+<td style="text-align: left;">Downloads asset at high priority</td>
+<td style="text-align: left;">Critical above-the-fold assets (hero
+images, web fonts, core CSS)</td>
+</tr>
+</tbody>
+</table></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

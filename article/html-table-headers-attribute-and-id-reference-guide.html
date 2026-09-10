@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Table Headers Attribute and ID Reference Guide - html</title>
+    <meta name="description" content="This article explains how to create accessible, complex HTML tables by linking data cells to multiple header cells using the headers and id attributes. In tables with multi-level headers, merged cells, or irregular layouts, the simple scope attribute is">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-table-headers-attribute-and-id-reference-guide">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Table Headers Attribute and ID Reference Guide - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-table-headers-attribute-and-id-reference-guide" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains how to create accessible, complex HTML tables by linking data cells to multiple header cells using the headers and id attributes. In tables with multi-level headers, merged cells, or irregular layouts, the simple scope attribute is" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-table-headers-attribute-and-id-reference-guide">HTML Table
+Headers Attribute and ID Reference Guide</h1>
+<p>This article explains how to create accessible, complex HTML tables
+by linking data cells to multiple header cells using the
+<code>headers</code> and <code>id</code> attributes. In tables with
+multi-level headers, merged cells, or irregular layouts, the simple
+<code>scope</code> attribute is insufficient. You will learn the
+mechanics of assigning unique IDs to header cells, referencing those IDs
+within data cells, and establishing a clear hierarchy for screen readers
+and assistive technologies.</p>
+<h2 id="the-limitation-of-simple-headers">The Limitation of Simple
+Headers</h2>
+<p>In simple data tables, the <code>scope</code> attribute
+(<code>scope="col"</code> or <code>scope="row"</code>) informs browsers
+and screen readers which header applies to a given cell. However,
+complex tables often feature multi-tiered headers, such as a top-level
+category spanning several sub-columns, or data cells governed by both a
+category header, a column header, and a row header. In these scenarios,
+the <code>scope</code> attribute cannot accurately express multiple,
+non-adjacent, or hierarchical relationships.</p>
+<h2 id="how-the-headers-and-id-mechanism-works">How the
+<code>headers</code> and <code>id</code> Mechanism Works</h2>
+<p>The <code>headers</code> and <code>id</code> pattern explicitly
+connects any table data cell (<code>&lt;td&gt;</code>) or secondary
+header cell (<code>&lt;th&gt;</code>) to one or more primary header
+cells (<code>&lt;th&gt;</code>).</p>
+<p>The association operates through two steps:</p>
+<ol type="1">
+<li><strong>Identify the Headers:</strong> Assign a unique
+<code>id</code> attribute to every header cell (<code>&lt;th&gt;</code>)
+that serves as a label.</li>
+<li><strong>Reference the Headers:</strong> On the relevant data cell
+(<code>&lt;td&gt;</code>), add the <code>headers</code> attribute
+containing the matching <code>id</code> values, separated by
+spaces.</li>
+</ol>
+<p>When a screen reader focuses on a data cell configured this way, it
+reads all referenced headers before announcing the cell's data,
+providing full contextual meaning.</p>
+<h2 id="syntax-and-structure">Syntax and Structure</h2>
+<p>The <code>headers</code> attribute accepts a space-separated list of
+<code>id</code> references:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;header-id-1&quot;</span><span class="dt">&gt;</span>Category<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;header-id-2&quot;</span><span class="dt">&gt;</span>Subcategory<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> headers</span><span class="op">=</span><span class="st">&quot;header-id-1 header-id-2&quot;</span><span class="dt">&gt;</span>Data value<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Order matters for clarity. List the IDs in the logical reading order
+you want assistive software to announce, typically moving from the
+highest-level header down to the immediate row or column header.</p>
+<h2 id="practical-example-multi-level-financial-table">Practical
+Example: Multi-Level Financial Table</h2>
+<p>The following example demonstrates a quarterly report where data
+cells must reference a year, a quarter, and a financial metric.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">table</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">caption</span><span class="dt">&gt;</span>Quarterly Revenue by Region (in Thousands)<span class="dt">&lt;/</span><span class="kw">caption</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">thead</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;empty&quot;</span><span class="dt">&gt;&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;y2023&quot;</span><span class="ot"> colspan</span><span class="op">=</span><span class="st">&quot;2&quot;</span><span class="dt">&gt;</span>2023<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;y2024&quot;</span><span class="ot"> colspan</span><span class="op">=</span><span class="st">&quot;2&quot;</span><span class="dt">&gt;</span>2024<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;reg&quot;</span><span class="dt">&gt;</span>Region<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;q1-23&quot;</span><span class="dt">&gt;</span>Q1<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;q2-23&quot;</span><span class="dt">&gt;</span>Q2<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;q1-24&quot;</span><span class="dt">&gt;</span>Q1<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;q2-24&quot;</span><span class="dt">&gt;</span>Q2<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">thead</span><span class="dt">&gt;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">tbody</span><span class="dt">&gt;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;north&quot;</span><span class="dt">&gt;</span>North America<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> headers</span><span class="op">=</span><span class="st">&quot;y2023 q1-23 north&quot;</span><span class="dt">&gt;</span>$500<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> headers</span><span class="op">=</span><span class="st">&quot;y2023 q2-23 north&quot;</span><span class="dt">&gt;</span>$550<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> headers</span><span class="op">=</span><span class="st">&quot;y2024 q1-24 north&quot;</span><span class="dt">&gt;</span>$600<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> headers</span><span class="op">=</span><span class="st">&quot;y2024 q2-24 north&quot;</span><span class="dt">&gt;</span>$620<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;eu&quot;</span><span class="dt">&gt;</span>Europe<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> headers</span><span class="op">=</span><span class="st">&quot;y2023 q1-23 eu&quot;</span><span class="dt">&gt;</span>$300<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> headers</span><span class="op">=</span><span class="st">&quot;y2023 q2-23 eu&quot;</span><span class="dt">&gt;</span>$320<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> headers</span><span class="op">=</span><span class="st">&quot;y2024 q1-24 eu&quot;</span><span class="dt">&gt;</span>$340<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> headers</span><span class="op">=</span><span class="st">&quot;y2024 q2-24 eu&quot;</span><span class="dt">&gt;</span>$370<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">tbody</span><span class="dt">&gt;</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">table</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="breakdown-of-the-references">Breakdown of the References</h3>
+<p>Consider the cell containing <code>$500</code>:</p>
+<ul>
+<li>It is assigned <code>headers="y2023 q1-23 north"</code>.</li>
+<li><code>y2023</code> links the cell to the top-level column header
+("2023").</li>
+<li><code>q1-23</code> links the cell to the sub-column header
+("Q1").</li>
+<li><code>north</code> links the cell to the row header ("North
+America").</li>
+</ul>
+<p>When navigating to this cell, an assistive device has the exact
+mapping required to announce: <em>"2023, Q1, North America:
+$500"</em>.</p>
+<h2 id="key-rules-for-implementation">Key Rules for Implementation</h2>
+<ul>
+<li><strong>Unique Identifiers:</strong> Every <code>id</code> within
+the table document must be unique. Duplicate IDs break the programmatic
+reference.</li>
+<li><strong>Separation by Spaces:</strong> Separate multiple IDs within
+the <code>headers</code> attribute using standard whitespace, not commas
+or semicolons.</li>
+<li><strong>Headers Can Reference Headers:</strong> If an intermediate
+subheader needs context from a top-level parent header, a
+<code>&lt;th&gt;</code> element can also take a <code>headers</code>
+attribute pointing to another <code>&lt;th&gt;</code>.</li>
+<li><strong>Exclusivity:</strong> Do not mix <code>scope</code> and
+<code>headers</code> on the same table cells. Use <code>scope</code> for
+straightforward tables and reserve the
+<code>id</code>/<code>headers</code> pairing for complex structures to
+prevent conflicting accessibility instructions.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role of Hidden Input Fields in HTML Form State - html</title>
+    <meta name="description" content="This article explains how the HTML <input type="hidden"> element functions as a mechanism for preserving and passing state during form submissions. It covers the technical behavior of hidden fields in the context of the stateless HTTP protocol, highlight">
+    <link rel="canonical" href="https://salivity.github.io/html/article/role-of-hidden-input-fields-in-html-form-state">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Role of Hidden Input Fields in HTML Form State - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/role-of-hidden-input-fields-in-html-form-state" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains how the HTML <input type="hidden"> element functions as a mechanism for preserving and passing state during form submissions. It covers the technical behavior of hidden fields in the context of the stateless HTTP protocol, highlight" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="role-of-hidden-input-fields-in-html-form-state">Role of Hidden
+Input Fields in HTML Form State</h1>
+<p>This article explains how the HTML
+<code>&lt;input type="hidden"&gt;</code> element functions as a
+mechanism for preserving and passing state during form submissions. It
+covers the technical behavior of hidden fields in the context of the
+stateless HTTP protocol, highlights common architectural use cases such
+as multi-step workflows and CSRF protection, and outlines critical
+security practices developers must follow when handling hidden data.</p>
+<h2 id="understanding-input-typehidden">Understanding
+<code>&lt;input type="hidden"&gt;</code></h2>
+<p>In HTML forms, the <code>&lt;input type="hidden"&gt;</code> element
+represents an input control that is not rendered on the web page.
+Despite being invisible to the user interface, it retains a
+<code>name</code> and a <code>value</code> attribute. When a user
+submits the enclosing form, the browser packages this hidden field's
+name and value into the HTTP request payload alongside visible inputs
+(such as text boxes, checkboxes, and select menus).</p>
+<p>The basic syntax is:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;hidden&quot;</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;record_id&quot;</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;48291&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="the-role-in-preserving-state">The Role in Preserving State</h2>
+<p>The HTTP protocol is fundamentally stateless, meaning each request
+between a client and server executes independently without built-in
+memory of prior interactions. To maintain continuity across multiple
+requests, applications must implement state-management mechanisms.</p>
+<p>Hidden input fields serve as client-side state stores. They capture
+data generated during one step of an application's lifecycle,
+temporarily hold it inside the DOM, and retransmit it back to the server
+upon the next form submission.</p>
+<h3 id="1-multi-step-forms-wizards">1. Multi-Step Forms (Wizards)</h3>
+<p>In multi-page workflows—such as checkout processes or registration
+funnels—data collected in step one often needs to persist through
+subsequent steps until final submission. By rendering the previously
+submitted values as hidden inputs on the current page's form, developers
+can carry forward state from page to page without requiring persistent
+server sessions or database writes for incomplete submissions.</p>
+<h3 id="2-entity-and-record-identification">2. Entity and Record
+Identification</h3>
+<p>When presenting an edit form for an existing database item, the
+backend needs to know which specific record to update upon submission.
+Placing the unique identifier (such as a primary key or UUID) into a
+hidden input allows the server to look up and mutate the correct
+database entry when the <code>POST</code> or <code>PUT</code> request
+arrives.</p>
+<h3 id="3-workflow-and-action-routing">3. Workflow and Action
+Routing</h3>
+<p>Hidden fields can define the specific action a controller should
+perform. For example, a single form can submit to a unified endpoint,
+using a hidden input like <code>name="action" value="save_draft"</code>
+versus <code>name="action" value="publish"</code> to instruct
+server-side routing logic on how to process the submission.</p>
+<h3 id="4-cross-site-request-forgery-csrf-mitigation">4. Cross-Site
+Request Forgery (CSRF) Mitigation</h3>
+<p>One of the most critical roles of hidden fields is in security. Web
+frameworks generate unique, cryptographically secure anti-CSRF tokens
+and embed them into forms using hidden fields. When the form is
+submitted, the server compares the submitted token against the session
+token to verify that the request originated intentionally from the
+legitimate user.</p>
+<h2 id="security-considerations">Security Considerations</h2>
+<p>While hidden inputs are visually concealed from standard view, they
+exist in plain text within the page's Document Object Model (DOM).</p>
+<ul>
+<li><strong>Visibility:</strong> Any user can view hidden field values
+by using browser developer tools or viewing the page source.</li>
+<li><strong>Tamperability:</strong> Users can edit the
+<code>value</code> attribute directly via developer tools before
+submitting the form.</li>
+<li><strong>Server-Side Validation:</strong> The server must never
+implicitly trust values originating from hidden inputs. All submitted
+hidden data—such as prices, access tiers, or record IDs—must be
+authenticated, authorized, and validated on the backend before
+processing. Sensitive data, such as passwords or private personal data,
+should never be stored in hidden fields.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Paragraph Whitespace Collapsing and Line Wrapping - html</title>
+    <meta name="description" content="The HTML paragraph element, <p>, formats text by automatically collapsing redundant whitespace and wrapping lines to fit the boundaries of its parent container. By default, web browsers parse source code text inside a paragraph using standard typographic">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-paragraph-whitespace-collapsing-and-line-wrapping">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Paragraph Whitespace Collapsing and Line Wrapping - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-paragraph-whitespace-collapsing-and-line-wrapping" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML paragraph element, <p>, formats text by automatically collapsing redundant whitespace and wrapping lines to fit the boundaries of its parent container. By default, web browsers parse source code text inside a paragraph using standard typographic" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-paragraph-whitespace-collapsing-and-line-wrapping">HTML
+Paragraph Whitespace Collapsing and Line Wrapping</h1>
+<p>The HTML paragraph element, <code>&lt;p&gt;</code>, formats text by
+automatically collapsing redundant whitespace and wrapping lines to fit
+the boundaries of its parent container. By default, web browsers parse
+source code text inside a paragraph using standard typographic rules
+that ignore author-created line breaks and multiple spaces. This article
+explains the mechanisms behind whitespace collapsing, describes how line
+wrapping functions, and covers the CSS properties used to control or
+override these default behaviors.</p>
+<h2 id="how-whitespace-collapsing-works">How Whitespace Collapsing
+Works</h2>
+<p>In standard HTML rendering, any sequence of whitespace characters
+inside a <code>&lt;p&gt;</code> tag is collapsed into a single space.
+This behavior affects three primary types of whitespace:</p>
+<ul>
+<li><strong>Consecutive spaces:</strong> Multiple spaces entered via the
+spacebar (e.g., <code>"hello     world"</code>) are rendered as a single
+space (<code>"hello world"</code>).</li>
+<li><strong>Line breaks and tabs:</strong> Hard returns (Enter/Return)
+and tab indentations within the HTML source code are converted into
+single spaces.</li>
+<li><strong>Leading and trailing whitespace:</strong> Spaces immediately
+following the opening <code>&lt;p&gt;</code> tag or immediately
+preceding the closing <code>&lt;/p&gt;</code> tag are ignored
+entirely.</li>
+</ul>
+<p>This mechanism allows developers to format, indent, and organize HTML
+markup across multiple lines for readability without accidentally
+altering the visual spacing of the rendered page.</p>
+<h2 id="how-automatic-line-wrapping-works">How Automatic Line Wrapping
+Works</h2>
+<p>Paragraphs are block-level elements that default to taking up the
+full width of their containing block. Line wrapping—also known as soft
+wrapping—ensures that text content fits neatly within this container
+width.</p>
+<ul>
+<li><strong>Break Opportunities:</strong> Browsers scan the text and
+insert line breaks at appropriate boundary points, primarily at spaces
+or hyphens.</li>
+<li><strong>Responsive Reflow:</strong> When the viewport or containing
+container resizes, the browser recalculates these boundary points
+instantly, shifting words to the next line as necessary to prevent text
+from overflowing horizontally.</li>
+<li><strong>Unbroken Strings:</strong> If an individual word or string
+(such as a long URL) is wider than the container and contains no spaces
+or hyphens, the browser will not break the word by default. Instead, the
+text will overflow the container boundaries.</li>
+</ul>
+<h2 id="the-role-of-the-css-white-space-property">The Role of the CSS
+<code>white-space</code> Property</h2>
+<p>The collapsing and wrapping behaviors of a <code>&lt;p&gt;</code> tag
+are not hard-coded into the HTML element itself; they are governed by
+the browser's default User Agent stylesheet, which applies the following
+CSS rule:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>p {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">white-space</span><span class="ch">:</span> <span class="dv">normal</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The <code>normal</code> value instructs the browser to collapse
+multiple whitespace characters and wrap text at soft-wrap opportunities.
+You can alter this behavior by applying different values to the
+<code>white-space</code> property:</p>
+<ul>
+<li><strong><code>nowrap</code>:</strong> Collapses whitespace into a
+single space, but disables line wrapping entirely, forcing the paragraph
+to render on a single line until a <code>&lt;br&gt;</code> tag is
+encountered.</li>
+<li><strong><code>pre</code>:</strong> Preserves all whitespace, tabs,
+and line breaks exactly as written in the HTML document, behaving
+similarly to the <code>&lt;pre&gt;</code> tag. Text will not wrap
+automatically.</li>
+<li><strong><code>pre-wrap</code>:</strong> Preserves all whitespace and
+line breaks, but still wraps text when it reaches the edge of the
+container.</li>
+<li><strong><code>pre-line</code>:</strong> Collapses multiple spaces
+into a single space, but honors hard line breaks written in the source
+code while still wrapping lines normally.</li>
+</ul>
+<h2 id="handling-unbroken-text">Handling Unbroken Text</h2>
+<p>Because standard line wrapping relies on spaces to determine wrap
+points, long words or strings can break layouts. To force unbroken
+strings to wrap within a <code>&lt;p&gt;</code> element, use the
+following modern CSS declarations:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>p {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">overflow-wrap</span><span class="ch">:</span> <span class="dv">anywhere</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Setting <code>overflow-wrap: anywhere</code> or
+<code>overflow-wrap: break-word</code> allows the browser to split an
+otherwise unbreakable word if there are no acceptable break points
+available, preventing horizontal overflow while maintaining normal
+whitespace collapsing for the rest of the text.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

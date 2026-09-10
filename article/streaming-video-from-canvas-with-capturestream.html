@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming Video from Canvas with captureStream - html</title>
+    <meta name="description" content="The HTMLCanvasElement.captureStream() method is an essential Web API interface that bridges client-side graphics rendering with real-time video streaming protocols. This article explores how captureStream() works, its functional role in converting HTML c">
+    <link rel="canonical" href="https://salivity.github.io/html/article/streaming-video-from-canvas-with-capturestream">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Streaming Video from Canvas with captureStream - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/streaming-video-from-canvas-with-capturestream" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTMLCanvasElement.captureStream() method is an essential Web API interface that bridges client-side graphics rendering with real-time video streaming protocols. This article explores how captureStream() works, its functional role in converting HTML c" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="streaming-video-from-canvas-with-capturestream">Streaming Video
+from Canvas with captureStream</h1>
+<p>The <code>HTMLCanvasElement.captureStream()</code> method is an
+essential Web API interface that bridges client-side graphics rendering
+with real-time video streaming protocols. This article explores how
+<code>captureStream()</code> works, its functional role in converting
+HTML canvas elements into live media streams, its integration with
+WebRTC and recording APIs, and the primary technical considerations for
+optimizing performance.</p>
+<h3 id="understanding-capturestream">Understanding
+<code>captureStream()</code></h3>
+<p>The <code>captureStream()</code> method creates and returns a
+real-time <code>MediaStream</code> object containing a live video track
+generated directly from a <code>&lt;canvas&gt;</code> element. When
+visual elements—such as 2D graphics, WebGL scenes, or dynamic DOM
+elements rendered via canvas libraries—are drawn on the screen,
+<code>captureStream()</code> taps into that rendering pipeline and
+exposes the frames as a media source.</p>
+<h3 id="the-role-of-capturestream-in-html-video-pipelines">The Role of
+<code>captureStream()</code> in HTML Video Pipelines</h3>
+<p>In modern web development, video pipelines typically consume
+pre-encoded video files or hardware inputs like webcams. The
+<code>captureStream()</code> method expands this architecture by
+allowing arbitrary HTML-driven visual output to serve as a video source.
+Its main roles include:</p>
+<ul>
+<li><strong>Bridging Markup to Media:</strong> Visual content drawn onto
+a canvas via JavaScript can be converted directly into video tracks
+without intermediate server processing.</li>
+<li><strong>Compositing and Overlays:</strong> Developers can use a
+canvas to composite multiple sources—such as merging a
+<code>&lt;video&gt;</code> element with HTML-based text, shapes, or
+real-time data overlays—and stream the final composite output.</li>
+<li><strong>Feeding WebRTC Connections:</strong> The generated
+<code>MediaStream</code> can be passed to an
+<code>RTCPeerConnection</code> object via <code>addTrack()</code>. This
+enables direct peer-to-peer broadcasting of dynamic browser content,
+such as collaborative digital whiteboards, custom UI presentations, or
+browser-based game sessions.</li>
+<li><strong>Enabling Client-Side Video Recording:</strong> By feeding
+the output into the <code>MediaRecorder</code> API, developers can
+record procedural animations, WebGL simulations, or user interactions
+directly into downloadable video formats like WebM or MP4.</li>
+</ul>
+<h3 id="controlling-frame-rates">Controlling Frame Rates</h3>
+<p>The method accepts an optional numeric parameter representing the
+target frame rate in frames per second (fps):</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> stream <span class="op">=</span> canvasElement<span class="op">.</span><span class="fu">captureStream</span>(<span class="dv">30</span>)<span class="op">;</span></span></code></pre></div>
+<ul>
+<li><strong>Fixed Frame Rate:</strong> Providing a frame rate (such as
+<code>30</code> or <code>60</code>) prompts the browser to capture
+frames at consistent intervals, ensuring steady playback regardless of
+variations in rendering frequency.</li>
+<li><strong>Automatic Capture:</strong> If the frame rate parameter is
+omitted or set to <code>0</code>, frames are captured only when the
+canvas changes or when explicitly triggered. Developers can use
+<code>track.requestFrame()</code> on the returned video track to capture
+frames manually, optimizing resource usage when the visual content is
+static.</li>
+</ul>
+<h3 id="technical-limitations-and-best-practices">Technical Limitations
+and Best Practices</h3>
+<p>To successfully stream video using <code>captureStream()</code>,
+several operational factors must be managed:</p>
+<ul>
+<li><strong>Canvas Tainting:</strong> If any image, video frame, or font
+originating from a cross-origin source without proper CORS headers is
+drawn onto the canvas, the canvas becomes "tainted." A tainted canvas
+immediately throws a security exception when
+<code>captureStream()</code> is invoked, halting the stream.</li>
+<li><strong>Processing Overhead:</strong> Continuous frame rendering and
+video encoding occur on the client machine. High-resolution canvases
+(such as 1080p or 4K) running at 60 fps can cause significant CPU and
+GPU utilization, leading to dropped frames on lower-end devices.</li>
+<li><strong>Audio Handling:</strong> The <code>captureStream()</code>
+method only extracts video tracks. If the resulting stream requires
+accompanying audio, developers must capture audio separately (e.g., via
+the Web Audio API or a microphone track) and combine it into the
+<code>MediaStream</code> using <code>stream.addTrack()</code>.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

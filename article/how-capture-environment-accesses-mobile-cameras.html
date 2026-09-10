@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How capture="environment" Accesses Mobile Cameras - html</title>
+    <meta name="description" content="The HTML media capture attribute capture="environment" provides a declarative way for web pages to invoke a mobile device's rear-facing camera directly through a standard file input field. By instructing the mobile browser to request hardware access from">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-capture-environment-accesses-mobile-cameras">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How capture="environment" Accesses Mobile Cameras - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-capture-environment-accesses-mobile-cameras" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML media capture attribute capture="environment" provides a declarative way for web pages to invoke a mobile device's rear-facing camera directly through a standard file input field. By instructing the mobile browser to request hardware access from" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-captureenvironment-accesses-mobile-cameras">How
+capture="environment" Accesses Mobile Cameras</h1>
+<p>The HTML media capture attribute <code>capture="environment"</code>
+provides a declarative way for web pages to invoke a mobile device's
+rear-facing camera directly through a standard file input field. By
+instructing the mobile browser to request hardware access from the
+underlying operating system, this attribute bypasses the traditional
+file system picker and opens the camera app immediately. This article
+explains the technical mechanics behind
+<code>capture="environment"</code>, how mobile operating systems
+interpret the command, and how it differs from real-time streaming
+APIs.</p>
+<h3 id="the-html-implementation">The HTML Implementation</h3>
+<p>The <code>capture</code> attribute is an extension defined in the W3C
+HTML Media Capture specification. It works exclusively in conjunction
+with the standard file input element
+(<code>&lt;input type="file"&gt;</code>) and requires the
+<code>accept</code> attribute to define the MIME type of media being
+captured.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;file&quot;</span><span class="ot"> accept</span><span class="op">=</span><span class="st">&quot;image/*&quot;</span><span class="ot"> capture</span><span class="op">=</span><span class="st">&quot;environment&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>The attribute accepts two primary values:</p>
+<ul>
+<li><code>user</code>: Directs the device to use the front-facing camera
+or audio input pointing toward the user.</li>
+<li><code>environment</code>: Directs the device to use the
+outward-facing (rear) camera to capture the surrounding
+environment.</li>
+</ul>
+<h3 id="browser-interpretation-and-os-intents">Browser Interpretation
+and OS Intents</h3>
+<p>When a user taps an input element with
+<code>capture="environment"</code>, the browser does not access the
+camera hardware directly. Instead, it translates the HTML attributes
+into an operating-system-level request:</p>
+<ol type="1">
+<li><strong>Triggering Native Intents:</strong> On Android, the browser
+creates an <code>Intent</code> configured with
+<code>MediaStore.ACTION_IMAGE_CAPTURE</code> (or
+<code>ACTION_VIDEO_CAPTURE</code> if <code>accept="video/*"</code> is
+specified). On iOS (WebKit), the browser invokes the native
+<code>UIImagePickerController</code>.</li>
+<li><strong>Device Routing:</strong> The <code>environment</code>
+parameter maps to the system's hardware identification for the primary
+external camera sensor (such as <code>AVCaptureDevicePositionBack</code>
+on iOS).</li>
+<li><strong>App Delegation:</strong> The operating system launches the
+native camera interface in an overlay or modal state, handing full
+control of lens selection, autofocus, and flash to the device's native
+camera processing pipeline.</li>
+</ol>
+<h3 id="permissions-and-security-model">Permissions and Security
+Model</h3>
+<p>Unlike continuous streaming APIs, the HTML Media Capture attribute
+operates under a sandboxed, user-mediated permission model:</p>
+<ul>
+<li><strong>Secure Contexts (HTTPS):</strong> Modern mobile browsers
+require pages to be served over HTTPS or <code>localhost</code> to
+delegate hardware access, preventing man-in-the-middle tampering.</li>
+<li><strong>Explicit User Activation:</strong> The camera only launches
+in direct response to a physical user interaction (a tap or click). It
+cannot be triggered programmatically via JavaScript using methods like
+<code>.click()</code> in most modern mobile browsers.</li>
+<li><strong>Implicit Permission:</strong> Because the native camera app
+opens and requires the user to explicitly snap a photo and confirm ("Use
+Photo" or a checkmark), the browser treats this interaction as implicit
+consent. The website does not receive any data until the user confirms
+the capture.</li>
+</ul>
+<h3 id="file-delivery-to-the-web-application">File Delivery to the Web
+Application</h3>
+<p>Once the user captures an image and accepts it, the operating system
+saves the temporary file and returns it to the browser. The browser
+wraps this data into a standard <code>File</code> object and assigns it
+to the input element's <code>files</code> property
+(<code>HTMLInputElement.files</code>).</p>
+<p>From this point, the captured image behaves like any locally selected
+file:</p>
+<ul>
+<li>JavaScript can read it locally using the <code>FileReader</code> API
+or create an object URL with <code>URL.createObjectURL()</code>.</li>
+<li>It can be appended to a <code>FormData</code> object and uploaded
+via <code>fetch()</code> or <code>XMLHttpRequest</code>.</li>
+<li>The web application never receives direct access to the camera feed,
+reducing memory overhead and security surface area compared to
+continuous video feeds.</li>
+</ul>
+<h3 id="comparison-with-the-mediadevices-api">Comparison with the
+MediaDevices API</h3>
+<p>It is important to distinguish <code>capture="environment"</code>
+from <code>navigator.mediaDevices.getUserMedia()</code>:</p>
+<ul>
+<li><strong>HTML Media Capture
+(<code>capture="environment"</code>):</strong> High-level, declarative,
+and lightweight. It takes a single snapshot or video clip using the
+device's native camera interface and returns a static file. It has
+near-universal mobile browser support and requires minimal code.</li>
+<li><strong>MediaDevices API (<code>getUserMedia</code>):</strong>
+Low-level and programmatic. It provides an active, continuous
+<code>MediaStream</code> rendered directly into an HTML
+<code>&lt;video&gt;</code> element, requiring explicit browser
+permission prompts. This API is necessary for real-time processing like
+QR code scanning, face detection, or WebRTC video calls.</li>
+</ul>
+<h3 id="fallback-behavior">Fallback Behavior</h3>
+<p>If a desktop browser or an unsupported mobile browser encounters
+<code>capture="environment"</code>, it safely ignores the
+<code>capture</code> attribute and honors the <code>type="file"</code>
+and <code>accept</code> attributes. The user is presented with the
+default file-system dialog, allowing them to select an existing image
+from their local storage without breaking the application's
+functionality.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

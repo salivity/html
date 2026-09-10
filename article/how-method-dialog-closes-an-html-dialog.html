@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How method="dialog" Closes an HTML Dialog - html</title>
+    <meta name="description" content="In modern web development, wrapping form elements inside a <form method="dialog"> allows an open <dialog> element to close automatically upon submission without writing custom JavaScript. This article explains the browser's built-in mechanism for handlin">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-method-dialog-closes-an-html-dialog">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How method="dialog" Closes an HTML Dialog - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-method-dialog-closes-an-html-dialog" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="In modern web development, wrapping form elements inside a <form method="dialog"> allows an open <dialog> element to close automatically upon submission without writing custom JavaScript. This article explains the browser's built-in mechanism for handlin" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-methoddialog-closes-an-html-dialog">How method="dialog"
+Closes an HTML Dialog</h1>
+<p>In modern web development, wrapping form elements inside a
+<code>&lt;form method="dialog"&gt;</code> allows an open
+<code>&lt;dialog&gt;</code> element to close automatically upon
+submission without writing custom JavaScript. This article explains the
+browser's built-in mechanism for handling dialog forms, how the return
+value is captured, and how this simplifies accessible modal
+workflows.</p>
+<h2 id="the-form-submission-algorithm-for-dialogs">The Form Submission
+Algorithm for Dialogs</h2>
+<p>When a standard HTML form is submitted, the browser executes a
+navigation algorithm—typically sending an HTTP GET or POST request to a
+server or reloading the page. However, when the form's
+<code>method</code> attribute is set to <code>dialog</code>, the HTML
+specification directs the browser to bypass standard navigation
+entirely.</p>
+<p>Instead, the browser executes the dialog submission algorithm:</p>
+<ol type="1">
+<li><strong>Locates the Dialog Context:</strong> The browser searches
+the DOM tree upwards from the <code>&lt;form&gt;</code> element to find
+its nearest ancestor <code>&lt;dialog&gt;</code> element. If no
+<code>&lt;dialog&gt;</code> ancestor exists, the submission is aborted,
+and nothing happens.</li>
+<li><strong>Identifies the Submitter:</strong> The browser determines
+which control triggered the submission (usually a
+<code>&lt;button type="submit"&gt;</code> or
+<code>&lt;input type="submit"&gt;</code>).</li>
+<li><strong>Applies the Return Value:</strong> If the submitter element
+has a <code>value</code> attribute, the browser extracts this value and
+assigns it to the dialog's <code>returnValue</code> property. If the
+form was submitted through other means without a specific value (such as
+pressing Enter in a single text field), <code>returnValue</code> remains
+empty or retains its previous state.</li>
+<li><strong>Executes the Close Steps:</strong> The browser automatically
+invokes the dialog closing steps. This removes the dialog from the top
+layer, toggles the internal <code>open</code> state to
+<code>false</code>, and removes the <code>open</code> attribute from the
+DOM.</li>
+<li><strong>Fires the Close Event:</strong> A standard
+<code>close</code> event is dispatched on the
+<code>&lt;dialog&gt;</code> element, allowing JavaScript to listen for
+the closure and read the resulting <code>returnValue</code>.</li>
+</ol>
+<h2 id="practical-implementation">Practical Implementation</h2>
+<p>The following example demonstrates how the HTML and JavaScript
+interact:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">dialog</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;confirmDialog&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">form</span><span class="ot"> method</span><span class="op">=</span><span class="st">&quot;dialog&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Do you want to delete this file?<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;submit&quot;</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;cancel&quot;</span><span class="dt">&gt;</span>Cancel<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;submit&quot;</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;confirm&quot;</span><span class="dt">&gt;</span>Confirm<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">form</span><span class="dt">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">dialog</span><span class="dt">&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> dialog <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;confirmDialog&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  dialog<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;close&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`User action: </span><span class="sc">${</span>dialog<span class="op">.</span><span class="at">returnValue</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Output will be either &quot;cancel&quot; or &quot;confirm&quot;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="using-formmethod-on-individual-buttons">Using formmethod on
+Individual Buttons</h2>
+<p>You do not need to set <code>method="dialog"</code> on the entire
+<code>&lt;form&gt;</code> tag if the form must serve multiple purposes.
+A standard form configured for GET or POST can include buttons that
+dismiss the modal using the <code>formmethod</code> attribute:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">dialog</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;userDialog&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">form</span><span class="ot"> action</span><span class="op">=</span><span class="st">&quot;/save&quot;</span><span class="ot"> method</span><span class="op">=</span><span class="st">&quot;post&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> for</span><span class="op">=</span><span class="st">&quot;name&quot;</span><span class="dt">&gt;</span>Name:<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;text&quot;</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;name&quot;</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;name&quot;</span><span class="ot"> required</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- Submits data to /save via POST --&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;submit&quot;</span><span class="dt">&gt;</span>Save<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- Overrides form method and closes the dialog immediately --&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;submit&quot;</span><span class="ot"> formmethod</span><span class="op">=</span><span class="st">&quot;dialog&quot;</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;dismiss&quot;</span><span class="dt">&gt;</span>Dismiss<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">form</span><span class="dt">&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">dialog</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When the "Dismiss" button is clicked,
+<code>formmethod="dialog"</code> overrides the parent form's POST
+configuration, triggering the dialog close sequence and preventing the
+network request.</p>
+<h2 id="key-benefits">Key Benefits</h2>
+<ul>
+<li><strong>No JavaScript Event Handlers:</strong> You do not need to
+attach <code>click</code> listeners or call
+<code>event.preventDefault()</code> followed by
+<code>dialog.close()</code>.</li>
+<li><strong>State Preservation:</strong> The dialog's
+<code>returnValue</code> property reliably tracks which button the user
+selected to close the interface.</li>
+<li><strong>Native Keyboard Support:</strong> Pressing the Enter key
+while focused on a text input naturally triggers the form submission,
+closing the dialog cleanly if <code>method="dialog"</code> is
+active.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

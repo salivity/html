@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How document.write Disrupts the HTML Parsing Pipeline - html</title>
+    <meta name="description" content="The document.write() method is an outdated JavaScript feature that directly injects raw markup into the browser's active HTML stream. While originally designed to dynamically insert content during page load, it severely disrupts modern HTML parsing pipel">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-document-write-disrupts-the-html-parsing-pipeline">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How document.write Disrupts the HTML Parsing Pipeline - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-document-write-disrupts-the-html-parsing-pipeline" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The document.write() method is an outdated JavaScript feature that directly injects raw markup into the browser's active HTML stream. While originally designed to dynamically insert content during page load, it severely disrupts modern HTML parsing pipel" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-documentwrite-disrupts-the-html-parsing-pipeline">How
+document.write Disrupts the HTML Parsing Pipeline</h1>
+<p>The <code>document.write()</code> method is an outdated JavaScript
+feature that directly injects raw markup into the browser's active HTML
+stream. While originally designed to dynamically insert content during
+page load, it severely disrupts modern HTML parsing pipelines by
+blocking the DOM parser, invalidating speculative parsing optimizations,
+and causing layout instability. This article explains how the browser's
+parsing engine works, the precise mechanics behind the disruption caused
+by <code>document.write()</code>, and why modern web development avoids
+its use.</p>
+<h3 id="the-standard-html-parsing-pipeline">The Standard HTML Parsing
+Pipeline</h3>
+<p>To render a web page, the browser's rendering engine processes raw
+bytes downloaded over the network through several phases:</p>
+<ol type="1">
+<li><strong>Tokenization:</strong> Converts the raw HTML byte stream
+into distinct tokens (start tags, end tags, attribute names, and
+values).</li>
+<li><strong>Tree Construction:</strong> Converts tokens into node
+objects to build the Document Object Model (DOM) tree.</li>
+<li><strong>Speculative Parsing:</strong> Runs alongside the main parser
+to scan ahead in the HTML stream for external resources (CSS, scripts,
+images) and starts fetching them early over the network.</li>
+<li><strong>Render Tree and Paint:</strong> Combines the DOM and CSSOM
+to compute layout and paint pixels to the screen.</li>
+</ol>
+<p>In a normal pipeline, the parser processes the stream predictably
+from top to bottom.</p>
+<h3 id="dynamic-stream-modification-and-parser-blocking">Dynamic Stream
+Modification and Parser Blocking</h3>
+<p>When the HTML parser encounters a <code>&lt;script&gt;</code> tag
+containing <code>document.write()</code>, the standard sequential flow
+halts immediately.</p>
+<p>Because <code>document.write()</code> allows JavaScript to inject raw
+HTML strings directly into the tokenization stream, the parser cannot
+anticipate what tokens will follow. The engine must completely pause DOM
+construction, wait for the script to execute, and re-feed the injected
+string back into the tokenizer. The tokenizer must process these newly
+inserted characters before it can resume processing the remainder of the
+original HTML document.</p>
+<p>If <code>document.write()</code> injects an external script (e.g.,
+<code>document.write('&lt;script src="app.js"&gt;&lt;/script&gt;')</code>),
+the disruption worsens:</p>
+<ul>
+<li>The parser must halt.</li>
+<li>The browser must initiate a synchronous network request to download
+<code>app.js</code>.</li>
+<li>The browser must execute <code>app.js</code>.</li>
+<li>Only then can the browser resume reading the main HTML
+document.</li>
+</ul>
+<p>This sequence creates significant render-blocking latency, commonly
+known as a parser stall.</p>
+<h3 id="invalidation-of-speculative-parsing">Invalidation of Speculative
+Parsing</h3>
+<p>Modern browsers rely heavily on speculative pre-parsers (lookahead
+parsers) to hide network latency. While the main thread is blocked
+executing JavaScript, the speculative parser continues scanning the
+incoming HTML to discover and fetch upcoming external resources.</p>
+<p><code>document.write()</code> breaks this mechanism:</p>
+<ul>
+<li><strong>Token Stream Alteration:</strong> The method can inject
+partial tags, unclosed tags, or opening comments that fundamentally
+change how subsequent HTML is interpreted.</li>
+<li><strong>Wasted Bandwidth:</strong> If the speculative parser starts
+downloading an image that <code>document.write()</code> subsequently
+comments out or removes through injected tags, the downloaded asset is
+discarded, wasting user bandwidth.</li>
+<li><strong>Cache Misses and Restarts:</strong> Many browsers
+temporarily disable or completely restart speculative parsing when
+encountering inline scripts that might modify the stream, negating
+modern performance optimizations.</li>
+</ul>
+<h3 id="post-parse-document-overwrites">Post-Parse Document
+Overwrites</h3>
+<p>The timing of <code>document.write()</code> determines whether it
+disrupts the active parser or destroys the document entirely:</p>
+<ul>
+<li><strong>During Parsing:</strong> Modifies the live token stream and
+blocks the parser.</li>
+<li><strong>After Parsing (Post-<code>DOMContentLoaded</code> or
+<code>load</code>):</strong> If <code>document.write()</code> executes
+after the document has finished loading, the browser implicitly executes
+<code>document.open()</code>. This immediately purges the entire
+existing DOM, all loaded stylesheets, and active scripts, replacing the
+entire page with a blank canvas containing only the newly written
+string.</li>
+</ul>
+<h3 id="modern-alternatives">Modern Alternatives</h3>
+<p>Because <code>document.write()</code> violates the predictable,
+stream-based architecture of modern rendering engines, browsers
+aggressively penalize or block it on slow connections. Dynamic document
+modification should instead be handled using standard DOM manipulation
+APIs, such as <code>document.createElement()</code>,
+<code>Element.append()</code>, or
+<code>Element.insertAdjacentHTML()</code>, none of which interrupt the
+tokenizer or overwrite the active HTML parsing pipeline.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

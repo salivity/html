@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Use decoding="sync" on Above-the-Fold Images - html</title>
+    <meta name="description" content="The decoding="sync" attribute in HTML directs the browser to decode an image synchronously alongside the rest of the page rendering tasks, rather than offloading the decode step to an asynchronous background thread. For critical, above-the-fold images—">
+    <link rel="canonical" href="https://salivity.github.io/html/article/why-use-decoding-sync-on-above-the-fold-images">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Why Use decoding="sync" on Above-the-Fold Images - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/why-use-decoding-sync-on-above-the-fold-images" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The decoding="sync" attribute in HTML directs the browser to decode an image synchronously alongside the rest of the page rendering tasks, rather than offloading the decode step to an asynchronous background thread. For critical, above-the-fold images—" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="why-use-decodingsync-on-above-the-fold-images">Why Use
+decoding="sync" on Above-the-Fold Images</h1>
+<p>The <code>decoding="sync"</code> attribute in HTML directs the
+browser to decode an image synchronously alongside the rest of the page
+rendering tasks, rather than offloading the decode step to an
+asynchronous background thread. For critical, above-the-fold images—such
+as hero graphics or Largest Contentful Paint (LCP) elements—this
+attribute ensures the image bitmap is fully prepared and rendered
+simultaneously with the surrounding content, preventing delayed visual
+presentation and visual stutter.</p>
+<h3 id="how-image-decoding-works">How Image Decoding Works</h3>
+<p>When a browser loads an image, it performs two distinct steps:
+fetching the compressed file (such as a JPEG, WebP, or AVIF) over the
+network, and decoding the binary data into a raw pixel grid (bitmap)
+that the GPU can paint onto the screen.</p>
+<p>By default, modern browsers often apply <code>decoding="auto"</code>
+or treat non-blocking rendering paths asynchronously. With
+<code>decoding="async"</code>, the browser downloads the image and moves
+the decoding process off the main execution thread. While this prevents
+the main thread from stalling, it introduces a subtle delay between when
+the image bytes arrive and when the pixels are actually drawn to the
+display.</p>
+<h3 id="the-role-of-decodingsync-for-above-the-fold-images">The Role of
+<code>decoding="sync"</code> for Above-the-Fold Images</h3>
+<p>Critical above-the-fold images are immediately visible to users
+without scrolling. For these elements, delayed rendering undermines user
+experience and core performance metrics.</p>
+<ol type="1">
+<li><p><strong>Eliminates Delayed Paints:</strong> When an image is set
+to decode asynchronously, the browser may paint the surrounding layout,
+text, and styling before the image pixels are ready. This results in an
+empty box momentarily flashing on screen, followed by a secondary paint
+once the image finishes decoding. Using <code>decoding="sync"</code>
+tells the browser to decode the image inline, ensuring the layout and
+the image paint in a single, cohesive frame.</p></li>
+<li><p><strong>Optimizes Largest Contentful Paint (LCP):</strong> For
+many landing pages, the primary above-the-fold image is the designated
+LCP element. LCP measures when the largest visual element becomes
+completely visible. An asynchronous decode adds an avoidable gap between
+the download completion time and the visual paint timestamp. Enforcing
+synchronous decoding removes this lag, recording the render timestamp as
+soon as the critical path allows.</p></li>
+<li><p><strong>Prevents Perceived Layout Instability:</strong> Although
+modern responsive markup (using <code>width</code>, <code>height</code>,
+or <code>aspect-ratio</code>) reserves the correct layout space to stop
+Cumulative Layout Shift (CLS), visual instability can still occur if the
+user sees content render in fragmented phases. Synchronous decoding
+ensures that when the critical rendering path resolves, the primary
+visual media appears fully formed.</p></li>
+</ol>
+<h3 id="best-practices-and-trade-offs">Best Practices and
+Trade-offs</h3>
+<p>Because <code>decoding="sync"</code> forces the decoding workload
+onto the main rendering pipeline, it can block subsequent rendering
+tasks if misused. To maximize its benefits without harming
+performance:</p>
+<ul>
+<li><strong>Apply Selectively:</strong> Only apply
+<code>decoding="sync"</code> to the single most critical image above the
+fold—typically the hero banner or primary product photo.</li>
+<li><strong>Avoid on Below-the-Fold Images:</strong> Any non-critical or
+secondary images should use <code>decoding="async"</code> paired with
+<code>loading="lazy"</code> to keep the main thread clear.</li>
+<li><strong>Pair with High Fetch Priority:</strong> Combine
+<code>decoding="sync"</code> with <code>fetchpriority="high"</code> and
+preloading to ensure the resource is both fetched and decoded ahead of
+non-essential assets.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

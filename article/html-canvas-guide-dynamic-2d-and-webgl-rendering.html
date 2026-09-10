@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Canvas Guide: Dynamic 2D and WebGL Rendering - html</title>
+    <meta name="description" content="The HTML <canvas> API serves as a high-performance gateway for rendering real-time, scriptable graphics directly within modern web browsers. Rather than defining visual elements through declarative markup, the element acts as an immediate-mode pixel buff">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-canvas-guide-dynamic-2d-and-webgl-rendering">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Canvas Guide: Dynamic 2D and WebGL Rendering - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-canvas-guide-dynamic-2d-and-webgl-rendering" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <canvas> API serves as a high-performance gateway for rendering real-time, scriptable graphics directly within modern web browsers. Rather than defining visual elements through declarative markup, the element acts as an immediate-mode pixel buff" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-canvas-guide-dynamic-2d-and-webgl-rendering">HTML Canvas
+Guide: Dynamic 2D and WebGL Rendering</h1>
+<p>The HTML <code>&lt;canvas&gt;</code> API serves as a high-performance
+gateway for rendering real-time, scriptable graphics directly within
+modern web browsers. Rather than defining visual elements through
+declarative markup, the element acts as an immediate-mode pixel buffer
+whose visual output is driven entirely through JavaScript rendering
+contexts. By exposing both a streamlined 2D rasterization engine and
+hardware-accelerated WebGL interfaces, <code>&lt;canvas&gt;</code>
+allows developers to build everything from dynamic charts and
+interactive animations to full-scale, physics-driven 3D environments
+that run natively on the client device.</p>
+<h2 id="the-canvas-element-as-a-drawing-surface">The Canvas Element as a
+Drawing Surface</h2>
+<p>The <code>&lt;canvas&gt;</code> element functions as an empty bitmap
+canvas embedded into the Document Object Model (DOM). It exposes two
+distinct sizing metrics: its intrinsic drawing buffer dimensions
+(<code>width</code> and <code>height</code> attributes) and its display
+size determined by CSS.</p>
+<p>To manipulate the pixels within this buffer, JavaScript must request
+a specific rendering context via the <code>getContext()</code> method.
+The <code>&lt;canvas&gt;</code> element itself contains no drawing
+capabilities; it merely delegates frame allocation, memory binding, and
+presentation to the requested context.</p>
+<h2 id="dynamic-2d-rendering-with-canvasrenderingcontext2d">Dynamic 2D
+Rendering with CanvasRenderingContext2D</h2>
+<p>When initialized with <code>getContext('2d')</code>, the browser
+returns a <code>CanvasRenderingContext2D</code> object. This interface
+provides an immediate-mode 2D graphics engine capable of generating
+rasterized imagery through a structured set of commands:</p>
+<ul>
+<li><strong>Paths and Shapes:</strong> Geometric primitives are
+constructed programmatically using methods such as
+<code>beginPath()</code>, <code>moveTo()</code>, <code>lineTo()</code>,
+<code>arc()</code>, and <code>bezierCurveTo()</code>. Once a path is
+defined, it is rendered to the buffer via <code>fill()</code> or
+<code>stroke()</code>.</li>
+<li><strong>Pixel and Image Manipulation:</strong> Bitmaps can be drawn
+directly using <code>drawImage()</code>, while raw pixel arrays can be
+read and modified synchronously through <code>getImageData()</code> and
+<code>putImageData()</code>, enabling custom image filters and
+algorithmic procedural generation.</li>
+<li><strong>Transformations and State Management:</strong> The context
+includes a transformation matrix stack (<code>save()</code>,
+<code>restore()</code>, <code>translate()</code>, <code>rotate()</code>,
+<code>scale()</code>) that allows local coordinate spaces for complex,
+nested animations.</li>
+</ul>
+<p>Because 2D canvas operates in immediate mode, it does not maintain a
+scene graph. To create dynamic animations, developers implement a
+continuous execution loop using <code>requestAnimationFrame()</code>. In
+each frame, the canvas buffer is cleared—typically via
+<code>clearRect()</code>—and redrawn based on updated application
+state.</p>
+<h2 id="high-performance-3d-and-compute-via-webgl">High-Performance 3D
+and Compute via WebGL</h2>
+<p>Requesting <code>getContext('webgl')</code> or
+<code>getContext('webgl2')</code> rebinds the canvas element to an API
+based on OpenGL ES, unlocking direct access to the device's Graphics
+Processing Unit (GPU).</p>
+<p>WebGL diverges fundamentally from the 2D context by replacing
+pre-packaged shape-drawing utilities with a programmable graphics
+pipeline:</p>
+<ul>
+<li><strong>Shaders:</strong> Visual logic is offloaded to the GPU using
+the OpenGL Shading Language (GLSL). A Vertex Shader computes the
+screen-space coordinates of 3D geometry vertices, while a Fragment
+(Pixel) Shader calculates the final color and lighting values for each
+rasterized pixel.</li>
+<li><strong>Buffers and Memory:</strong> Data such as vertex
+coordinates, normals, UV texture coordinates, and color values are
+loaded into GPU memory via Vertex Buffer Objects (VBOs). This allows
+massive sets of geometric data to be rendered with minimal CPU
+overhead.</li>
+<li><strong>Textures and Framebuffers:</strong> Developers can bind
+image assets or even other canvas instances as textures to wrap around
+3D surfaces, or route the rendering pass to off-screen framebuffers for
+complex post-processing effects like bloom, depth-of-field, and motion
+blur.</li>
+</ul>
+<h2 id="performance-and-architecture-differences">Performance and
+Architecture Differences</h2>
+<p>The dual support of 2D and WebGL within the same HTML element allows
+applications to target the appropriate performance tier:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">2D Context
+(<code>CanvasRenderingContext2D</code>)</th>
+<th style="text-align: left;">WebGL
+(<code>WebGLRenderingContext</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Execution Layer</strong></td>
+<td style="text-align: left;">CPU-driven rasterization (often
+browser-accelerated)</td>
+<td style="text-align: left;">Direct GPU programmable pipeline</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Programming Model</strong></td>
+<td style="text-align: left;">High-level drawing methods (rectangles,
+text, paths)</td>
+<td style="text-align: left;">Low-level state machine with GLSL
+shaders</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ideal Use Case</strong></td>
+<td style="text-align: left;">2D visualizations, diagrams, simple
+games</td>
+<td style="text-align: left;">Complex 3D scenes, particle systems,
+compute effects</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Coordinate Space</strong></td>
+<td style="text-align: left;">Screen-space Cartesian coordinates
+(top-left origin)</td>
+<td style="text-align: left;">Normalized Device Coordinates (-1.0 to
+1.0)</td>
+</tr>
+</tbody>
+</table>
+<p>By acting as a uniform target for both high-level 2D raster
+operations and low-level GPU programming, the HTML
+<code>&lt;canvas&gt;</code> API unifies procedural web graphics under a
+single, highly performant browser standard.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatic vs Fixed HTML Table Layouts Explained - html</title>
+    <meta name="description" content="HTML tables rely on two distinct rendering algorithms defined by the CSS table-layout property: automatic and fixed. When rendering engines like Blink, Gecko, or WebKit process a table, they determine column widths, row heights, and overall dimensions us">
+    <link rel="canonical" href="https://salivity.github.io/html/article/automatic-vs-fixed-html-table-layouts-explained">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Automatic vs Fixed HTML Table Layouts Explained - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/automatic-vs-fixed-html-table-layouts-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="HTML tables rely on two distinct rendering algorithms defined by the CSS table-layout property: automatic and fixed. When rendering engines like Blink, Gecko, or WebKit process a table, they determine column widths, row heights, and overall dimensions us" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="automatic-vs-fixed-html-table-layouts-explained">Automatic vs
+Fixed HTML Table Layouts Explained</h1>
+<p>HTML tables rely on two distinct rendering algorithms defined by the
+CSS <code>table-layout</code> property: automatic and fixed. When
+rendering engines like Blink, Gecko, or WebKit process a table, they
+determine column widths, row heights, and overall dimensions using
+either a content-driven multi-pass calculation (<code>auto</code>) or a
+structural single-pass calculation (<code>fixed</code>). Understanding
+the mechanics behind these two algorithms reveals how browsers handle
+layout performance, content reflows, and responsive design.</p>
+<h3 id="the-fixed-table-layout-algorithm-table-layout-fixed">The Fixed
+Table Layout Algorithm (<code>table-layout: fixed</code>)</h3>
+<p>The fixed table layout algorithm calculates column widths based
+solely on structural specifications rather than cell content. The
+rendering engine reads the first row of cells, the
+<code>&lt;col&gt;</code> elements, or explicit widths applied to the
+table container, ignoring all content in subsequent rows during the
+dimensioning phase.</p>
+<p>The browser executes this process through a predictable sequence:</p>
+<ol type="1">
+<li><strong>Table Width Determination:</strong> The engine first looks
+for an explicit <code>width</code> property on the
+<code>&lt;table&gt;</code> element. If none is provided, the table
+expands to fill its containing block, provided it behaves as a
+block-level element.</li>
+<li><strong>First-Row and Col Inspection:</strong> The engine examines
+the first row of cells (or defined <code>&lt;col&gt;</code> /
+<code>&lt;colgroup&gt;</code> elements). If a column or cell has an
+explicit width specified, that width is assigned to the entire
+column.</li>
+<li><strong>Distribution of Remaining Width:</strong> Any remaining
+horizontal space is distributed equally among the columns that do not
+have an explicit width assigned. If the sum of all explicit column
+widths is less than the table's total width, the remaining space is
+apportioned evenly among all columns.</li>
+<li><strong>Rendering Subsequent Rows:</strong> As the browser streams
+and parses the remainder of the table's HTML, it does not recalculate
+column boundaries. Content that exceeds the determined column width will
+either wrap, overflow, or be clipped according to CSS rules such as
+<code>overflow</code> or <code>text-overflow</code>.</li>
+</ol>
+<p>Because the rendering engine only needs the table's width and the
+first row to determine the layout, it can display table rows
+progressively as they arrive from the network. This makes
+<code>table-layout: fixed</code> a single-pass, <span
+class="math inline">\(O(N)\)</span> operation where performance scales
+linearly with row count.</p>
+<h3 id="the-automatic-table-layout-algorithm-table-layout-auto">The
+Automatic Table Layout Algorithm (<code>table-layout: auto</code>)</h3>
+<p>The automatic table layout algorithm is dynamic and depends on the
+content of every single cell in the table. Because cell contents can
+vary widely, the rendering engine cannot finalize the layout until it
+has parsed the entire table.</p>
+<p>Browser engines implement a multi-pass calculation, largely derived
+from the CSS 2.1 specification:</p>
+<ol type="1">
+<li><strong>Calculate Minimum and Maximum Cell Widths:</strong> For
+every cell in the table, the engine calculates two values:
+<ul>
+<li><strong>Minimum Content Width (MCW):</strong> The narrowest width
+the cell can take without overflowing. This is typically determined by
+the widest unbreakable element, such as a long word, an image, or an
+inline-block element.</li>
+<li><strong>Maximum Content Width (MaxCW):</strong> The width the cell
+would occupy if no text wrapping occurred, assuming an infinitely wide
+container (except where explicit line breaks <code>&lt;br&gt;</code>
+exist).</li>
+</ul></li>
+<li><strong>Determine Column Constraints:</strong> The engine aggregates
+the cell values to establish the MCW and MaxCW for each column. A
+column’s MCW is the maximum MCW of any cell in that column; its MaxCW is
+the maximum MaxCW among its cells. Explicit cell widths, colspans, and
+percentages are also factored in as upper or lower constraints.</li>
+<li><strong>Compute Table Constraints:</strong> The minimum width of the
+table is calculated as the sum of all column MCWs, plus borders and cell
+spacing. The maximum width is the sum of all column MaxCWs, plus borders
+and cell spacing.</li>
+<li><strong>Available Space Allocation:</strong> The engine compares the
+computed table boundaries against the available width (either the
+container width or an explicitly set CSS <code>width</code>):
+<ul>
+<li><strong>Surplus Space:</strong> If the available width exceeds the
+table's MaxCW, the extra space is distributed among the columns, often
+proportionally based on their MaxCW or explicit percentage weights.</li>
+<li><strong>Intermediate Space:</strong> If the available width falls
+between the table's MCW and MaxCW, columns are scaled down between their
+MaxCW and MCW until the table fits the container.</li>
+<li><strong>Deficit Space:</strong> If the available width is less than
+the table's MCW, the table overflows its container, maintaining the
+minimum content widths to prevent content clipping where possible.</li>
+</ul></li>
+</ol>
+<h3 id="performance-and-implementation-differences">Performance and
+Implementation Differences</h3>
+<p>The primary operational difference lies in computational complexity
+and network streaming.</p>
+<p><code>table-layout: fixed</code> operates deterministically. Memory
+overhead is minimal because the browser does not need to maintain
+references to every cell's intrinsic size. Once the first row is
+resolved, the geometry is locked.</p>
+<p>Conversely, <code>table-layout: auto</code> requires the browser to
+build and traverse the entire table subtree before painting the first
+pixel accurately. If dynamic content is injected into an automatic table
+via JavaScript, or if web fonts load late and alter text metrics, the
+engine must recalculate the entire column matrix, triggering an
+expensive global layout reflow.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use the HTML Var Element - html</title>
+    <meta name="description" content="The HTML <var> element is a semantic tag specifically designed to define variables in mathematical expressions, computer code, and technical documentation. By wrapping a variable name in <var>, developers provide semantic meaning to search engines, scree">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-to-use-the-html-var-element">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use the HTML Var Element - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-to-use-the-html-var-element" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <var> element is a semantic tag specifically designed to define variables in mathematical expressions, computer code, and technical documentation. By wrapping a variable name in <var>, developers provide semantic meaning to search engines, scree" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-the-html-var-element">How to Use the HTML Var
+Element</h1>
+<p>The HTML <code>&lt;var&gt;</code> element is a semantic tag
+specifically designed to define variables in mathematical expressions,
+computer code, and technical documentation. By wrapping a variable name
+in <code>&lt;var&gt;</code>, developers provide semantic meaning to
+search engines, screen readers, and browsers, indicating that the
+enclosed text represents a placeholder value rather than literal text.
+This article covers how the <code>&lt;var&gt;</code> element works, its
+default styling, practical use cases in programming and mathematics, and
+best practices for combining it with other technical HTML tags.</p>
+<h3 id="semantic-purpose-of-the-var-element">Semantic Purpose of the
+<code>&lt;var&gt;</code> Element</h3>
+<p>The <code>&lt;var&gt;</code> element denotes an instance of a
+variable. A variable, in this context, can be:</p>
+<ul>
+<li>A mathematical variable (e.g., <span
+class="math inline">\(x\)</span>, <span
+class="math inline">\(y\)</span>, or <span
+class="math inline">\(n\)</span>).</li>
+<li>A programming variable or constant.</li>
+<li>A function parameter or argument.</li>
+<li>A placeholder in a command-line interface or template where the user
+is expected to supply a value.</li>
+</ul>
+<p>Using <code>&lt;var&gt;</code> instead of generic formatting tags
+like <code>&lt;i&gt;</code> or <code>&lt;span&gt;</code> preserves the
+semantic structure of the document. While visual browsers primarily
+italicize the content, assistive technologies and search engine parsers
+recognize the tag as a programmatic or mathematical entity.</p>
+<h3 id="default-browser-presentation">Default Browser Presentation</h3>
+<p>By default, modern web browsers apply the following User Agent style
+to the <code>&lt;var&gt;</code> element:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>var {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">italic</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Because variables in traditional typography and mathematics are
+typically italicized, the default style fits standard publishing
+conventions. However, this appearance can be customized using standard
+CSS.</p>
+<h3 id="using-var-in-mathematical-expressions">Using
+<code>&lt;var&gt;</code> in Mathematical Expressions</h3>
+<p>In mathematical writing, <code>&lt;var&gt;</code> identifies letters
+that stand for changing or unknown values, distinguishing them from
+operators, constants, and standard text.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>According to the Pythagorean theorem, <span class="dt">&lt;</span><span class="kw">var</span><span class="dt">&gt;</span>a<span class="dt">&lt;/</span><span class="kw">var</span><span class="dt">&gt;&lt;</span><span class="kw">sup</span><span class="dt">&gt;</span>2<span class="dt">&lt;/</span><span class="kw">sup</span><span class="dt">&gt;</span> + <span class="dt">&lt;</span><span class="kw">var</span><span class="dt">&gt;</span>b<span class="dt">&lt;/</span><span class="kw">var</span><span class="dt">&gt;&lt;</span><span class="kw">sup</span><span class="dt">&gt;</span>2<span class="dt">&lt;/</span><span class="kw">sup</span><span class="dt">&gt;</span> = <span class="dt">&lt;</span><span class="kw">var</span><span class="dt">&gt;</span>c<span class="dt">&lt;/</span><span class="kw">var</span><span class="dt">&gt;&lt;</span><span class="kw">sup</span><span class="dt">&gt;</span>2<span class="dt">&lt;/</span><span class="kw">sup</span><span class="dt">&gt;</span>, where <span class="dt">&lt;</span><span class="kw">var</span><span class="dt">&gt;</span>c<span class="dt">&lt;/</span><span class="kw">var</span><span class="dt">&gt;</span> is the hypotenuse.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this example, the letters <span class="math inline">\(a\)</span>,
+<span class="math inline">\(b\)</span>, and <span
+class="math inline">\(c\)</span> represent variables, while the numbers,
+superscripts, and operators represent mathematical operations.</p>
+<h3 id="using-var-in-programming-and-code-contexts">Using
+<code>&lt;var&gt;</code> in Programming and Code Contexts</h3>
+<p>In software documentation, <code>&lt;var&gt;</code> is frequently
+combined with elements like <code>&lt;code&gt;</code>,
+<code>&lt;pre&gt;</code>, and <code>&lt;kbd&gt;</code>. While
+<code>&lt;code&gt;</code> denotes literal computer code,
+<code>&lt;var&gt;</code> denotes dynamic placeholders within that code
+that a developer must replace.</p>
+<h4 id="example-function-signatures">Example: Function Signatures</h4>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>The function signature is defined as: <span class="dt">&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>function calculateTotal(<span class="dt">&lt;</span><span class="kw">var</span><span class="dt">&gt;</span>subtotal<span class="dt">&lt;/</span><span class="kw">var</span><span class="dt">&gt;</span>, <span class="dt">&lt;</span><span class="kw">var</span><span class="dt">&gt;</span>taxRate<span class="dt">&lt;/</span><span class="kw">var</span><span class="dt">&gt;</span>)<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;</span>.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Here, <code>calculateTotal</code> is literal code, while
+<code>&lt;var&gt;subtotal&lt;/var&gt;</code> and
+<code>&lt;var&gt;taxRate&lt;/var&gt;</code> represent variable
+arguments.</p>
+<h4 id="example-command-line-placeholders">Example: Command-Line
+Placeholders</h4>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>To clone a repository, run: <span class="dt">&lt;</span><span class="kw">kbd</span><span class="dt">&gt;</span>git clone https://github.com/<span class="dt">&lt;</span><span class="kw">var</span><span class="dt">&gt;</span>username<span class="dt">&lt;/</span><span class="kw">var</span><span class="dt">&gt;</span>/<span class="dt">&lt;</span><span class="kw">var</span><span class="dt">&gt;</span>repository<span class="dt">&lt;/</span><span class="kw">var</span><span class="dt">&gt;</span>.git<span class="dt">&lt;/</span><span class="kw">kbd</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this terminal instruction, the user must substitute their actual
+account name and project name for the marked variables.</p>
+<h3 id="distinguishing-var-from-i-em-and-code">Distinguishing
+<code>&lt;var&gt;</code> from <code>&lt;i&gt;</code>,
+<code>&lt;em&gt;</code>, and <code>&lt;code&gt;</code></h3>
+<ul>
+<li><strong><code>&lt;var&gt;</code> vs.
+<code>&lt;i&gt;</code></strong>: The <code>&lt;i&gt;</code> element
+represents text in an alternate voice or mood (e.g., technical terms,
+foreign phrases) without conveying structural meaning.
+<code>&lt;var&gt;</code> should always be used when the text is
+specifically a variable.</li>
+<li><strong><code>&lt;var&gt;</code> vs.
+<code>&lt;em&gt;</code></strong>: The <code>&lt;em&gt;</code> tag
+indicates stress emphasis, altering the spoken inflection of the
+sentence. A variable rarely represents vocal stress.</li>
+<li><strong><code>&lt;var&gt;</code> vs.
+<code>&lt;code&gt;</code></strong>: The <code>&lt;code&gt;</code>
+element indicates literal computer code (keywords, fixed function
+names). When a code snippet contains dynamic inputs,
+<code>&lt;var&gt;</code> should be nested inside
+<code>&lt;code&gt;</code>.</li>
+</ul>
+<h3 id="custom-styling-with-css">Custom Styling with CSS</h3>
+<p>While italics are appropriate for algebra, programming documentation
+often requires variables to match the monospaced font of surrounding
+code. You can override default styles using CSS:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>code var {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-family</span><span class="ch">:</span> <span class="dv">monospace</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">normal</span><span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#c7254e</span><span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>This keeps the semantic value of <code>&lt;var&gt;</code> intact
+while adjusting the visual presentation to suit coding conventions.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

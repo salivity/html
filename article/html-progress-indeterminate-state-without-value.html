@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Progress Indeterminate State Without Value - html</title>
+    <meta name="description" content="The HTML <progress> element is designed to convey the completion status of a task, operating in either a determinate or indeterminate state. When the value attribute is completely omitted, the browser automatically switches the element to an indeterminat">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-progress-indeterminate-state-without-value">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Progress Indeterminate State Without Value - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-progress-indeterminate-state-without-value" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <progress> element is designed to convey the completion status of a task, operating in either a determinate or indeterminate state. When the value attribute is completely omitted, the browser automatically switches the element to an indeterminat" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-progress-indeterminate-state-without-value">HTML Progress
+Indeterminate State Without Value</h1>
+<p>The HTML <code>&lt;progress&gt;</code> element is designed to convey
+the completion status of a task, operating in either a determinate or
+indeterminate state. When the <code>value</code> attribute is completely
+omitted, the browser automatically switches the element to an
+indeterminate state, representing a process of unknown duration. This
+article explains the technical mechanics behind this state, native
+browser rendering behaviors, styling capabilities, and its accessibility
+implications.</p>
+<h3 id="mechanics-of-the-indeterminate-state">Mechanics of the
+Indeterminate State</h3>
+<p>Under the HTML specification, a <code>&lt;progress&gt;</code> element
+calculates its completion ratio by dividing the current
+<code>value</code> attribute by the <code>max</code> attribute. If the
+<code>value</code> attribute is absent, this calculation cannot occur.
+Consequently, the browser determines that the progress cannot be
+quantified and places the element into the indeterminate mode. The
+presence or absence of the <code>max</code> attribute does not affect
+this behavior; as long as <code>value</code> is missing, the element
+remains indeterminate.</p>
+<h3 id="default-browser-rendering">Default Browser Rendering</h3>
+<p>Instead of displaying a static fill bar proportional to a percentage,
+browsers render an automated, looping animation to signal ongoing
+activity. While visual implementations vary across rendering engines,
+standard default behaviors include:</p>
+<ul>
+<li><strong>Chromium and WebKit (Chrome, Edge, Safari):</strong>
+Typically render a smooth, continuous sliding pulse or gradient that
+sweeps back and forth across the track.</li>
+<li><strong>Gecko (Firefox):</strong> Displays an animated block or bar
+sliding horizontally from left to right across the container.</li>
+</ul>
+<p>These built-in animations provide immediate visual feedback to the
+user that a task is actively processing, without conveying a false
+metric of completion time.</p>
+<h3 id="accessibility-mapping">Accessibility Mapping</h3>
+<p>The indeterminate state directly alters how assistive technologies
+interpret the element. By default, the <code>&lt;progress&gt;</code>
+element maps to the ARIA role of <code>progressbar</code>. When a
+<code>value</code> is present, the browser automatically assigns the
+<code>aria-valuenow</code> property to match it.</p>
+<p>When <code>value</code> is omitted:</p>
+<ul>
+<li>The <code>aria-valuenow</code> property is removed from the
+accessibility tree.</li>
+<li>Screen readers announce the element as a progress bar in an
+indeterminate or busy state, informing users that an operation is
+underway without reading out a numerical percentage.</li>
+<li>Developers should pair the element with an accessible label using
+<code>aria-label</code>, <code>aria-labelledby</code>, or an associated
+<code>&lt;label&gt;</code> to provide context on what operation is
+running.</li>
+</ul>
+<h3 id="styling-with-css">Styling with CSS</h3>
+<p>The CSS <code>:indeterminate</code> pseudo-class allows developers to
+specifically target and style progress bars that lack a
+<code>value</code>. This pseudo-class is supported across all modern
+browsers.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>progress<span class="in">:indeterminate</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">/* General styles for indeterminate state */</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">accent-color</span><span class="ch">:</span> <span class="cn">#0066cc</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Vendors also provide pseudo-elements to customize the internal
+rendering. For WebKit and Blink engines,
+<code>::-webkit-progress-bar</code> targets the container track, while
+Firefox provides <code>::-moz-progress-bar</code>. Because an
+indeterminate progress bar lacks a measurable value, standard fill
+pseudo-elements (such as <code>::-webkit-progress-value</code>) do not
+apply, and custom animations are typically achieved by styling the
+background of the element itself using keyframe animations.</p>
+<h3 id="dynamic-state-transitions">Dynamic State Transitions</h3>
+<p>Web applications often start a task without knowing its duration,
+such as initializing a network request, and later switch to determinate
+progress once file sizes or total steps are calculated. Dynamically
+setting the <code>value</code> property via JavaScript immediately
+transitions the element from the indeterminate state to the determinate
+state:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> progressBar <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&#39;progress&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Switches from indeterminate to determinate at 25%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>progressBar<span class="op">.</span><span class="at">value</span> <span class="op">=</span> <span class="dv">25</span><span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Removing the attribute returns it to indeterminate</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>progressBar<span class="op">.</span><span class="fu">removeAttribute</span>(<span class="st">&#39;value&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<p>This flexibility makes the <code>&lt;progress&gt;</code> element a
+semantic and lightweight native solution for representing unmetered wait
+states.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

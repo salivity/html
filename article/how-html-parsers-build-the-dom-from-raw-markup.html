@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How HTML Parsers Build the DOM from Raw Markup - html</title>
+    <meta name="description" content="When a browser receives an HTML document over the network, it cannot directly render the raw bytes of text. Instead, an HTML parser processes the markup through a multi-stage pipeline—converting raw bytes into characters, tokenizing those characters in">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-html-parsers-build-the-dom-from-raw-markup">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How HTML Parsers Build the DOM from Raw Markup - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-html-parsers-build-the-dom-from-raw-markup" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="When a browser receives an HTML document over the network, it cannot directly render the raw bytes of text. Instead, an HTML parser processes the markup through a multi-stage pipeline—converting raw bytes into characters, tokenizing those characters in" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-html-parsers-build-the-dom-from-raw-markup">How HTML Parsers
+Build the DOM from Raw Markup</h1>
+<p>When a browser receives an HTML document over the network, it cannot
+directly render the raw bytes of text. Instead, an HTML parser processes
+the markup through a multi-stage pipeline—converting raw bytes into
+characters, tokenizing those characters into distinct semantic units,
+and executing tree-construction algorithms to build the Document Object
+Model (DOM). This article explains the technical stages an HTML parser
+executes to transform a stream of text into a living, interactive node
+tree.</p>
+<h3 id="1-byte-stream-decoding">1. Byte Stream Decoding</h3>
+<p>The process begins with the network layer transferring raw bytes
+(typically via HTTP) to the browser engine. The parser's first task is
+character decoding. Using the character encoding specified in the HTTP
+<code>Content-Type</code> header (such as <code>charset=utf-8</code>), a
+<code>&lt;meta charset&gt;</code> tag, or heuristic detection, the
+parser translates the raw bytes into a stream of individual Unicode
+characters.</p>
+<h3 id="2-tokenization-lexical-analysis">2. Tokenization (Lexical
+Analysis)</h3>
+<p>Once the characters are decoded, the parser passes them through a
+state-machine-driven tokenizer. The tokenizer breaks the character
+stream into meaningful tokens:</p>
+<ul>
+<li><strong>DOCTYPE tokens</strong>: Define the document standard.</li>
+<li><strong>Start tag tokens</strong>: Identify opening tags (e.g.,
+<code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>) and extract their
+attributes.</li>
+<li><strong>End tag tokens</strong>: Identify closing tags (e.g.,
+<code>&lt;/div&gt;</code>, <code>&lt;/p&gt;</code>).</li>
+<li><strong>Character tokens</strong>: Represent text content found
+inside elements.</li>
+<li><strong>Comment tokens</strong>: Represent HTML comments.</li>
+<li><strong>End-of-File (EOF) tokens</strong>: Signal the end of the
+document.</li>
+</ul>
+<p>The tokenizer operates as a state machine, transitioning between
+states such as "Data state," "Tag open state," "Tag name state," and
+"Attribute name state" based on each incoming character.</p>
+<h3 id="3-tree-construction-syntactic-analysis">3. Tree Construction
+(Syntactic Analysis)</h3>
+<p>As tokens are emitted by the tokenizer, the tree construction stage
+processes them immediately. This process relies on a "stack of open
+elements" to maintain structural hierarchy:</p>
+<ol type="1">
+<li><strong>Node Creation</strong>: When a start tag token arrives, the
+parser instantiates a corresponding DOM <code>Element</code> node.</li>
+<li><strong>Parent-Child Linking</strong>: The new node is attached as a
+child to the node currently at the top of the stack of open
+elements.</li>
+<li><strong>Stack Management</strong>:
+<ul>
+<li>Non-void start tags push the new node onto the stack, making it the
+current insertion target for subsequent tokens.</li>
+<li>Character tokens generate <code>Text</code> nodes that append
+directly to the current top of the stack.</li>
+<li>Matching end tag tokens pop the corresponding element off the stack,
+returning context to the parent node.</li>
+<li>Void elements (like <code>&lt;img&gt;</code>,
+<code>&lt;br&gt;</code>, or <code>&lt;input&gt;</code>) create a node,
+attach it to the tree, but are never pushed to the stack.</li>
+</ul></li>
+</ol>
+<h3 id="4-handling-malformed-html">4. Handling Malformed HTML</h3>
+<p>Unlike XML parsers, which halt on syntax errors, HTML parsers follow
+strict error-recovery algorithms defined by the HTML5 specification. If
+an author forgets a closing tag (such as omitting
+<code>&lt;/li&gt;</code> or <code>&lt;/p&gt;</code>), the parser
+determines contextually where the tag should logically close,
+automatically pops the element from the stack, and continues
+constructing the tree without failing.</p>
+<h3 id="5-script-execution-and-parser-blocking">5. Script Execution and
+Parser Blocking</h3>
+<p>HTML parsing is inherently synchronous. When the tokenizer encounters
+a <code>&lt;script&gt;</code> tag without <code>async</code> or
+<code>defer</code> attributes, tree construction pauses. The browser
+must fetch, compile, and execute the JavaScript before resuming parsing,
+because scripts can call methods like <code>document.write()</code>,
+which inject new raw markup directly into the tokenizer's active input
+stream.</p>
+<p>Once the tokenizer hits the EOF token, the parser pops any remaining
+nodes from the stack, marks the document as interactive, and fires the
+<code>DOMContentLoaded</code> event, signifying that the DOM tree is
+complete.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

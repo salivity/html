@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML srcset: Difference Between w and x Descriptors - html</title>
+    <meta name="description" content="The HTML srcset attribute provides a responsive way to serve different image files based on device characteristics, using either the w (width) or x (pixel density) descriptor. While the x descriptor serves images based purely on the screen's device pixel">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-srcset-difference-between-w-and-x-descriptors">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML srcset: Difference Between w and x Descriptors - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-srcset-difference-between-w-and-x-descriptors" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML srcset attribute provides a responsive way to serve different image files based on device characteristics, using either the w (width) or x (pixel density) descriptor. While the x descriptor serves images based purely on the screen's device pixel" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-srcset-difference-between-w-and-x-descriptors">HTML srcset:
+Difference Between w and x Descriptors</h1>
+<p>The HTML <code>srcset</code> attribute provides a responsive way to
+serve different image files based on device characteristics, using
+either the <code>w</code> (width) or <code>x</code> (pixel density)
+descriptor. While the <code>x</code> descriptor serves images based
+purely on the screen's device pixel ratio for fixed-size layouts, the
+<code>w</code> descriptor specifies the image file's actual pixel width,
+allowing the browser to dynamically choose the optimal image based on
+both the screen resolution and the layout width defined in the
+<code>sizes</code> attribute.</p>
+<h3 id="the-x-descriptor-pixel-density">The <code>x</code> Descriptor:
+Pixel Density</h3>
+<p>The <code>x</code> descriptor targets device pixel density (DPR),
+such as standard displays (<code>1x</code>), Retina displays
+(<code>2x</code>), or ultra-high-density mobile screens
+(<code>3x</code>).</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;logo-1x.png&quot;</span><span class="ot"> </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ot">     srcset</span><span class="op">=</span><span class="st">&quot;logo-1x.png 1x, logo-2x.png 2x, logo-3x.png 3x&quot;</span><span class="ot"> </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ot">     alt</span><span class="op">=</span><span class="st">&quot;Company Logo&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When using <code>x</code>, the browser queries only the screen's
+hardware resolution. If a device has a 2x display, it downloads the
+<code>logo-2x.png</code> file, regardless of the browser window's size.
+This makes the <code>x</code> descriptor ideal for fixed-dimension
+elements that never change their CSS layout size across viewports, such
+as profile avatars, icons, and fixed-width logos.</p>
+<h3 id="the-w-descriptor-intrinsic-image-width">The <code>w</code>
+Descriptor: Intrinsic Image Width</h3>
+<p>The <code>w</code> descriptor tells the browser the true pixel width
+of the source image file before it downloads it. For example, an image
+file that is 800 pixels wide is marked as <code>800w</code>.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;hero-fallback.jpg&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ot">     srcset</span><span class="op">=</span><span class="st">&quot;hero-small.jpg 400w, hero-medium.jpg 800w, hero-large.jpg 1600w&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ot">     sizes</span><span class="op">=</span><span class="st">&quot;(max-width: 600px) 100vw, 50vw&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ot">     alt</span><span class="op">=</span><span class="st">&quot;Scenic Landscape&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Unlike the <code>x</code> descriptor, the <code>w</code> descriptor
+requires the <code>sizes</code> attribute to function effectively. The
+<code>sizes</code> attribute informs the browser how wide the image will
+render on the screen at different media queries.</p>
+<p>With this information, the browser performs a calculation:</p>
+<p><span class="math display">\[\text{Required Pixels} = \text{Display
+Slot Width} \times \text{Device Pixel Ratio}\]</span></p>
+<p>The browser then selects the smallest file from the
+<code>srcset</code> list that meets or exceeds this calculated pixel
+requirement.</p>
+<h3 id="key-differences">Key Differences</h3>
+<ul>
+<li><strong>Layout Flexibility:</strong> The <code>x</code> descriptor
+assumes the layout size remains constant; it cannot adapt to responsive,
+fluid layouts. The <code>w</code> descriptor accounts for varying
+display sizes and responsive CSS layouts.</li>
+<li><strong>Dependency on the <code>sizes</code> Attribute:</strong> The
+<code>x</code> descriptor functions without the <code>sizes</code>
+attribute. The <code>w</code> descriptor requires <code>sizes</code> (or
+defaults to <code>100vw</code>), as the browser must know the display
+width to choose the correct width descriptor.</li>
+<li><strong>Browser Decision Control:</strong> The <code>x</code>
+descriptor is restrictive, forcing image selection based solely on
+display hardware. The <code>w</code> descriptor gives the browser full
+intelligence to balance layout size, screen density, and even user
+network preferences (such as data-saver modes) to select the most
+efficient resource.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

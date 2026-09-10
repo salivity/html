@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using rel="license" for HTML Copyright Terms - html</title>
+    <meta name="description" content="The rel="license" attribute is a standardized HTML link relationship used to indicate the copyright license governing the document or an asset within it. This article explains how the attribute functions, how web browsers and search engines interpret it,">
+    <link rel="canonical" href="https://salivity.github.io/html/article/using-rel-license-for-html-copyright-terms">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Using rel="license" for HTML Copyright Terms - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/using-rel-license-for-html-copyright-terms" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The rel="license" attribute is a standardized HTML link relationship used to indicate the copyright license governing the document or an asset within it. This article explains how the attribute functions, how web browsers and search engines interpret it," />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="using-rellicense-for-html-copyright-terms">Using rel="license"
+for HTML Copyright Terms</h1>
+<p>The <code>rel="license"</code> attribute is a standardized HTML link
+relationship used to indicate the copyright license governing the
+document or an asset within it. This article explains how the attribute
+functions, how web browsers and search engines interpret it, the
+standard syntax for implementing it in both the
+<code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> elements, and
+best practices for scoping licensing terms clearly.</p>
+<h2 id="what-is-the-rellicense-attribute">What is the
+<code>rel="license"</code> Attribute?</h2>
+<p>In HTML, the <code>rel</code> attribute specifies the relationship
+between the current document and the linked resource. When assigned the
+value <code>"license"</code>, it explicitly declares that the
+destination resource contains the licensing and copyright terms that
+apply to the referencing document or context.</p>
+<p>Defined in the HTML standard by the WHATWG and W3C,
+<code>rel="license"</code> provides a machine-readable way to signal
+permissions, usage restrictions, and intellectual property ownership to
+automated systems such as search engines, content scrapers, and
+accessibility tools.</p>
+<h2 id="how-it-communicates-copyright-terms">How it Communicates
+Copyright Terms</h2>
+<p>Rather than requiring user agents to parse and interpret ambiguous,
+human-readable text (such as "All Rights Reserved" or custom disclaimer
+paragraphs), <code>rel="license"</code> establishes a semantic bridge
+between the content and an authoritative statement of rights.</p>
+<p>When a crawler or browser encounters <code>rel="license"</code>, it
+recognizes the target URL as the canonical legal framework for the
+content. This is commonly used with standardized licenses like Creative
+Commons, GNU General Public License, or custom corporate terms of
+service.</p>
+<p>Key consumers of this metadata include:</p>
+<ul>
+<li><strong>Search Engines:</strong> Search engines like Google index
+licensing metadata to filter search results by usage rights (for
+example, finding images or articles labeled for commercial reuse).</li>
+<li><strong>Browsers and Extensions:</strong> Client-side tools can read
+the relationship to alert users about their rights to redistribute,
+remix, or copy the material.</li>
+<li><strong>Archival Services:</strong> Automated web preservation
+services use the attribute to determine whether a document can legally
+be mirrored and displayed publicly.</li>
+</ul>
+<h2 id="implementation-methods">Implementation Methods</h2>
+<p>The <code>rel="license"</code> attribute can be applied via
+<code>&lt;link&gt;</code>, <code>&lt;a&gt;</code>, and
+<code>&lt;area&gt;</code> tags depending on whether the license is
+document-level metadata or a visible link for human visitors.</p>
+<h3 id="1-document-wide-licensing-in-the-head">1. Document-Wide
+Licensing in the <code>&lt;head&gt;</code></h3>
+<p>To associate the entire HTML document with a license without
+requiring a visible link on the page, place a <code>&lt;link&gt;</code>
+element inside the <code>&lt;head&gt;</code> section:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">title</span><span class="dt">&gt;</span>Understanding Digital Copyright<span class="dt">&lt;/</span><span class="kw">title</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;license&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;https://creativecommons.org/licenses/by/4.0/&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="2-user-facing-links-in-the-body">2. User-Facing Links in the
+<code>&lt;body&gt;</code></h3>
+<p>To provide an active, visible link for readers in the page footer or
+colophon, apply <code>rel="license"</code> to an standard anchor tag
+(<code>&lt;a&gt;</code>):</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">footer</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>This work is licensed under a </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;license&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;https://creativecommons.org/licenses/by-nc/4.0/&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      Creative Commons Attribution-NonCommercial 4.0 International License</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span>.</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">footer</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="determining-scope-and-context">Determining Scope and
+Context</h2>
+<p>According to HTML specifications, the <code>rel="license"</code>
+relationship applies by default to the entire document. If a page
+contains mixed media with different owners (such as an original article
+that includes a third-party image), the attribute must be used
+carefully:</p>
+<ul>
+<li><strong>Whole Document:</strong> A
+<code>&lt;link rel="license"&gt;</code> tag in the
+<code>&lt;head&gt;</code> or a standalone link in the
+<code>&lt;footer&gt;</code> is assumed by crawlers to apply to the
+primary text and layout of the page.</li>
+<li><strong>Specific Elements:</strong> When licensing individual
+assets, such as an embedded image or media file, wrap the element and
+the license link together inside a <code>&lt;figure&gt;</code> and
+<code>&lt;figcaption&gt;</code> tag, or utilize RDFa / Microdata to
+explicitly associate the license URI with the specific resource URL
+rather than the overall page.</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li><strong>Use Canonical URLs:</strong> Always point to the permanent,
+canonical URL of the license (e.g., using <code>https://</code> and
+exact version numbers for Creative Commons licenses) to ensure automated
+aggregators can recognize the terms.</li>
+<li><strong>Avoid Combining Conflicting Relations:</strong> Do not
+combine <code>license</code> with other link types in the same
+<code>rel</code> attribute (like <code>rel="license nofollow"</code>),
+as this can disrupt how web crawlers parse the license
+relationship.</li>
+<li><strong>Ensure Public Accessibility:</strong> The target URI must
+resolve to a publicly viewable document that clearly details the terms
+of use.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

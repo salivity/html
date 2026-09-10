@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Avoid the HTML Title Attribute for Accessibility - html</title>
+    <meta name="description" content="The HTML title attribute is often used to provide supplementary information through native browser tooltips, but it should never be relied upon for critical accessibility information. Relying on title creates severe barriers for keyboard navigators, mobi">
+    <link rel="canonical" href="https://salivity.github.io/html/article/why-avoid-the-html-title-attribute-for-accessibility">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Why Avoid the HTML Title Attribute for Accessibility - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/why-avoid-the-html-title-attribute-for-accessibility" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML title attribute is often used to provide supplementary information through native browser tooltips, but it should never be relied upon for critical accessibility information. Relying on title creates severe barriers for keyboard navigators, mobi" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="why-avoid-the-html-title-attribute-for-accessibility">Why Avoid
+the HTML Title Attribute for Accessibility</h1>
+<p>The HTML <code>title</code> attribute is often used to provide
+supplementary information through native browser tooltips, but it should
+never be relied upon for critical accessibility information. Relying on
+<code>title</code> creates severe barriers for keyboard navigators,
+mobile users, low-vision individuals, and people using screen readers.
+Critical information such as form instructions, mandatory field
+indicators, and primary element labels must be accessible to all users
+through permanent on-screen text or robust accessible naming techniques
+rather than native tooltips.</p>
+<h3 id="lack-of-mobile-and-touchscreen-support">Lack of Mobile and
+Touchscreen Support</h3>
+<p>The native behavior of the <code>title</code> attribute relies on a
+mouse hover event to trigger the tooltip display. Touchscreen devices,
+such as smartphones and tablets, do not have a cursor to hover over
+elements. Tapping an element generally activates its primary action,
+such as following a link or submitting a form, meaning touch-device
+users have virtually no way to access the content stored within a
+<code>title</code> attribute.</p>
+<h3 id="complete-failure-for-keyboard-only-users">Complete Failure for
+Keyboard-Only Users</h3>
+<p>Most major web browsers do not render native tooltips when an
+interactive element receives focus via the keyboard. Sighted
+keyboard-only users navigating a page using the Tab key will miss the
+<code>title</code> text entirely. This completely isolates an entire
+demographic from essential guidance or context if that information is
+stored only in the attribute.</p>
+<h3 id="inconsistent-screen-reader-support">Inconsistent Screen Reader
+Support</h3>
+<p>Screen readers handle the <code>title</code> attribute
+unpredictably:</p>
+<ul>
+<li><strong>Low Priority in Accessible Name Computation:</strong>
+Assistive technologies use a specific hierarchy to determine an
+element's accessible name. If an element already has inner text, an
+<code>aria-label</code>, an <code>aria-labelledby</code> reference, or a
+native <code>&lt;label&gt;</code>, the screen reader will typically
+announce that primary label and completely ignore the <code>title</code>
+attribute.</li>
+<li><strong>Redundancy Issues:</strong> When screen readers are
+configured to announce both the primary text and the <code>title</code>,
+it can create a repetitive and frustrating user experience.</li>
+<li><strong>Non-Interactive Elements:</strong> Placing a
+<code>title</code> attribute on non-interactive elements like
+<code>&lt;span&gt;</code> or <code>&lt;div&gt;</code> is largely
+useless, as screen readers will skip non-focusable elements during tab
+navigation unless configured for detailed document reading.</li>
+</ul>
+<h3 id="failure-to-meet-wcag-21-requirements">Failure to Meet WCAG 2.1
+Requirements</h3>
+<p>WCAG 2.1 includes Success Criterion 1.4.13 (Content on Hover or
+Focus), which requires that content triggered by hover or focus must be
+dismissible, hoverable, and persistent:</p>
+<ul>
+<li><strong>Dismissible:</strong> Users must be able to dismiss the
+tooltip without moving the pointer (for example, by pressing the Escape
+key). Native <code>title</code> tooltips cannot be dismissed with the
+Escape key.</li>
+<li><strong>Hoverable:</strong> If the pointer can trigger additional
+content, the pointer should be able to move over that content without
+the content disappearing. Native tooltips disappear if a user tries to
+move their cursor over them to select or read the text.</li>
+<li><strong>Persistent:</strong> The tooltip must remain visible until
+the user removes hover or focus. Native tooltips often time out and
+vanish automatically after a few seconds.</li>
+</ul>
+<p>Native browser implementations of the <code>title</code> attribute
+consistently fail these requirements.</p>
+<h3 id="low-vision-and-usability-barriers">Low-Vision and Usability
+Barriers</h3>
+<p>Native tooltips generated by the <code>title</code> attribute inherit
+operating system and browser default styling. Sighted users with low
+vision cannot easily enlarge, restyle, or adjust the contrast of these
+tooltips. Furthermore, native tooltips can accidentally obscure
+surrounding content or other interactive elements, causing navigation
+disruptions.</p>
+<h3 id="recommended-alternatives">Recommended Alternatives</h3>
+<p>To ensure that critical information remains accessible to
+everyone:</p>
+<ol type="1">
+<li><strong>Use Visible On-Screen Text:</strong> The most accessible
+method is to place critical instructions or labels directly on the page
+where all users can see them simultaneously.</li>
+<li><strong>Use Proper Form Labels:</strong> Pair input controls with
+explicit <code>&lt;label&gt;</code> elements using the <code>for</code>
+and <code>id</code> attributes.</li>
+<li><strong>Implement Custom Accessible Tooltips:</strong> If secondary
+or contextual information must be hidden until requested, construct a
+custom tooltip using HTML and JavaScript. Ensure it supports keyboard
+focus, responds to the Escape key, stays visible when hovered, and is
+programmatically associated with the trigger element using
+<code>aria-describedby</code>.</li>
+</ol></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

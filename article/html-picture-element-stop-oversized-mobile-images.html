@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Picture Element: Stop Oversized Mobile Images - html</title>
+    <meta name="description" content="The HTML <picture> element is a responsive design tool that prevents mobile devices from wasting bandwidth on large desktop images. By serving as a wrapper for multiple image sources, the <picture> element allows developers to define explicit media condi">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-picture-element-stop-oversized-mobile-images">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Picture Element: Stop Oversized Mobile Images - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-picture-element-stop-oversized-mobile-images" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <picture> element is a responsive design tool that prevents mobile devices from wasting bandwidth on large desktop images. By serving as a wrapper for multiple image sources, the <picture> element allows developers to define explicit media condi" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-picture-element-stop-oversized-mobile-images">HTML Picture
+Element: Stop Oversized Mobile Images</h1>
+<p>The HTML <code>&lt;picture&gt;</code> element is a responsive design
+tool that prevents mobile devices from wasting bandwidth on large
+desktop images. By serving as a wrapper for multiple image sources, the
+<code>&lt;picture&gt;</code> element allows developers to define
+explicit media conditions—such as viewport width or device pixel
+ratio—ensuring that a browser only downloads the specific asset
+optimized for the user's screen.</p>
+<h3 id="the-problem-with-traditional-images">The Problem with
+Traditional Images</h3>
+<p>In standard HTML, using a basic <code>&lt;img&gt;</code> tag with a
+single <code>src</code> forces every device to download the same file.
+If a high-resolution, 2000-pixel-wide image is specified for desktop
+layouts, a smartphone with a 400-pixel-wide screen will still download
+that entire multi-megabyte file. While the browser can visually scale
+the image down via CSS, the network has already expended data and time
+loading the oversized asset. This causes high data usage, slow page
+speeds, and lower Largest Contentful Paint (LCP) performance scores on
+mobile devices.</p>
+<h3 id="how-the-picture-element-prevents-wasted-downloads">How the
+<code>&lt;picture&gt;</code> Element Prevents Wasted Downloads</h3>
+<p>The <code>&lt;picture&gt;</code> element solves this problem through
+conditional resource selection. Inside a <code>&lt;picture&gt;</code>
+wrapper, developers place one or more <code>&lt;source&gt;</code>
+elements followed by a standard <code>&lt;img&gt;</code> element.</p>
+<p>Each <code>&lt;source&gt;</code> element utilizes the
+<code>media</code> attribute to define a media query, alongside a
+<code>srcset</code> attribute that points to the corresponding image
+file. The browser evaluates these <code>&lt;source&gt;</code> elements
+sequentially from top to bottom:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">picture</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(max-width: 600px)&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;mobile-small.webp&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(max-width: 1024px)&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;tablet-medium.webp&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;desktop-large.jpg&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Description of the image&quot;</span><span class="ot"> loading</span><span class="op">=</span><span class="st">&quot;lazy&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">picture</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When a mobile browser encounters this markup, it processes the media
+queries before initiating any network request. If the viewport matches
+<code>(max-width: 600px)</code>, the browser selects
+<code>mobile-small.webp</code> and completely ignores the larger tablet
+and desktop files. The desktop asset is neither downloaded nor cached,
+saving cellular data and drastically reducing initial render times.</p>
+<h3 id="art-direction-and-format-switching">Art Direction and Format
+Switching</h3>
+<p>In addition to resolution switching, the <code>&lt;picture&gt;</code>
+element supports "art direction." Instead of simply serving a
+scaled-down version of a wide landscape photo—which can make key details
+unrecognizable on small screens—developers can serve a tightly cropped
+vertical crop specifically for mobile users.</p>
+<p>The element also allows developers to serve next-generation formats
+like AVIF or WebP to supporting browsers while falling back to JPEG or
+PNG for older clients via the <code>type</code> attribute:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">picture</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(max-width: 600px)&quot;</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;image/avif&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;mobile.avif&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(max-width: 600px)&quot;</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;image/webp&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;mobile.webp&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;fallback.jpg&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Description of the image&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">picture</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="performance-impact">Performance Impact</h3>
+<p>By ensuring the browser requests only the minimum required file size
+for the current display environment, the <code>&lt;picture&gt;</code>
+element eliminates redundant byte transfers. This directly accelerates
+page rendering, stabilizes mobile network performance, and guarantees a
+more responsive user experience across devices.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

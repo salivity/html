@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset vs Submit Button in HTML Forms - html</title>
+    <meta name="description" content="In an HTML <form>, the submit and reset buttons serve opposite functional purposes for handling user input. A submit button transmits the entered form data to a web server or processing script defined in the form's action attribute. In contrast, a reset">
+    <link rel="canonical" href="https://salivity.github.io/html/article/reset-vs-submit-button-in-html-forms">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Reset vs Submit Button in HTML Forms - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/reset-vs-submit-button-in-html-forms" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="In an HTML <form>, the submit and reset buttons serve opposite functional purposes for handling user input. A submit button transmits the entered form data to a web server or processing script defined in the form's action attribute. In contrast, a reset" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="reset-vs-submit-button-in-html-forms">Reset vs Submit Button in
+HTML Forms</h1>
+<p>In an HTML <code>&lt;form&gt;</code>, the <code>submit</code> and
+<code>reset</code> buttons serve opposite functional purposes for
+handling user input. A <code>submit</code> button transmits the entered
+form data to a web server or processing script defined in the form's
+<code>action</code> attribute. In contrast, a <code>reset</code> button
+restores all input fields, checkboxes, radio buttons, and dropdown menus
+within that form back to their initial default values, without sending
+any data over the network.</p>
+<h3 id="the-submit-button-typesubmit">The Submit Button
+(<code>type="submit"</code>)</h3>
+<p>The <code>submit</code> button is the primary mechanism for
+finalizing data entry. When activated, either by a mouse click, tap, or
+by pressing the "Enter" key within an input field, it initiates the
+browser's form submission process.</p>
+<ul>
+<li><strong>Default Behavior:</strong> In modern HTML,
+<code>&lt;button&gt;</code> elements placed inside a
+<code>&lt;form&gt;</code> default to <code>type="submit"</code> unless
+explicitly given another type.</li>
+<li><strong>Data Transmission:</strong> It gathers all successful form
+controls (fields with a <code>name</code> attribute and valid values)
+and serializes them according to the form's <code>method</code> (such as
+<code>GET</code> or <code>POST</code>) and <code>enctype</code>.</li>
+<li><strong>Validation:</strong> Before submission, the browser
+automatically executes built-in HTML5 validation checks (such as
+<code>required</code>, <code>pattern</code>, or <code>minlength</code>).
+If any field fails validation, submission is blocked.</li>
+<li><strong>Syntax Examples:</strong>
+<ul>
+<li><code>&lt;input type="submit" value="Send Message"&gt;</code></li>
+<li><code>&lt;button type="submit"&gt;Send Message&lt;/button&gt;</code></li>
+</ul></li>
+</ul>
+<h3 id="the-reset-button-typereset">The Reset Button
+(<code>type="reset"</code>)</h3>
+<p>The <code>reset</code> button restores the form to its original state
+as defined when the page was first loaded.</p>
+<ul>
+<li><strong>Restoration, Not Clearing:</strong> A common misconception
+is that a <code>reset</code> button clears all inputs to blank. Instead,
+it resets each field to its baseline markup value. If an input
+originally contained <code>value="John"</code>, clicking reset returns
+the field to "John", not an empty string.</li>
+<li><strong>No Network Activity:</strong> The reset action happens
+purely within the client's browser. No HTTP request is generated, and no
+data is sent to the server.</li>
+<li><strong>No Validation Checks:</strong> Triggering a reset bypasses
+form validation entirely, as no data is being processed.</li>
+<li><strong>Syntax Examples:</strong>
+<ul>
+<li><code>&lt;input type="reset" value="Reset Form"&gt;</code></li>
+<li><code>&lt;button type="reset"&gt;Reset Form&lt;/button&gt;</code></li>
+</ul></li>
+</ul>
+<h3 id="key-differences-at-a-glance">Key Differences at a Glance</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Submit Button
+(<code>type="submit"</code>)</th>
+<th style="text-align: left;">Reset Button
+(<code>type="reset"</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Primary Purpose</strong></td>
+<td style="text-align: left;">Sends data to a server or script.</td>
+<td style="text-align: left;">Restores fields to initial values.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Network Request</strong></td>
+<td style="text-align: left;">Yes (via <code>GET</code>,
+<code>POST</code>, etc.).</td>
+<td style="text-align: left;">No (client-side only).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Triggers Validation</strong></td>
+<td style="text-align: left;">Yes (validates <code>required</code>,
+patterns, etc.).</td>
+<td style="text-align: left;">No.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Default Button Type</strong></td>
+<td style="text-align: left;">Yes (inside <code>&lt;form&gt;</code>
+tags).</td>
+<td style="text-align: left;">No (must be explicitly declared).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>JavaScript Events</strong></td>
+<td style="text-align: left;">Triggers <code>submit</code> event on the
+form.</td>
+<td style="text-align: left;">Triggers <code>reset</code> event on the
+form.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="modern-usability-considerations">Modern Usability
+Considerations</h3>
+<p>While both buttons are standard HTML specifications, user experience
+(UX) best practices discourage the frequent use of <code>reset</code>
+buttons. Users rarely intend to wipe out all the information they have
+typed, and placing a <code>reset</code> button adjacent to a
+<code>submit</code> button often leads to accidental data loss.
+Consequently, almost every functional form requires a
+<code>submit</code> button, while <code>reset</code> buttons are
+typically omitted.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

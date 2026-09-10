@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using role="status" for Non-Urgent HTML Feedback - html</title>
+    <meta name="description" content="This article explains the purpose, mechanics, and implementation of the ARIA role="status" attribute in HTML applications. You will learn how this attribute turns standard elements into live regions to communicate non-critical status updates to assistive">
+    <link rel="canonical" href="https://salivity.github.io/html/article/using-role-status-for-non-urgent-html-feedback">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Using role="status" for Non-Urgent HTML Feedback - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/using-role-status-for-non-urgent-html-feedback" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains the purpose, mechanics, and implementation of the ARIA role="status" attribute in HTML applications. You will learn how this attribute turns standard elements into live regions to communicate non-critical status updates to assistive" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="using-rolestatus-for-non-urgent-html-feedback">Using
+role="status" for Non-Urgent HTML Feedback</h1>
+<p>This article explains the purpose, mechanics, and implementation of
+the ARIA <code>role="status"</code> attribute in HTML applications. You
+will learn how this attribute turns standard elements into live regions
+to communicate non-critical status updates to assistive technologies,
+how it differs from urgent notification roles, and the best practices
+for implementing it effectively in modern user interfaces.</p>
+<h2 id="what-is-the-rolestatus-attribute">What Is the
+<code>role="status"</code> Attribute?</h2>
+<p>The <code>role="status"</code> attribute is an Accessible Rich
+Internet Applications (ARIA) landmark used to communicate advisory,
+non-urgent information to users of assistive technologies, such as
+screen readers. When an element is assigned <code>role="status"</code>,
+it automatically becomes an ARIA live region.</p>
+<p>By default, applying <code>role="status"</code> applies two implicit
+ARIA states:</p>
+<ul>
+<li><code>aria-live="polite"</code>: Informs assistive software to wait
+until the user is idle or finished with their current task before
+announcing the update.</li>
+<li><code>aria-atomic="true"</code>: Informs assistive software to read
+the entire contents of the container when a change occurs, rather than
+just the changed subset.</li>
+</ul>
+<h2 id="the-core-purpose-non-urgent-feedback">The Core Purpose:
+Non-Urgent Feedback</h2>
+<p>In dynamic web applications, visual content changes frequently based
+on user actions or background processes. Sighted users notice these
+changes peripherally, but users relying on screen readers miss them
+unless focus is explicitly moved or an ARIA live region is defined.</p>
+<p>Moving keyboard focus to display informational messages is disruptive
+and disorienting. The <code>role="status"</code> attribute solves this
+problem by announcing changes without interrupting the user's workflow
+or shifting focus away from their current input or reading position.</p>
+<h3 id="rolestatus-vs-rolealert"><code>role="status"</code> vs.
+<code>role="alert"</code></h3>
+<p>To understand the purpose of <code>role="status"</code>, it helps to
+contrast it with <code>role="alert"</code>:</p>
+<ul>
+<li><strong><code>role="status"</code> (Polite):</strong> Designed for
+advisory information that does not require immediate user action.
+Updates are queued and read only when the screen reader finishes
+speaking its current text.</li>
+<li><strong><code>role="alert"</code> (Assertive):</strong> Designed for
+critical, time-sensitive updates (such as error messages or session
+timeouts). It immediately interrupts whatever the screen reader is
+currently saying.</li>
+</ul>
+<p>Using <code>role="status"</code> prevents "speech clutter" and avoids
+breaking the user's concentration for updates that are purely
+informative.</p>
+<h2 id="common-use-cases">Common Use Cases</h2>
+<p>The <code>role="status"</code> attribute is ideal for lightweight,
+informational messages that confirm a state or provide context:</p>
+<ul>
+<li><strong>Auto-save indicators:</strong> Displaying messages like
+"Draft saved at 10:42 AM."</li>
+<li><strong>Search result counts:</strong> Announcing metrics such as
+"15 results found" after an asynchronous search completes.</li>
+<li><strong>Shopping cart updates:</strong> Confirming actions such as
+"Item added to cart."</li>
+<li><strong>Loading states:</strong> Indicating that a process has
+started or completed, such as "Uploading file..." followed by "Upload
+complete."</li>
+<li><strong>Copy-to-clipboard confirmations:</strong> Alerting the user
+that a code snippet or text was "Copied to clipboard."</li>
+</ul>
+<h2 id="html-implementation-and-best-practices">HTML Implementation and
+Best Practices</h2>
+<p>To ensure assistive technologies register live region updates
+properly, adhere to the following implementation practices:</p>
+<h3 id="1-ensure-the-container-exists-in-the-dom-first">1. Ensure the
+Container Exists in the DOM First</h3>
+<p>Screen readers generally only detect changes to a live region if the
+container itself is already rendered in the DOM before its content
+changes. If you dynamically inject an element containing both
+<code>role="status"</code> and the message text simultaneously, many
+screen readers will ignore it.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Render the container on page load --&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> role</span><span class="op">=</span><span class="st">&quot;status&quot;</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;save-status&quot;</span><span class="dt">&gt;&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Dynamically insert text via JavaScript when the event occurs --&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;save-status&#39;</span>)<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">&#39;Preferences saved successfully.&#39;</span><span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="2-use-native-html-when-possible">2. Use Native HTML When
+Possible</h3>
+<p>HTML5 provides the <code>&lt;output&gt;</code> element, which has an
+implicit ARIA role of <code>status</code>. When practical, prefer native
+HTML over custom ARIA roles:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">output</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;result-message&quot;</span><span class="dt">&gt;</span>3 items found.<span class="dt">&lt;/</span><span class="kw">output</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="3-keep-content-concise">3. Keep Content Concise</h3>
+<p>Because screen readers announce the full contents of a status
+container upon update, keep the text brief. Overly long updates delay
+the user's ability to continue interacting with the interface.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

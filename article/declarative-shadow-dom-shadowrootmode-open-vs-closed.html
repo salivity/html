@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Declarative Shadow DOM: shadowrootmode Open vs Closed - html</title>
+    <meta name="description" content="Declarative Shadow DOM allows developers to render native shadow trees directly from server-side HTML using the <template> element without relying on client-side JavaScript. The primary difference between shadowrootmode="open" and shadowrootmode="closed"">
+    <link rel="canonical" href="https://salivity.github.io/html/article/declarative-shadow-dom-shadowrootmode-open-vs-closed">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Declarative Shadow DOM: shadowrootmode Open vs Closed - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/declarative-shadow-dom-shadowrootmode-open-vs-closed" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Declarative Shadow DOM allows developers to render native shadow trees directly from server-side HTML using the <template> element without relying on client-side JavaScript. The primary difference between shadowrootmode="open" and shadowrootmode="closed"" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1
+id="declarative-shadow-dom-shadowrootmode-open-vs-closed">Declarative
+Shadow DOM: shadowrootmode Open vs Closed</h1>
+<p>Declarative Shadow DOM allows developers to render native shadow
+trees directly from server-side HTML using the
+<code>&lt;template&gt;</code> element without relying on client-side
+JavaScript. The primary difference between
+<code>shadowrootmode="open"</code> and
+<code>shadowrootmode="closed"</code> is whether the encapsulated DOM
+tree can be accessed by client-side JavaScript through the host
+element's <code>shadowRoot</code> property. Choosing between these modes
+dictates the level of JavaScript accessibility, affecting how the host
+page, testing tools, and third-party scripts interact with the
+component.</p>
+<h3 id="understanding-shadowrootmodeopen">Understanding
+<code>shadowrootmode="open"</code></h3>
+<p>When using <code>shadowrootmode="open"</code>, the browser attaches a
+shadow root to the parent element and exposes it to the DOM API via
+<code>element.shadowRoot</code>.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">custom-card</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">template</span><span class="ot"> shadowrootmode</span><span class="op">=</span><span class="st">&quot;open&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span>p { <span class="kw">color</span><span class="ch">:</span> <span class="cn">blue</span><span class="op">;</span> }<span class="dt">&lt;/</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Open Shadow Content<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">template</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">custom-card</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this mode:</p>
+<ul>
+<li><strong>JavaScript Accessibility:</strong> Calling
+<code>document.querySelector('custom-card').shadowRoot</code> returns
+the <code>ShadowRoot</code> object.</li>
+<li><strong>Inspectability:</strong> Outside scripts can query, style,
+or manipulate elements inside the shadow tree by traversing into the
+exposed root (e.g.,
+<code>card.shadowRoot.querySelector('p')</code>).</li>
+<li><strong>Tooling Support:</strong> Automation frameworks, unit tests,
+and accessibility inspection tools can easily traverse the internal
+nodes.</li>
+</ul>
+<h3 id="understanding-shadowrootmodeclosed">Understanding
+<code>shadowrootmode="closed"</code></h3>
+<p>When using <code>shadowrootmode="closed"</code>, the browser
+encapsulates the internal DOM tree without exposing a public reference
+on the host element.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">custom-card</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">template</span><span class="ot"> shadowrootmode</span><span class="op">=</span><span class="st">&quot;closed&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">style</span><span class="dt">&gt;</span>p { <span class="kw">color</span><span class="ch">:</span> <span class="cn">green</span><span class="op">;</span> }<span class="dt">&lt;/</span><span class="kw">style</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Closed Shadow Content<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">template</span><span class="dt">&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">custom-card</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this mode:</p>
+<ul>
+<li><strong>JavaScript Accessibility:</strong> Calling
+<code>document.querySelector('custom-card').shadowRoot</code> returns
+<code>null</code>.</li>
+<li><strong>Restricted Direct Access:</strong> External scripts cannot
+directly access the shadow root through the standard element
+property.</li>
+<li><strong>Hydration Caveat:</strong> When created declaratively,
+JavaScript has no default reference to the shadow root. Unlike
+imperative <code>attachShadow({ mode: 'closed' })</code>—which returns
+the shadow root reference upon creation—declarative closed trees leave
+no reference unless deliberately captured by an internal component
+script.</li>
+</ul>
+<h3 id="key-differences">Key Differences</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;"><code>shadowrootmode="open"</code></th>
+<th style="text-align: left;"><code>shadowrootmode="closed"</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td
+style="text-align: left;"><strong><code>element.shadowRoot</code></strong></td>
+<td style="text-align: left;">Returns the <code>ShadowRoot</code></td>
+<td style="text-align: left;">Returns <code>null</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>External JS Access</strong></td>
+<td style="text-align: left;">Permitted</td>
+<td style="text-align: left;">Blocked via standard DOM property</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Testing &amp;
+Automation</strong></td>
+<td style="text-align: left;">Straightforward</td>
+<td style="text-align: left;">Difficult without workarounds</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Style Encapsulation</strong></td>
+<td style="text-align: left;">Yes (scoped styles)</td>
+<td style="text-align: left;">Yes (scoped styles)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Security Boundary</strong></td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">None</td>
+</tr>
+</tbody>
+</table>
+<h3 id="encapsulation-vs-security">Encapsulation vs. Security</h3>
+<p>A common misconception is that <code>shadowrootmode="closed"</code>
+functions as a security boundary. It does not.</p>
+<p>Closed mode only deters casual DOM traversal; it does not protect
+against malicious scripts executing in the same execution context. An
+external script can patch prototypes (such as
+<code>Element.prototype.attachShadow</code>) before hydration, intercept
+bubbling events via <code>event.composedPath()</code>, or parse the raw
+template markup before the browser parses it into a shadow tree.</p>
+<h3 id="summary">Summary</h3>
+<p>Use <code>shadowrootmode="open"</code> for general-purpose web
+components, design systems, and server-rendered templates. It provides
+CSS scoping and DOM encapsulation while keeping the component accessible
+to unit tests, DOM manipulation scripts, and browser tooling.</p>
+<p>Reserve <code>shadowrootmode="closed"</code> strictly for scenarios
+where deliberate detachment from the host element's public API is
+required, keeping in mind that it adds architectural friction without
+offering true security benefits.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

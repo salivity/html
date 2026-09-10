@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How DOMPurify Sanitizes Untrusted HTML Strings - html</title>
+    <meta name="description" content="DOMPurify is a client-side library designed to eliminate Cross-Site Scripting (XSS) vulnerabilities by cleaning unsafe HTML before it is rendered by a browser. Rather than relying on simple pattern-matching regular expressions, DOMPurify leverages the br">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-dompurify-sanitizes-untrusted-html-strings">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How DOMPurify Sanitizes Untrusted HTML Strings - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-dompurify-sanitizes-untrusted-html-strings" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="DOMPurify is a client-side library designed to eliminate Cross-Site Scripting (XSS) vulnerabilities by cleaning unsafe HTML before it is rendered by a browser. Rather than relying on simple pattern-matching regular expressions, DOMPurify leverages the br" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-dompurify-sanitizes-untrusted-html-strings">How DOMPurify
+Sanitizes Untrusted HTML Strings</h1>
+<p>DOMPurify is a client-side library designed to eliminate Cross-Site
+Scripting (XSS) vulnerabilities by cleaning unsafe HTML before it is
+rendered by a browser. Rather than relying on simple pattern-matching
+regular expressions, DOMPurify leverages the browser’s native parsing
+engines to construct an inert Document Object Model (DOM) tree, walks
+through every node, strips out dangerous elements and attributes against
+strict allowlists, and neutralizes advanced vectors like Mutation XSS
+(mXSS) and DOM Clobbering. This article details the step-by-step
+mechanism DOMPurify uses to turn untrusted input into secure markup.</p>
+<h3 id="1-inactive-parsing-via-the-browsers-native-parser">1. Inactive
+Parsing via the Browser's Native Parser</h3>
+<p>The sanitization process begins by feeding the raw, untrusted HTML
+string into the browser’s built-in parser instead of a custom string
+parser. DOMPurify uses implementations like <code>DOMParser</code> or
+the <code>&lt;template&gt;</code> element to convert the string into an
+inert DOM tree (a <code>DocumentFragment</code> or decoupled
+<code>HTMLDocument</code>).</p>
+<p>Because this tree exists purely in memory and is detached from the
+active document, embedded scripts do not execute, inline styles do not
+apply, and external resources (such as <code>&lt;img&gt;</code> or
+<code>&lt;iframe&gt;</code> sources) are not fetched during this phase.
+This step guarantees that DOMPurify interprets the markup identically to
+how the host browser will interpret it, avoiding mismatches that
+attackers often exploit.</p>
+<h3 id="2-node-traversal-and-tree-walking">2. Node Traversal and Tree
+Walking</h3>
+<p>Once the inert DOM tree is constructed, DOMPurify traverses the
+structure node by node. It inspects every element, text node, and
+attribute sequentially. During this traversal, hooks can be executed if
+custom rules or plugins are configured, but the default behavior focuses
+on evaluating the structural safety of each component.</p>
+<h3 id="3-element-and-attribute-filtering-allowlisting">3. Element and
+Attribute Filtering (Allowlisting)</h3>
+<p>DOMPurify operates on a strict default allowlist rather than a
+blocklist:</p>
+<ul>
+<li><strong>Tags:</strong> It allows safe structural tags (like
+<code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>,
+<code>&lt;b&gt;</code>, <code>&lt;table&gt;</code>) while actively
+stripping high-risk tags such as <code>&lt;script&gt;</code>,
+<code>&lt;object&gt;</code>, <code>&lt;embed&gt;</code>,
+<code>&lt;iframe&gt;</code>, and <code>&lt;base&gt;</code>.</li>
+<li><strong>Attributes:</strong> It validates attributes against an
+approved set. All inline JavaScript event handlers (such as
+<code>onclick</code>, <code>onerror</code>, <code>onload</code>, and
+<code>onmouseover</code>) are immediately removed.</li>
+<li><strong>Protocols and URIs:</strong> For attributes that accept URLs
+(such as <code>href</code> on <code>&lt;a&gt;</code> tags or
+<code>src</code> on <code>&lt;img&gt;</code> tags), DOMPurify checks the
+protocol. Safe protocols like <code>http:</code>, <code>https:</code>,
+<code>mailto:</code>, and <code>tel:</code> are permitted, while
+dangerous protocols like <code>javascript:</code> and <code>data:</code>
+(with exceptions for safe image types if explicitly allowed) are
+stripped.</li>
+</ul>
+<h3 id="4-mitigation-of-dom-clobbering">4. Mitigation of DOM
+Clobbering</h3>
+<p>DOM Clobbering occurs when an attacker uses HTML elements with
+specific <code>id</code> or <code>name</code> attributes (like
+<code>&lt;form id="submit"&gt;</code> or
+<code>&lt;img name="body"&gt;</code>) to overwrite existing properties
+on the global <code>window</code> or <code>document</code> objects.
+DOMPurify actively detects and neutralizes these patterns. It identifies
+elements that attempt to mask native DOM properties and sanitizes or
+isolates their attributes so they cannot interfere with application
+logic or other security controls.</p>
+<h3 id="5-protection-against-mutation-xss-mxss">5. Protection Against
+Mutation XSS (mXSS)</h3>
+<p>Mutation XSS arises when a browser alters or "mutates" an HTML
+fragment between the time it is read and the time it is re-inserted into
+the active DOM. These mutations can transform seemingly harmless markup
+into executable script injection.</p>
+<p>DOMPurify combats mXSS by performing normalization checks and, when
+necessary, re-evaluating the serialized output. By sanitizing the tree,
+re-serializing it, and verifying that subsequent parsing does not cause
+hazardous mutations (such as malformed MathML or SVG namespaces breaking
+out into regular HTML), it prevents the browser from interpreting inert
+text as executable code.</p>
+<h3 id="6-serialization-and-output">6. Serialization and Output</h3>
+<p>After all disallowed elements, invalid attributes, and dangerous
+structures are pruned from the inert tree, DOMPurify converts the
+remaining safe DOM nodes back into an HTML string using native
+serialization (such as <code>innerHTML</code> or XML serializers for
+SVG/MathML). Alternatively, it can return the sanitized
+<code>DocumentFragment</code> or DOM node directly. The resulting output
+contains only safe, valid markup that can be inserted into the live DOM
+using methods like <code>element.innerHTML</code> without risking XSS
+execution.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

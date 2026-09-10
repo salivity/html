@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Table Column Styling with colgroup and col - html</title>
+    <meta name="description" content="Styling columns in HTML tables traditionally requires targeting individual cells across multiple rows, which leads to repetitive code and inefficient maintenance. The <colgroup> and <col> elements resolve this problem by providing a structural mechanism">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-table-column-styling-with-colgroup-and-col">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Table Column Styling with colgroup and col - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-table-column-styling-with-colgroup-and-col" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Styling columns in HTML tables traditionally requires targeting individual cells across multiple rows, which leads to repetitive code and inefficient maintenance. The <colgroup> and <col> elements resolve this problem by providing a structural mechanism" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-table-column-styling-with-colgroup-and-col">HTML Table
+Column Styling with colgroup and col</h1>
+<p>Styling columns in HTML tables traditionally requires targeting
+individual cells across multiple rows, which leads to repetitive code
+and inefficient maintenance. The <code>&lt;colgroup&gt;</code> and
+<code>&lt;col&gt;</code> elements resolve this problem by providing a
+structural mechanism to define column-level properties from a single
+location at the top of the table. By grouping and defining columns
+collectively, developers can optimize rendering performance, reduce
+markup redundancy, and manage table layouts cleanly.</p>
+<h3 id="the-problem-with-row-based-table-markup">The Problem with
+Row-Based Table Markup</h3>
+<p>HTML tables are inherently row-oriented. Data is organized inside
+<code>&lt;tr&gt;</code> elements, meaning columns do not exist as
+independent DOM nodes wrapping their respective data cells. To apply a
+specific width, background color, or border to an entire column without
+column elements, you would need to add a class to every single
+<code>&lt;td&gt;</code> and <code>&lt;th&gt;</code> element or rely
+heavily on complex CSS <code>:nth-child()</code> pseudo-classes. In
+large tables with hundreds of rows, this approach inflates file sizes,
+clutters markup, and increases rendering overhead for the browser.</p>
+<h3 id="how-colgroup-and-col-function">How <code>&lt;colgroup&gt;</code>
+and <code>&lt;col&gt;</code> Function</h3>
+<p>The <code>&lt;colgroup&gt;</code> element acts as a container for one
+or more <code>&lt;col&gt;</code> elements and must appear directly after
+the opening <code>&lt;table&gt;</code> tag, before any
+<code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, or
+<code>&lt;tr&gt;</code> elements. Each <code>&lt;col&gt;</code>
+corresponds to a column in the table, matched from left to right.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">table</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">colgroup</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">col</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;column-highlight&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">col</span><span class="ot"> span</span><span class="op">=</span><span class="st">&quot;2&quot;</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;column-data&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">colgroup</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">th</span><span class="dt">&gt;</span>Product<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">th</span><span class="dt">&gt;</span>Q1<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">th</span><span class="dt">&gt;</span>Q2<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">td</span><span class="dt">&gt;</span>Widgets<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">td</span><span class="dt">&gt;</span>100<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">td</span><span class="dt">&gt;</span>150<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">table</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>The <code>span</code> attribute allows a single
+<code>&lt;col&gt;</code> to apply styles across multiple adjacent
+columns, eliminating the need to write redundant tags.</p>
+<h3 id="performance-and-maintainability-advantages">Performance and
+Maintainability Advantages</h3>
+<ol type="1">
+<li><strong>Centralized Style Management:</strong> Changes to a column's
+width or background are made in one location rather than across dozens
+or hundreds of individual cells.</li>
+<li><strong>Reduced DOM Payload:</strong> Removing repetitive utility
+classes from every <code>&lt;td&gt;</code> significantly decreases the
+HTML document's overall size, leading to faster download times.</li>
+<li><strong>Improved Render Efficiency:</strong> The browser establishes
+the column layout parameters upfront when it encounters
+<code>&lt;colgroup&gt;</code> at the start of the table, allowing it to
+calculate table geometry more predictably.</li>
+</ol>
+<h3 id="supported-css-properties">Supported CSS Properties</h3>
+<p>Due to the way browsers render tables, <code>&lt;col&gt;</code> and
+<code>&lt;colgroup&gt;</code> elements do not support all CSS
+properties. The CSS specification limits column styling to four main
+properties:</p>
+<ul>
+<li><strong><code>width</code></strong>: Defines column widths reliably
+when using fixed or automatic table algorithms.</li>
+<li><strong><code>background</code></strong>: Sets background images and
+colors for the entire column.</li>
+<li><strong><code>border</code></strong>: Applies borders to columns,
+which works only when <code>border-collapse: collapse</code> is set on
+the parent <code>&lt;table&gt;</code>.</li>
+<li><strong><code>visibility</code></strong>: Hides an entire column
+without removing it from the table layout by setting
+<code>visibility: collapse</code>.</li>
+</ul>
+<p>Other properties, such as <code>color</code>,
+<code>text-align</code>, and <code>padding</code>, must still be applied
+to individual cells or via CSS inheritance on text elements inside
+cells. However, for structural layout and visual segmentation,
+<code>&lt;colgroup&gt;</code> and <code>&lt;col&gt;</code> remain the
+most efficient way to manage column-level styles in HTML.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

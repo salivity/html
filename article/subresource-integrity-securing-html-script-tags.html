@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subresource Integrity: Securing HTML Script Tags - html</title>
+    <meta name="description" content="Subresource Integrity (SRI) is a web security standard that enables browsers to verify that external files—such as JavaScript scripts and CSS stylesheets—have not been maliciously altered or tampered with before execution. By using cryptographic hash">
+    <link rel="canonical" href="https://salivity.github.io/html/article/subresource-integrity-securing-html-script-tags">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Subresource Integrity: Securing HTML Script Tags - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/subresource-integrity-securing-html-script-tags" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Subresource Integrity (SRI) is a web security standard that enables browsers to verify that external files—such as JavaScript scripts and CSS stylesheets—have not been maliciously altered or tampered with before execution. By using cryptographic hash" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="subresource-integrity-securing-html-script-tags">Subresource
+Integrity: Securing HTML Script Tags</h1>
+<p>Subresource Integrity (SRI) is a web security standard that enables
+browsers to verify that external files—such as JavaScript scripts and
+CSS stylesheets—have not been maliciously altered or tampered with
+before execution. By using cryptographic hashes within the
+<code>integrity</code> attribute, website owners can ensure that
+third-party hosts like Content Delivery Networks (CDNs) deliver the
+exact, untampered code expected, effectively mitigating risks from CDN
+compromises and supply chain attacks.</p>
+<h2 id="what-is-subresource-integrity-sri">What Is Subresource Integrity
+(SRI)?</h2>
+<p>Modern websites frequently rely on third-party CDNs to host shared
+libraries such as React, jQuery, or Bootstrap. While this improves
+delivery speed and caching efficiency, it introduces a significant
+security risk. If an attacker breaches the CDN or compromises the
+network pathway via a man-in-the-middle (MITM) attack, they can inject
+malicious code into the hosted file. Because the browser trusts the
+script source designated in the HTML, it executes the compromised code
+within the user's security context.</p>
+<p>Subresource Integrity resolves this issue by providing a mechanism to
+validate the fetched asset against a predetermined cryptographic digest.
+If the file's content changes by even a single byte, the browser refuses
+to execute the script.</p>
+<h2 id="how-the-integrity-attribute-works">How the
+<code>integrity</code> Attribute Works</h2>
+<p>The <code>integrity</code> attribute is added directly to HTML
+<code>&lt;script&gt;</code> or <code>&lt;link&gt;</code> elements. Its
+value consists of at least one cryptographic hash algorithm prefix (such
+as <code>sha256-</code>, <code>sha384-</code>, or <code>sha512-</code>),
+followed by the base64-encoded hash value of the expected file
+content.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  src</span><span class="op">=</span><span class="st">&quot;https://cdn.example.com/npm/library@1.0.0/dist/library.min.js&quot;</span><span class="ot"> </span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ot">  integrity</span><span class="op">=</span><span class="st">&quot;sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC&quot;</span><span class="ot"> </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ot">  crossorigin</span><span class="op">=</span><span class="st">&quot;anonymous&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When a browser encounters a script tag containing an
+<code>integrity</code> attribute, it executes the following verification
+process:</p>
+<ol type="1">
+<li><strong>Download:</strong> The browser fetches the resource from the
+specified URL.</li>
+<li><strong>Hash Computation:</strong> Before executing or parsing the
+code, the browser hashes the downloaded file using the algorithm
+specified in the <code>integrity</code> attribute.</li>
+<li><strong>Comparison:</strong> The calculated hash is compared against
+the string specified in the attribute.</li>
+<li><strong>Execution or Rejection:</strong>
+<ul>
+<li>If the hashes match, the resource is deemed authentic, and the
+browser executes the script.</li>
+<li>If the hashes do not match, the browser blocks the script from
+executing, discards the network response, and outputs a signature
+verification error to the developer console.</li>
+</ul></li>
+</ol>
+<h2 id="the-requirement-for-cors">The Requirement for CORS</h2>
+<p>For cross-origin resources, SRI requires Cross-Origin Resource
+Sharing (CORS) to be enabled. Without CORS, the browser cannot read the
+raw response data to compute the hash due to the Same-Origin Policy.</p>
+<p>To satisfy this requirement, the <code>crossorigin="anonymous"</code>
+attribute must be present on the <code>&lt;script&gt;</code> tag, and
+the serving server must respond with the
+<code>Access-Control-Allow-Origin</code> header set to allow the
+requesting origin (or set to <code>*</code>).</p>
+<h2 id="generating-sri-hashes">Generating SRI Hashes</h2>
+<p>Hashes can be generated via the command line using tools like
+OpenSSL:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> library.min.js <span class="kw">|</span> <span class="ex">openssl</span> dgst <span class="at">-sha384</span> <span class="at">-binary</span> <span class="kw">|</span> <span class="ex">openssl</span> base64 <span class="at">-A</span></span></code></pre></div>
+<p>Modern build systems and bundlers (such as Webpack, Vite, and Rollup)
+also offer plugins that automatically calculate and inject SRI hashes
+into generated HTML files during production builds.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

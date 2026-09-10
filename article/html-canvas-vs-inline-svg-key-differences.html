@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Canvas vs Inline SVG: Key Differences - html</title>
+    <meta name="description" content="Both the HTML <canvas> element and inline Scalable Vector Graphics (<svg>) render 2D graphics natively in modern web browsers, but they rely on fundamentally different architectural models. While <canvas> is a pixel-based raster engine operating in immed">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-canvas-vs-inline-svg-key-differences">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Canvas vs Inline SVG: Key Differences - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-canvas-vs-inline-svg-key-differences" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Both the HTML <canvas> element and inline Scalable Vector Graphics (<svg>) render 2D graphics natively in modern web browsers, but they rely on fundamentally different architectural models. While <canvas> is a pixel-based raster engine operating in immed" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-canvas-vs-inline-svg-key-differences">HTML Canvas vs Inline
+SVG: Key Differences</h1>
+<p>Both the HTML <code>&lt;canvas&gt;</code> element and inline Scalable
+Vector Graphics (<code>&lt;svg&gt;</code>) render 2D graphics natively
+in modern web browsers, but they rely on fundamentally different
+architectural models. While <code>&lt;canvas&gt;</code> is a pixel-based
+raster engine operating in immediate mode via procedural JavaScript
+calls, <code>&lt;svg&gt;</code> is a DOM-based vector format operating
+in retained mode using XML declarative markup. Choosing between them
+depends on rendering performance, scalability needs, DOM manipulation,
+accessibility, and the level of user interaction required.</p>
+<h3
+id="rendering-architecture-immediate-mode-vs-retained-mode">Rendering
+Architecture: Immediate Mode vs. Retained Mode</h3>
+<p>The <code>&lt;canvas&gt;</code> element uses <strong>immediate mode
+rendering</strong>. JavaScript instructions dictate the drawing of
+shapes, paths, and images directly onto a flat bitmap grid. Once a pixel
+is colored on the canvas, the browser completely forgets what created
+it. To update an object or animate a scene, you must clear the entire
+canvas—or a specific dirty rectangle—and redraw every element frame by
+frame.</p>
+<p>Inline <code>&lt;svg&gt;</code> uses <strong>retained mode
+rendering</strong>. Each shape (such as <code>&lt;circle&gt;</code>,
+<code>&lt;rect&gt;</code>, or <code>&lt;path&gt;</code>) is an
+individual node stored in the browser's Document Object Model (DOM). The
+browser maintains an internal representation of the scene graph,
+recalculating layouts and redrawing objects automatically whenever
+attributes change.</p>
+<h3 id="scalability-and-resolution-independence">Scalability and
+Resolution Independence</h3>
+<ul>
+<li><strong><code>&lt;canvas&gt;</code>:</strong> Because it creates a
+fixed-size raster image, scaling a canvas element to larger dimensions
+causes blurring or pixelation. Supporting high-DPI (Retina) displays
+requires doubling the internal drawing buffer width and height while
+scaling it down with CSS, which increases memory consumption.</li>
+<li><strong><code>&lt;svg&gt;</code>:</strong> Because it relies on
+mathematical vectors, SVG content scales infinitely to any screen size,
+zoom level, or resolution without losing sharpness or increasing file
+weight.</li>
+</ul>
+<h3 id="dom-integration-styling-and-interactivity">DOM Integration,
+Styling, and Interactivity</h3>
+<ul>
+<li><strong><code>&lt;svg&gt;</code>:</strong> Every element inside an
+inline <code>&lt;svg&gt;</code> is a full DOM node. You can attach event
+listeners (like <code>click</code>, <code>mouseover</code>, or
+<code>focus</code>) directly to individual shapes. You can also style
+them using standard CSS properties (such as <code>fill</code>,
+<code>stroke</code>, and CSS animations) and inspect them directly in
+browser developer tools.</li>
+<li><strong><code>&lt;canvas&gt;</code>:</strong> A canvas is a single
+DOM node. Individual shapes drawn inside it do not exist in the DOM,
+meaning standard CSS properties cannot style them, and DOM events cannot
+target them directly. Detecting user interaction with a drawn shape
+requires manual hit-testing via pixel coordinates relative to the mouse
+or touch location.</li>
+</ul>
+<h3 id="performance-profile">Performance Profile</h3>
+<ul>
+<li><strong>High-Density Objects:</strong> <code>&lt;canvas&gt;</code>
+significantly outperforms <code>&lt;svg&gt;</code> when rendering
+thousands of concurrent objects, such as in game loops, particle
+simulations, or complex data visualizations. Because it does not add
+elements to the DOM, memory overhead remains low regardless of object
+count.</li>
+<li><strong>Large Surface Areas:</strong> <code>&lt;svg&gt;</code> often
+performs better than <code>&lt;canvas&gt;</code> on very large screens
+or viewports with few objects, because rendering vector geometry
+requires less memory than allocating massive raster buffers in
+memory.</li>
+</ul>
+<h3 id="accessibility-and-seo">Accessibility and SEO</h3>
+<ul>
+<li><strong><code>&lt;svg&gt;</code>:</strong> Because SVG code is
+text-based XML, search engines can index its contents. It natively
+supports assistive technologies through elements like
+<code>&lt;title&gt;</code>, <code>&lt;desc&gt;</code>, and standard ARIA
+attributes.</li>
+<li><strong><code>&lt;canvas&gt;</code>:</strong> Canvas contents are
+opaque to search engines and screen readers. Accessibility requires
+manual implementation, such as embedding fallback content between the
+opening <code>&lt;canvas&gt;</code> and closing
+<code>&lt;/canvas&gt;</code> tags or synchronizing an invisible,
+focusable DOM tree over the canvas area.</li>
+</ul>
+<h3 id="when-to-use-each">When to Use Each</h3>
+<ul>
+<li><strong>Use <code>&lt;canvas&gt;</code> when:</strong> Building 2D
+or 3D browser games, editing pixel-level image data, processing
+real-time video, or animating scenes with tens of thousands of moving
+entities.</li>
+<li><strong>Use <code>&lt;svg&gt;</code> when:</strong> Displaying user
+interface elements, icons, logos, interactive maps, or responsive charts
+where crisp scaling, CSS styling, deep DOM interaction, and built-in
+accessibility are essential.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

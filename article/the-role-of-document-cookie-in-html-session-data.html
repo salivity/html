@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Role of document.cookie in HTML Session Data - html</title>
+    <meta name="description" content="The document.cookie interface acts as the primary JavaScript mechanism for reading, writing, and managing HTTP cookies directly within the browser. When interacting with session data in HTML pages, this interface allows client-side scripts to track user">
+    <link rel="canonical" href="https://salivity.github.io/html/article/the-role-of-document-cookie-in-html-session-data">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="The Role of document.cookie in HTML Session Data - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/the-role-of-document-cookie-in-html-session-data" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The document.cookie interface acts as the primary JavaScript mechanism for reading, writing, and managing HTTP cookies directly within the browser. When interacting with session data in HTML pages, this interface allows client-side scripts to track user" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="the-role-of-documentcookie-in-html-session-data">The Role of
+document.cookie in HTML Session Data</h1>
+<p>The <code>document.cookie</code> interface acts as the primary
+JavaScript mechanism for reading, writing, and managing HTTP cookies
+directly within the browser. When interacting with session data in HTML
+pages, this interface allows client-side scripts to track user state,
+store temporary identifiers, and coordinate authentication details
+between the browser and the server. This article explores how
+<code>document.cookie</code> works, its role in session handling, and
+the key security boundaries developers must consider.</p>
+<h3 id="what-is-documentcookie">What is
+<code>document.cookie</code>?</h3>
+<p>The <code>document.cookie</code> property is an accessor property of
+the Document Object Model (DOM) that exposes the cookies associated with
+the current document. Unlike typical JavaScript objects,
+<code>document.cookie</code> functions as a specialized getter and
+setter string:</p>
+<ul>
+<li><strong>Reading:</strong> Accessing <code>document.cookie</code>
+returns a semicolon-separated string of <code>key=value</code> pairs
+representing all accessible cookies for the current domain and
+path.</li>
+<li><strong>Writing:</strong> Assigning a string to
+<code>document.cookie</code> does not overwrite the entire cookie jar.
+Instead, it creates or updates a single cookie specified by the key,
+along with any defined attributes (such as <code>path</code>,
+<code>domain</code>, or <code>max-age</code>).</li>
+</ul>
+<h3 id="handling-session-data-vs-persistent-data">Handling Session Data
+vs. Persistent Data</h3>
+<p>Cookies are categorized by their lifespan: persistent cookies and
+session cookies. The <code>document.cookie</code> interface is central
+to managing both:</p>
+<ol type="1">
+<li><strong>Session Cookies:</strong> When a cookie is set without an
+<code>Expires</code> or <code>Max-Age</code> directive, it is treated as
+a session cookie. The browser stores it in volatile memory and discards
+it once the browser or tab session ends.</li>
+<li><strong>Session Identifiers:</strong> Web applications often track
+logged-in states by assigning a unique session ID. While servers usually
+generate this ID, client-side scripts can read or write non-sensitive
+session preferences using <code>document.cookie</code> to adapt the UI
+during an active browsing session.</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Setting a client-side session cookie (expires when the session closes)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">document</span><span class="op">.</span><span class="at">cookie</span> <span class="op">=</span> <span class="st">&quot;userTheme=dark; path=/; SameSite=Lax&quot;</span><span class="op">;</span></span></code></pre></div>
+<h3 id="purpose-and-use-cases-in-html-applications">Purpose and Use
+Cases in HTML Applications</h3>
+<ol type="1">
+<li><strong>State Persistence Across Page Reloads:</strong> Because HTTP
+is stateless, <code>document.cookie</code> allows an HTML document to
+maintain lightweight state data across page reloads and navigation
+without relying entirely on database queries.</li>
+<li><strong>Automatic HTTP Transmission:</strong> Unlike
+<code>localStorage</code> or <code>sessionStorage</code>, cookies
+written through <code>document.cookie</code> are automatically included
+in the <code>Cookie</code> header of subsequent HTTP requests to the
+domain. This ensures the server immediately receives session-relevant
+context with each network fetch.</li>
+<li><strong>Feature Toggling and Client Preferences:</strong> Temporary
+flags, such as whether a user dismissed an alert or selected a specific
+interface layout during their session, can be written and evaluated
+client-side instantly.</li>
+</ol>
+<h3 id="limitations-and-security-considerations">Limitations and
+Security Considerations</h3>
+<p>While <code>document.cookie</code> is versatile, interacting with
+session data via client-side scripts introduces specific trade-offs and
+security risks:</p>
+<ul>
+<li><strong>Cross-Site Scripting (XSS):</strong> If an application has
+an XSS vulnerability, malicious scripts can read
+<code>document.cookie</code> to steal active session tokens.</li>
+<li><strong>The <code>HttpOnly</code> Attribute:</strong> To prevent
+session hijacking, sensitive session identifiers should be marked with
+the <code>HttpOnly</code> flag by the server. When this flag is present,
+the cookie is completely hidden from the <code>document.cookie</code>
+interface, preventing any JavaScript access while still allowing the
+browser to transmit it in HTTP headers.</li>
+<li><strong>Storage Limits:</strong> Cookies are limited to
+approximately 4KB of data per domain, making
+<code>document.cookie</code> suitable only for compact identifiers or
+tokens, rather than complex session objects.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

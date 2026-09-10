@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Meta Refresh Triggers HTML Redirection - html</title>
+    <meta name="description" content="The <meta http-equiv="refresh"> tag is a native HTML element that instructs web browsers to automatically reload a document or redirect the user to a new URL after a specified time interval. This article breaks down the mechanics of this client-side redi">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-meta-refresh-triggers-html-redirection">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How Meta Refresh Triggers HTML Redirection - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-meta-refresh-triggers-html-redirection" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The <meta http-equiv="refresh"> tag is a native HTML element that instructs web browsers to automatically reload a document or redirect the user to a new URL after a specified time interval. This article breaks down the mechanics of this client-side redi" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-meta-refresh-triggers-html-redirection">How Meta Refresh
+Triggers HTML Redirection</h1>
+<p>The <code>&lt;meta http-equiv="refresh"&gt;</code> tag is a native
+HTML element that instructs web browsers to automatically reload a
+document or redirect the user to a new URL after a specified time
+interval. This article breaks down the mechanics of this client-side
+redirection technique, detailing its internal browser processing, syntax
+structure, operational lifecycle, and key trade-offs regarding
+accessibility and search engine optimization.</p>
+<h3 id="browser-parsing-and-the-http-equiv-directive">Browser Parsing
+and the <code>http-equiv</code> Directive</h3>
+<p>When a web browser fetches an HTML document, its parsing engine
+processes the markup from top to bottom. If it encounters a
+<code>&lt;meta&gt;</code> element with the <code>http-equiv</code>
+attribute set to <code>refresh</code>, it interprets the directive as an
+equivalent to an HTTP response header.</p>
+<p>Originally introduced by Netscape, the
+<code>http-equiv="refresh"</code> attribute simulates a server-sent
+<code>Refresh</code> header entirely within the document's
+<code>&lt;head&gt;</code> section. Because this process is built into
+the browser's native HTML parser, it executes on the client side without
+requiring JavaScript to be enabled or custom server-side routing rules
+to be configured.</p>
+<h3 id="syntax-breakdown">Syntax Breakdown</h3>
+<p>The redirection behavior is defined using the <code>content</code>
+attribute, which accepts two parameters: an integer delay and an
+optional target destination.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> http-equiv</span><span class="op">=</span><span class="st">&quot;refresh&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;5; url=https://example.com/target-page&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<ul>
+<li><strong>Delay (Time in Seconds):</strong> The first value is an
+integer representing the number of seconds the browser must wait before
+initiating the action. A value of <code>0</code> signals an immediate
+redirect.</li>
+<li><strong>Target URL:</strong> Separated by a semicolon, the
+<code>url=</code> parameter specifies the absolute or relative path of
+the destination page. If omitted (e.g., <code>content="30"</code>), the
+browser simply refreshes the current page.</li>
+</ul>
+<h3 id="the-execution-lifecycle">The Execution Lifecycle</h3>
+<ol type="1">
+<li><strong>Tag Detection:</strong> The browser parses the
+<code>&lt;head&gt;</code> section and discovers the refresh
+directive.</li>
+<li><strong>Timer Initialization:</strong> The browser’s internal event
+loop registers a timer set to the specified number of seconds. During
+this window, the current document renders and remains interactive unless
+the delay is set to <code>0</code>.</li>
+<li><strong>Navigation Dispatch:</strong> When the timer expires, the
+browser dispatches a navigation event. It creates a new GET request for
+the designated target URL.</li>
+<li><strong>History Entry Management:</strong> If the delay is set to
+greater than zero, the initial page usually remains in the browser's
+session history, allowing users to navigate back to it. An immediate
+redirect (<code>content="0"</code>) may cause the browser to replace the
+current history entry depending on the user agent, though this behavior
+varies across different browsers.</li>
+</ol>
+<h3 id="differences-from-other-redirection-methods">Differences from
+Other Redirection Methods</h3>
+<p>Unlike server-side redirects (such as HTTP
+<code>301 Moved Permanently</code> or <code>302 Found</code>), which
+intercept traffic before any HTML payload is transferred, a meta refresh
+requires the server to first return an HTTP <code>200 OK</code> status
+and deliver the initial HTML file. The client must then parse that HTML
+before realizing a redirection is required.</p>
+<p>Compared to JavaScript redirection (such as
+<code>window.location.href = "..."</code>), the meta refresh method does
+not depend on the browser's JavaScript execution engine, making it a
+reliable fallback when scripts are disabled or blocked.</p>
+<h3 id="key-considerations-and-drawbacks">Key Considerations and
+Drawbacks</h3>
+<p>While simple to implement, the
+<code>&lt;meta http-equiv="refresh"&gt;</code> tag presents several
+operational drawbacks:</p>
+<ul>
+<li><strong>User Experience:</strong> Sudden, automated page shifts can
+be disorienting, particularly for users navigating with assistive
+technologies or screen readers.</li>
+<li><strong>Back-Button Trapping:</strong> A redirect with a short delay
+can create a loop where pressing the "Back" button reloads the
+redirecting page, immediately bouncing the user forward again.</li>
+<li><strong>SEO Impact:</strong> Search engines typically treat
+zero-second meta refreshes similarly to permanent 301 redirects, but
+delayed refreshes may be treated as temporary redirects, delaying or
+preventing the proper transfer of link equity to the new address.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

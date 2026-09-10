@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How JavaScript Manipulates the DOM at Runtime - html</title>
+    <meta name="description" content="This article explains how JavaScript interacts dynamically with the Document Object Model (DOM) during browser execution. When a web page loads, the browser converts raw HTML into a structured, tree-like hierarchy of objects that live in memory. JavaScri">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-javascript-manipulates-the-dom-at-runtime">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How JavaScript Manipulates the DOM at Runtime - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-javascript-manipulates-the-dom-at-runtime" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains how JavaScript interacts dynamically with the Document Object Model (DOM) during browser execution. When a web page loads, the browser converts raw HTML into a structured, tree-like hierarchy of objects that live in memory. JavaScri" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-javascript-manipulates-the-dom-at-runtime">How JavaScript
+Manipulates the DOM at Runtime</h1>
+<p>This article explains how JavaScript interacts dynamically with the
+Document Object Model (DOM) during browser execution. When a web page
+loads, the browser converts raw HTML into a structured, tree-like
+hierarchy of objects that live in memory. JavaScript leverages built-in
+browser APIs to access this tree, enabling developers to read, add,
+update, or remove elements, modify styles, and handle user interactions
+instantly without reloading the webpage.</p>
+<h3 id="the-dom-representation-in-memory">The DOM Representation in
+Memory</h3>
+<p>When the browser parses an HTML document, it constructs the DOM: an
+in-memory tree of nodes where each tag, attribute, and text snippet
+becomes a JavaScript-accessible object. JavaScript does not manipulate
+the raw HTML file directly; instead, it targets this live,
+object-oriented representation via the global <code>document</code>
+interface provided by the browser environment.</p>
+<h3 id="selecting-dom-elements">Selecting DOM Elements</h3>
+<p>Before JavaScript can modify an element, it must locate it within the
+tree. It achieves this using specialized selection methods:</p>
+<ul>
+<li><strong><code>document.getElementById(id)</code></strong>: Retrieves
+a single element matching a unique ID attribute.</li>
+<li><strong><code>document.querySelector(selector)</code></strong>:
+Returns the first element matching a standard CSS selector.</li>
+<li><strong><code>document.querySelectorAll(selector)</code></strong>:
+Returns a static <code>NodeList</code> containing all elements matching
+the specified CSS selector.</li>
+</ul>
+<h3 id="modifying-content-and-attributes">Modifying Content and
+Attributes</h3>
+<p>Once an element reference is obtained, JavaScript can directly alter
+its properties:</p>
+<ul>
+<li><strong>Text and HTML Content</strong>: Properties like
+<code>textContent</code> update the plain text inside an element, while
+<code>innerHTML</code> parses and renders a string of HTML elements
+within the target node.</li>
+<li><strong>Attributes</strong>: Methods like
+<code>setAttribute('attribute', 'value')</code>,
+<code>getAttribute()</code>, and direct property access (e.g.,
+<code>element.src</code> or <code>element.id</code>) allow dynamic
+adjustment of HTML attributes.</li>
+</ul>
+<h3 id="changing-styles-and-css-classes">Changing Styles and CSS
+Classes</h3>
+<p>JavaScript manipulates presentation at runtime through two primary
+mechanisms:</p>
+<ol type="1">
+<li><strong>Direct Inline Styles</strong>: Using
+<code>element.style.property</code> (such as
+<code>element.style.backgroundColor = 'blue'</code>), JavaScript injects
+styles directly into the element's <code>style</code> attribute.</li>
+<li><strong>Class Management</strong>: Using the
+<code>element.classList</code> API (<code>add()</code>,
+<code>remove()</code>, <code>toggle()</code>), JavaScript modifies an
+element's CSS classes, allowing predefined stylesheet rules to apply or
+detach dynamically.</li>
+</ol>
+<h3 id="adding-and-removing-nodes">Adding and Removing Nodes</h3>
+<p>JavaScript can alter the structure of the document tree by creating,
+attaching, or destroying elements dynamically:</p>
+<ul>
+<li><strong>Creation</strong>:
+<code>document.createElement(tagName)</code> instantiates a new element
+node in memory.</li>
+<li><strong>Insertion</strong>: Methods such as
+<code>appendChild()</code>, <code>prepend()</code>, or
+<code>insertBefore()</code> insert the newly created node into the
+document hierarchy.</li>
+<li><strong>Removal</strong>: Modern methods like
+<code>element.remove()</code> or older APIs like
+<code>parentElement.removeChild(childElement)</code> detach nodes from
+the active DOM tree.</li>
+</ul>
+<h3 id="listening-to-events">Listening to Events</h3>
+<p>Runtime manipulation is predominantly event-driven. Using
+<code>element.addEventListener(eventType, callback)</code>, JavaScript
+registers functions that execute when specific browser events occur,
+such as mouse clicks, keyboard presses, or scroll actions. When an event
+fires, the callback function executes DOM modifications in response to
+user input.</p>
+<h3 id="browser-rendering-reflow-and-repaint">Browser Rendering: Reflow
+and Repaint</h3>
+<p>When JavaScript modifies DOM nodes or their computed styles, the
+browser engine recalculates layout and visibility:</p>
+<ul>
+<li><strong>Reflow (Layout)</strong>: Occurs when structural changes or
+dimension adjustments affect element positioning on the screen.</li>
+<li><strong>Repaint</strong>: Occurs when visual properties (like color
+or visibility) change without affecting geometry.</li>
+</ul>
+<p>Through these combined mechanisms, JavaScript delivers dynamic,
+reactive user experiences by continuously synchronizing the browser's
+visual output with runtime state changes.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

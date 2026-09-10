@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using color-scheme Meta Tag for HTML Dark Mode - html</title>
+    <meta name="description" content="The color-scheme meta tag is an HTML element that allows developers to declare which color modes a website is designed to support, such as light and dark themes. By communicating directly with the browser's rendering engine, this tag ensures that default">
+    <link rel="canonical" href="https://salivity.github.io/html/article/using-color-scheme-meta-tag-for-html-dark-mode">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Using color-scheme Meta Tag for HTML Dark Mode - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/using-color-scheme-meta-tag-for-html-dark-mode" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The color-scheme meta tag is an HTML element that allows developers to declare which color modes a website is designed to support, such as light and dark themes. By communicating directly with the browser's rendering engine, this tag ensures that default" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="using-color-scheme-meta-tag-for-html-dark-mode">Using
+color-scheme Meta Tag for HTML Dark Mode</h1>
+<p>The <code>color-scheme</code> meta tag is an HTML element that allows
+developers to declare which color modes a website is designed to
+support, such as light and dark themes. By communicating directly with
+the browser's rendering engine, this tag ensures that default user-agent
+styles, system controls, and browser-managed elements match the user's
+operating system preferences immediately upon page load.</p>
+<h3 id="how-the-color-scheme-meta-tag-works">How the
+<code>color-scheme</code> Meta Tag Works</h3>
+<p>To signal to the browser that a page supports both light and dark
+themes, include the following tag in the <code>&lt;head&gt;</code>
+section of your HTML document:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;color-scheme&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;light dark&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>The <code>content</code> attribute accepts values such as
+<code>light</code>, <code>dark</code>, <code>light dark</code>, or
+<code>only light</code>. Listing <code>light dark</code> tells the
+browser that your design handles both themes, with the order reflecting
+the author's preference if the user has no explicit system setting.</p>
+<h3 id="key-purposes-and-benefits">Key Purposes and Benefits</h3>
+<h4 id="1-native-theming-of-browser-controls">1. Native Theming of
+Browser Controls</h4>
+<p>Without the <code>color-scheme</code> meta tag, standard HTML form
+elements—such as text inputs, select dropdowns, checkboxes, radio
+buttons, and scrollbars—default to a standard light appearance
+regardless of whether the user prefers dark mode. Declaring
+<code>content="light dark"</code> instructs the browser to render these
+native interface components using dark mode styling automatically.</p>
+<h4 id="2-prevention-of-the-flash-of-white-fouc">2. Prevention of the
+Flash of White (FOUC)</h4>
+<p>When a user with a dark system theme navigates to a dark-mode-enabled
+site, there is often a split-second delay before custom CSS files are
+fetched and parsed. During this transition, the default browser canvas
+is white, creating an unpleasant flash of bright light. The
+<code>color-scheme</code> meta tag resolves this issue because the
+browser reads it early in the HTML parsing stage and sets the initial
+canvas background to dark before rendering begins.</p>
+<h4 id="3-automatic-default-text-and-background-color-adjustments">3.
+Automatic Default Text and Background Color Adjustments</h4>
+<p>By default, standard web pages start with a white canvas and black
+text (<code>#000000</code> on <code>#ffffff</code>). When native dark
+mode is signaled via the meta tag, the browser adjusts the default root
+colors to light text on a dark background (<code>CanvasText</code> on
+<code>Canvas</code>). This provides a functional dark base before any
+custom styles are applied.</p>
+<h3 id="meta-tag-vs-css-property">Meta Tag vs. CSS Property</h3>
+<p>While the <code>color-scheme</code> declaration is also available as
+a CSS property (applied to <code>:root</code>), using the HTML
+<code>&lt;meta&gt;</code> tag is recommended for site-wide theming. CSS
+files must be downloaded and evaluated, which can delay the application
+of native dark styling. The HTML meta tag provides immediate context to
+the browser, ensuring seamless rendering from the very first frame.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

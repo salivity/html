@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difference Between GET and POST in HTML Forms - html</title>
+    <meta name="description" content="When submitting an HTML form, the choice between the GET and POST methods dictates how user data is packaged, transmitted, and processed by the web server. This article outlines the core technical distinctions between both HTTP methods, focusing on data">
+    <link rel="canonical" href="https://salivity.github.io/html/article/difference-between-get-and-post-in-html-forms">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Difference Between GET and POST in HTML Forms - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/difference-between-get-and-post-in-html-forms" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="When submitting an HTML form, the choice between the GET and POST methods dictates how user data is packaged, transmitted, and processed by the web server. This article outlines the core technical distinctions between both HTTP methods, focusing on data" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="difference-between-get-and-post-in-html-forms">Difference
+Between GET and POST in HTML Forms</h1>
+<p>When submitting an HTML form, the choice between the <code>GET</code>
+and <code>POST</code> methods dictates how user data is packaged,
+transmitted, and processed by the web server. This article outlines the
+core technical distinctions between both HTTP methods, focusing on data
+visibility, payload size limits, security implications, browser
+behavior, and their respective ideal use cases.</p>
+<h3 id="data-transmission-and-visibility">Data Transmission and
+Visibility</h3>
+<p>The primary difference lies in where the submitted form data
+travels:</p>
+<ul>
+<li><strong>GET:</strong> Appends form data directly to the action URL
+as a query string, separated by a question mark (e.g.,
+<code>https://example.com/search?query=keyword&amp;page=2</code>).
+Because the data resides in the URL, it is visible to anyone looking at
+the screen, saved in browser history, stored in web server access logs,
+and transmitted in HTTP Referer headers.</li>
+<li><strong>POST:</strong> Sends form data inside the body of the HTTP
+request. The URL remains unchanged, keeping the submitted fields hidden
+from the address bar, browser history, and server logs.</li>
+</ul>
+<h3 id="payload-size-and-data-formats">Payload Size and Data
+Formats</h3>
+<ul>
+<li><strong>GET:</strong> Subject to strict URL length constraints
+imposed by web browsers and web servers, typically around 2,048
+characters. Additionally, GET requests only accept ASCII characters,
+requiring all other characters to be URL-encoded. GET cannot be used for
+file uploads.</li>
+<li><strong>POST:</strong> Has no standard technical limit on data size,
+though web servers enforce configurable limits (e.g.,
+<code>upload_max_filesize</code>). POST supports both standard text and
+binary data, making it the required method for uploading files and
+images via the <code>multipart/form-data</code> encoding type.</li>
+</ul>
+<h3 id="caching-bookmarks-and-history">Caching, Bookmarks, and
+History</h3>
+<ul>
+<li><strong>GET:</strong> Designed for safe, idempotent
+operations—meaning the request fetches data without altering server
+state. As a result, browsers can cache GET responses, allow users to
+bookmark the resulting URLs, and reload the page without triggering
+warnings.</li>
+<li><strong>POST:</strong> Designed for non-idempotent operations that
+modify data on the server (such as creating an account or processing a
+transaction). POST requests cannot be bookmarked, are not cached by
+default, and reloading a POST-submitted page triggers a browser warning
+asking the user to confirm form resubmission to prevent duplicate
+actions.</li>
+</ul>
+<h3 id="security-considerations">Security Considerations</h3>
+<p>Neither <code>GET</code> nor <code>POST</code> provides encryption on
+its own; both require HTTPS (SSL/TLS) to secure data in transit.
+However, <code>POST</code> is vastly more secure from a privacy
+standpoint because sensitive information—such as passwords, credit card
+numbers, or personal identity details—is not exposed in browser
+histories, bookmarks, or server access logs. Sensitive data should never
+be transmitted using the <code>GET</code> method.</p>
+<h3 id="when-to-use-each-method">When to Use Each Method</h3>
+<ul>
+<li><strong>Use <code>GET</code></strong> when the form action is purely
+informational and does not alter the state of the database or
+application. Common examples include search forms, pagination controls,
+and filter menus where shareable, bookmarkable URLs are desirable.</li>
+<li><strong>Use <code>POST</code></strong> when the form action creates,
+updates, or deletes data, handles sensitive credentials, or requires
+sending large volumes of text or binary files. Typical examples include
+login screens, registration pages, checkout forms, and file upload
+forms.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

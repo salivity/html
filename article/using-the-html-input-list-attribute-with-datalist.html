@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using the HTML Input List Attribute with Datalist - html</title>
+    <meta name="description" content="This article explains the purpose and functionality of using the list attribute on an HTML <input> element to connect it to a <datalist> element. It covers how this relationship enables native autocomplete suggestions, contrasts the pattern with traditio">
+    <link rel="canonical" href="https://salivity.github.io/html/article/using-the-html-input-list-attribute-with-datalist">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Using the HTML Input List Attribute with Datalist - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/using-the-html-input-list-attribute-with-datalist" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains the purpose and functionality of using the list attribute on an HTML <input> element to connect it to a <datalist> element. It covers how this relationship enables native autocomplete suggestions, contrasts the pattern with traditio" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="using-the-html-input-list-attribute-with-datalist">Using the
+HTML Input List Attribute with Datalist</h1>
+<p>This article explains the purpose and functionality of using the
+<code>list</code> attribute on an HTML <code>&lt;input&gt;</code>
+element to connect it to a <code>&lt;datalist&gt;</code> element. It
+covers how this relationship enables native autocomplete suggestions,
+contrasts the pattern with traditional dropdown menus, and details the
+benefits for user experience and development efficiency.</p>
+<h2 id="the-core-purpose-of-the-list-attribute">The Core Purpose of the
+<code>list</code> Attribute</h2>
+<p>The primary purpose of the <code>list</code> attribute is to bind a
+standard <code>&lt;input&gt;</code> element to a predefined set of
+options defined inside a <code>&lt;datalist&gt;</code> element. By
+referencing the unique <code>id</code> of the
+<code>&lt;datalist&gt;</code>, the input field gains access to
+recommended values that appear in a native dropdown menu as the user
+types or focuses on the field.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> for</span><span class="op">=</span><span class="st">&quot;ice-cream-choice&quot;</span><span class="dt">&gt;</span>Choose a flavor:<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> list</span><span class="op">=</span><span class="st">&quot;ice-cream-flavors&quot;</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;ice-cream-choice&quot;</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;ice-cream-choice&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">datalist</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;ice-cream-flavors&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">option</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;Chocolate&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">option</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;Vanilla&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">option</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;Strawberry&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">datalist</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="flexibility-vs-the-select-element">Flexibility vs. The
+<code>&lt;select&gt;</code> Element</h2>
+<p>While a standard <code>&lt;select&gt;</code> element restricts the
+user to choosing strictly from a predefined list, an
+<code>&lt;input&gt;</code> linked to a <code>&lt;datalist&gt;</code>
+preserves the freedom of a standard text field. Users can:</p>
+<ul>
+<li>Select one of the provided suggestions from the dropdown.</li>
+<li>Ignore the suggestions entirely and type a custom, freeform
+value.</li>
+</ul>
+<p>This makes the <code>list</code> and <code>&lt;datalist&gt;</code>
+pairing ideal for search bars, country selectors, tags, or any scenario
+where common options exist, but arbitrary input must still be
+accepted.</p>
+<h2 id="native-autocomplete-and-filtering">Native Autocomplete and
+Filtering</h2>
+<p>When the <code>list</code> attribute is present, modern web browsers
+automatically implement client-side filtering. As the user enters text,
+the browser filters the list of <code>&lt;option&gt;</code> elements to
+show only values that match the user's current keystrokes.</p>
+<p>Because this behavior is handled natively by the browser:</p>
+<ul>
+<li>No external JavaScript libraries are needed for basic autocomplete
+functionality.</li>
+<li>It delivers high performance on both desktop and mobile
+devices.</li>
+<li>Native accessibility features (such as screen reader announcements
+and keyboard navigation) are handled automatically.</li>
+</ul>
+<h2 id="supported-input-types">Supported Input Types</h2>
+<p>The <code>list</code> attribute is not limited to text inputs. It can
+be paired with various input types to provide specialized UI
+behaviors:</p>
+<ul>
+<li><strong><code>type="date"</code> or
+<code>type="time"</code>:</strong> Presents a list of suggested dates or
+times alongside the native calendar or clock picker.</li>
+<li><strong><code>type="color"</code>:</strong> Recommends a predefined
+palette of colors alongside the system color picker.</li>
+<li><strong><code>type="range"</code>:</strong> Creates visual tick
+marks or snap points along a slider control.</li>
+<li><strong><code>type="email"</code> or
+<code>type="url"</code>:</strong> Suggests domain names or specific
+address formats while keeping type validation intact.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using aria-hidden="true" to Hide Decorative Elements - html</title>
+    <meta name="description" content="The aria-hidden="true" attribute is a core tool in web accessibility used to remove non-essential or decorative elements from the accessibility tree without affecting their visual display. When assistive technologies such as screen readers encounter an e">
+    <link rel="canonical" href="https://salivity.github.io/html/article/using-aria-hidden-true-to-hide-decorative-elements">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Using aria-hidden="true" to Hide Decorative Elements - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/using-aria-hidden-true-to-hide-decorative-elements" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The aria-hidden="true" attribute is a core tool in web accessibility used to remove non-essential or decorative elements from the accessibility tree without affecting their visual display. When assistive technologies such as screen readers encounter an e" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="using-aria-hiddentrue-to-hide-decorative-elements">Using
+aria-hidden="true" to Hide Decorative Elements</h1>
+<p>The <code>aria-hidden="true"</code> attribute is a core tool in web
+accessibility used to remove non-essential or decorative elements from
+the accessibility tree without affecting their visual display. When
+assistive technologies such as screen readers encounter an element
+marked with this attribute, they bypass it entirely. This ensures that
+users relying on audio feedback receive a clean, focused, and coherent
+reading experience free from redundant or confusing visual clutter like
+icons, dividers, and background graphics.</p>
+<h3 id="what-is-aria-hiddentrue">What is
+<code>aria-hidden="true"</code>?</h3>
+<p>The <code>aria-hidden</code> attribute belongs to the WAI-ARIA (Web
+Accessibility Initiative – Accessible Rich Internet Applications)
+specification. It accepts a boolean value (<code>true</code> or
+<code>false</code>). Setting it to <code>"true"</code> explicitly tells
+assistive technologies that the target element—along with all of its
+child elements—should be ignored.</p>
+<p>Unlike the HTML <code>hidden</code> attribute or the CSS
+<code>display: none;</code> rule, <code>aria-hidden="true"</code> does
+not hide elements visually. The element remains fully visible on the
+screen for sighted users while disappearing completely from the screen
+reader's virtual cursor and accessibility API mapping.</p>
+<h3 id="why-decorative-elements-must-be-hidden">Why Decorative Elements
+Must Be Hidden</h3>
+<p>Decorative elements are visual enhancements that provide aesthetic
+value but convey no unique information. Common examples include:</p>
+<ul>
+<li>Font icons and SVGs displayed alongside explanatory text (e.g., a
+magnifying glass icon next to the word "Search").</li>
+<li>Decorative line dividers, borders, or background shapes.</li>
+<li>Redundant visual indicators (e.g., a "new window" arrow icon where
+the link text already clarifies the behavior).</li>
+</ul>
+<p>Without <code>aria-hidden="true"</code>, screen readers attempt to
+parse these elements. An SVG without an accessible name might be
+announced as "unlabeled image" or read out raw path data, while an icon
+font might read out an obscure Unicode character code. This interrupts
+the flow of content, increases cognitive load, and degrades the browsing
+experience.</p>
+<h3 id="practical-implementation">Practical Implementation</h3>
+<p>The most frequent use case is an icon placed beside text. The text
+provides all the necessary context, rendering the icon purely
+decorative:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;button&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">svg</span><span class="ot"> aria-hidden</span><span class="op">=</span><span class="st">&quot;true&quot;</span><span class="ot"> focusable</span><span class="op">=</span><span class="st">&quot;false&quot;</span><span class="ot"> viewBox</span><span class="op">=</span><span class="st">&quot;0 0 24 24&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- SVG path data --&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">svg</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">span</span><span class="dt">&gt;</span>Delete Item<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this example, the screen reader simply announces "Delete Item,
+button." It skips the SVG entirely, avoiding an unhelpful announcement
+like "graphic, Delete Item, button."</p>
+<h3 id="best-practices-and-precautions">Best Practices and
+Precautions</h3>
+<p>To maintain accessible code, keep the following rules in mind:</p>
+<ul>
+<li><strong>Never hide focusable elements:</strong> Applying
+<code>aria-hidden="true"</code> to an interactive element (like a link,
+button, or form control) creates a severe usability issue. Keyboard
+users will still tab into the control, but screen readers will remain
+silent, leaving the user unaware of what element is currently
+focused.</li>
+<li><strong>Inheritance applies to children:</strong> Hiding a parent
+container hides all nested elements inside it. Ensure that no meaningful
+content or interactive elements are wrapped inside an element with
+<code>aria-hidden="true"</code>.</li>
+<li><strong>Use native HTML where appropriate:</strong> If an element
+should be hidden from both sighted users and screen readers, use native
+CSS (<code>display: none;</code> or <code>visibility: hidden;</code>) or
+the HTML5 <code>hidden</code> attribute instead of ARIA.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

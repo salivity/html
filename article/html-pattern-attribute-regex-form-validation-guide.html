@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Pattern Attribute: Regex Form Validation Guide - html</title>
+    <meta name="description" content="The pattern attribute in HTML5 is a built-in feature used to validate form input values against a specified regular expression (regex) directly in the browser. This article explains the primary purpose of the pattern attribute, how it operates within sup">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-pattern-attribute-regex-form-validation-guide">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Pattern Attribute: Regex Form Validation Guide - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-pattern-attribute-regex-form-validation-guide" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The pattern attribute in HTML5 is a built-in feature used to validate form input values against a specified regular expression (regex) directly in the browser. This article explains the primary purpose of the pattern attribute, how it operates within sup" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-pattern-attribute-regex-form-validation-guide">HTML Pattern
+Attribute: Regex Form Validation Guide</h1>
+<p>The <code>pattern</code> attribute in HTML5 is a built-in feature
+used to validate form input values against a specified regular
+expression (regex) directly in the browser. This article explains the
+primary purpose of the <code>pattern</code> attribute, how it operates
+within supported <code>&lt;input&gt;</code> types, the role of helper
+attributes like <code>title</code> for user feedback, and why
+client-side regex checks must always be paired with server-side
+validation.</p>
+<p>The primary purpose of the <code>pattern</code> attribute is to
+enforce specific formatting rules on user input before a form can be
+submitted. By defining a regular expression directly within HTML markup,
+developers can verify inputs such as postal codes, phone numbers,
+usernames, and specific alphanumeric codes without relying entirely on
+custom JavaScript validation scripts.</p>
+<p>The <code>pattern</code> attribute works with several text-based
+<code>&lt;input&gt;</code> types, including <code>text</code>,
+<code>search</code>, <code>url</code>, <code>tel</code>,
+<code>email</code>, and <code>password</code>. When a user attempts to
+submit a form, the browser tests the input value against the compiled
+regular expression. If the value does not conform to the pattern, the
+browser blocks form submission, focuses the invalid field, and displays
+a standard validation message.</p>
+<p>Under the hood, the browser treats the regex provided in the
+<code>pattern</code> attribute as if it were wrapped with anchors
+(<code>^(?:...)$</code>). This means the pattern must match the entire
+input value from start to finish, not just a partial substring within
+the field. For example, setting <code>pattern="[A-Za-z]{3}"</code> will
+accept exactly three letters, but it will reject four letters or any
+input containing numbers or whitespace.</p>
+<p>To ensure a good user experience, the <code>pattern</code> attribute
+should almost always be accompanied by the <code>title</code> attribute.
+By default, native browser error messages for pattern mismatches are
+generic, often displaying text like "Please match the requested format."
+By adding a descriptive <code>title</code> attribute, browsers can
+display that text to help the user understand the required syntax, such
+as "Please enter a 5-digit zip code."</p>
+<p>While the <code>pattern</code> attribute significantly improves user
+experience by providing immediate, zero-dependency feedback, it operates
+exclusively on the client side. Users can alter, disable, or bypass HTML
+attributes using browser developer tools or by sending direct HTTP
+requests. Therefore, the <code>pattern</code> attribute serves as a
+front-line usability tool and must always be supplemented with robust
+server-side validation to ensure security and data integrity.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

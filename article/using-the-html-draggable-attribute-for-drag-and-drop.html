@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using the HTML draggable Attribute for Drag and Drop - html</title>
+    <meta name="description" content="The HTML draggable attribute is a native global attribute that defines whether an element can be dragged using the browser's built-in Drag and Drop API. By setting this attribute, developers can create interactive user interfaces—such as kanban boards,">
+    <link rel="canonical" href="https://salivity.github.io/html/article/using-the-html-draggable-attribute-for-drag-and-drop">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Using the HTML draggable Attribute for Drag and Drop - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/using-the-html-draggable-attribute-for-drag-and-drop" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML draggable attribute is a native global attribute that defines whether an element can be dragged using the browser's built-in Drag and Drop API. By setting this attribute, developers can create interactive user interfaces—such as kanban boards," />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="using-the-html-draggable-attribute-for-drag-and-drop">Using the
+HTML draggable Attribute for Drag and Drop</h1>
+<p>The HTML <code>draggable</code> attribute is a native global
+attribute that defines whether an element can be dragged using the
+browser's built-in Drag and Drop API. By setting this attribute,
+developers can create interactive user interfaces—such as kanban boards,
+reorderable lists, and file drop zones—without relying on heavy
+third-party JavaScript libraries. This article explains how the
+<code>draggable</code> attribute works, how it interacts with native
+drag events, and how to configure both source elements and drop zones
+for seamless drag-and-drop functionality.</p>
+<h3 id="understanding-the-draggable-attribute">Understanding the
+<code>draggable</code> Attribute</h3>
+<p>The <code>draggable</code> attribute accepts three possible
+values:</p>
+<ul>
+<li><code>true</code>: Explicitly allows the element to be dragged.</li>
+<li><code>false</code>: Prevents the element from being dragged.</li>
+<li><code>auto</code>: Uses the browser's default behavior.</li>
+</ul>
+<p>By default, standard HTML text selections, images
+(<code>&lt;img&gt;</code>), and anchor tags (<code>&lt;a&gt;</code>)
+with an <code>href</code> attribute are draggable by default
+(<code>draggable="auto"</code>). To make other HTML elements—such as
+<code>&lt;div&gt;</code>, <code>&lt;article&gt;</code>, or
+<code>&lt;li&gt;</code>—draggable, you must explicitly set
+<code>draggable="true"</code>.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> draggable</span><span class="op">=</span><span class="st">&quot;true&quot;</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;drag-source&quot;</span><span class="dt">&gt;</span>Drag this item<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="the-role-of-the-datatransfer-object">The Role of the
+<code>DataTransfer</code> Object</h3>
+<p>Setting <code>draggable="true"</code> provides visual feedback,
+allowing the user to initiate a drag operation, but it does not move
+data by itself. Native drag-and-drop requires JavaScript to manage the
+payload using the <code>DataTransfer</code> object.</p>
+<p>During the drag lifecycle, the <code>DataTransfer</code> object holds
+the data being dragged and specifies the allowed drag operations (such
+as <code>copy</code>, <code>move</code>, or <code>link</code>).</p>
+<h3 id="handling-source-events">Handling Source Events</h3>
+<p>To manage the element being dragged, listen for drag events on the
+source element:</p>
+<ol type="1">
+<li><strong><code>dragstart</code></strong>: Fires when the user starts
+dragging. This is where you configure the data payload using
+<code>event.dataTransfer.setData(format, data)</code>.</li>
+<li><strong><code>dragend</code></strong>: Fires when the drag operation
+completes (either dropped or canceled). This event is typically used to
+reset visual styles, such as opacity.</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> dragSource <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;drag-source&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dragSource<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;dragstart&#39;</span><span class="op">,</span> (<span class="bu">event</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">event</span><span class="op">.</span><span class="at">dataTransfer</span><span class="op">.</span><span class="fu">setData</span>(<span class="st">&#39;text/plain&#39;</span><span class="op">,</span> <span class="bu">event</span><span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">id</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">event</span><span class="op">.</span><span class="at">dataTransfer</span><span class="op">.</span><span class="at">effectAllowed</span> <span class="op">=</span> <span class="st">&#39;move&#39;</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<h3 id="configuring-the-drop-target">Configuring the Drop Target</h3>
+<p>By default, web browsers prevent dropping elements onto other
+elements. To turn a standard element into a valid drop target, you must
+intercept specific target events:</p>
+<ol type="1">
+<li><strong><code>dragover</code></strong>: Fires continuously as an
+item is dragged over a valid target. You must call
+<code>event.preventDefault()</code> inside this handler to permit the
+drop.</li>
+<li><strong><code>drop</code></strong>: Fires when the item is released
+over the target. Call <code>event.preventDefault()</code> to stop the
+browser's default action (such as opening a dragged link or file) and
+retrieve the data via <code>event.dataTransfer.getData()</code>.</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> dropZone <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;drop-zone&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>dropZone<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;dragover&#39;</span><span class="op">,</span> (<span class="bu">event</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">event</span><span class="op">.</span><span class="fu">preventDefault</span>()<span class="op">;</span> <span class="co">// Necessary to allow dropping</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">event</span><span class="op">.</span><span class="at">dataTransfer</span><span class="op">.</span><span class="at">dropEffect</span> <span class="op">=</span> <span class="st">&#39;move&#39;</span><span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>dropZone<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;drop&#39;</span><span class="op">,</span> (<span class="bu">event</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="bu">event</span><span class="op">.</span><span class="fu">preventDefault</span>()<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> id <span class="op">=</span> <span class="bu">event</span><span class="op">.</span><span class="at">dataTransfer</span><span class="op">.</span><span class="fu">getData</span>(<span class="st">&#39;text/plain&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> draggedElement <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(id)<span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  dropZone<span class="op">.</span><span class="fu">appendChild</span>(draggedElement)<span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<h3 id="summary">Summary</h3>
+<p>The <code>draggable</code> attribute serves as the foundational
+toggle that tells the browser an element can initiate native drag
+interactions. Once enabled, the browser handles the rendering and
+movement lifecycle, while the <code>DataTransfer</code> object and
+standard DOM events (<code>dragstart</code>, <code>dragover</code>, and
+<code>drop</code>) allow you to manage state and relocate elements
+reliably across the DOM.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risks of Combining allow-scripts and allow-same-origin - html</title>
+    <meta name="description" content="Combining the allow-scripts and allow-same-origin tokens in an HTML iframe sandbox attribute introduces a critical security vulnerability that effectively neutralizes the sandbox itself. When these two permissions are granted simultaneously to content fr">
+    <link rel="canonical" href="https://salivity.github.io/html/article/risks-of-combining-allow-scripts-and-allow-same-origin">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Risks of Combining allow-scripts and allow-same-origin - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/risks-of-combining-allow-scripts-and-allow-same-origin" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Combining the allow-scripts and allow-same-origin tokens in an HTML iframe sandbox attribute introduces a critical security vulnerability that effectively neutralizes the sandbox itself. When these two permissions are granted simultaneously to content fr" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="risks-of-combining-allow-scripts-and-allow-same-origin">Risks of
+Combining allow-scripts and allow-same-origin</h1>
+<p>Combining the <code>allow-scripts</code> and
+<code>allow-same-origin</code> tokens in an HTML iframe
+<code>sandbox</code> attribute introduces a critical security
+vulnerability that effectively neutralizes the sandbox itself. When
+these two permissions are granted simultaneously to content from the
+same origin as the parent document, the framed content can bypass all
+sandbox restrictions, access parent resources, steal sensitive data, and
+execute arbitrary code in the context of the hosting application.</p>
+<h2 id="understanding-the-sandbox-flags">Understanding the Sandbox
+Flags</h2>
+<p>The <code>sandbox</code> attribute enforces strict security
+limitations on content loaded inside an <code>&lt;iframe&gt;</code>. By
+default, an empty <code>sandbox</code> attribute isolates the frame into
+a unique, opaque origin, blocks script execution, prevents form
+submissions, and disables popups.</p>
+<p>To restore specific capabilities, developers can pass designated
+tokens:</p>
+<ul>
+<li><strong><code>allow-scripts</code></strong>: Permits the framed
+document to execute JavaScript.</li>
+<li><strong><code>allow-same-origin</code></strong>: Keeps the framed
+document in its original origin rather than forcing it into a unique,
+null origin. This allows the frame to access storage, cookies, and other
+same-origin resources.</li>
+</ul>
+<h2 id="the-mechanism-of-the-sandbox-escape">The Mechanism of the
+Sandbox Escape</h2>
+<p>The primary danger occurs when untrusted or user-generated content is
+served from the same domain as the parent application while utilizing
+both flags:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">iframe</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;/user-content.html&quot;</span><span class="ot"> sandbox</span><span class="op">=</span><span class="st">&quot;allow-scripts allow-same-origin&quot;</span><span class="dt">&gt;&lt;/</span><span class="kw">iframe</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When both flags are active, the framed document possesses the ability
+to execute scripts while retaining the host document's origin. Under the
+Same-Origin Policy (SOP), two documents sharing the same protocol, host,
+and port can access each other's Document Object Model (DOM) and
+JavaScript contexts.</p>
+<p>Because <code>allow-scripts</code> is enabled, the iframe can run
+code that targets <code>window.parent</code> or <code>window.top</code>.
+Because <code>allow-same-origin</code> is enabled, the browser allows
+this access rather than blocking it under cross-origin restrictions.</p>
+<p>Consequently, a script running inside the iframe can programmatically
+locate the <code>&lt;iframe&gt;</code> element inside the parent
+document, remove its own <code>sandbox</code> attribute, and reload or
+execute code with unrestricted host privileges:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Malicious script running inside the sandboxed iframe</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> parentDoc <span class="op">=</span> <span class="bu">window</span><span class="op">.</span><span class="at">parent</span><span class="op">.</span><span class="at">document</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> frameElement <span class="op">=</span> <span class="bu">window</span><span class="op">.</span><span class="at">frameElement</span><span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Remove the sandbox constraints entirely</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>frameElement<span class="op">.</span><span class="fu">removeAttribute</span>(<span class="st">&#39;sandbox&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">// Inject and execute arbitrary scripts directly in the parent context</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> script <span class="op">=</span> parentDoc<span class="op">.</span><span class="fu">createElement</span>(<span class="st">&#39;script&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>script<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">&#39;stealAdminSession();&#39;</span><span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>parentDoc<span class="op">.</span><span class="at">body</span><span class="op">.</span><span class="fu">appendChild</span>(script)<span class="op">;</span></span></code></pre></div>
+<h2 id="security-consequences">Security Consequences</h2>
+<p>Combining these flags transforms a containment mechanism into an
+attack vector, leading to several severe risks:</p>
+<ol type="1">
+<li><strong>Full Cross-Site Scripting (XSS):</strong> Any vulnerability
+in the framed content instantly becomes an XSS vulnerability against the
+parent site.</li>
+<li><strong>Credential and Session Theft:</strong> Malicious scripts can
+read unflagged cookies (<code>document.cookie</code>), access
+<code>localStorage</code>, extract session tokens, and impersonate
+authenticated users.</li>
+<li><strong>Cross-Site Request Forgery (CSRF) Defeat:</strong> Attackers
+can issue authenticated API requests directly on behalf of the user
+using the ambient credentials available within the shared origin.</li>
+<li><strong>Phishing and UI Redirection:</strong> The embedded script
+can manipulate the parent DOM to alter navigation links, display
+deceptive login forms, or rewrite visible content.</li>
+</ol>
+<h2 id="prevention-and-safe-implementation">Prevention and Safe
+Implementation</h2>
+<p>To securely display embedded or untrusted content, adhere to the
+following rules:</p>
+<ul>
+<li><strong>Never Combine Both Flags on the Same Origin:</strong> If a
+frame requires both <code>allow-scripts</code> and
+<code>allow-same-origin</code>, it must be hosted on an entirely
+separate, isolated domain (e.g., <code>example-usercontent.com</code>
+instead of <code>example.com</code>). This ensures that even with
+<code>allow-same-origin</code>, the frame cannot interact with the main
+application's origin.</li>
+<li><strong>Omit <code>allow-same-origin</code> When Running
+Scripts:</strong> If scripts are needed solely for rendering (such as
+interactive charts), omit <code>allow-same-origin</code>. The frame will
+run with an opaque origin (<code>null</code>), blocking access to local
+storage, cookies, and parent window manipulation.</li>
+<li><strong>Omit <code>allow-scripts</code> When Accessing Same-Origin
+Assets:</strong> If the frame merely displays styled HTML that shares
+assets with the host, omit <code>allow-scripts</code> to eliminate the
+possibility of dynamic execution.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

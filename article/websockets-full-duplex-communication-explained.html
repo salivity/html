@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSockets Full-Duplex Communication Explained - html</title>
+    <meta name="description" content="This article explores how WebSockets enable real-time, bidirectional communication between web browsers and servers. It covers the limitations of standard HTTP request-response patterns, the mechanics of the initial WebSocket handshake, how full-duplex d">
+    <link rel="canonical" href="https://salivity.github.io/html/article/websockets-full-duplex-communication-explained">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="WebSockets Full-Duplex Communication Explained - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/websockets-full-duplex-communication-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explores how WebSockets enable real-time, bidirectional communication between web browsers and servers. It covers the limitations of standard HTTP request-response patterns, the mechanics of the initial WebSocket handshake, how full-duplex d" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="websockets-full-duplex-communication-explained">WebSockets
+Full-Duplex Communication Explained</h1>
+<p>This article explores how WebSockets enable real-time, bidirectional
+communication between web browsers and servers. It covers the
+limitations of standard HTTP request-response patterns, the mechanics of
+the initial WebSocket handshake, how full-duplex data transfer functions
+over a single TCP connection, and the performance advantages this
+protocol brings to modern HTML web applications.</p>
+<h3 id="the-limitations-of-traditional-http">The Limitations of
+Traditional HTTP</h3>
+<p>Traditional web communication relies on the HTTP protocol, which
+operates on a strictly client-driven, half-duplex request-response
+model. Under this architecture, the client must explicitly request data
+before the server can provide it.</p>
+<p>To simulate real-time updates using HTTP, developers historically
+relied on techniques such as regular polling or long-polling. Polling
+requires the browser to send repetitive HTTP requests at fixed
+intervals, while long-polling keeps a connection open until the server
+has new data. Both methods introduce significant latency and waste
+network bandwidth because every interaction sends full HTTP headers,
+cookies, and metadata repeatedly.</p>
+<h3 id="the-websocket-handshake">The WebSocket Handshake</h3>
+<p>WebSockets solve these inefficiencies by establishing a persistent,
+bidirectional connection over a single TCP socket. The process begins
+with a standard HTTP connection that undergoes an "Upgrade"
+handshake:</p>
+<ol type="1">
+<li><strong>Client Request:</strong> The client sends an HTTP GET
+request containing specific headers, including
+<code>Upgrade: websocket</code> and <code>Connection: Upgrade</code>,
+along with a unique <code>Sec-WebSocket-Key</code>.</li>
+<li><strong>Server Response:</strong> If the server supports the
+protocol, it accepts the upgrade and responds with an HTTP status code
+<code>101 Switching Protocols</code>, accompanied by an encrypted hash
+of the client's key in the <code>Sec-WebSocket-Accept</code>
+header.</li>
+</ol>
+<p>Once this initial handshake completes, the HTTP protocol is
+completely abandoned for that session. The underlying TCP connection
+remains open, transforming into a direct WebSocket channel.</p>
+<h3 id="how-full-duplex-communication-operates">How Full-Duplex
+Communication Operates</h3>
+<p>Full-duplex means that both the client and the server can send and
+receive data simultaneously without waiting for the other party to
+finish or initiate a request.</p>
+<p>In a WebSocket connection:</p>
+<ul>
+<li><strong>Independence of Flow:</strong> The client can stream data to
+the server at the exact same moment the server pushes data to the
+client. There is no blocking or turn-taking required.</li>
+<li><strong>Event-Driven Architecture:</strong> The browser does not
+need to poll. The server simply emits data events whenever new
+information becomes available, and the browser's JavaScript event
+listeners (<code>onmessage</code>) react instantly.</li>
+<li><strong>Persistent Connection:</strong> The connection remains open
+continuously until explicitly closed by either the client, the server,
+or a network failure.</li>
+</ul>
+<h3 id="minimal-overhead-and-low-latency">Minimal Overhead and Low
+Latency</h3>
+<p>Unlike HTTP, which attaches hundreds or thousands of bytes of header
+data to every single payload, WebSockets transmit data using lightweight
+binary framing.</p>
+<p>A WebSocket frame includes only a minimal framing header—typically
+between 2 and 10 bytes—to define the payload length, masking, and
+message type (text, binary, or control frames like ping/pong). This
+drastic reduction in packet overhead allows messages to travel with
+minimal latency, making the protocol suitable for high-frequency data
+transmission.</p>
+<h3 id="browser-implementation">Browser Implementation</h3>
+<p>Modern HTML web applications interact with this protocol natively via
+the browser's <code>WebSocket</code> JavaScript API.</p>
+<p>Developers instantiate a connection using the <code>ws://</code>
+(unencrypted) or <code>wss://</code> (TLS encrypted) URL schemes:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> socket <span class="op">=</span> <span class="kw">new</span> <span class="bu">WebSocket</span>(<span class="st">&#39;wss://example.com/socket&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>socket<span class="op">.</span><span class="at">onopen</span> <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    socket<span class="op">.</span><span class="fu">send</span>(<span class="bu">JSON</span><span class="op">.</span><span class="fu">stringify</span>({ <span class="dt">action</span><span class="op">:</span> <span class="st">&#39;subscribe&#39;</span><span class="op">,</span> <span class="dt">topic</span><span class="op">:</span> <span class="st">&#39;updates&#39;</span> }))<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>socket<span class="op">.</span><span class="at">onmessage</span> <span class="op">=</span> (<span class="bu">event</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> data <span class="op">=</span> <span class="bu">JSON</span><span class="op">.</span><span class="fu">parse</span>(<span class="bu">event</span><span class="op">.</span><span class="at">data</span>)<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">updateInterface</span>(data)<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+<p>This simple event-based structure allows developers to push updates
+directly into the Document Object Model (DOM) the moment they
+arrive.</p>
+<h3 id="practical-applications">Practical Applications</h3>
+<p>Because WebSockets provide instant, two-way data streaming with
+minimal latency, they are the foundation for several real-time HTML
+features:</p>
+<ul>
+<li><strong>Collaborative Tools:</strong> Multi-user document editing
+and interactive whiteboards where cursor movements and inputs must sync
+immediately.</li>
+<li><strong>Live Financial Feeds:</strong> Real-time stock tickers and
+cryptocurrency price updates where sub-second latency is critical.</li>
+<li><strong>Messaging Systems:</strong> In-app chat applications and
+live customer support widgets.</li>
+<li><strong>Multiplayer Browser Gaming:</strong> Instant state
+synchronization between players and game servers.</li>
+<li><strong>Live Dashboards:</strong> IoT sensor monitoring and server
+health tracking that require continuous status updates.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

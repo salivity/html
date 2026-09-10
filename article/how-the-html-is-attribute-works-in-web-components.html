@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How the HTML is Attribute Works in Web Components - html</title>
+    <meta name="description" content="The is attribute enables standard HTML elements to transform into "customized built-in elements," bridging the gap between native browser tags and modern Web Components. By adding this attribute to standard elements like <button>, <input>, or <ul>, devel">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-the-html-is-attribute-works-in-web-components">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How the HTML is Attribute Works in Web Components - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-the-html-is-attribute-works-in-web-components" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The is attribute enables standard HTML elements to transform into "customized built-in elements," bridging the gap between native browser tags and modern Web Components. By adding this attribute to standard elements like <button>, <input>, or <ul>, devel" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-the-html-is-attribute-works-in-web-components">How the HTML
+is Attribute Works in Web Components</h1>
+<p>The <code>is</code> attribute enables standard HTML elements to
+transform into "customized built-in elements," bridging the gap between
+native browser tags and modern Web Components. By adding this attribute
+to standard elements like <code>&lt;button&gt;</code>,
+<code>&lt;input&gt;</code>, or <code>&lt;ul&gt;</code>, developers can
+inherit all the built-in accessibility, semantic behavior, and keyboard
+navigation of native elements while augmenting them with custom
+JavaScript logic, methods, and lifecycle callbacks.</p>
+<h3 id="autonomous-vs-customized-built-in-elements">Autonomous vs.
+Customized Built-in Elements</h3>
+<p>The Web Components specification defines two primary types of custom
+elements:</p>
+<ol type="1">
+<li><strong>Autonomous Custom Elements:</strong> Brand-new HTML tags
+(such as <code>&lt;my-card&gt;</code>) that inherit directly from
+<code>HTMLElement</code>. They start with no default styling, semantics,
+or behavior.</li>
+<li><strong>Customized Built-in Elements:</strong> Standard HTML
+elements extended with custom behavior using the <code>is</code>
+attribute (such as <code>&lt;button is="fancy-button"&gt;</code>). These
+retain the browser's default handling for the underlying native
+element.</li>
+</ol>
+<h3 id="how-the-is-attribute-functions">How the <code>is</code>
+Attribute Functions</h3>
+<p>When you use the <code>is</code> attribute, the browser renders the
+host element as the native tag while attaching an extended JavaScript
+class to manage its behavior.</p>
+<p>Implementing a customized built-in element requires three main
+steps:</p>
+<h4 id="1-extending-the-specific-native-interface">1. Extending the
+Specific Native Interface</h4>
+<p>Instead of extending the base <code>HTMLElement</code>, the custom
+class must extend the specific DOM interface of the element being
+customized. For example, extending a button requires
+<code>HTMLButtonElement</code>:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AutoSubmitButton <span class="kw">extends</span> <span class="bu">HTMLButtonElement</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">connectedCallback</span>() {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;click&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Custom button action executed.&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h4 id="2-registering-with-the-extends-option">2. Registering with the
+<code>extends</code> Option</h4>
+<p>When registering the custom component via the
+<code>customElements.define()</code> method, pass a third parameter: an
+options object specifying which native tag the component extends.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>customElements<span class="op">.</span><span class="fu">define</span>(<span class="st">&#39;auto-submit-button&#39;</span><span class="op">,</span> AutoSubmitButton<span class="op">,</span> { <span class="dt">extends</span><span class="op">:</span> <span class="st">&#39;button&#39;</span> })<span class="op">;</span></span></code></pre></div>
+<p>The browser uses this registration mapping to know that any
+<code>&lt;button&gt;</code> with <code>is="auto-submit-button"</code>
+should be bound to the <code>AutoSubmitButton</code> class.</p>
+<h4 id="3-using-the-attribute-in-markup">3. Using the Attribute in
+Markup</h4>
+<p>Once defined, apply the custom logic by assigning the registered name
+to the <code>is</code> attribute on the corresponding native
+element:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> is</span><span class="op">=</span><span class="st">&quot;auto-submit-button&quot;</span><span class="dt">&gt;</span>Submit Order<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>You can also instantiate the element dynamically in JavaScript using
+<code>document.createElement</code>:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> btn <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&#39;button&#39;</span><span class="op">,</span> { <span class="dt">is</span><span class="op">:</span> <span class="st">&#39;auto-submit-button&#39;</span> })<span class="op">;</span></span></code></pre></div>
+<h3 id="key-benefits">Key Benefits</h3>
+<ul>
+<li><strong>Built-in Accessibility:</strong> Native tags come with
+complex ARIA roles, focus management, and screen-reader support that are
+difficult to replicate from scratch in autonomous elements.</li>
+<li><strong>Form Participation:</strong> Elements like
+<code>&lt;input&gt;</code> and <code>&lt;button&gt;</code> naturally
+interact with parent <code>&lt;form&gt;</code> elements (handling
+validation, submission, and reset events) without requiring complex
+Form-Associated Custom Element APIs.</li>
+<li><strong>Progressive Enhancement:</strong> If JavaScript fails to
+load or custom elements are disabled, the element still renders and
+functions as a standard native tag.</li>
+</ul>
+<h3 id="browser-compatibility-considerations">Browser Compatibility
+Considerations</h3>
+<p>While Chromium-based browsers (Chrome, Edge) and Firefox fully
+support the <code>is</code> attribute and customized built-in elements,
+Apple's WebKit team (Safari) has declined to implement the feature. When
+targeting environments that include Safari, a polyfill is required to
+ensure the <code>is</code> attribute consistently attaches custom
+element behavior across all platforms.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Source Type Attribute for AVIF in HTML - html</title>
+    <meta name="description" content="The type attribute within a <source> element informs the web browser of an image's MIME type before any network request is initiated. When implementing modern, highly compressed formats like AVIF, this attribute enables the browser to evaluate its own fo">
+    <link rel="canonical" href="https://salivity.github.io/html/article/the-source-type-attribute-for-avif-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="The Source Type Attribute for AVIF in HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/the-source-type-attribute-for-avif-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The type attribute within a <source> element informs the web browser of an image's MIME type before any network request is initiated. When implementing modern, highly compressed formats like AVIF, this attribute enables the browser to evaluate its own fo" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="the-source-type-attribute-for-avif-in-html">The Source Type
+Attribute for AVIF in HTML</h1>
+<p>The <code>type</code> attribute within a <code>&lt;source&gt;</code>
+element informs the web browser of an image's MIME type before any
+network request is initiated. When implementing modern, highly
+compressed formats like AVIF, this attribute enables the browser to
+evaluate its own format support instantly. If the format is supported,
+the browser fetches the file; if not, it bypasses the source entirely
+and falls back to a supported format, preventing broken images and
+wasted bandwidth.</p>
+<h3 id="purpose-of-the-type-attribute">Purpose of the <code>type</code>
+Attribute</h3>
+<p>The HTML <code>&lt;picture&gt;</code> element is designed for
+responsive design and progressive enhancement. Inside a
+<code>&lt;picture&gt;</code> tag, developers define multiple
+<code>&lt;source&gt;</code> elements, each pointing to different image
+formats or resolutions.</p>
+<p>The <code>type</code> attribute explicitly states the media type
+using a standard MIME type string, such as <code>image/avif</code> or
+<code>image/webp</code>.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">picture</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;photo.avif&quot;</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;image/avif&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;photo.webp&quot;</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;image/webp&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;photo.jpg&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;A scenic view&quot;</span><span class="ot"> width</span><span class="op">=</span><span class="st">&quot;800&quot;</span><span class="ot"> height</span><span class="op">=</span><span class="st">&quot;600&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">picture</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="pre-fetch-content-negotiation">Pre-Fetch Content
+Negotiation</h3>
+<p>Without the <code>type</code> attribute, a browser cannot determine
+if it supports an image file until it downloads the file headers or the
+entire file itself.</p>
+<p>When the <code>type="image/avif"</code> attribute is present:</p>
+<ol type="1">
+<li>The browser reads the <code>&lt;source&gt;</code> elements in order
+from top to bottom.</li>
+<li>It checks its internal capabilities against the MIME type specified
+in <code>type</code>.</li>
+<li>If the browser lacks native AVIF decoding, it immediately ignores
+the <code>&lt;source&gt;</code> without sending an HTTP request.</li>
+<li>It moves to the next candidate (such as WebP) and finally defaults
+to the standard <code>&lt;img&gt;</code> fallback (such as JPEG or
+PNG).</li>
+</ol>
+<h3 id="performance-implications">Performance Implications</h3>
+<p>AVIF provides significantly superior compression compared to legacy
+formats, often reducing file sizes by up to 50% compared to JPEG and 20%
+compared to WebP at similar visual quality. However, older browsers and
+certain embedded web views do not support AVIF.</p>
+<p>Using the <code>type</code> attribute guarantees that modern image
+compression benefits supported clients without penalizing older clients
+with failed downloads, redundant network traffic, or blank image
+placeholders. This makes the <code>type</code> attribute the
+foundational mechanism for safe, backward-compatible image optimization
+on the modern web.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

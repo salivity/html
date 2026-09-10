@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Custom Elements and Hyphenated Tag Names - html</title>
+    <meta name="description" content="This article explains how HTML custom elements use hyphens in their tag names to define valid Web Components, the technical necessity behind this naming convention, and how the browser parses and registers these elements. By understanding the requirement">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-custom-elements-and-hyphenated-tag-names">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Custom Elements and Hyphenated Tag Names - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-custom-elements-and-hyphenated-tag-names" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains how HTML custom elements use hyphens in their tag names to define valid Web Components, the technical necessity behind this naming convention, and how the browser parses and registers these elements. By understanding the requirement" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-custom-elements-and-hyphenated-tag-names">HTML Custom
+Elements and Hyphenated Tag Names</h1>
+<p>This article explains how HTML custom elements use hyphens in their
+tag names to define valid Web Components, the technical necessity behind
+this naming convention, and how the browser parses and registers these
+elements. By understanding the requirement for kebab-case syntax,
+developers can properly declare custom HTML elements, avoid naming
+collisions with future web standards, and successfully register custom
+DOM elements using the Web Components API.</p>
+<h2 id="why-custom-element-names-require-a-hyphen">Why Custom Element
+Names Require a Hyphen</h2>
+<p>The HTML specification explicitly requires that all autonomous custom
+element names contain at least one hyphen (<code>-</code>). This rule
+serves as a forward-compatible namespace boundary between standard HTML
+elements and developer-defined elements.</p>
+<p>Because standard HTML tags (such as <code>&lt;div&gt;</code>,
+<code>&lt;article&gt;</code>, or <code>&lt;dialog&gt;</code>) are always
+single words without hyphens, the World Wide Web Consortium (W3C) and
+the WHATWG can safely introduce new native elements in future HTML
+specifications without breaking existing websites. If a tag contains a
+hyphen, the browser's HTML parser instantly recognizes it as a potential
+custom element rather than an unknown or standard HTML tag.</p>
+<h2 id="naming-rules-for-custom-elements">Naming Rules for Custom
+Elements</h2>
+<p>A valid custom element name must adhere to the following rules:</p>
+<ol type="1">
+<li><strong>Must contain a hyphen:</strong> The name must include at
+least one hyphen (e.g., <code>user-profile</code>,
+<code>main-nav-bar</code>).</li>
+<li><strong>Must start with a lowercase ASCII letter:</strong>
+Characters prior to the first hyphen must begin with
+<code>a-z</code>.</li>
+<li><strong>No uppercase letters:</strong> Custom element names are
+ASCII case-insensitive in HTML, but the custom elements specification
+requires lowercase characters when registering them.</li>
+<li><strong>Reserved names:</strong> Certain names containing hyphens
+are explicitly reserved for internal or legacy reasons and cannot be
+used, such as <code>annotation-xml</code>, <code>color-profile</code>,
+<code>font-face</code>, <code>missing-glyph</code>, and
+<code>all-caps</code>.</li>
+</ol>
+<h2 id="how-to-define-and-register-a-hyphenated-tag">How to Define and
+Register a Hyphenated Tag</h2>
+<p>Custom elements are defined using JavaScript and registered through
+the <code>CustomElementRegistry</code> interface using
+<code>window.customElements.define()</code>.</p>
+<h3 id="1-create-the-class">1. Create the Class</h3>
+<p>Define a class that extends <code>HTMLElement</code>:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> UserCard <span class="kw">extends</span> <span class="bu">HTMLElement</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">constructor</span>() {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span>()<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="fu">attachShadow</span>({ <span class="dt">mode</span><span class="op">:</span> <span class="st">&#39;open&#39;</span> })<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="at">shadowRoot</span><span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> <span class="vs">`&lt;p&gt;User Card Content&lt;/p&gt;`</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="2-register-the-tag-name">2. Register the Tag Name</h3>
+<p>Pass the hyphenated tag name and the class to
+<code>customElements.define()</code>:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>customElements<span class="op">.</span><span class="fu">define</span>(<span class="st">&#39;user-card&#39;</span><span class="op">,</span> UserCard)<span class="op">;</span></span></code></pre></div>
+<p>If you attempt to register a tag name without a hyphen (for example,
+<code>customElements.define('usercard', UserCard)</code>), the browser
+will throw a <code>DOMException</code> indicating that the name is not a
+valid custom element name.</p>
+<h3 id="3-use-the-tag-in-html">3. Use the Tag in HTML</h3>
+<p>Once registered, the element can be used directly in HTML markup or
+created programmatically:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">user-card</span><span class="dt">&gt;&lt;/</span><span class="kw">user-card</span><span class="dt">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> element <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&#39;user-card&#39;</span>)<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">document</span><span class="op">.</span><span class="at">body</span><span class="op">.</span><span class="fu">appendChild</span>(element)<span class="op">;</span></span></code></pre></div>
+<h2 id="how-browsers-parse-hyphenated-tags">How Browsers Parse
+Hyphenated Tags</h2>
+<p>When the HTML parser encounters a hyphenated tag:</p>
+<ul>
+<li><strong>Before Registration:</strong> The browser instantiates it as
+an <code>HTMLUnknownElement</code> or an un-upgraded
+<code>HTMLElement</code>. It renders inline by default and preserves its
+children.</li>
+<li><strong>After Registration:</strong> When
+<code>customElements.define()</code> executes, the browser "upgrades"
+the element. It assigns the custom prototype, invokes the constructor,
+and triggers lifecycle callbacks such as
+<code>connectedCallback()</code>.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

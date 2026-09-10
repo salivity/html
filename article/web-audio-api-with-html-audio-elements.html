@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Audio API with HTML Audio Elements - html</title>
+    <meta name="description" content="The Web Audio API extends the capabilities of standard HTML <audio> elements by transforming a basic media playback stream into a fully modular, programmable audio graph. While the <audio> tag natively handles media loading, playback control, and format">
+    <link rel="canonical" href="https://salivity.github.io/html/article/web-audio-api-with-html-audio-elements">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Web Audio API with HTML Audio Elements - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/web-audio-api-with-html-audio-elements" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Web Audio API extends the capabilities of standard HTML <audio> elements by transforming a basic media playback stream into a fully modular, programmable audio graph. While the <audio> tag natively handles media loading, playback control, and format" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="web-audio-api-with-html-audio-elements">Web Audio API with HTML
+Audio Elements</h1>
+<p>The Web Audio API extends the capabilities of standard HTML
+<code>&lt;audio&gt;</code> elements by transforming a basic media
+playback stream into a fully modular, programmable audio graph. While
+the <code>&lt;audio&gt;</code> tag natively handles media loading,
+playback control, and format decoding, routing its output into the Web
+Audio API allows developers to intercept the raw audio data. This
+enables real-time signal processing, dynamic spatialization, frequency
+filtering, mixing, and visual data analysis directly in the browser
+before the sound reaches the listener's speakers.</p>
+<h2 id="connecting-html-audio-to-the-web-audio-api">Connecting HTML
+Audio to the Web Audio API</h2>
+<p>To bridge an HTML <code>&lt;audio&gt;</code> element with the Web
+Audio API, an <code>AudioContext</code> must be instantiated. The
+element is wrapped into the audio graph using the
+<code>createMediaElementSource()</code> method:</p>
+<ol type="1">
+<li><strong>Instantiation:</strong> Create an
+<code>AudioContext</code>.</li>
+<li><strong>Node Creation:</strong> Pass the <code>&lt;audio&gt;</code>
+DOM element to
+<code>audioContext.createMediaElementSource(audioElement)</code>. This
+creates a <code>MediaElementAudioSourceNode</code>.</li>
+<li><strong>Graph Connection:</strong> Connect this source node to
+subsequent processing nodes (such as filters, gains, or analyzers) and
+ultimately to <code>audioContext.destination</code> (the output
+hardware).</li>
+</ol>
+<p>Once routed into the Web Audio context, playback is still controlled
+by the <code>&lt;audio&gt;</code> element's API (such as
+<code>.play()</code> and <code>.pause()</code>), but the element no
+longer routes audio directly to the speakers; all sound travels strictly
+through the defined node pipeline.</p>
+<h2 id="core-processing-functions">Core Processing Functions</h2>
+<h3 id="1-real-time-signal-processing-and-effects">1. Real-Time Signal
+Processing and Effects</h3>
+<p>The primary function of linking the element to the API is digital
+signal processing (DSP). By chaining modular <code>AudioNode</code>
+objects, you can alter the sound in real time:</p>
+<ul>
+<li><strong>Equalization and Filtering:</strong> Using
+<code>BiquadFilterNode</code> to create low-pass, high-pass, peaking, or
+notch filters to adjust specific frequency bands.</li>
+<li><strong>Volume and Dynamics:</strong> Utilizing
+<code>GainNode</code> for precise volume curves and
+<code>DynamicsCompressorNode</code> to level peaks and prevent audio
+clipping.</li>
+<li><strong>Spatial Audio:</strong> Placing the audio stream in a
+simulated 3D space relative to a listener using
+<code>PannerNode</code>.</li>
+<li><strong>Modulation and Delays:</strong> Generating effects such as
+echo, chorus, or reverb using <code>DelayNode</code> and
+<code>ConvolverNode</code>.</li>
+</ul>
+<h3 id="2-audio-analysis-and-visualization">2. Audio Analysis and
+Visualization</h3>
+<p>Connecting an <code>&lt;audio&gt;</code> stream to an
+<code>AnalyserNode</code> provides non-destructive access to both
+time-domain (waveform) and frequency-domain (Fast Fourier Transform/FFT)
+data. This allows developers to build:</p>
+<ul>
+<li>Real-time spectrum analyzers.</li>
+<li>Beat detection systems.</li>
+<li>Waveform visualizers rendered via HTML5 <code>&lt;canvas&gt;</code>
+or WebGL.</li>
+</ul>
+<p>Because analysis occurs without disrupting audio output, performance
+remains optimized for interactive user interfaces.</p>
+<h3 id="3-advanced-routing-and-mixing">3. Advanced Routing and
+Mixing</h3>
+<p>Standard <code>&lt;audio&gt;</code> elements are isolated media
+players. When integrated into the Web Audio API:</p>
+<ul>
+<li><strong>Multi-Track Mixing:</strong> Streams from multiple
+<code>&lt;audio&gt;</code> tags can be mixed together into a single
+master bus.</li>
+<li><strong>Dynamic Routing:</strong> Streams can be dynamically
+rerouted, split across distinct channels, or sent to separate outputs
+(such as effects loops) based on user interaction.</li>
+<li><strong>Custom Synthesis Layering:</strong> Media streams can be
+combined with synthetic sounds (such as <code>OscillatorNode</code>
+tones) within the same synchronized timeline.</li>
+</ul>
+<h2 id="important-implementation-considerations">Important
+Implementation Considerations</h2>
+<ul>
+<li><strong>CORS Restrictions:</strong> When loading audio from an
+external domain, the HTML tag must include the
+<code>crossorigin="anonymous"</code> attribute, and the hosting server
+must return appropriate CORS headers
+(<code>Access-Control-Allow-Origin</code>). Without valid CORS
+configuration, the <code>MediaElementAudioSourceNode</code> outputs
+silence to protect user privacy.</li>
+<li><strong>Autoplay Policies:</strong> Browsers prevent the
+<code>AudioContext</code> from running until a user interacts with the
+page. If the context starts in a <code>suspended</code> state, it must
+be explicitly resumed via <code>audioContext.resume()</code> within a
+user-triggered event.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

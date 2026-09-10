@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Foster Parenting Rules for Malformed Tables - html</title>
+    <meta name="description" content="Foster parenting is a browser error-recovery mechanism defined in the HTML specification to handle invalid content placed directly inside table elements. When an HTML parser encounters non-table markup—such as bare text or generic block elements—insi">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-foster-parenting-rules-for-malformed-tables">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Foster Parenting Rules for Malformed Tables - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-foster-parenting-rules-for-malformed-tables" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Foster parenting is a browser error-recovery mechanism defined in the HTML specification to handle invalid content placed directly inside table elements. When an HTML parser encounters non-table markup—such as bare text or generic block elements—insi" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-foster-parenting-rules-for-malformed-tables">HTML Foster
+Parenting Rules for Malformed Tables</h1>
+<p>Foster parenting is a browser error-recovery mechanism defined in the
+HTML specification to handle invalid content placed directly inside
+table elements. When an HTML parser encounters non-table markup—such as
+bare text or generic block elements—inside a table structure, it does
+not discard the content or leave it inside the invalid context. Instead,
+it activates foster parenting to move the misplaced nodes to a valid
+location in the Document Object Model (DOM), typically directly before
+the table element itself.</p>
+<h2 id="triggers-for-foster-parenting">Triggers for Foster
+Parenting</h2>
+<p>The HTML parser operates as a state machine using insertion modes.
+Foster parenting is triggered primarily when the parser is in the
+following insertion modes:</p>
+<ul>
+<li><strong>"in table"</strong></li>
+<li><strong>"in table body"</strong></li>
+<li><strong>"in row"</strong></li>
+<li><strong>"in select in table"</strong></li>
+</ul>
+<p>While in these modes, the parser strictly expects table-related tags
+such as <code>&lt;caption&gt;</code>, <code>&lt;colgroup&gt;</code>,
+<code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>,
+<code>&lt;tfoot&gt;</code>, <code>&lt;tr&gt;</code>,
+<code>&lt;td&gt;</code>, and <code>&lt;th&gt;</code>. Foster parenting
+is initiated when the parser encounters:</p>
+<ol type="1">
+<li><strong>Character Tokens:</strong> Any non-whitespace character that
+appears directly inside <code>&lt;table&gt;</code>,
+<code>&lt;tbody&gt;</code>, <code>&lt;thead&gt;</code>,
+<code>&lt;tfoot&gt;</code>, or <code>&lt;tr&gt;</code>. (Pure whitespace
+characters are processed differently depending on context).</li>
+<li><strong>Disallowed Start Tags:</strong> Any start tag other than
+valid table elements (for instance, <code>&lt;div&gt;</code>,
+<code>&lt;p&gt;</code>, <code>&lt;span&gt;</code>,
+<code>&lt;h1&gt;</code>, or form controls).</li>
+<li><strong>Disallowed End Tags:</strong> Stray or mismatched closing
+tags that do not belong to the current table context.</li>
+</ol>
+<p>When any of these tokens appear, the parser sets its internal
+<code>foster parenting</code> flag to <code>true</code> and runs the
+appropriate insertion algorithm.</p>
+<h2 id="the-foster-parent-location-algorithm">The Foster Parent Location
+Algorithm</h2>
+<p>Under the WHATWG specification, the parser determines the target
+insertion location for foster-parented nodes using the following
+sequence:</p>
+<ol type="1">
+<li><strong>Locate the Table:</strong> The parser inspects the stack of
+open elements and identifies the last element that is a
+<code>table</code> element.</li>
+<li><strong>Identify the Template Exception:</strong> If there is a
+<code>template</code> element on the stack of open elements that is more
+recent than the last <code>table</code> element (or if there is no
+<code>table</code> element), the foster parent is the
+<code>template</code> element's template contents (a
+<code>DocumentFragment</code>), and the node is appended there.</li>
+<li><strong>Determine Parent Node:</strong> If no template takes
+precedence, the parser examines the parent node of the identified
+<code>table</code> element:
+<ul>
+<li><strong>Table Has a Parent:</strong> If the <code>table</code> has a
+parent node in the DOM tree, the foster parent target is that parent
+node, and the insertion point is set immediately <strong>before</strong>
+the <code>table</code> element.</li>
+<li><strong>Table Has No Parent:</strong> If the <code>table</code> has
+no parent node (such as when dynamically constructed or in an incomplete
+parse tree), the foster parent target is the element immediately
+preceding the <code>table</code> element in the stack of open elements.
+The node is appended to the end of that element.</li>
+</ul></li>
+</ol>
+<p>Once the insertion position is calculated, the node is constructed
+and inserted into that position, and the parser resets the
+<code>foster parenting</code> flag to <code>false</code>.</p>
+<h2 id="parsing-example">Parsing Example</h2>
+<p>Consider this malformed HTML fragment:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">table</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="dt">&gt;</span>Content<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">td</span><span class="dt">&gt;</span>Cell<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">table</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>During execution:</p>
+<ol type="1">
+<li>The parser creates the <code>&lt;table&gt;</code> element and
+switches to the <strong>"in table"</strong> mode.</li>
+<li>It encounters the <code>&lt;div&gt;</code> start tag, which is
+invalid inside a table.</li>
+<li>The parser enables foster parenting and locates the
+<code>&lt;table&gt;</code> element's parent (for example, the
+<code>&lt;body&gt;</code>).</li>
+<li>The <code>&lt;div&gt;Content&lt;/div&gt;</code> node is inserted
+into the <code>&lt;body&gt;</code>, immediately before the
+<code>&lt;table&gt;</code>.</li>
+<li>The parser resumes normal processing for the subsequent
+<code>&lt;tr&gt;</code> and <code>&lt;td&gt;</code> elements within the
+table structure.</li>
+</ol>
+<p>The resulting DOM representation mirrors the following structure:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="dt">&gt;</span>Content<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">table</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">tbody</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="dt">&gt;</span>Cell<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">tbody</span><span class="dt">&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">table</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="special-cases">Special Cases</h2>
+<h3 id="whitespace-characters">Whitespace Characters</h3>
+<p>Inter-element whitespace inside a table does not trigger foster
+parenting. Instead, leading whitespace is either ignored or collected
+and inserted into the table’s current insertion point once valid content
+is processed. Only non-whitespace text triggers foster parent insertion
+before the table.</p>
+<h3 id="active-formatting-elements">Active Formatting Elements</h3>
+<p>If foster-parented content includes formatting tags (such as
+<code>&lt;b&gt;</code> or <code>&lt;i&gt;</code>) that remain open
+across table boundaries, the Adoption Agency Algorithm interacts with
+the foster parenting rules. Formatting tags opened prior to an invalid
+table element will reconstruct their formatting wrappers inside the
+foster-parented location to ensure styling consistency without producing
+an invalid DOM hierarchy.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

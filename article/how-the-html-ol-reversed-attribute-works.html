@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How the HTML ol Reversed Attribute Works - html</title>
+    <meta name="description" content="This article provides an overview of the HTML reversed attribute, explaining how it alters the visual numbering sequence of ordered lists (<ol>). You will learn about its syntax, how browsers calculate descending numbers, the distinction between marker n">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-the-html-ol-reversed-attribute-works">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How the HTML ol Reversed Attribute Works - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-the-html-ol-reversed-attribute-works" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides an overview of the HTML reversed attribute, explaining how it alters the visual numbering sequence of ordered lists (<ol>). You will learn about its syntax, how browsers calculate descending numbers, the distinction between marker n" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-the-html-ol-reversed-attribute-works">How the HTML ol
+Reversed Attribute Works</h1>
+<p>This article provides an overview of the HTML <code>reversed</code>
+attribute, explaining how it alters the visual numbering sequence of
+ordered lists (<code>&lt;ol&gt;</code>). You will learn about its
+syntax, how browsers calculate descending numbers, the distinction
+between marker numbering and DOM ordering, and how <code>reversed</code>
+interacts with companion attributes like <code>start</code> and
+<code>value</code>.</p>
+<h3 id="what-the-reversed-attribute-does">What the <code>reversed</code>
+Attribute Does</h3>
+<p>The <code>reversed</code> attribute is a boolean attribute applied to
+the <code>&lt;ol&gt;</code> (ordered list) element. When present, it
+instructs the browser to number list items in descending order rather
+than the default ascending order (1, 2, 3...).</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">ol</span><span class="ot"> reversed</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>First item<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Second item<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Third item<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">ol</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In the example above, the list displays as:</p>
+<ol type="1">
+<li><ol start="3" type="1">
+<li>First item</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>Second item</li>
+</ol></li>
+<li><ol type="1">
+<li>Third item</li>
+</ol></li>
+</ol>
+<h3 id="dom-order-vs-visual-numbering">DOM Order vs. Visual
+Numbering</h3>
+<p>The <code>reversed</code> attribute changes only the numeric markers
+attached to list items; it does not change the structural order of the
+elements in the DOM.</p>
+<ul>
+<li>The first <code>&lt;li&gt;</code> element written in the HTML
+document remains visually at the top of the list.</li>
+<li>The last <code>&lt;li&gt;</code> element remains visually at the
+bottom.</li>
+<li>Screen readers and document parsers still navigate the content in
+the original source order from top to bottom, but accessibility APIs
+expose the decrementing numerical values.</li>
+</ul>
+<h3 id="default-starting-values">Default Starting Values</h3>
+<p>When the <code>reversed</code> attribute is used without a specified
+<code>start</code> attribute, the browser automatically counts the total
+number of child <code>&lt;li&gt;</code> elements and uses that count as
+the starting number.</p>
+<ul>
+<li>A list with 5 items counts down: 5, 4, 3, 2, 1.</li>
+<li>A list with 10 items counts down: 10, 9, 8, and so forth.</li>
+</ul>
+<h3 id="interaction-with-the-start-attribute">Interaction with the
+<code>start</code> Attribute</h3>
+<p>You can combine <code>reversed</code> with the <code>start</code>
+attribute to define an explicit starting number. The browser will then
+decrement sequentially from that specified value.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">ol</span><span class="ot"> reversed start</span><span class="op">=</span><span class="st">&quot;10&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Top 10 entry<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Top 9 entry<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Top 8 entry<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">ol</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Rendering:</p>
+<ul>
+<li><ol start="10" type="1">
+<li>Top 10 entry</li>
+</ol></li>
+<li><ol start="9" type="1">
+<li>Top 9 entry</li>
+</ol></li>
+<li><ol start="8" type="1">
+<li>Top 8 entry</li>
+</ol></li>
+</ul>
+<p>Negative numbers and zero are also valid starting points. If an
+ordered list begins at 1 and contains three items while reversed, the
+numbers will decrement through zero and into negative integers (1, 0,
+-1).</p>
+<h3 id="interaction-with-the-value-attribute">Interaction with the
+<code>value</code> Attribute</h3>
+<p>Individual <code>&lt;li&gt;</code> elements can have a
+<code>value</code> attribute that overrides the sequence. When
+<code>reversed</code> is active:</p>
+<ul>
+<li>An explicit <code>value</code> sets the number for that specific
+item.</li>
+<li>Any subsequent items without an explicit <code>value</code> will
+continue counting down from that new value.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">ol</span><span class="ot"> reversed</span><span class="dt">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Item (numbered 3)<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;10&quot;</span><span class="dt">&gt;</span>Item (numbered 10)<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Item (numbered 9)<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">ol</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="browser-support">Browser Support</h3>
+<p>The <code>reversed</code> attribute is part of the modern HTML Living
+Standard and is natively supported across all modern web browsers,
+including Chrome, Firefox, Safari, and Edge. In unsupported legacy
+environments, browsers simply ignore the boolean attribute and render
+the list with standard ascending numbers.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Are Twitter Cards Meta Tags in HTML? - html</title>
+    <meta name="description" content="Twitter Cards meta tags are specific HTML elements placed in the <head> section of a webpage to control how content appears when a URL is shared on X (formerly Twitter). By defining rich media components such as titles, descriptions, and preview images,">
+    <link rel="canonical" href="https://salivity.github.io/html/article/what-are-twitter-cards-meta-tags-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Are Twitter Cards Meta Tags in HTML? - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/what-are-twitter-cards-meta-tags-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Twitter Cards meta tags are specific HTML elements placed in the <head> section of a webpage to control how content appears when a URL is shared on X (formerly Twitter). By defining rich media components such as titles, descriptions, and preview images," />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-are-twitter-cards-meta-tags-in-html">What Are Twitter Cards
+Meta Tags in HTML?</h1>
+<p>Twitter Cards meta tags are specific HTML elements placed in the
+<code>&lt;head&gt;</code> section of a webpage to control how content
+appears when a URL is shared on X (formerly Twitter). By defining rich
+media components such as titles, descriptions, and preview images, these
+tags replace plain text links with visually engaging interactive
+previews. This article covers the core functions, common types,
+essential tags, and advantages of implementing Twitter Cards on a
+website.</p>
+<h3 id="the-primary-function-of-twitter-cards">The Primary Function of
+Twitter Cards</h3>
+<p>When a user posts a URL without card markup, the platform displays
+only a bare link or minimal scraped text. By embedding Twitter Card meta
+tags into an HTML document, publishers gain direct control over how
+their content is displayed. The platform’s web crawler parses these tags
+to generate a cohesive, branded preview card directly inside the user's
+timeline.</p>
+<h3 id="common-card-types">Common Card Types</h3>
+<p>The <code>twitter:card</code> tag dictates the layout and style of
+the preview. The primary card types include:</p>
+<ul>
+<li><strong>Summary Card:</strong> The default format featuring a title,
+description, and a square thumbnail image alongside the text.</li>
+<li><strong>Summary Card with Large Image:</strong> Similar to the
+standard summary card, but displays a full-width, high-resolution
+feature image above the headline and description.</li>
+<li><strong>App Card:</strong> Designed to promote mobile applications
+by pulling data directly from app stores, displaying the app icon,
+rating, price, and a direct download link.</li>
+<li><strong>Player Card:</strong> Capable of embedding streaming media,
+allowing users to play video or audio clips directly within the post
+feed.</li>
+</ul>
+<h3 id="key-meta-tags-and-syntax">Key Meta Tags and Syntax</h3>
+<p>Twitter Cards require a few core tags placed between the
+<code>&lt;head&gt;</code> and <code>&lt;/head&gt;</code> tags of the
+HTML document:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;twitter:card&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;summary_large_image&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;twitter:site&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;@YourWebsiteHandle&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;twitter:creator&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;@AuthorHandle&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;twitter:title&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;Your Engaging Page Title&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;twitter:description&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;A concise summary of the page content under 200 characters.&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;twitter:image&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;https://example.com/images/preview.jpg&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<ul>
+<li><code>twitter:card</code>: Declares the card style.</li>
+<li><code>twitter:title</code>: Defines the headline of the shared
+content.</li>
+<li><code>twitter:description</code>: Provides a brief summary of the
+webpage.</li>
+<li><code>twitter:image</code>: Specifies the URL of the image to
+display.</li>
+<li><code>twitter:site</code> and <code>twitter:creator</code>:
+Attribute the post to the site's official account and the individual
+author's account.</li>
+</ul>
+<h3 id="fallback-to-open-graph-protocol">Fallback to Open Graph
+Protocol</h3>
+<p>If an HTML document does not include dedicated <code>twitter:</code>
+tags, the platform falls back to Open Graph (<code>og:</code>) tags,
+such as <code>og:title</code>, <code>og:image</code>, and
+<code>og:description</code>. However, explicitly declaring Twitter tags
+guarantees that the media displays according to the platform's exact
+specifications and card ratios.</p>
+<h3 id="benefits-of-implementation">Benefits of Implementation</h3>
+<ul>
+<li><strong>Increased Click-Through Rates (CTR):</strong> Visual cards
+take up more feed space and attract more user interaction than plain
+text links.</li>
+<li><strong>Brand and Content Control:</strong> Site owners dictate the
+exact title, description, and visual assets used, preventing truncated
+or irrelevant snippets.</li>
+<li><strong>Direct Attribution:</strong> Inclusion of creator and site
+tags ensures traffic and shared content remain linked to the publisher's
+social presence.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

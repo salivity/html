@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difference Between OL and UL Lists in HTML - html</title>
+    <meta name="description" content="In HTML, the primary difference between an ordered list (<ol>) and an unordered list (<ul>) lies in the sequence and presentation of the items. An ordered list is used when the sequence of items is meaningful, rendering by default as a numbered list. An">
+    <link rel="canonical" href="https://salivity.github.io/html/article/difference-between-ol-and-ul-lists-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Difference Between OL and UL Lists in HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/difference-between-ol-and-ul-lists-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="In HTML, the primary difference between an ordered list (<ol>) and an unordered list (<ul>) lies in the sequence and presentation of the items. An ordered list is used when the sequence of items is meaningful, rendering by default as a numbered list. An" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="difference-between-ol-and-ul-lists-in-html">Difference Between
+OL and UL Lists in HTML</h1>
+<p>In HTML, the primary difference between an ordered list
+(<code>&lt;ol&gt;</code>) and an unordered list
+(<code>&lt;ul&gt;</code>) lies in the sequence and presentation of the
+items. An ordered list is used when the sequence of items is meaningful,
+rendering by default as a numbered list. An unordered list is used for
+collections of related items where order does not matter, rendering by
+default with bullet points. Both elements rely on the
+<code>&lt;li&gt;</code> (list item) tag to define individual entries,
+but they convey different semantic meanings to web browsers, search
+engines, and screen readers.</p>
+<h2 id="the-ordered-list-ol">The Ordered List
+(<code>&lt;ol&gt;</code>)</h2>
+<p>The <code>&lt;ol&gt;</code> element represents an ordered collection
+of items. It is appropriate when changing the order of the items would
+compromise the meaning of the content, such as in step-by-step
+instructions, recipes, or top-ten rankings.</p>
+<h3 id="key-characteristics">Key Characteristics:</h3>
+<ul>
+<li><strong>Default Display:</strong> Renders with ascending Arabic
+numerals (1, 2, 3, etc.).</li>
+<li><strong>Semantic Meaning:</strong> Indicates that the numerical
+sequence is critical to understanding the content.</li>
+<li><strong>Attributes:</strong>
+<ul>
+<li><code>start</code>: Defines the starting number for the list (e.g.,
+<code>&lt;ol start="5"&gt;</code>).</li>
+<li><code>reversed</code>: Reverses the numbering order (e.g., counting
+down from 3 to 1).</li>
+<li><code>type</code>: Sets the numbering style using values such as
+<code>1</code> (numbers), <code>a</code> (lowercase letters),
+<code>A</code> (uppercase letters), <code>i</code> (lowercase Roman
+numerals), or <code>I</code> (uppercase Roman numerals).</li>
+</ul></li>
+</ul>
+<h3 id="example">Example:</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">ol</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Preheat the oven.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Mix the ingredients.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Bake for 30 minutes.<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">ol</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="the-unordered-list-ul">The Unordered List
+(<code>&lt;ul&gt;</code>)</h2>
+<p>The <code>&lt;ul&gt;</code> element represents an unordered
+collection of items. It should be used when the items do not need to
+follow a chronological or priority-based sequence, such as a grocery
+list, product feature lists, or website navigation menus.</p>
+<h3 id="key-characteristics-1">Key Characteristics:</h3>
+<ul>
+<li><strong>Default Display:</strong> Renders with solid circular bullet
+points (discs).</li>
+<li><strong>Semantic Meaning:</strong> Indicates that the items are
+related as a group, but their position relative to one another carries
+no hierarchical or sequential significance.</li>
+<li><strong>Styling with CSS:</strong> The appearance of bullet points
+is typically modified via the CSS <code>list-style-type</code> property
+(e.g., <code>disc</code>, <code>circle</code>, <code>square</code>, or
+<code>none</code>).</li>
+</ul>
+<h3 id="example-1">Example:</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">ul</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Milk<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Eggs<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Bread<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">ul</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="side-by-side-comparison">Side-by-Side Comparison</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;"><code>&lt;ol&gt;</code> (Ordered
+List)</th>
+<th style="text-align: left;"><code>&lt;ul&gt;</code> (Unordered
+List)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Purpose</strong></td>
+<td style="text-align: left;">Sequential or prioritized items</td>
+<td style="text-align: left;">Non-sequential items</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Default Marker</strong></td>
+<td style="text-align: left;">Numbers (1, 2, 3...)</td>
+<td style="text-align: left;">Bullet points (•)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Best Used For</strong></td>
+<td style="text-align: left;">Tutorials, rankings, legal clauses</td>
+<td style="text-align: left;">Navigation links, features, shopping
+lists</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Key HTML Attributes</strong></td>
+<td style="text-align: left;"><code>type</code>, <code>start</code>,
+<code>reversed</code></td>
+<td style="text-align: left;">Global HTML attributes only (styling
+handled via CSS)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Child Elements</strong></td>
+<td style="text-align: left;"><code>&lt;li&gt;</code> tags</td>
+<td style="text-align: left;"><code>&lt;li&gt;</code> tags</td>
+</tr>
+</tbody>
+</table>
+<h2 id="accessibility-considerations">Accessibility Considerations</h2>
+<p>Screen readers interpret <code>&lt;ol&gt;</code> and
+<code>&lt;ul&gt;</code> differently to provide context to visually
+impaired users:</p>
+<ul>
+<li>When encountering an <code>&lt;ol&gt;</code>, screen readers often
+announce the total number of items and read the current item number
+aloud before its content (e.g., "Item 1 of 5").</li>
+<li>When encountering a <code>&lt;ul&gt;</code>, screen readers notify
+the user of the list and its total length without implying a sequential
+order.</li>
+</ul>
+<p>Choosing the correct element ensures proper semantic structure and
+provides an accessible experience across all devices and assistive
+technologies.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

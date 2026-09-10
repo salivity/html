@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Accessible HTML Data Tables - html</title>
+    <meta name="description" content="Creating accessible data tables in HTML ensures that users relying on assistive technologies, such as screen readers, can navigate and interpret structured data accurately. This guide covers the essential semantic elements and attributes required to buil">
+    <link rel="canonical" href="https://salivity.github.io/html/article/building-accessible-html-data-tables">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Building Accessible HTML Data Tables - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/building-accessible-html-data-tables" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Creating accessible data tables in HTML ensures that users relying on assistive technologies, such as screen readers, can navigate and interpret structured data accurately. This guide covers the essential semantic elements and attributes required to buil" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="building-accessible-html-data-tables">Building Accessible HTML
+Data Tables</h1>
+<p>Creating accessible data tables in HTML ensures that users relying on
+assistive technologies, such as screen readers, can navigate and
+interpret structured data accurately. This guide covers the essential
+semantic elements and attributes required to build accessible tables,
+explaining how they define clear relationships between data cells and
+their corresponding headers.</p>
+<h3 id="1-the-caption-element">1. The <code>&lt;caption&gt;</code>
+Element</h3>
+<p>The <code>&lt;caption&gt;</code> tag functions as the title of the
+table and must be the first element directly inside the
+<code>&lt;table&gt;</code> wrapper. It gives screen reader users an
+immediate summary of what the table represents, allowing them to decide
+whether to read the data or skip ahead.</p>
+<h3 id="2-the-thead-tbody-and-tfoot-elements">2. The
+<code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, and
+<code>&lt;tfoot&gt;</code> Elements</h3>
+<p>Dividing a table into structural blocks provides semantic meaning and
+aids styling and printing:</p>
+<ul>
+<li><code>&lt;thead&gt;</code>: Groups the header rows containing column
+labels.</li>
+<li><code>&lt;tbody&gt;</code>: Contains the main data rows.</li>
+<li><code>&lt;tfoot&gt;</code>: Groups summary or calculation rows (such
+as totals) at the bottom of the table.</li>
+</ul>
+<h3 id="3-the-th-element">3. The <code>&lt;th&gt;</code> Element</h3>
+<p>Always use the <code>&lt;th&gt;</code> (table header) element instead
+of <code>&lt;td&gt;</code> for cells that label a row or column. Screen
+readers announce <code>&lt;th&gt;</code> cells differently than standard
+data cells, providing context as the user moves from cell to cell.</p>
+<h3 id="4-the-scope-attribute">4. The <code>scope</code> Attribute</h3>
+<p>The <code>scope</code> attribute is placed on <code>&lt;th&gt;</code>
+elements to explicitly establish the direction of the relationship. It
+eliminates ambiguity for assistive software:</p>
+<ul>
+<li><code>scope="col"</code>: Identifies the header for all cells in
+that column.</li>
+<li><code>scope="row"</code>: Identifies the header for all cells in
+that row.</li>
+<li><code>scope="colgroup"</code> / <code>scope="rowgroup"</code>: Used
+when headers span multiple columns or rows via <code>colspan</code> or
+<code>rowspan</code>.</li>
+</ul>
+<h3 id="5-the-td-element">5. The <code>&lt;td&gt;</code> Element</h3>
+<p>The <code>&lt;td&gt;</code> (table data) element must be used
+exclusively for actual data values. Every <code>&lt;td&gt;</code> should
+conceptually tie back to at least one row header and one column
+header.</p>
+<h3 id="6-the-headers-and-id-attributes-complex-tables">6. The
+<code>headers</code> and <code>id</code> Attributes (Complex
+Tables)</h3>
+<p>For multi-level or complex tables where a single cell relates to
+multiple non-adjacent headers, the <code>scope</code> attribute is
+insufficient. In these cases:</p>
+<ol type="1">
+<li>Assign a unique <code>id</code> to each
+<code>&lt;th&gt;</code>.</li>
+<li>Add a <code>headers</code> attribute to each
+<code>&lt;td&gt;</code>, containing a space-separated list of the
+corresponding <code>id</code> values.</li>
+</ol>
+<h3 id="best-practices-to-keep-in-mind">Best Practices to Keep in
+Mind</h3>
+<ul>
+<li><strong>Never use tables for page layout:</strong> Tables should
+only be used to display tabular data. Layout tables confuse assistive
+technologies.</li>
+<li><strong>Avoid empty header cells:</strong> Every column and row
+should have a clearly labeled header.</li>
+<li><strong>Keep it simple:</strong> Whenever possible, divide complex
+multi-layered tables into smaller, simpler tables. Simple tables are
+easier for all users to read and understand.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

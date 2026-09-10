@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How loading="eager" Overrides Default Lazy Loading - html</title>
+    <meta name="description" content="The loading="eager" attribute in modern HTML allows developers to force browsers to fetch images and iframes immediately upon parsing, completely bypassing any default or automated lazy-loading mechanisms. While lazy loading is widely implemented by Cont">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-loading-eager-overrides-default-lazy-loading">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How loading="eager" Overrides Default Lazy Loading - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-loading-eager-overrides-default-lazy-loading" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The loading="eager" attribute in modern HTML allows developers to force browsers to fetch images and iframes immediately upon parsing, completely bypassing any default or automated lazy-loading mechanisms. While lazy loading is widely implemented by Cont" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-loadingeager-overrides-default-lazy-loading">How
+loading="eager" Overrides Default Lazy Loading</h1>
+<p>The <code>loading="eager"</code> attribute in modern HTML allows
+developers to force browsers to fetch images and iframes immediately
+upon parsing, completely bypassing any default or automated lazy-loading
+mechanisms. While lazy loading is widely implemented by Content
+Management Systems (CMS), frameworks, and certain browser heuristics to
+conserve bandwidth, applying <code>loading="eager"</code> ensures that
+critical above-the-fold visual elements are loaded without delay. This
+article explains how <code>loading="eager"</code> works, how it affects
+browser parsing and resource prioritization, and why it is critical for
+optimizing core performance metrics.</p>
+<h3 id="understanding-browser-lazy-loading-defaults">Understanding
+Browser Lazy Loading Defaults</h3>
+<p>In modern web development, lazy loading delays the retrieval of
+off-screen resources until the user scrolls near them. Browsers natively
+handle this via the <code>loading="lazy"</code> attribute. Additionally,
+many platforms—such as WordPress, modern frontend frameworks, and
+browser-level interventions under data-saver modes—automatically inject
+<code>loading="lazy"</code> into <code>&lt;img&gt;</code> and
+<code>&lt;iframe&gt;</code> elements by default.</p>
+<p>When an element is set to lazy load, the browser defers the network
+request. The resource is not fetched during the initial HTML parsing
+phase; instead, the browser waits until layout is calculated and checks
+whether the element intersects with a predefined distance threshold
+relative to the viewport.</p>
+<h3 id="how-loadingeager-overrides-lazy-behavior">How
+<code>loading="eager"</code> Overrides Lazy Behavior</h3>
+<p>The <code>loading</code> attribute accepts three values:
+<code>lazy</code>, <code>eager</code>, and <code>auto</code> (the
+default state when unspecified). Specifying <code>loading="eager"</code>
+explicitly instructs the user agent to fetch the resource immediately,
+regardless of where the element is situated in the document.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;hero-image.jpg&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Featured Product&quot;</span><span class="ot"> loading</span><span class="op">=</span><span class="st">&quot;eager&quot;</span><span class="ot"> fetchpriority</span><span class="op">=</span><span class="st">&quot;high&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When the browser encounters <code>loading="eager"</code>, it
+overrides any platform-level script, inherited CMS rule, or heuristic
+that would otherwise defer the resource. It initiates the network
+request as soon as the HTML parser encounters the element, bypassing the
+intersection observer calculations entirely.</p>
+<h3 id="impact-on-the-preload-scanner-and-network-priority">Impact on
+the Preload Scanner and Network Priority</h3>
+<p>Browsers utilize a speculative background thread called the preload
+scanner to parse HTML ahead of the main parser and fetch external
+resources rapidly. When an image has <code>loading="lazy"</code>, the
+preload scanner deprioritizes or completely ignores it until layout
+calculations determine its position.</p>
+<p>By setting <code>loading="eager"</code>:</p>
+<ol type="1">
+<li><strong>The Preload Scanner Engages Immediately:</strong> The
+browser recognizes the resource as a high-priority asset required for
+the initial render tree.</li>
+<li><strong>Network Queue Advancement:</strong> The request enters the
+network queue right away rather than waiting for DOM construction, CSSOM
+parsing, and the initial layout pass.</li>
+<li><strong>Intersection Tests are Bypassed:</strong> The browser skips
+the geometric calculation usually required to trigger deferred
+downloads, eliminating layout-dependent fetch delays.</li>
+</ol>
+<h3 id="core-web-vitals-and-performance-implications">Core Web Vitals
+and Performance Implications</h3>
+<p>The primary technical reason to override default lazy loading with
+<code>loading="eager"</code> is the optimization of the Largest
+Contentful Paint (LCP) metric.</p>
+<p>When CMS platforms automatically apply <code>loading="lazy"</code> to
+all images on a page, they often inadvertently target the "Hero" or main
+header image. Deferring the main above-the-fold visual element causes
+severe LCP regressions because the browser artificially delays
+downloading the image until layout is finalized. Applying
+<code>loading="eager"</code> to the LCP element restores its place in
+the critical rendering path, ensuring that the primary content appears
+to the user as quickly as possible.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

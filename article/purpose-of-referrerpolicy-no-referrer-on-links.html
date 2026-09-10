@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purpose of referrerpolicy="no-referrer" on Links - html</title>
+    <meta name="description" content="The referrerpolicy="no-referrer" attribute on sensitive HTML outbound links instructs the browser to completely omit the HTTP Referer header when a user navigates to an external destination. By stripping this header, website owners prevent external serve">
+    <link rel="canonical" href="https://salivity.github.io/html/article/purpose-of-referrerpolicy-no-referrer-on-links">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Purpose of referrerpolicy="no-referrer" on Links - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/purpose-of-referrerpolicy-no-referrer-on-links" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The referrerpolicy="no-referrer" attribute on sensitive HTML outbound links instructs the browser to completely omit the HTTP Referer header when a user navigates to an external destination. By stripping this header, website owners prevent external serve" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="purpose-of-referrerpolicyno-referrer-on-links">Purpose of
+referrerpolicy="no-referrer" on Links</h1>
+<p>The <code>referrerpolicy="no-referrer"</code> attribute on sensitive
+HTML outbound links instructs the browser to completely omit the HTTP
+<code>Referer</code> header when a user navigates to an external
+destination. By stripping this header, website owners prevent external
+servers from discovering the URL of the origin page. This measure is
+essential for safeguarding user privacy, preventing the accidental
+leakage of sensitive query parameters or session data, and shielding
+internal system structures from third-party observation.</p>
+<h3 id="how-the-referer-header-works">How the Referer Header Works</h3>
+<p>By default, web browsers send an HTTP <code>Referer</code> header
+whenever a user clicks a hyperlink. This header tells the destination
+server the exact address of the page where the user clicked the
+link.</p>
+<p>While this mechanism helps analytics tools track traffic sources, it
+creates significant security and privacy vulnerabilities when the
+originating page contains sensitive information.</p>
+<h3 id="preventing-credential-and-token-leaks">Preventing Credential and
+Token Leaks</h3>
+<p>Many web applications include sensitive information within URLs,
+particularly in query strings. Examples include:</p>
+<ul>
+<li>Password reset tokens (e.g.,
+<code>https://example.com/reset-password?token=xyz123</code>)</li>
+<li>Email verification links</li>
+<li>Session identifiers</li>
+<li>Personally Identifiable Information (PII), such as email addresses
+or usernames</li>
+</ul>
+<p>If a user clicks an outbound link on any of these pages without
+restrictions, the external website receives the full URL in its server
+logs. Third parties can potentially capture these tokens to hijack
+accounts or extract private user details. Setting
+<code>referrerpolicy="no-referrer"</code> ensures that the destination
+server receives no information about the originating URL.</p>
+<h3 id="protecting-internal-url-structures">Protecting Internal URL
+Structures</h3>
+<p>Internal applications, such as intranets, admin dashboards, or
+staging environments, often use URL paths that reveal the company's
+internal network architecture or software stack (e.g.,
+<code>https://corp-internal.net/admin/users/edit/492</code>).</p>
+<p>If an administrator clicks an external link within that dashboard,
+the destination site can log that URL. Applying
+<code>referrerpolicy="no-referrer"</code> prevents the exposure of
+internal domains, directory structures, and private corporate systems to
+external parties.</p>
+<h3 id="implementation">Implementation</h3>
+<p>To apply the policy to an individual link, add the attribute directly
+to the anchor tag:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;https://external-example.com&quot;</span><span class="ot"> referrerpolicy</span><span class="op">=</span><span class="st">&quot;no-referrer&quot;</span><span class="dt">&gt;</span>Visit External Site<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When clicked, the browser sends the HTTP request to
+<code>external-example.com</code> with an empty or absent
+<code>Referer</code> header, treating the visit as direct traffic.</p>
+<h3
+id="differences-between-referrerpolicy-and-relnoreferrer">Differences
+Between <code>referrerpolicy</code> and
+<code>rel="noreferrer"</code></h3>
+<p>Both <code>referrerpolicy="no-referrer"</code> and
+<code>rel="noreferrer"</code> accomplish the same primary goal of
+suppressing the <code>Referer</code> header. However,
+<code>referrerpolicy</code> is part of the newer W3C Referrer Policy
+specification, allowing consistent referrer handling across multiple
+HTML elements—such as <code>&lt;a&gt;</code>, <code>&lt;area&gt;</code>,
+<code>&lt;img&gt;</code>, <code>&lt;iframe&gt;</code>, and
+<code>&lt;link&gt;</code>.</p>
+<p>For maximum backward compatibility with older browsers, developers
+often combine them:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;https://external-example.com&quot;</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;noreferrer&quot;</span><span class="ot"> referrerpolicy</span><span class="op">=</span><span class="st">&quot;no-referrer&quot;</span><span class="dt">&gt;</span>Visit External Site<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span></code></pre></div></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

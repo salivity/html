@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How the HTML spellcheck Attribute Works - html</title>
+    <meta name="description" content="The spellcheck attribute is a global HTML attribute that controls whether the browser checks an editable element for spelling and grammar errors. This guide covers how the attribute functions on editable text elements, the values it accepts, default brow">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-the-html-spellcheck-attribute-works">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How the HTML spellcheck Attribute Works - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-the-html-spellcheck-attribute-works" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The spellcheck attribute is a global HTML attribute that controls whether the browser checks an editable element for spelling and grammar errors. This guide covers how the attribute functions on editable text elements, the values it accepts, default brow" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-the-html-spellcheck-attribute-works">How the HTML spellcheck
+Attribute Works</h1>
+<p>The <code>spellcheck</code> attribute is a global HTML attribute that
+controls whether the browser checks an editable element for spelling and
+grammar errors. This guide covers how the attribute functions on
+editable text elements, the values it accepts, default browser
+behaviors, and practical use cases for enabling or disabling native
+spellchecking.</p>
+<h3 id="what-the-spellcheck-attribute-does">What the
+<code>spellcheck</code> Attribute Does</h3>
+<p>When applied to editable text, <code>spellcheck</code> instructs the
+web browser whether to run its native spellchecking engine on the
+content. If enabled, the browser flags misspelled words and grammar
+issues—typically by rendering a red wavy underline beneath the flagged
+text—and provides correction suggestions via the context menu
+(right-click).</p>
+<h3 id="affected-elements">Affected Elements</h3>
+<p>The <code>spellcheck</code> attribute only takes effect on elements
+that users can edit. These include:</p>
+<ul>
+<li><strong><code>&lt;textarea&gt;</code> elements:</strong> Multi-line
+text inputs.</li>
+<li><strong><code>&lt;input&gt;</code> elements:</strong> Text-based
+input types, such as <code>type="text"</code>,
+<code>type="search"</code>, and <code>type="url"</code>.</li>
+<li><strong>Elements with <code>contenteditable="true"</code>:</strong>
+Any HTML element transformed into a rich-text or editable
+container.</li>
+</ul>
+<p>If <code>spellcheck</code> is placed on a non-editable element (such
+as a standard <code>&lt;p&gt;</code> or <code>&lt;div&gt;</code> without
+<code>contenteditable</code>), or on an <code>&lt;input&gt;</code>
+marked as <code>readonly</code> or <code>disabled</code>, the attribute
+has no visible effect.</p>
+<h3 id="accepted-values">Accepted Values</h3>
+<p>The <code>spellcheck</code> attribute is an enumerated attribute, not
+a boolean attribute. It accepts two explicit string values:</p>
+<ul>
+<li><strong><code>"true"</code>:</strong> Enables spellchecking and
+grammar checking for the element.</li>
+<li><strong><code>"false"</code>:</strong> Disables spellchecking and
+grammar checking for the element.</li>
+</ul>
+<p>If the attribute is present without a value (e.g.,
+<code>&lt;textarea spellcheck&gt;</code>), it resolves to
+<code>true</code>. If the attribute is omitted entirely, the element
+uses its default state.</p>
+<h3 id="default-and-inherited-behavior">Default and Inherited
+Behavior</h3>
+<p>When the <code>spellcheck</code> attribute is not explicitly
+declared:</p>
+<ol type="1">
+<li><strong>Inheritance:</strong> Elements generally inherit their
+spellcheck state from their closest ancestor element that has a defined
+<code>spellcheck</code> value.</li>
+<li><strong>Element Defaults:</strong> If no ancestor defines the
+attribute, the browser falls back on its default rules:
+<ul>
+<li><code>&lt;textarea&gt;</code> elements typically have spellchecking
+enabled by default.</li>
+<li>Single-line <code>&lt;input&gt;</code> elements (such as
+<code>type="text"</code>) typically have spellchecking disabled by
+default.</li>
+<li><code>contenteditable</code> containers usually inherit the setting
+or default to enabled.</li>
+</ul></li>
+</ol>
+<h3 id="common-use-cases">Common Use Cases</h3>
+<ul>
+<li><strong>Disabling Spellcheck
+(<code>spellcheck="false"</code>):</strong> Recommended for fields
+containing non-standard vocabulary where red underlines cause
+distraction. Common examples include code editors, terminal emulators,
+username fields, email address inputs, serial numbers, and cryptographic
+keys.</li>
+<li><strong>Enabling Spellcheck
+(<code>spellcheck="true"</code>):</strong> Recommended for fields where
+standard written language is expected, such as comment sections, blog
+post editors, messaging interfaces, and feedback forms.</li>
+</ul>
+<h3 id="limitations">Limitations</h3>
+<p>The <code>spellcheck</code> attribute requests browser-level
+checking, but it does not control the underlying dictionary, language
+detection, or correction algorithm. Those aspects remain entirely
+dependent on the user's browser version, operating system settings, and
+installed language packs.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

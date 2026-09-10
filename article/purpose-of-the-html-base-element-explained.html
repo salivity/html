@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purpose of the HTML Base Element Explained - html</title>
+    <meta name="description" content="The HTML <base> element specifies the base URL and default browsing context for all relative URLs within an HTML document. This article covers the primary function of the <base> tag, its supported attributes, correct placement within the document structu">
+    <link rel="canonical" href="https://salivity.github.io/html/article/purpose-of-the-html-base-element-explained">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Purpose of the HTML Base Element Explained - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/purpose-of-the-html-base-element-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <base> element specifies the base URL and default browsing context for all relative URLs within an HTML document. This article covers the primary function of the <base> tag, its supported attributes, correct placement within the document structu" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="purpose-of-the-html-base-element-explained">Purpose of the HTML
+Base Element Explained</h1>
+<p>The HTML <code>&lt;base&gt;</code> element specifies the base URL and
+default browsing context for all relative URLs within an HTML document.
+This article covers the primary function of the
+<code>&lt;base&gt;</code> tag, its supported attributes, correct
+placement within the document structure, practical code examples, and
+critical pitfalls to avoid during implementation.</p>
+<h2 id="core-purpose">Core Purpose</h2>
+<p>In standard HTML, relative paths resolve against the document's
+current location in the browser address bar. The
+<code>&lt;base&gt;</code> element overrides this behavior by setting an
+explicit base URL for the entire page. Once declared, the browser
+prepends this base URL to any relative reference found in attributes
+such as <code>href</code> on <code>&lt;a&gt;</code> tags,
+<code>src</code> on <code>&lt;img&gt;</code> or
+<code>&lt;script&gt;</code> tags, and <code>action</code> on
+<code>&lt;form&gt;</code> elements.</p>
+<p>Additionally, the <code>&lt;base&gt;</code> element can establish a
+default navigation target for all links and forms, dictating whether
+they open in the same tab, a new tab, or a specific frame.</p>
+<h2 id="attributes">Attributes</h2>
+<p>The <code>&lt;base&gt;</code> tag accepts two primary attributes, at
+least one of which must be present:</p>
+<ul>
+<li><strong><code>href</code></strong>: The base URL against which all
+relative URLs on the page are resolved. This can be an absolute URL
+(e.g., <code>https://example.com/assets/</code>) or a root-relative path
+(e.g., <code>/assets/</code>).</li>
+<li><strong><code>target</code></strong>: A default browsing context for
+hyperlinks and forms without explicit <code>target</code> attributes.
+Common values include <code>_self</code>, <code>_blank</code>,
+<code>_parent</code>, and <code>_top</code>.</li>
+</ul>
+<h2 id="placement-rules">Placement Rules</h2>
+<p>To function correctly, the <code>&lt;base&gt;</code> element must
+follow strict placement rules:</p>
+<ol type="1">
+<li><strong>Inside the <code>&lt;head&gt;</code> element</strong>: It
+must reside entirely within the document's <code>&lt;head&gt;</code>
+section.</li>
+<li><strong>First among external dependencies</strong>: It must be
+placed before any elements that reference external resources, such as
+<code>&lt;link&gt;</code>, <code>&lt;script&gt;</code>, or
+<code>&lt;img&gt;</code>, to ensure those assets resolve against the
+intended base URL.</li>
+<li><strong>Single instance only</strong>: An HTML document can contain
+only one <code>&lt;base&gt;</code> element. If multiple instances are
+declared, only the first one is used, and subsequent tags are
+ignored.</li>
+</ol>
+<h2 id="example-implementation">Example Implementation</h2>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;!DOCTYPE</span> html<span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">html</span><span class="ot"> lang</span><span class="op">=</span><span class="st">&quot;en&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> charset</span><span class="op">=</span><span class="st">&quot;UTF-8&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">title</span><span class="dt">&gt;</span>Base Element Demonstration<span class="dt">&lt;/</span><span class="kw">title</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">base</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;https://cdn.example.com/media/&quot;</span><span class="ot"> target</span><span class="op">=</span><span class="st">&quot;_blank&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Resolves to: https://cdn.example.com/media/logo.png --&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;logo.png&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Company Logo&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Resolves to: https://cdn.example.com/media/help.html and opens in a new tab --&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;help.html&quot;</span><span class="dt">&gt;</span>Help Center<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">html</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="important-considerations-and-pitfalls">Important Considerations
+and Pitfalls</h2>
+<ul>
+<li><strong>Fragment identifiers</strong>: Relative anchor links that
+point to on-page IDs (e.g., <code>&lt;a href="#section"&gt;</code>) are
+also resolved against the base URL. If the <code>&lt;base&gt;</code> URL
+differs from the current page URL, clicking a fragment link will cause
+the browser to navigate to the base URL rather than scrolling to the ID
+on the active page.</li>
+<li><strong>SVG fragments</strong>: References within SVG icons (such as
+<code>&lt;use href="#icon-star"&gt;</code>) can break because browsers
+may resolve the fragment against the remote base URL instead of the
+local document.</li>
+<li><strong>Global impact</strong>: Because the element applies
+globally, it alters path resolution for third-party scripts or embedded
+assets that rely on relative paths.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

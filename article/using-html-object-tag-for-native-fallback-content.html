@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using HTML Object Tag for Native Fallback Content - html</title>
+    <meta name="description" content="The HTML <object> element provides a built-in, declarative mechanism for embedding external resources—such as PDFs, SVGs, audio, video, or nested browsing contexts—while gracefully handling failure states. Unlike standalone empty tags, the <object> t">
+    <link rel="canonical" href="https://salivity.github.io/html/article/using-html-object-tag-for-native-fallback-content">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Using HTML Object Tag for Native Fallback Content - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/using-html-object-tag-for-native-fallback-content" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <object> element provides a built-in, declarative mechanism for embedding external resources—such as PDFs, SVGs, audio, video, or nested browsing contexts—while gracefully handling failure states. Unlike standalone empty tags, the <object> t" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="using-html-object-tag-for-native-fallback-content">Using HTML
+Object Tag for Native Fallback Content</h1>
+<p>The HTML <code>&lt;object&gt;</code> element provides a built-in,
+declarative mechanism for embedding external resources—such as PDFs,
+SVGs, audio, video, or nested browsing contexts—while gracefully
+handling failure states. Unlike standalone empty tags, the
+<code>&lt;object&gt;</code> tag acts as a container. If the browser
+cannot resolve, load, or render the resource defined in the primary
+attributes, it automatically suppresses the broken resource and renders
+whatever content is placed inside the opening and closing tags.</p>
+<h3 id="the-core-fallback-mechanism">The Core Fallback Mechanism</h3>
+<p>The <code>&lt;object&gt;</code> element relies on two primary
+attributes to fetch and identify external media: <code>data</code>,
+which provides the resource URL, and <code>type</code>, which declares
+the resource's MIME type.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">object</span><span class="ot"> data</span><span class="op">=</span><span class="st">&quot;document.pdf&quot;</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;application/pdf&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Your browser does not support inline PDFs. You can <span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;document.pdf&quot;</span><span class="dt">&gt;</span>download the PDF<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span> instead.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">object</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When a browser encounters this element, it assesses whether it can
+display the resource. Fallback rendering is triggered automatically
+under specific conditions:</p>
+<ul>
+<li><strong>Missing or unsupported plugins/renderers:</strong> The
+browser does not have the native capability or extension to display the
+declared MIME type.</li>
+<li><strong>Network or HTTP errors:</strong> The resource URL returns a
+404, 500, or DNS resolution failure.</li>
+<li><strong>Content blocking:</strong> The resource is blocked by
+browser security policies (such as Content Security Policy),
+cross-origin restrictions, or user privacy extensions.</li>
+<li><strong>Corrupt files:</strong> The file is downloaded, but the data
+cannot be parsed.</li>
+</ul>
+<p>If the file loads successfully and the MIME type is supported, the
+browser renders the object and ignores everything inside the
+<code>&lt;object&gt;&lt;/object&gt;</code> tags. If any failure
+condition occurs, the inner markup is evaluated and rendered immediately
+in place of the object.</p>
+<h3 id="nesting-objects-for-cascading-fallbacks">Nesting Objects for
+Cascading Fallbacks</h3>
+<p>Because the fallback area can contain arbitrary HTML, developers can
+nest multiple <code>&lt;object&gt;</code> tags to create a
+priority-based chain of fallbacks without writing JavaScript.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">object</span><span class="ot"> data</span><span class="op">=</span><span class="st">&quot;interactive-chart.svg&quot;</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;image/svg+xml&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">object</span><span class="ot"> data</span><span class="op">=</span><span class="st">&quot;static-chart.png&quot;</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;image/png&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>A summary of the quarterly financial results.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">object</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">object</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this structure:</p>
+<ol type="1">
+<li>The browser first attempts to render
+<code>interactive-chart.svg</code>.</li>
+<li>If SVG rendering fails or the file is missing, it attempts to load
+<code>static-chart.png</code>.</li>
+<li>If the image cannot be displayed, it defaults to the accessible
+plain text paragraph.</li>
+</ol>
+<h3 id="advantages-of-native-fallbacks">Advantages of Native
+Fallbacks</h3>
+<ul>
+<li><strong>Zero JavaScript Required:</strong> The fallback behavior is
+handled entirely by the browser engine, ensuring reliable recovery even
+in environments where scripts are disabled or fail to execute.</li>
+<li><strong>Accessibility:</strong> Screen readers and assistive
+technologies respect the fallback path, announcing the alternate text or
+links when the visual or interactive object cannot be processed.</li>
+<li><strong>Progressive Enhancement:</strong> It allows modern file
+formats to be served to capable devices while simultaneously
+guaranteeing functional alternatives for legacy systems.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

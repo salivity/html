@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Main Element: Defining Primary Content - html</title>
+    <meta name="description" content="The <main> element in HTML serves as the structural anchor for the central topic of a webpage, distinguishing the core subject matter from repeated site-wide components. This article explains how the <main> tag functions within the HTML5 semantic hierarc">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-main-element-defining-primary-content">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Main Element: Defining Primary Content - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-main-element-defining-primary-content" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The <main> element in HTML serves as the structural anchor for the central topic of a webpage, distinguishing the core subject matter from repeated site-wide components. This article explains how the <main> tag functions within the HTML5 semantic hierarc" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-main-element-defining-primary-content">HTML Main Element:
+Defining Primary Content</h1>
+<p>The <code>&lt;main&gt;</code> element in HTML serves as the
+structural anchor for the central topic of a webpage, distinguishing the
+core subject matter from repeated site-wide components. This article
+explains how the <code>&lt;main&gt;</code> tag functions within the
+HTML5 semantic hierarchy, its technical rules and accessibility
+benefits, and how modern browsers and assistive technologies use it to
+identify the primary content of a document.</p>
+<h3 id="the-purpose-of-the-main-element">The Purpose of the
+<code>&lt;main&gt;</code> Element</h3>
+<p>The <code>&lt;main&gt;</code> tag is a semantic HTML5 element
+designed to wrap the central, unique content of an individual document.
+Web pages typically contain recurring components across multiple
+pages—such as navigation bars, branding logos, search forms, and legal
+disclaimers in footers. The <code>&lt;main&gt;</code> element explicitly
+excludes these recurring features, enclosing only the information
+directly related to, or expanding upon, the central topic of the
+specific page.</p>
+<p>Content that should not reside inside <code>&lt;main&gt;</code>
+includes:</p>
+<ul>
+<li>Global site navigation (<code>&lt;nav&gt;</code>)</li>
+<li>Global site headers (<code>&lt;header&gt;</code>)</li>
+<li>Global site footers (<code>&lt;footer&gt;</code>)</li>
+<li>Common sidebars (<code>&lt;aside&gt;</code>)</li>
+<li>Copyright notices and branding elements</li>
+</ul>
+<h3 id="usage-rules-and-best-practices">Usage Rules and Best
+Practices</h3>
+<p>To maintain semantic validity and structural integrity, developers
+must adhere to specific structural constraints when implementing the
+<code>&lt;main&gt;</code> element:</p>
+<ol type="1">
+<li><strong>Uniqueness:</strong> A document must not have more than one
+visible <code>&lt;main&gt;</code> element at a time. While multiple
+<code>&lt;main&gt;</code> tags can exist in a document if all but one
+are hidden using the HTML <code>hidden</code> attribute (often used in
+single-page applications switching views), only one active
+<code>&lt;main&gt;</code> element should be exposed to the user.</li>
+<li><strong>Nesting Restrictions:</strong> The <code>&lt;main&gt;</code>
+element must not be a descendant of an <code>&lt;article&gt;</code>,
+<code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>,
+<code>&lt;header&gt;</code>, or <code>&lt;nav&gt;</code> element. It is
+meant to be a direct or high-level child of the
+<code>&lt;body&gt;</code> tag.</li>
+<li><strong>No Redundant Roles:</strong> By default, browsers map the
+<code>&lt;main&gt;</code> element to the ARIA landmark
+<code>role="main"</code>. Adding <code>role="main"</code> explicitly to
+a <code>&lt;main&gt;</code> tag is unnecessary and redundant.</li>
+</ol>
+<h3 id="accessibility-and-seo-impact">Accessibility and SEO Impact</h3>
+<p>The <code>&lt;main&gt;</code> element plays a vital role in web
+accessibility (a11y). Screen readers and other assistive devices
+recognize the tag as a landmark element. This allows users navigating
+via keyboard or voice commands to bypass global navigation links and
+jump directly to the substantive content of the page, eliminating the
+need for custom "Skip to Content" scripts in many user agents.</p>
+<p>From a search engine optimization (SEO) perspective, semantic
+landmarks help web crawlers parse page layouts more effectively. By
+isolating primary text, articles, and product data inside
+<code>&lt;main&gt;</code>, crawlers can separate the unique value of a
+page from the standard layout boilerplate, ensuring that indexing
+algorithms weight the primary keywords and text correctly.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

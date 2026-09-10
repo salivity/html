@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CDATA Sections in XHTML vs HTML5 Explained - html</title>
+    <meta name="description" content="This article explores the concept of CDATA (Character Data) sections, explaining their technical purpose in markup languages and examining the stark differences in how they are parsed and utilized in XHTML versus modern HTML5. By understanding how parser">
+    <link rel="canonical" href="https://salivity.github.io/html/article/cdata-sections-in-xhtml-vs-html5-explained">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="CDATA Sections in XHTML vs HTML5 Explained - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/cdata-sections-in-xhtml-vs-html5-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explores the concept of CDATA (Character Data) sections, explaining their technical purpose in markup languages and examining the stark differences in how they are parsed and utilized in XHTML versus modern HTML5. By understanding how parser" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="cdata-sections-in-xhtml-vs-html5-explained">CDATA Sections in
+XHTML vs HTML5 Explained</h1>
+<p>This article explores the concept of CDATA (Character Data) sections,
+explaining their technical purpose in markup languages and examining the
+stark differences in how they are parsed and utilized in XHTML versus
+modern HTML5. By understanding how parsers treat CDATA blocks,
+developers can avoid common syntax pitfalls when handling inline
+scripts, styles, and embedded foreign content.</p>
+<h3 id="what-is-a-cdata-section">What is a CDATA Section?</h3>
+<p>A CDATA section is a block of text in markup languages—primarily
+XML—that instructs the parser to interpret all enclosed characters
+strictly as character data, not as markup. Defined with the syntax
+<code>&lt;![CDATA[ ... ]]&gt;</code>, it eliminates the need to manually
+escape reserved characters such as the ampersand (<code>&amp;</code>),
+less-than sign (<code>&lt;</code>), and greater-than sign
+(<code>&gt;</code>). This makes CDATA particularly useful for embedding
+code snippets, mathematical formulas, or scripts directly within a
+document.</p>
+<h3 id="cdata-in-xhtml">CDATA in XHTML</h3>
+<p>XHTML is an application of XML. Because it adheres to strict XML
+parsing rules, an XHTML processor treats elements like
+<code>&lt;script&gt;</code> and <code>&lt;style&gt;</code> as containing
+regular markup unless explicitly instructed otherwise. If a script
+contains operators like <code>&lt;</code> or <code>&amp;&amp;</code>, an
+XML parser will encounter a fatal syntax error.</p>
+<p>To prevent these parsing failures, developers in XHTML wrap the
+contents of script and style blocks inside CDATA sections:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode xml"><code class="sourceCode xml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>&lt;<span class="kw">script</span> <span class="ot">type=</span><span class="st">&quot;text/javascript&quot;</span>&gt;</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>/* <span class="bn">&lt;![CDATA[</span> */</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    if (x &lt; 10 &amp;&amp; y &gt; 20) {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        // Code executes without XML parser errors</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>/* <span class="bn">]]&gt;</span> */</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>&lt;/<span class="kw">script</span>&gt;</span></code></pre></div>
+<p>In this context, the CDATA block informs the XML parser to ignore
+markup syntax inside the element. JavaScript comments
+(<code>/* ... */</code> or <code>//</code>) are typically used to wrap
+the CDATA tags so that the JavaScript engine does not interpret the XML
+delimiter itself as invalid JavaScript syntax.</p>
+<h3 id="cdata-in-html5">CDATA in HTML5</h3>
+<p>HTML5 departs from XML parsing rules and uses its own dedicated
+parsing algorithm. The handling of CDATA in HTML5 depends entirely on
+the context of the document:</p>
+<h4 id="1-standard-html-elements">1. Standard HTML Elements</h4>
+<p>In standard HTML5 elements (such as <code>&lt;div&gt;</code>,
+<code>&lt;p&gt;</code>, or inline <code>&lt;script&gt;</code> and
+<code>&lt;style&gt;</code>), CDATA sections are not recognized as XML
+character blocks. Instead, the HTML5 parser treats the
+<code>&lt;![CDATA[</code> syntax as a "bogus comment." It converts the
+block into an HTML comment or raw text, effectively breaking script
+execution or rendering unexpected text on the screen. Because HTML5
+natively treats <code>&lt;script&gt;</code> and
+<code>&lt;style&gt;</code> as raw text elements, characters like
+<code>&lt;</code> and <code>&amp;</code> do not need CDATA
+encapsulation.</p>
+<h4 id="2-foreign-content-svg-and-mathml">2. Foreign Content (SVG and
+MathML)</h4>
+<p>HTML5 allows inline SVG and MathML, which are classified as "foreign
+content." Within <code>&lt;svg&gt;</code> or <code>&lt;math&gt;</code>
+namespaces, the HTML5 parser temporarily adopts XML-like rules. Here,
+CDATA sections are fully supported and recognized, allowing unescaped
+text or scripts to be embedded safely inside vector graphics or
+mathematical markup.</p>
+<h4 id="3-xhtml5-html5-served-as-xml">3. XHTML5 (HTML5 Served as
+XML)</h4>
+<p>If an HTML5 document is served with an XML MIME type (such as
+<code>application/xhtml+xml</code>), the browser invokes a true XML
+parser rather than the HTML5 parser. In this scenario, CDATA sections
+function precisely as they do in traditional XML and XHTML.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

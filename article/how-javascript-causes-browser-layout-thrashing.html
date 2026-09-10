@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How JavaScript Causes Browser Layout Thrashing - html</title>
+    <meta name="description" content="Layout thrashing, also known as forced synchronous layout, occurs when JavaScript repeatedly interleaves DOM write operations with DOM read operations, forcing the browser to recalculate geometric properties synchronously rather than asynchronously. This">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-javascript-causes-browser-layout-thrashing">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How JavaScript Causes Browser Layout Thrashing - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-javascript-causes-browser-layout-thrashing" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Layout thrashing, also known as forced synchronous layout, occurs when JavaScript repeatedly interleaves DOM write operations with DOM read operations, forcing the browser to recalculate geometric properties synchronously rather than asynchronously. This" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-javascript-causes-browser-layout-thrashing">How JavaScript
+Causes Browser Layout Thrashing</h1>
+<p>Layout thrashing, also known as forced synchronous layout, occurs
+when JavaScript repeatedly interleaves DOM write operations with DOM
+read operations, forcing the browser to recalculate geometric properties
+synchronously rather than asynchronously. This article explains the
+internal mechanics of the browser rendering pipeline, how it batches
+updates, why alternating style modifications and geometry queries
+invalidate this optimization, and how the browser calculates these
+expensive layout passes on the main thread.</p>
+<h2 id="the-browser-rendering-pipeline-and-batching">The Browser
+Rendering Pipeline and Batching</h2>
+<p>To render a web page, the browser transforms HTML and CSS into visual
+pixels through a multi-stage pipeline: Parse, Style Recalculation,
+Layout (Reflow), Paint, and Compositing.</p>
+<p>Under normal circumstances, the browser executes layout calculations
+asynchronously. When JavaScript modifies the DOM or changes CSS
+properties—such as updating an element's <code>width</code>,
+<code>margin</code>, or <code>className</code>—the browser marks the
+corresponding node and its ancestors in the render tree as "dirty."
+Instead of recalculating box geometries immediately, the browser queues
+these mutations. It batches the actual style resolution and layout
+calculation to run once at the end of the current task, just before the
+next frame is painted to the screen (typically targeting a 60Hz or 120Hz
+refresh rate).</p>
+<h2 id="the-trigger-forced-synchronous-layout">The Trigger: Forced
+Synchronous Layout</h2>
+<p>The browser's batching strategy relies on deferring layout until it
+is strictly necessary. However, if JavaScript requests an element’s
+geometric values immediately after mutating the DOM, the browser cannot
+use the deferred batching mechanism.</p>
+<p>Geometric properties and methods that force a layout include:</p>
+<ul>
+<li>Box metrics: <code>offsetWidth</code>, <code>offsetHeight</code>,
+<code>clientWidth</code>, <code>clientHeight</code></li>
+<li>Scroll metrics: <code>scrollTop</code>, <code>scrollLeft</code>,
+<code>scrollWidth</code>, <code>scrollHeight</code></li>
+<li>Positional methods: <code>getBoundingClientRect()</code>,
+<code>getClientRects()</code></li>
+<li>Computed styles: <code>window.getComputedStyle()</code> (when
+querying layout-dependent properties)</li>
+</ul>
+<p>When these properties are accessed, the browser cannot return cached
+values because the previous write operation marked the render tree
+dirty. To return an accurate, up-to-date measurement, the browser pauses
+JavaScript execution and immediately executes a Forced Synchronous
+Layout.</p>
+<h2 id="how-the-browser-calculates-layout-during-thrashing">How the
+Browser Calculates Layout During Thrashing</h2>
+<p>When layout thrashing occurs in a loop, the browser executes the
+following sequence repeatedly:</p>
+<ol type="1">
+<li><strong>Dirty Flag Assignment:</strong> JavaScript updates a style
+or DOM node (e.g., <code>element.style.width = '100px'</code>). The
+browser sets a dirty flag on the render tree node and propagates
+invalidation up to the document root or containing layout boundary.</li>
+<li><strong>Read Interruption:</strong> JavaScript immediately queries a
+geometric property (e.g., <code>element.offsetWidth</code>).</li>
+<li><strong>Forced Tree Recalculation:</strong> Because the tree is
+flagged as dirty, the browser halts script execution and initiates an
+immediate reflow:
+<ul>
+<li><strong>Style Resolution:</strong> The engine cascades and matches
+CSS rules for all invalidated nodes.</li>
+<li><strong>Render Tree Traversal:</strong> The engine walks down the
+render tree starting from the highest invalidated ancestor, calculating
+the exact x/y coordinates, margins, paddings, and box dimensions for
+each node.</li>
+<li><strong>Flag Reset:</strong> The dirty flags are cleared, and the
+internal geometric cache is updated.</li>
+</ul></li>
+<li><strong>Returning the Value:</strong> The browser delivers the
+computed value back to JavaScript and resumes execution.</li>
+<li><strong>Cycle Repetition:</strong> The loop immediately performs
+another write, re-dirtying the tree, followed by another read, forcing
+the entire tree-traversal calculation to run again.</li>
+</ol>
+<p>If a loop runs 100 times, a process that should have occurred once at
+the end of the frame is executed 100 times synchronously. Because layout
+calculations require traversing the DOM tree and resolving complex CSS
+constraints, executing this recursively consumes substantial CPU time,
+dropping frame rates and causing visible interface stuttering.</p>
+<h2 id="eliminating-layout-thrashing">Eliminating Layout Thrashing</h2>
+<p>To prevent the browser from thrashing layout calculations, operations
+must be decoupled and scheduled systematically:</p>
+<ul>
+<li><strong>Batch Reads and Writes:</strong> Read all necessary
+geometric values first into local variables, then perform all DOM
+mutations together.</li>
+<li><strong>Decouple Execution with
+<code>requestAnimationFrame</code>:</strong> Defer style writes to the
+next animation frame so the browser can coordinate mutations with its
+native refresh cycle.</li>
+<li><strong>Utilize Layout Boundaries:</strong> Use CSS containment
+(<code>contain: layout</code> or <code>contain: strict</code>) to
+prevent a dirty node from invalidating the entire document tree.</li>
+<li><strong>Use Non-Geometric CSS Properties:</strong> Animate or update
+elements using CSS <code>transform</code> and <code>opacity</code>,
+which bypass both layout and paint stages by operating directly on the
+compositor thread.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is the Difference Between HTML Tags and HTML Elements? - html</title>
+    <meta name="description" content="While web developers frequently use the terms "HTML tag" and "HTML element" interchangeably, they represent two distinct concepts in web architecture. An HTML tag is the syntax markup—such as <p> or </p>—used to instruct a web browser where a structu">
+    <link rel="canonical" href="https://salivity.github.io/html/article/what-is-the-difference-between-html-tags-and-html-elements">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is the Difference Between HTML Tags and HTML Elements? - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/what-is-the-difference-between-html-tags-and-html-elements" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="While web developers frequently use the terms "HTML tag" and "HTML element" interchangeably, they represent two distinct concepts in web architecture. An HTML tag is the syntax markup—such as <p> or </p>—used to instruct a web browser where a structu" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-the-difference-between-html-tags-and-html-elements">What
+Is the Difference Between HTML Tags and HTML Elements?</h1>
+<p>While web developers frequently use the terms "HTML tag" and "HTML
+element" interchangeably, they represent two distinct concepts in web
+architecture. An HTML tag is the syntax markup—such as
+<code>&lt;p&gt;</code> or <code>&lt;/p&gt;</code>—used to instruct a web
+browser where a structure begins and ends. An HTML element, by contrast,
+is the complete unit consisting of the opening tag, any attributes, the
+enclosed content, and the closing tag. Understanding this distinction
+clarifies how code written in an HTML document translates into the
+Document Object Model (DOM) rendered on a screen.</p>
+<h2 id="understanding-html-tags">Understanding HTML Tags</h2>
+<p>HTML tags are structural markers enclosed in angle brackets
+(<code>&lt;</code> and <code>&gt;</code>). They act as delimiters within
+the source code to declare the purpose and boundaries of markup
+instructions.</p>
+<p>Tags primarily appear in pairs:</p>
+<ul>
+<li><strong>Opening tag (Start tag):</strong> Denotes where a specific
+instruction begins (for example, <code>&lt;strong&gt;</code> or
+<code>&lt;div class="container"&gt;</code>). It can also hold attributes
+that configure the behavior or styling of the element.</li>
+<li><strong>Closing tag (End tag):</strong> Signals the termination of
+that instruction and is distinguished by a forward slash before the tag
+name (for example, <code>&lt;/strong&gt;</code> or
+<code>&lt;/div&gt;</code>).</li>
+</ul>
+<p>Tags belong strictly to the lexical syntax of the HTML file. They are
+the parsing instructions read by the browser rather than the rendered
+object itself.</p>
+<h2 id="understanding-html-elements">Understanding HTML Elements</h2>
+<p>An HTML element represents the entire structural component as
+recognized by the browser engine. It encompasses everything from the
+initial opening angle bracket to the final closing angle bracket,
+including all nested content, text nodes, and child elements.</p>
+<p>For example, in the following markup:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;intro&quot;</span><span class="dt">&gt;</span>Welcome to the site.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span></code></pre></div>
+<ul>
+<li><code>&lt;p class="intro"&gt;</code> is the <strong>opening
+tag</strong> with a class attribute.</li>
+<li><code>Welcome to the site.</code> is the <strong>inner
+content</strong>.</li>
+<li><code>&lt;/p&gt;</code> is the <strong>closing tag</strong>.</li>
+<li>The entire line—from <code>&lt;p</code> to
+<code>&lt;/p&gt;</code>—constitutes the <strong>paragraph
+element</strong>.</li>
+</ul>
+<p>Once parsed by the browser, every HTML element becomes a node in the
+DOM tree, accessible to CSS for styling and JavaScript for dynamic
+manipulation.</p>
+<h2 id="key-differences">Key Differences</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>HTML Tag</th>
+<th>HTML Element</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Definition</strong></td>
+<td>A syntax marker enclosed in angle brackets</td>
+<td>The complete component including tags, attributes, and content</td>
+</tr>
+<tr>
+<td><strong>Role</strong></td>
+<td>Serves as parsing boundaries (start and end markers)</td>
+<td>Serves as a rendered node in the browser's DOM</td>
+</tr>
+<tr>
+<td><strong>Composition</strong></td>
+<td>Just the tag name, brackets, and optional attributes</td>
+<td>Opening tag + attributes + text/child nodes + closing tag</td>
+</tr>
+<tr>
+<td><strong>Presence in DOM</strong></td>
+<td>Discarded after parsing</td>
+<td>Retained as interactive DOM nodes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="void-elements-the-blurry-line">Void Elements: The Blurry
+Line</h2>
+<p>Certain elements do not enclose text or other nodes and do not
+require a separate closing tag. Known as <strong>void elements</strong>
+or empty elements, these include <code>&lt;img&gt;</code>,
+<code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code>,
+<code>&lt;input&gt;</code>, and <code>&lt;meta&gt;</code>.</p>
+<p>With void elements, the tag and the element overlap in visual code.
+For instance, <code>&lt;img src="photo.jpg" alt="A photo"&gt;</code> is
+both a single tag and a self-contained element because it cannot contain
+internal content or an end tag.</p>
+<p>Distinguishing tags from elements makes reading HTML documentation
+and interacting with the DOM clearer. Tags are the text commands you
+write in code editors; elements are the structural building blocks the
+browser creates and displays.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

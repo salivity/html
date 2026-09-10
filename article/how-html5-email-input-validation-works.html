@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How HTML5 Email Input Validation Works - html</title>
+    <meta name="description" content="The HTML5 <input type="email"> element provides built-in, client-side validation that automatically checks whether a user has entered a syntactically valid email address before submitting a form. This article explains the browser's native validation mech">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-html5-email-input-validation-works">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How HTML5 Email Input Validation Works - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-html5-email-input-validation-works" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML5 <input type="email"> element provides built-in, client-side validation that automatically checks whether a user has entered a syntactically valid email address before submitting a form. This article explains the browser's native validation mech" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-html5-email-input-validation-works">How HTML5 Email Input
+Validation Works</h1>
+<p>The HTML5 <code>&lt;input type="email"&gt;</code> element provides
+built-in, client-side validation that automatically checks whether a
+user has entered a syntactically valid email address before submitting a
+form. This article explains the browser's native validation mechanism,
+the standard specification it follows, how it handles special attributes
+like <code>multiple</code>, and the limitations of relying solely on
+browser-based checks.</p>
+<h3 id="the-whatwg-email-specification">The WHATWG Email
+Specification</h3>
+<p>Native email validation in modern browsers is governed by the WHATWG
+HTML Living Standard. Instead of enforcing the notoriously complex RFC
+5322 standard—which allows obscure, rarely used email formats such as
+quoted strings with spaces and nested comments—HTML5 uses a simplified,
+pragmatic algorithm. The standard defines a valid email address as any
+string that matches the following native regular expression:</p>
+<pre class="text"><code>/^[a-zA-Z0-9.!#$%&amp;&#39;*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/</code></pre>
+<p>This ensures the entry satisfies three basic structural
+components:</p>
+<ol type="1">
+<li><strong>Local Part (Username):</strong> A sequence of alphanumeric
+characters or allowed ASCII symbols (<code>.</code>, <code>!</code>,
+<code>#</code>, <code>$</code>, <code>%</code>, etc.) preceding the
+<code>@</code> symbol.</li>
+<li><strong>Separator:</strong> Exactly one <code>@</code> symbol.</li>
+<li><strong>Domain Part:</strong> A series of alphanumeric labels
+separated by dots, where hyphens are permitted within labels but cannot
+start or end them.</li>
+</ol>
+<h3 id="form-submission-and-constraint-validation">Form Submission and
+Constraint Validation</h3>
+<p>When a user attempts to submit a form containing an invalid email,
+the browser intercepts the event through the HTML5 Constraint Validation
+API:</p>
+<ul>
+<li><strong>Submission Blocking:</strong> If the input value does not
+conform to the email format, the browser halts the form's
+<code>submit</code> event automatically.</li>
+<li><strong>Error Tooltips:</strong> The browser displays a localized
+native message (for example, "Please include an '@' in the email
+address" or "Please enter an email address") pointing directly to the
+offending field.</li>
+<li><strong>CSS Pseudo-Classes:</strong> The browser updates the styling
+state of the element immediately via the <code>:valid</code> and
+<code>:invalid</code> CSS pseudo-classes, allowing developers to style
+fields dynamically as the user types.</li>
+</ul>
+<h3 id="support-for-multiple-addresses">Support for Multiple
+Addresses</h3>
+<p>Adding the <code>multiple</code> attribute modifies how the field
+validates input:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;email&quot;</span><span class="ot"> multiple</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When present, the browser splits the input value by commas and
+validates each entry individually using the same native standard.
+Leading and trailing whitespace around each address is stripped before
+validation. The entire input is deemed valid only if every
+comma-separated address in the list is valid.</p>
+<h3 id="edge-cases-and-limitations">Edge Cases and Limitations</h3>
+<p>While native validation prevents common typographical errors, it has
+specific functional boundaries:</p>
+<ul>
+<li><strong>Top-Level Domains (TLDs):</strong> The standard
+specification accepts single-label domains (such as
+<code>user@localhost</code> or <code>admin@server</code>). Unless
+constrained with a <code>pattern</code> attribute, native validation
+does not require a dot or a traditional TLD like <code>.com</code> or
+<code>.org</code>.</li>
+<li><strong>Existence Verification:</strong> Native validation only
+checks syntax. It does not perform DNS lookups, MX record queries, or
+SMTP handshakes to confirm that the domain or inbox actually
+exists.</li>
+<li><strong>Empty Values:</strong> An empty
+<code>&lt;input type="email"&gt;</code> is considered valid by default.
+To prevent empty submissions, the <code>required</code> attribute must
+be added alongside <code>type="email"</code>.</li>
+</ul>
+<p>Because client-side validation can be bypassed by disabling
+JavaScript or submitting direct HTTP requests, native HTML5 validation
+must always be paired with server-side validation.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

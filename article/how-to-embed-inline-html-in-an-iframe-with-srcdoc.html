@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Embed Inline HTML in an iframe with srcdoc - html</title>
+    <meta name="description" content="The srcdoc attribute in HTML5 allows developers to specify the exact HTML markup to be rendered inside an <iframe> directly as a string, eliminating the need to load an external file or host a separate document. This article explains how the srcdoc attri">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-to-embed-inline-html-in-an-iframe-with-srcdoc">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Embed Inline HTML in an iframe with srcdoc - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-to-embed-inline-html-in-an-iframe-with-srcdoc" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The srcdoc attribute in HTML5 allows developers to specify the exact HTML markup to be rendered inside an <iframe> directly as a string, eliminating the need to load an external file or host a separate document. This article explains how the srcdoc attri" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-embed-inline-html-in-an-iframe-with-srcdoc">How to Embed
+Inline HTML in an iframe with srcdoc</h1>
+<p>The <code>srcdoc</code> attribute in HTML5 allows developers to
+specify the exact HTML markup to be rendered inside an
+<code>&lt;iframe&gt;</code> directly as a string, eliminating the need
+to load an external file or host a separate document. This article
+explains how the <code>srcdoc</code> attribute works, its syntax, how it
+interacts with the standard <code>src</code> attribute as a fallback,
+and important security considerations like sandboxing.</p>
+<h2 id="what-is-the-srcdoc-attribute">What is the <code>srcdoc</code>
+Attribute?</h2>
+<p>Traditionally, the <code>&lt;iframe&gt;</code> tag requires a
+<code>src</code> attribute pointing to a URL (such as an external
+webpage or a local file) to render content. The <code>srcdoc</code>
+attribute provides an alternative by accepting inline HTML code directly
+within the element definition.</p>
+<p>When the browser parses an <code>&lt;iframe&gt;</code> with
+<code>srcdoc</code>, it takes the string value and builds an entirely
+separate HTML document object model (DOM) inside the frame context,
+without triggering a network request for an external resource.</p>
+<h3 id="basic-syntax">Basic Syntax</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">iframe</span><span class="ot"> srcdoc</span><span class="op">=</span><span class="st">&quot;</span><span class="er">&lt;</span><span class="st">h1&gt;Embedded Content</span><span class="er">&lt;</span><span class="st">/h1&gt;</span><span class="er">&lt;</span><span class="st">p&gt;This is rendered via inline HTML.</span><span class="er">&lt;</span><span class="st">/p&gt;&quot;</span><span class="dt">&gt;&lt;/</span><span class="kw">iframe</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Because the value is passed inside an HTML attribute, any quotation
+marks and special characters must be properly escaped. For example, use
+single quotes for the attribute value if your HTML snippet uses double
+quotes, or encode double quotes as <code>&amp;quot;</code>.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">iframe</span><span class="ot"> srcdoc</span><span class="op">=</span><span class="st">&#39;</span><span class="er">&lt;</span><span class="st">p class=&quot;highlight&quot;&gt;Inline HTML with attributes</span><span class="er">&lt;</span><span class="st">/p&gt;&#39;</span><span class="dt">&gt;&lt;/</span><span class="kw">iframe</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="interaction-with-the-src-attribute">Interaction with the
+<code>src</code> Attribute</h2>
+<p>The <code>srcdoc</code> attribute is designed to override the
+<code>src</code> attribute in browsers that support it. If an
+<code>&lt;iframe&gt;</code> includes both attributes:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">iframe</span><span class="ot"> </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  src</span><span class="op">=</span><span class="st">&quot;fallback.html&quot;</span><span class="ot"> </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ot">  srcdoc</span><span class="op">=</span><span class="st">&quot;</span><span class="er">&lt;</span><span class="st">p&gt;Modern browsers display this content.</span><span class="er">&lt;</span><span class="st">/p&gt;&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">iframe</span><span class="dt">&gt;</span></span></code></pre></div>
+<ol type="1">
+<li><strong>Modern Browsers</strong>: The browser prioritizes
+<code>srcdoc</code> and displays the inline markup, ignoring the
+resource specified in <code>src</code>.</li>
+<li><strong>Older Browsers</strong>: If a browser does not recognize the
+<code>srcdoc</code> attribute, it falls back to loading the file
+specified in the <code>src</code> attribute.</li>
+</ol>
+<h2 id="document-origin-and-execution-context">Document Origin and
+Execution Context</h2>
+<p>An <code>iframe</code> populated by <code>srcdoc</code> inherits the
+origin of its parent document. This means:</p>
+<ul>
+<li>Scripts running inside the <code>srcdoc</code> frame have the same
+origin privileges as the embedding page, allowing them to access the
+parent's DOM unless restricted.</li>
+<li>Relative URLs inside the <code>srcdoc</code> (such as
+<code>&lt;a href="/page"&gt;</code> or
+<code>&lt;img src="image.png"&gt;</code>) are resolved against the base
+URL of the parent document.</li>
+</ul>
+<h2 id="security-with-the-sandbox-attribute">Security with the
+<code>sandbox</code> Attribute</h2>
+<p>Because <code>srcdoc</code> content inherits the parent's origin,
+rendering untrusted user-generated content directly inside
+<code>srcdoc</code> can introduce Cross-Site Scripting (XSS) risks.</p>
+<p>To mitigate this, pair <code>srcdoc</code> with the
+<code>sandbox</code> attribute:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">iframe</span><span class="ot"> </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ot">  sandbox</span><span class="op">=</span><span class="st">&quot;allow-scripts&quot;</span><span class="ot"> </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ot">  srcdoc</span><span class="op">=</span><span class="st">&quot;</span><span class="er">&lt;</span><span class="st">script&gt;console.log(&#39;Sandboxed script execution&#39;);</span><span class="er">&lt;</span><span class="st">/script&gt;&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">iframe</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Applying <code>sandbox</code> places the inline document into a
+unique, restricted origin. A completely empty <code>sandbox</code>
+attribute disables JavaScript, form submissions, and access to the
+parent document's cookies and local storage.</p>
+<h2 id="primary-use-cases">Primary Use Cases</h2>
+<ul>
+<li><strong>Email and Template Previews</strong>: Displaying HTML email
+previews or user-generated design templates in an isolated container
+without writing files to disk.</li>
+<li><strong>Rich Text Editors</strong>: Rendering live previews of
+user-supplied HTML content securely using sandboxed frames.</li>
+<li><strong>Performance Optimization</strong>: Creating independent
+document trees for widgets or components without making additional HTTP
+round-trips.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

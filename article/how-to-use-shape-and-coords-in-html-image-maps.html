@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use Shape and Coords in HTML Image Maps - html</title>
+    <meta name="description" content="HTML image maps allow web developers to link different sections of a single image to multiple destinations by defining interactive regions known as hotspots. This article explains how the shape and coords attributes of the <area> tag work together to del">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-to-use-shape-and-coords-in-html-image-maps">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use Shape and Coords in HTML Image Maps - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-to-use-shape-and-coords-in-html-image-maps" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="HTML image maps allow web developers to link different sections of a single image to multiple destinations by defining interactive regions known as hotspots. This article explains how the shape and coords attributes of the <area> tag work together to del" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-shape-and-coords-in-html-image-maps">How to Use Shape
+and Coords in HTML Image Maps</h1>
+<p>HTML image maps allow web developers to link different sections of a
+single image to multiple destinations by defining interactive regions
+known as hotspots. This article explains how the <code>shape</code> and
+<code>coords</code> attributes of the <code>&lt;area&gt;</code> tag work
+together to delineate these clickable areas. By pairing specific
+geometric shapes—rectangles, circles, and polygons—with corresponding
+pixel coordinates, you can map precise, interactive regions over any
+static graphic.</p>
+<h2 id="the-coordinate-system">The Coordinate System</h2>
+<p>HTML image maps calculate coordinates based on a standard
+two-dimensional Cartesian grid applied to the image:</p>
+<ul>
+<li>The origin point <code>(0, 0)</code> is located at the
+<strong>top-left corner</strong> of the image.</li>
+<li>The <strong>x-axis</strong> increases horizontally from left to
+right.</li>
+<li>The <strong>y-axis</strong> increases vertically from top to
+bottom.</li>
+<li>All coordinate values inside the <code>coords</code> attribute are
+comma-separated integers representing distances measured in pixels.</li>
+</ul>
+<hr />
+<h2 id="supported-shapes-and-their-coordinates">Supported Shapes and
+Their Coordinates</h2>
+<p>The <code>shape</code> attribute specifies the geometric layout of
+the hotspot, while the <code>coords</code> attribute supplies the
+precise boundary measurements required by that specific shape.</p>
+<h3 id="1-rectangles-shaperect">1. Rectangles
+(<code>shape="rect"</code>)</h3>
+<p>The rectangle shape requires four coordinate values to define its
+boundaries:</p>
+<ul>
+<li><strong>Syntax:</strong>
+<code>shape="rect" coords="x1, y1, x2, y2"</code></li>
+<li><strong>Values:</strong>
+<ul>
+<li><code>x1, y1</code>: The horizontal and vertical position of the
+top-left corner.</li>
+<li><code>x2, y2</code>: The horizontal and vertical position of the
+bottom-right corner.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">area</span><span class="ot"> shape</span><span class="op">=</span><span class="st">&quot;rect&quot;</span><span class="ot"> coords</span><span class="op">=</span><span class="st">&quot;20, 20, 150, 80&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;rectangle-page.html&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Rectangle Hotspot&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this example, the clickable box begins 20 pixels from the left and
+top edges, extending to a point 150 pixels from the left and 80 pixels
+from the top.</p>
+<hr />
+<h3 id="2-circles-shapecircle">2. Circles
+(<code>shape="circle"</code>)</h3>
+<p>The circle shape requires three coordinate values to define its
+center point and size:</p>
+<ul>
+<li><strong>Syntax:</strong>
+<code>shape="circle" coords="x, y, radius"</code></li>
+<li><strong>Values:</strong>
+<ul>
+<li><code>x, y</code>: The coordinates marking the center point of the
+circle.</li>
+<li><code>radius</code>: The distance in pixels from the center to the
+outer perimeter.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">area</span><span class="ot"> shape</span><span class="op">=</span><span class="st">&quot;circle&quot;</span><span class="ot"> coords</span><span class="op">=</span><span class="st">&quot;200, 150, 50&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;circle-page.html&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Circle Hotspot&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>This hotspot creates a circular click target centered at 200 pixels
+along the x-axis and 150 pixels along the y-axis, with a clickable
+radius of 50 pixels in all directions.</p>
+<hr />
+<h3 id="3-polygons-shapepoly">3. Polygons
+(<code>shape="poly"</code>)</h3>
+<p>The polygon shape allows for complex, irregular, or multi-sided
+hotspots (such as triangles, stars, or geographical boundaries):</p>
+<ul>
+<li><strong>Syntax:</strong>
+<code>shape="poly" coords="x1, y1, x2, y2, x3, y3, ..."</code></li>
+<li><strong>Values:</strong> Pairs of x and y points representing each
+vertex (corner) of the shape.</li>
+<li><strong>Note:</strong> A polygon requires at least three pairs of
+coordinates (six numbers) to form a triangle. The browser automatically
+closes the shape by connecting the final coordinate back to the
+first.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">area</span><span class="ot"> shape</span><span class="op">=</span><span class="st">&quot;poly&quot;</span><span class="ot"> coords</span><span class="op">=</span><span class="st">&quot;100, 10, 140, 90, 60, 90&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;triangle-page.html&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Triangle Hotspot&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>This creates a triangular hotspot connecting the three vertices at
+<code>(100, 10)</code>, <code>(140, 90)</code>, and
+<code>(60, 90)</code>.</p>
+<hr />
+<h3 id="4-default-region-shapedefault">4. Default Region
+(<code>shape="default"</code>)</h3>
+<p>The <code>default</code> shape serves as a fallback that encompasses
+the entire remaining area of the image not already claimed by other
+<code>&lt;area&gt;</code> elements.</p>
+<ul>
+<li><strong>Syntax:</strong> <code>shape="default"</code></li>
+<li><strong>Values:</strong> It does not use the <code>coords</code>
+attribute.</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">area</span><span class="ot"> shape</span><span class="op">=</span><span class="st">&quot;default&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;general-info.html&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;General Area&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<hr />
+<h2 id="practical-implementation-example">Practical Implementation
+Example</h2>
+<p>To link the coordinates to the image, the <code>&lt;img&gt;</code>
+tag references the <code>&lt;map&gt;</code> element's <code>name</code>
+attribute using the <code>usemap</code> attribute preceded by a hash
+symbol (<code>#</code>):</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;interface-layout.png&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Interface Navigation&quot;</span><span class="ot"> usemap</span><span class="op">=</span><span class="st">&quot;#nav-map&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">map</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;nav-map&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Rectangular button --&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">area</span><span class="ot"> shape</span><span class="op">=</span><span class="st">&quot;rect&quot;</span><span class="ot"> coords</span><span class="op">=</span><span class="st">&quot;10, 10, 100, 50&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;dashboard.html&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Dashboard&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Circular icon --&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">area</span><span class="ot"> shape</span><span class="op">=</span><span class="st">&quot;circle&quot;</span><span class="ot"> coords</span><span class="op">=</span><span class="st">&quot;200, 30, 20&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;profile.html&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Profile&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Fallback area --&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">area</span><span class="ot"> shape</span><span class="op">=</span><span class="st">&quot;default&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;help.html&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Help Center&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">map</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When a user clicks inside the defined pixel ranges, the browser
+detects whether the pointer coordinates fall within the boundaries
+established by the <code>shape</code> and <code>coords</code> values and
+redirects the user accordingly.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

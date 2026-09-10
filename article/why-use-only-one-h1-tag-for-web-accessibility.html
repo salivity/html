@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Use Only One H1 Tag for Web Accessibility - html</title>
+    <meta name="description" content="Using a single <h1> element per webpage establishes a clear document hierarchy, optimizes screen reader navigation, and reduces cognitive load for users with disabilities. While HTML specifications permit multiple top-level headings in certain contexts,">
+    <link rel="canonical" href="https://salivity.github.io/html/article/why-use-only-one-h1-tag-for-web-accessibility">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Why Use Only One H1 Tag for Web Accessibility - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/why-use-only-one-h1-tag-for-web-accessibility" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Using a single <h1> element per webpage establishes a clear document hierarchy, optimizes screen reader navigation, and reduces cognitive load for users with disabilities. While HTML specifications permit multiple top-level headings in certain contexts," />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="why-use-only-one-h1-tag-for-web-accessibility">Why Use Only One
+H1 Tag for Web Accessibility</h1>
+<p>Using a single <code>&lt;h1&gt;</code> element per webpage
+establishes a clear document hierarchy, optimizes screen reader
+navigation, and reduces cognitive load for users with disabilities.
+While HTML specifications permit multiple top-level headings in certain
+contexts, maintaining a solitary <code>&lt;h1&gt;</code> remains the
+recognized best practice for web accessibility because it acts as the
+primary landmark defining the overall purpose of the page.</p>
+<h3 id="logical-document-hierarchy">Logical Document Hierarchy</h3>
+<p>The <code>&lt;h1&gt;</code> element serves as the semantic title of
+the entire document, analogous to the headline of a newspaper article or
+the title of a book. Subsequent headings (<code>&lt;h2&gt;</code>
+through <code>&lt;h6&gt;</code>) denote nested sub-sections. Using more
+than one <code>&lt;h1&gt;</code> flattens or confuses this hierarchy,
+making it difficult for automated tools and users alike to distinguish
+between the overarching theme of the page and secondary topics.</p>
+<h3 id="screen-reader-navigation">Screen Reader Navigation</h3>
+<p>Assistive technologies, such as screen readers (JAWS, NVDA,
+VoiceOver), provide shortcuts that allow users to browse web pages by
+headings. Many users jump directly to the first <code>&lt;h1&gt;</code>
+to bypass navigation menus and find the start of the main content
+quickly.</p>
+<p>When a page contains multiple <code>&lt;h1&gt;</code> elements:</p>
+<ul>
+<li>Users may be confused about where the primary content actually
+begins.</li>
+<li>It breaks the expectation that the first major heading represents
+the singular core subject of the page.</li>
+<li>Navigating through a list of headings becomes less efficient, as
+screen reader heading menus rely on predictable, sequential
+nesting.</li>
+</ul>
+<h3 id="the-failure-of-the-html5-outline-algorithm">The Failure of the
+HTML5 Outline Algorithm</h3>
+<p>HTML5 introduced semantic sectioning elements
+(<code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>,
+<code>&lt;aside&gt;</code>, <code>&lt;nav&gt;</code>) and proposed an
+"outline algorithm" where each section could theoretically have its own
+<code>&lt;h1&gt;</code>. However, browsers and screen readers never
+implemented this algorithm. As a result, assistive technologies still
+interpret headings globally rather than relative to their sectioning
+containers. Relying on multiple <code>&lt;h1&gt;</code> tags inside
+sectioning elements produces an unstructured, flat heading level that
+harms navigation.</p>
+<h3 id="reducing-cognitive-load">Reducing Cognitive Load</h3>
+<p>For individuals with cognitive, visual, or learning disabilities,
+consistent layout and predictability are crucial. A single
+<code>&lt;h1&gt;</code> at the top of the main content area provides a
+clear visual and structural anchor, confirming to the user that they
+have arrived at the intended page and clarifying the exact subject
+matter being presented.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

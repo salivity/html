@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How ARIA Complements Native HTML Semantics - html</title>
+    <meta name="description" content="This article explores the relationship between native HTML and Accessible Rich Internet Applications (ARIA), detailing how ARIA enhances web accessibility by filling functional gaps in native elements. While semantic HTML provides the foundation for acce">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-aria-complements-native-html-semantics">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How ARIA Complements Native HTML Semantics - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-aria-complements-native-html-semantics" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explores the relationship between native HTML and Accessible Rich Internet Applications (ARIA), detailing how ARIA enhances web accessibility by filling functional gaps in native elements. While semantic HTML provides the foundation for acce" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-aria-complements-native-html-semantics">How ARIA Complements
+Native HTML Semantics</h1>
+<p>This article explores the relationship between native HTML and
+Accessible Rich Internet Applications (ARIA), detailing how ARIA
+enhances web accessibility by filling functional gaps in native
+elements. While semantic HTML provides the foundation for accessible web
+development, modern dynamic interfaces often require complex behaviors
+and states that standard tags cannot convey alone. Readers will learn
+the core purposes of ARIA, how it augments existing elements without
+replacing them, and best practices for creating accessible, interactive
+user experiences.</p>
+<h3 id="the-foundation-native-html-semantics">The Foundation: Native
+HTML Semantics</h3>
+<p>Native HTML elements—such as <code>&lt;button&gt;</code>,
+<code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>,
+<code>&lt;main&gt;</code>, and <code>&lt;input&gt;</code>—come with
+built-in accessibility features known as implicit semantics. Browsers
+automatically provide these elements with default keyboard navigation,
+focus management, and accessibility tree roles that assistive
+technologies, such as screen readers, can interpret out of the box.
+Using native HTML ensures robust accessibility across diverse platforms
+with minimal development overhead.</p>
+<h3 id="the-role-of-aria-extending-native-capabilities">The Role of
+ARIA: Extending Native Capabilities</h3>
+<p>ARIA is a specification from the W3C designed to convey roles,
+states, and properties of user interface elements when native HTML
+cannot express them. ARIA does not alter the appearance, behavior, or
+keyboard functionality of an element; instead, it provides descriptive
+metadata directly to the browser's accessibility tree. It acts as a
+bridge, translating complex dynamic UI patterns into language assistive
+tech can process.</p>
+<h3 id="adding-dynamic-states-and-properties">Adding Dynamic States and
+Properties</h3>
+<p>While native HTML includes basic states like <code>disabled</code> or
+<code>checked</code>, complex custom widgets require more detailed
+information to be useful. ARIA complements HTML by providing attributes
+that reflect dynamic conditions:</p>
+<ul>
+<li><strong><code>aria-expanded</code>:</strong> Indicates whether a
+collapsible container, such as an accordion or dropdown menu, is
+currently open or closed.</li>
+<li><strong><code>aria-haspopup</code>:</strong> Alerts users that
+activating an element will trigger a popup window, submenu, or
+dialog.</li>
+<li><strong><code>aria-selected</code>:</strong> Informs screen readers
+which item in a custom tab list or carousel is currently active.</li>
+</ul>
+<p>These attributes update programmatically via JavaScript as user
+interaction occurs, keeping non-visual users informed of interface
+changes in real time.</p>
+<h3 id="announcing-live-updates">Announcing Live Updates</h3>
+<p>Standard HTML has no mechanism to inform screen readers of
+asynchronous updates occurring elsewhere on a page. ARIA solves this
+through "live regions." Using <code>aria-live="polite"</code> or
+<code>aria-live="assertive"</code>, developers can alert users when a
+search results list updates, an error message appears, or a timer ticks
+down, without interrupting the user's current focus.</p>
+<h3 id="providing-clear-context-and-relationships">Providing Clear
+Context and Relationships</h3>
+<p>Visual users rely on spatial relationships and icons to understand an
+interface, but these visual cues are often lost on screen readers. ARIA
+bridges this gap with labeling and relationship attributes:</p>
+<ul>
+<li><strong><code>aria-label</code>:</strong> Assigns an accessible text
+label directly to an element, such as labeling a button containing only
+an SVG magnifying glass as "Search."</li>
+<li><strong><code>aria-labelledby</code>:</strong> Links an element to
+another visible element on the page that acts as its label, avoiding
+redundant code.</li>
+<li><strong><code>aria-describedby</code>:</strong> Associates
+supplementary information, such as format requirements or error
+messages, with a form field.</li>
+</ul>
+<h3 id="defining-custom-component-roles">Defining Custom Component
+Roles</h3>
+<p>When native elements do not match the required design pattern—such as
+tabbed interfaces, tree views, or custom sliders—ARIA provides explicit
+roles like <code>role="tab"</code>, <code>role="tablist"</code>, and
+<code>role="tabpanel"</code>. These roles tell the screen reader how the
+component is organized and how users should expect to interact with it,
+while the developer uses JavaScript to implement the corresponding
+keyboard controls.</p>
+<h3 id="the-first-rule-of-aria">The First Rule of ARIA</h3>
+<p>The primary rule when working with ARIA is simple: do not use ARIA if
+a native HTML element or attribute already exists that satisfies your
+use case. An actual <code>&lt;button&gt;</code> element is always
+preferable to a <code>&lt;div role="button"&gt;</code>, because the
+native element provides built-in keyboard accessibility and browser
+support automatically. ARIA is not a replacement for good markup; it is
+a complementary layer designed to fill the gaps where native HTML
+ends.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

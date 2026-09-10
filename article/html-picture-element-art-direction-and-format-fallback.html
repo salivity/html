@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Picture Element Art Direction and Format Fallback - html</title>
+    <meta name="description" content="The HTML <picture> element is a responsive design feature that gives developers granular control over image delivery based on display characteristics and browser capabilities. By wrapping one or more <source> elements alongside a fallback <img> tag, <pic">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-picture-element-art-direction-and-format-fallback">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Picture Element Art Direction and Format Fallback - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-picture-element-art-direction-and-format-fallback" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <picture> element is a responsive design feature that gives developers granular control over image delivery based on display characteristics and browser capabilities. By wrapping one or more <source> elements alongside a fallback <img> tag, <pic" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-picture-element-art-direction-and-format-fallback">HTML
+Picture Element Art Direction and Format Fallback</h1>
+<p>The HTML <code>&lt;picture&gt;</code> element is a responsive design
+feature that gives developers granular control over image delivery based
+on display characteristics and browser capabilities. By wrapping one or
+more <code>&lt;source&gt;</code> elements alongside a fallback
+<code>&lt;img&gt;</code> tag, <code>&lt;picture&gt;</code> allows
+browsers to evaluate conditions before downloading an asset. This
+article explains how the element achieves art direction by serving
+differently cropped images according to viewport dimensions, and how it
+implements format fallback to serve next-generation formats like AVIF
+and WebP without breaking compatibility in older browsers.</p>
+<h2 id="how-the-picture-element-works">How the
+<code>&lt;picture&gt;</code> Element Works</h2>
+<p>The <code>&lt;picture&gt;</code> element acts as an evaluation
+wrapper rather than a standalone visual element. It contains one or more
+<code>&lt;source&gt;</code> elements followed by a single, required
+<code>&lt;img&gt;</code> element.</p>
+<p>When a browser encounters a <code>&lt;picture&gt;</code> tag, it
+reads the <code>&lt;source&gt;</code> elements sequentially from top to
+bottom. It selects the first <code>&lt;source&gt;</code> that satisfies
+the specified criteria, extracts its <code>srcset</code>, and applies it
+directly to the nested <code>&lt;img&gt;</code> element. The
+<code>&lt;img&gt;</code> tag handles the actual rendering, dimensions,
+accessibility (<code>alt</code> text), and loading behaviors.</p>
+<h2 id="implementing-art-direction">Implementing Art Direction</h2>
+<p>Art direction refers to changing the actual composition, framing, or
+aspect ratio of an image across different device sizes, rather than
+simply scaling the same image up or down. For example, a wide landscape
+shot suitable for a desktop monitor may become illegible on a narrow
+smartphone screen, where a tightly cropped portrait version focusing on
+the subject is more effective.</p>
+<p>The <code>&lt;picture&gt;</code> element provides art direction using
+the <code>media</code> attribute on <code>&lt;source&gt;</code> tags,
+which accepts any standard CSS media query:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">picture</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Mobile screens: close-up crop --&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(max-width: 600px)&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;hero-close-up.jpg&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Tablet screens: medium crop --&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(max-width: 1024px)&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;hero-medium.jpg&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Desktop screens and fallback: wide landscape --&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;hero-wide.jpg&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;A team collaborating in a modern office&quot;</span><span class="ot"> width</span><span class="op">=</span><span class="st">&quot;1200&quot;</span><span class="ot"> height</span><span class="op">=</span><span class="st">&quot;600&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">picture</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this setup, the browser evaluates the <code>media</code> queries
+before initiating a network request. A mobile user downloading the page
+will only download <code>hero-close-up.jpg</code>, saving bandwidth and
+receiving an image optimized for their screen's aspect ratio.</p>
+<h2 id="providing-format-fallback">Providing Format Fallback</h2>
+<p>Format fallback allows developers to serve highly compressed, modern
+image formats such as AVIF and WebP to browsers that support them, while
+automatically providing standard formats like JPEG or PNG to legacy
+browsers.</p>
+<p>This is accomplished using the <code>type</code> attribute, which
+specifies the MIME type of the resource:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">picture</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- First choice: AVIF (highest compression efficiency) --&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;image/avif&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;product.avif&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Second choice: WebP (widely supported modern format) --&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;image/webp&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;product.webp&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Universal fallback: JPEG --&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;product.jpg&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Wireless noise-canceling headphones&quot;</span><span class="ot"> width</span><span class="op">=</span><span class="st">&quot;800&quot;</span><span class="ot"> height</span><span class="op">=</span><span class="st">&quot;800&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">picture</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When parsing this block:</p>
+<ol type="1">
+<li>The browser checks if it supports <code>image/avif</code>. If it
+does, it requests <code>product.avif</code> and ignores the remaining
+tags.</li>
+<li>If AVIF is unsupported, it checks <code>image/webp</code>. If
+supported, it loads <code>product.webp</code>.</li>
+<li>If neither modern format is supported, or if the browser does not
+recognize the <code>&lt;picture&gt;</code> element at all, it falls back
+to <code>product.jpg</code> defined in the <code>&lt;img&gt;</code>
+tag.</li>
+</ol>
+<h2 id="combining-art-direction-and-format-fallback">Combining Art
+Direction and Format Fallback</h2>
+<p>The <code>media</code> and <code>type</code> attributes can be
+combined within individual <code>&lt;source&gt;</code> tags to
+simultaneously achieve art direction and progressive enhancement:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">picture</span><span class="dt">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Mobile AVIF --&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(max-width: 600px)&quot;</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;image/avif&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;mobile.avif&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Mobile JPEG --&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(max-width: 600px)&quot;</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;image/jpeg&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;mobile.jpg&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Desktop AVIF --&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;image/avif&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;desktop.avif&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Desktop JPEG Fallback --&gt;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;desktop.jpg&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Landscape view of a mountain range&quot;</span><span class="ot"> width</span><span class="op">=</span><span class="st">&quot;1600&quot;</span><span class="ot"> height</span><span class="op">=</span><span class="st">&quot;900&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">picture</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="essential-rules-for-implementation">Essential Rules for
+Implementation</h2>
+<ul>
+<li><strong>Always include the <code>&lt;img&gt;</code> tag:</strong>
+The <code>&lt;picture&gt;</code> element will not display anything
+without an inner <code>&lt;img&gt;</code> element.</li>
+<li><strong>Maintain source order:</strong> Always place modern formats
+and restrictive media queries at the top, as the browser selects the
+first matching candidate.</li>
+<li><strong>Declare layout attributes on
+<code>&lt;img&gt;</code>:</strong> Place attributes like
+<code>alt</code>, <code>loading="lazy"</code>,
+<code>decoding="async"</code>, <code>width</code>, and
+<code>height</code> on the <code>&lt;img&gt;</code> tag, not on the
+<code>&lt;picture&gt;</code> or <code>&lt;source&gt;</code> tags.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use Colspan and Rowspan in HTML Tables - html</title>
+    <meta name="description" content="HTML tables display structured data across a grid of rows and columns, but complex data often requires cells to span beyond a standard single-grid boundary. This article explains how the colspan and rowspan attributes function, what they achieve in compl">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-to-use-colspan-and-rowspan-in-html-tables">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use Colspan and Rowspan in HTML Tables - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-to-use-colspan-and-rowspan-in-html-tables" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="HTML tables display structured data across a grid of rows and columns, but complex data often requires cells to span beyond a standard single-grid boundary. This article explains how the colspan and rowspan attributes function, what they achieve in compl" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-colspan-and-rowspan-in-html-tables">How to Use
+Colspan and Rowspan in HTML Tables</h1>
+<p>HTML tables display structured data across a grid of rows and
+columns, but complex data often requires cells to span beyond a standard
+single-grid boundary. This article explains how the <code>colspan</code>
+and <code>rowspan</code> attributes function, what they achieve in
+complex table layouts, and how to implement them effectively to build
+clear, organized, and accessible data presentations.</p>
+<h2 id="what-is-colspan">What is <code>colspan</code>?</h2>
+<p>The <code>colspan</code> (column span) attribute defines the number
+of columns a single table cell should span horizontally. It is applied
+directly to table header (<code>&lt;th&gt;</code>) or table data
+(<code>&lt;td&gt;</code>) elements.</p>
+<p>By default, every cell occupies a single column width. When
+<code>colspan="n"</code> is applied, the cell expands to occupy the
+width of <code>n</code> columns, shifting adjacent cells in that row to
+the right. To maintain table integrity, the total number of cells in
+that row must account for the spanned columns, meaning subsequent
+<code>&lt;td&gt;</code> or <code>&lt;th&gt;</code> tags in that row must
+be omitted to prevent table distortion.</p>
+<h3 id="use-cases-for-colspan">Use Cases for <code>colspan</code></h3>
+<ul>
+<li><strong>Category Super-Headers:</strong> Creating a top-level header
+that groups several sub-headers beneath it (e.g., a "Quarter 1" header
+spanning "Jan", "Feb", and "Mar").</li>
+<li><strong>Summary Rows:</strong> Expanding a "Total" or "Average"
+label across several columns at the bottom of a data set.</li>
+<li><strong>Banner Announcements:</strong> Displaying a single message
+or status across the entire width of a data table.</li>
+</ul>
+<h2 id="what-is-rowspan">What is <code>rowspan</code>?</h2>
+<p>The <code>rowspan</code> (row span) attribute specifies the number of
+rows a single cell should span vertically. Like <code>colspan</code>, it
+is applied to <code>&lt;th&gt;</code> or <code>&lt;td&gt;</code>
+tags.</p>
+<p>When <code>rowspan="n"</code> is set, the cell extends downward to
+occupy the specified number of rows. In the subsequent rows that are
+overlapped by this spanned cell, the corresponding cell must be omitted
+from the HTML markup. The browser automatically places the cells of
+subsequent rows around the space reserved by the spanning cell.</p>
+<h3 id="use-cases-for-rowspan">Use Cases for <code>rowspan</code></h3>
+<ul>
+<li><strong>Grouped Row Labels:</strong> Labeling a recurring category
+once for multiple records (e.g., grouping several employees under a
+single "Department" cell).</li>
+<li><strong>Multi-Period Timetables:</strong> Representing an event or
+block of time that spans multiple consecutive time slots in a
+schedule.</li>
+<li><strong>Comparative Data:</strong> Pinning a control or baseline
+metric against multiple comparison rows.</li>
+</ul>
+<h2 id="what-colspan-and-rowspan-achieve-in-complex-layouts">What
+<code>colspan</code> and <code>rowspan</code> Achieve in Complex
+Layouts</h2>
+<p>In complex interfaces, raw tabular grids can easily become repetitive
+and difficult to interpret. Utilizing <code>colspan</code> and
+<code>rowspan</code> achieves three primary structural objectives:</p>
+<ol type="1">
+<li><strong>Hierarchy and Categorization:</strong> These attributes
+allow developers to establish multi-level visual and structural
+hierarchies. Grouping headers horizontally and categorizing data
+vertically transforms flat, confusing grids into structured, intuitive
+reports.</li>
+<li><strong>Elimination of Redundant Data:</strong> Repeating the same
+label across consecutive rows or columns clutters layouts. Spanning
+cells consolidates shared information into a single shared space,
+reducing cognitive load for users.</li>
+<li><strong>Responsive Visual Balance:</strong> Combining both
+attributes enables asymmetrical grid patterns, such as sidebars within
+tables, nested header systems, and comprehensive summary dashboards that
+align without requiring nested tables.</li>
+</ol>
+<h2 id="implementation-example">Implementation Example</h2>
+<p>Below is an example demonstrating both attributes within a single
+table:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">table</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">thead</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> rowspan</span><span class="op">=</span><span class="st">&quot;2&quot;</span><span class="dt">&gt;</span>Department<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="ot"> colspan</span><span class="op">=</span><span class="st">&quot;2&quot;</span><span class="dt">&gt;</span>Q1 Performance<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="dt">&gt;</span>Target<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">th</span><span class="dt">&gt;</span>Actual<span class="dt">&lt;/</span><span class="kw">th</span><span class="dt">&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">thead</span><span class="dt">&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">tbody</span><span class="dt">&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> rowspan</span><span class="op">=</span><span class="st">&quot;2&quot;</span><span class="dt">&gt;</span>Sales<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="dt">&gt;</span>$50,000<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="dt">&gt;</span>$55,000<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="dt">&gt;</span>$60,000<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="dt">&gt;</span>$58,000<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="ot"> colspan</span><span class="op">=</span><span class="st">&quot;2&quot;</span><span class="dt">&gt;</span>Total Variance<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">td</span><span class="dt">&gt;</span>+$3,000<span class="dt">&lt;/</span><span class="kw">td</span><span class="dt">&gt;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">tr</span><span class="dt">&gt;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">tbody</span><span class="dt">&gt;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">table</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="key-considerations">Key Considerations</h2>
+<ul>
+<li><strong>Cell Math:</strong> Ensure the sum of spanned and un-spanned
+cells matches across all rows. Mismatched column or row counts will lead
+to broken borders and misaligned layouts.</li>
+<li><strong>Accessibility:</strong> Screen readers rely on consistent
+grid coordinates. When using <code>colspan</code> and
+<code>rowspan</code> on headers, always include the
+<code>scope="colgroup"</code> or <code>scope="rowgroup"</code>
+attributes to ensure assistive technologies can correctly map data cells
+to their corresponding headers.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

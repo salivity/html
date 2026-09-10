@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML sub and sup Elements: A Typographic Guide - html</title>
+    <meta name="description" content="This article provides an overview of the HTML <sub> (subscript) and <sup> (superscript) elements, detailing their semantic roles in web typography, practical use cases in content formatting, and best practices for accessibility and design. The <sub> elem">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-sub-and-sup-elements-a-typographic-guide">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML sub and sup Elements: A Typographic Guide - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-sub-and-sup-elements-a-typographic-guide" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides an overview of the HTML <sub> (subscript) and <sup> (superscript) elements, detailing their semantic roles in web typography, practical use cases in content formatting, and best practices for accessibility and design. The <sub> elem" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-sub-and-sup-elements-a-typographic-guide">HTML sub and sup
+Elements: A Typographic Guide</h1>
+<p>This article provides an overview of the HTML
+<code>&lt;sub&gt;</code> (subscript) and <code>&lt;sup&gt;</code>
+(superscript) elements, detailing their semantic roles in web
+typography, practical use cases in content formatting, and best
+practices for accessibility and design.</p>
+<h2 id="the-role-of-the-sub-element">The Role of the
+<code>&lt;sub&gt;</code> Element</h2>
+<p>The <code>&lt;sub&gt;</code> element defines subscript text.
+Typographically, subscript text renders with a smaller font size and is
+vertically aligned below the typographic baseline of the surrounding
+text.</p>
+<p>The <code>&lt;sub&gt;</code> element is primarily used for
+typographical and semantic accuracy in contexts where positioning
+affects the meaning of the content. Common applications include:</p>
+<ul>
+<li><strong>Chemical formulas:</strong> For example, writing water as
+<code>H&lt;sub&gt;2&lt;/sub&gt;O</code> renders as H₂O.</li>
+<li><strong>Mathematical and scientific notations:</strong> Used for
+indexing and coordinate representation, such as
+<code>x&lt;sub&gt;1&lt;/sub&gt;, x&lt;sub&gt;2&lt;/sub&gt;, ... x&lt;sub&gt;n&lt;/sub&gt;</code>.</li>
+<li><strong>Subordinate variables:</strong> Indicating specifications or
+states in technical equations.</li>
+</ul>
+<h2 id="the-role-of-the-sup-element">The Role of the
+<code>&lt;sup&gt;</code> Element</h2>
+<p>The <code>&lt;sup&gt;</code> element defines superscript text.
+Typographically, superscript text renders with a smaller font size and
+is positioned above the baseline of the primary text line.</p>
+<p>Like subscript, superscript carries semantic significance where
+height indicates structural or mathematical hierarchy. Key applications
+include:</p>
+<ul>
+<li><strong>Mathematical exponents and powers:</strong> Expressing
+values such as <code>x&lt;sup&gt;2&lt;/sup&gt;</code> or
+<code>10&lt;sup&gt;6&lt;/sup&gt;</code>.</li>
+<li><strong>Ordinal indicators:</strong> Indicating numerical order in
+English or other languages, such as
+<code>1&lt;sup&gt;st&lt;/sup&gt;</code>,
+<code>2&lt;sup&gt;nd&lt;/sup&gt;</code>, or
+<code>3&lt;sup&gt;rd&lt;/sup&gt;</code>.</li>
+<li><strong>Footnote markers and citations:</strong> Referencing
+bibliographies or source notes within editorial content (e.g.,
+<code>Reference&lt;sup&gt;[1]&lt;/sup&gt;</code>).</li>
+<li><strong>Legal and commercial symbols:</strong> Displaying trademarks
+and copyright symbols, such as
+<code>Brand&lt;sup&gt;™&lt;/sup&gt;</code> or
+<code>Product&lt;sup&gt;®&lt;/sup&gt;</code>.</li>
+</ul>
+<h2 id="semantics-vs-pure-styling">Semantics vs. Pure Styling</h2>
+<p>Both <code>&lt;sub&gt;</code> and <code>&lt;sup&gt;</code> are
+semantic HTML elements. They should only be used when the positioning of
+the character conveys specific meaning essential to understanding the
+content.</p>
+<p>If text needs to be raised or lowered strictly for visual design or
+decorative purposes, use standard structural elements (like
+<code>&lt;span&gt;</code>) styled with CSS properties such as
+<code>vertical-align</code> and <code>font-size</code>. Using semantic
+tags purely for aesthetic reasons can introduce misleading semantic
+cues.</p>
+<h2 id="typographic-considerations-and-accessibility">Typographic
+Considerations and Accessibility</h2>
+<p>While browsers apply default styling to <code>&lt;sub&gt;</code> and
+<code>&lt;sup&gt;</code>, using them can introduce typographic and
+usability issues:</p>
+<ul>
+<li><strong>Line-height disruption:</strong> By default, browsers may
+expand the standard <code>line-height</code> of a paragraph to
+accommodate elevated or lowered characters, causing uneven spacing
+between lines of text. Web developers often reset these styles using
+modern CSS rules that combine <code>vertical-align: baseline</code> and
+relative positioning with <code>top</code> or <code>bottom</code>
+offsets to preserve consistent line spacing.</li>
+<li><strong>Screen reader interpretation:</strong> Many screen readers
+do not alter their speech cadence or explicitly announce subscript or
+superscript formatting automatically. When conveying critical
+mathematical formulas or scientific definitions, consider using MathML
+or supplementing the markup with visually hidden descriptive text (using
+the <code>.visually-hidden</code> or <code>aria-label</code> technique)
+to ensure clarity for assistive technologies.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

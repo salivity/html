@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML hidden Attribute vs aria-hidden="true" - html</title>
+    <meta name="description" content="When developing accessible web applications, understanding how to properly hide content is essential. While both the native HTML hidden attribute and the ARIA attribute aria-hidden="true" are used to remove elements from user perception, they serve funda">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-hidden-attribute-vs-aria-hidden-true">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML hidden Attribute vs aria-hidden="true" - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-hidden-attribute-vs-aria-hidden-true" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="When developing accessible web applications, understanding how to properly hide content is essential. While both the native HTML hidden attribute and the ARIA attribute aria-hidden="true" are used to remove elements from user perception, they serve funda" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-hidden-attribute-vs-aria-hiddentrue">HTML hidden Attribute
+vs aria-hidden="true"</h1>
+<p>When developing accessible web applications, understanding how to
+properly hide content is essential. While both the native HTML
+<code>hidden</code> attribute and the ARIA attribute
+<code>aria-hidden="true"</code> are used to remove elements from user
+perception, they serve fundamentally different purposes. This article
+explains the technical differences between these two mechanisms, how
+they affect visual presentation and assistive technology, and when to
+choose one over the other.</p>
+<h3 id="the-hidden-attribute">The <code>hidden</code> Attribute</h3>
+<p>The <code>hidden</code> attribute is a native HTML5 boolean attribute
+designed to indicate that an element is not currently relevant to the
+page.</p>
+<p>When you apply <code>hidden</code> to an HTML element:</p>
+<ul>
+<li><strong>Visual Rendering:</strong> Browsers automatically apply
+<code>display: none;</code> via user-agent stylesheets, completely
+removing the element from visual display.</li>
+<li><strong>Assistive Technology:</strong> The element is completely
+removed from the accessibility tree, making it invisible to screen
+readers.</li>
+<li><strong>Keyboard Navigation:</strong> Focusable elements inside a
+hidden container are removed from the sequential focus navigation (tab
+order).</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Hidden from both sighted users and screen readers --&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> hidden</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>This content is entirely hidden from everyone.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div>
+<p><em>Note on CSS:</em> Because the <code>hidden</code> attribute
+relies on user-agent styles, explicit CSS rules like
+<code>display: block;</code> or <code>display: flex;</code> on that
+element will override the attribute and make it visible again.</p>
+<h3 id="the-aria-hiddentrue-attribute">The
+<code>aria-hidden="true"</code> Attribute</h3>
+<p>The <code>aria-hidden="true"</code> attribute is part of the
+Accessible Rich Internet Applications (WAI-ARIA) specification. It is
+intended strictly for screen readers and accessibility tools.</p>
+<p>When you apply <code>aria-hidden="true"</code>:</p>
+<ul>
+<li><strong>Visual Rendering:</strong> It has zero effect on the visual
+appearance or layout of the page. Sighted users can still see the
+element normally.</li>
+<li><strong>Assistive Technology:</strong> The element and all its
+children are stripped from the accessibility tree, causing screen
+readers to completely ignore them.</li>
+<li><strong>Keyboard Navigation:</strong> It does <strong>not</strong>
+automatically remove interactive elements from the tab order. If an
+element with <code>aria-hidden="true"</code> contains links, buttons, or
+inputs, a keyboard user can still tab into them, but a screen reader
+will announce nothing, creating a confusing user experience.</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Visible on the page, but ignored by screen readers --&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;icon&quot;</span><span class="ot"> aria-hidden</span><span class="op">=</span><span class="st">&quot;true&quot;</span><span class="dt">&gt;</span>🛒<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">span</span><span class="dt">&gt;</span>Checkout<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="key-differences">Key Differences</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;"><code>hidden</code> Attribute</th>
+<th style="text-align: left;"><code>aria-hidden="true"</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Hides visually</strong></td>
+<td style="text-align: left;">Yes (via user-agent
+<code>display: none</code>)</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Hides from screen
+readers</strong></td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">Yes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Removes from tab
+order</strong></td>
+<td style="text-align: left;">Yes</td>
+<td style="text-align: left;">No</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Primary purpose</strong></td>
+<td style="text-align: left;">Entirely hide inactive or irrelevant
+content</td>
+<td style="text-align: left;">Hide purely visual or decorative
+content</td>
+</tr>
+</tbody>
+</table>
+<h3 id="when-to-use-which">When to Use Which</h3>
+<p><strong>Use <code>hidden</code> when:</strong></p>
+<ul>
+<li>Content should be unavailable to all users at the current time.</li>
+<li>Managing state-dependent UI, such as closed accordion panels,
+inactive tab panels, or un-triggered dialog modals.</li>
+<li>You need a fast, semantic alternative to adding a CSS
+<code>.hidden</code> utility class.</li>
+</ul>
+<p><strong>Use <code>aria-hidden="true"</code> when:</strong></p>
+<ul>
+<li>An element is purely decorative and does not convey unique meaning
+(e.g., decorative SVGs, icon fonts).</li>
+<li>An element duplicates information already conveyed in plain text
+nearby.</li>
+<li>You are applying visual enhancements that would otherwise create
+repetitive or confusing chatter for screen reader users.</li>
+</ul>
+<p>Never use <code>aria-hidden="true"</code> on focusable elements or
+containers that hold active interactive controls. For hiding entire
+components completely from all users, the HTML <code>hidden</code>
+attribute is the standard choice.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Input Types: The Complete Guide - html</title>
+    <meta name="description" content="The HTML <input> element is one of the most versatile elements in web development, relying on its type attribute to define what kind of data it accepts and how it behaves. This guide outlines the various data types supported by the HTML <input> element,">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-input-types-the-complete-guide">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Input Types: The Complete Guide - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-input-types-the-complete-guide" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <input> element is one of the most versatile elements in web development, relying on its type attribute to define what kind of data it accepts and how it behaves. This guide outlines the various data types supported by the HTML <input> element," />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-input-types-the-complete-guide">HTML Input Types: The
+Complete Guide</h1>
+<p>The HTML <code>&lt;input&gt;</code> element is one of the most
+versatile elements in web development, relying on its <code>type</code>
+attribute to define what kind of data it accepts and how it behaves.
+This guide outlines the various data types supported by the HTML
+<code>&lt;input&gt;</code> element, explaining how each input type
+functions, handles user data, and facilitates built-in browser
+validation.</p>
+<h3 id="text-based-data-types">Text-Based Data Types</h3>
+<ul>
+<li><strong><code>text</code></strong>: The default input type. It
+creates a basic single-line text field for general alphanumeric
+data.</li>
+<li><strong><code>password</code></strong>: Obscures entered characters
+(using dots or asterisks) to protect sensitive data like
+credentials.</li>
+<li><strong><code>email</code></strong>: Accepts email addresses. It
+includes automatic validation to ensure proper formatting (e.g.,
+presence of an <code>@</code> symbol) and triggers email-optimized
+keyboards on mobile devices.</li>
+<li><strong><code>url</code></strong>: Designed for web addresses. It
+validates that the input is a properly structured URL (beginning with
+protocols like <code>http://</code> or <code>https://</code>).</li>
+<li><strong><code>tel</code></strong>: Used for telephone numbers.
+Unlike <code>email</code> or <code>url</code>, it does not enforce a
+specific format automatically due to varied international formats, but
+it triggers a telephone keypad on mobile screens.</li>
+<li><strong><code>search</code></strong>: Styled specifically for search
+queries, often including a quick-clear icon natively provided by the
+browser.</li>
+</ul>
+<h3 id="numeric-and-value-range-types">Numeric and Value Range
+Types</h3>
+<ul>
+<li><strong><code>number</code></strong>: Restricts input to numerical
+values. It supports attributes such as <code>min</code>,
+<code>max</code>, and <code>step</code> to define acceptable numeric
+boundaries, and typically provides up/down spinner buttons.</li>
+<li><strong><code>range</code></strong>: Renders a slider control for
+selecting an approximate numerical value within a defined range using
+<code>min</code>, <code>max</code>, and <code>step</code>
+attributes.</li>
+</ul>
+<h3 id="date-and-time-types">Date and Time Types</h3>
+<ul>
+<li><strong><code>date</code></strong>: Provides an interface (often a
+calendar dropdown) for selecting a year, month, and day without a time
+zone.</li>
+<li><strong><code>datetime-local</code></strong>: Allows users to select
+both a date and a time (hours and minutes) without specifying a time
+zone.</li>
+<li><strong><code>time</code></strong>: Allows entry of a specific time
+value (hours, minutes, and optionally seconds) with no date
+associated.</li>
+<li><strong><code>month</code></strong>: Enables selection of a specific
+month and year.</li>
+<li><strong><code>week</code></strong>: Enables selection of a specific
+week and year.</li>
+</ul>
+<h3 id="choice-and-selection-types">Choice and Selection Types</h3>
+<ul>
+<li><strong><code>checkbox</code></strong>: Represents a binary choice
+(checked or unchecked). Multiple checkboxes in a form can be selected
+simultaneously.</li>
+<li><strong><code>radio</code></strong>: Represents a single choice
+among a group of mutually exclusive options sharing the same
+<code>name</code> attribute.</li>
+</ul>
+<h3 id="file-and-media-types">File and Media Types</h3>
+<ul>
+<li><strong><code>file</code></strong>: Enables users to select and
+upload one or more files from their local storage device. It can be
+paired with the <code>accept</code> attribute to limit specific file
+formats.</li>
+<li><strong><code>color</code></strong>: Displays a graphical color
+picker interface that outputs the selected color as a six-digit
+hexadecimal string (e.g., <code>#ff0000</code>).</li>
+</ul>
+<h3 id="action-and-form-control-types">Action and Form Control
+Types</h3>
+<ul>
+<li><strong><code>submit</code></strong>: Renders a button that sends
+the form data to the specified action handler.</li>
+<li><strong><code>reset</code></strong>: Renders a button that resets
+all fields in the parent form to their default values.</li>
+<li><strong><code>button</code></strong>: A general push button with no
+default behavior, primarily used to trigger JavaScript events.</li>
+<li><strong><code>image</code></strong>: Displays a graphical submit
+button using an image specified by the <code>src</code> attribute. It
+also transmits the coordinate clicks of the user.</li>
+<li><strong><code>hidden</code></strong>: Stores data that must be
+submitted with the form but should not be visible or editable by the
+user directly on the page.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

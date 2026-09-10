@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Screen Readers Use Headings in Rotor Menus - html</title>
+    <meta name="description" content="Screen reader rotor menus provide users with a powerful way to scan web pages by aggregating structural elements into dynamic, interactive lists. By parsing semantic HTML heading tags (<h1> through <h6>), assistive technologies generate an accessible tab">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-screen-readers-use-headings-in-rotor-menus">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How Screen Readers Use Headings in Rotor Menus - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-screen-readers-use-headings-in-rotor-menus" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Screen reader rotor menus provide users with a powerful way to scan web pages by aggregating structural elements into dynamic, interactive lists. By parsing semantic HTML heading tags (<h1> through <h6>), assistive technologies generate an accessible tab" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-screen-readers-use-headings-in-rotor-menus">How Screen
+Readers Use Headings in Rotor Menus</h1>
+<p>Screen reader rotor menus provide users with a powerful way to scan
+web pages by aggregating structural elements into dynamic, interactive
+lists. By parsing semantic HTML heading tags (<code>&lt;h1&gt;</code>
+through <code>&lt;h6&gt;</code>), assistive technologies generate an
+accessible table of contents. This allows non-sighted users to
+understand the architectural hierarchy of a webpage, skip past
+boilerplate content, and jump directly to relevant sections without
+having to read through the entire page linearly.</p>
+<h3 id="the-role-of-the-screen-reader-rotor">The Role of the Screen
+Reader Rotor</h3>
+<p>The "rotor" (most notably found in Apple's VoiceOver, with direct
+equivalents like the "Elements List" in NVDA and JAWS) functions as an
+in-context navigation hub. When activated via keyboard shortcuts or
+touch gestures, the rotor lets users choose which type of element they
+wish to browse, such as links, landmarks, form controls, or headings.
+When the user selects "Headings," the screen reader gathers every
+heading tag present in the document object model (DOM) and displays them
+sequentially.</p>
+<h3 id="extracting-and-structuring-the-document-outline">Extracting and
+Structuring the Document Outline</h3>
+<p>Screen readers do not rely on visual cues such as font size, weight,
+or color to identify headings. Instead, they look exclusively for
+semantic HTML heading tags (<code>&lt;h1&gt;</code> to
+<code>&lt;h6&gt;</code>) or elements assigned the ARIA role
+<code>role="heading"</code> with an <code>aria-level</code>
+attribute.</p>
+<p>When generating the heading menu, the rotor:</p>
+<ul>
+<li><strong>Reads the Text Content:</strong> It announces the text
+inside each heading tag, giving the user an immediate preview of the
+topic covered in that section.</li>
+<li><strong>Identifies the Level:</strong> It conveys the numerical
+level of the heading (e.g., "Heading level 2"), which communicates the
+nesting relationship between different ideas or sub-topics.</li>
+<li><strong>Preserves Visual Independence:</strong> Even if a heading is
+visually distinct on screen, the rotor processes it strictly through its
+semantic hierarchy, ensuring consistent navigation regardless of CSS
+styling.</li>
+</ul>
+<h3 id="rapid-navigation-and-jumping">Rapid Navigation and Jumping</h3>
+<p>Once the headings menu is active, users can cycle through the list
+rapidly using arrow keys or vertical swipes. When a user hears a heading
+of interest, confirming the selection immediately moves both the screen
+reader's virtual cursor and the visual focus to that specific location
+in the DOM.</p>
+<p>This mechanism serves the same purpose as a visual reader skimming
+bold text on a page. Rather than waiting for a screen reader to announce
+every paragraph, image, and link from top to bottom, the user can
+navigate dozens of sections in seconds.</p>
+<h3 id="the-importance-of-correct-heading-hierarchy">The Importance of
+Correct Heading Hierarchy</h3>
+<p>For the rotor menu to remain an efficient navigation tool, headings
+must be structured logically:</p>
+<ul>
+<li><strong>Single <code>&lt;h1&gt;</code> Tag:</strong> A clear,
+descriptive <code>&lt;h1&gt;</code> identifies the primary topic of the
+page, orienting the user immediately upon opening the rotor.</li>
+<li><strong>Sequential Nesting:</strong> Headings should follow a
+predictable descending order (<code>&lt;h1&gt;</code> followed by
+<code>&lt;h2&gt;</code>, followed by <code>&lt;h3&gt;</code>). Skipping
+levels—such as jumping from an <code>&lt;h2&gt;</code> directly to an
+<code>&lt;h4&gt;</code>—creates confusion in the rotor list, as users
+may wonder if they missed critical context or content.</li>
+<li><strong>Avoidance of Non-Semantic Hacks:</strong> Styling a
+<code>&lt;div&gt;</code> or <code>&lt;p&gt;</code> to look like a
+heading using CSS will omit that text from the rotor entirely.
+Conversely, wrapping large blocks of text in heading tags solely for
+visual prominence clutters the rotor and defeats its purpose as an
+index.</li>
+</ul>
+<p>By implementing strict, semantic heading structures, developers
+ensure that screen reader rotor menus function as intended, offering an
+intuitive, high-speed navigational roadmap for all users.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimize Rendering with the CSS Contain Property - html</title>
+    <meta name="description" content="The CSS contain property significantly improves rendering performance in large HTML trees by isolating DOM subtrees from the rest of the document. In standard browser rendering, changes to a single element's dimensions or contents can trigger cascading s">
+    <link rel="canonical" href="https://salivity.github.io/html/article/optimize-rendering-with-the-css-contain-property">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Optimize Rendering with the CSS Contain Property - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/optimize-rendering-with-the-css-contain-property" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The CSS contain property significantly improves rendering performance in large HTML trees by isolating DOM subtrees from the rest of the document. In standard browser rendering, changes to a single element's dimensions or contents can trigger cascading s" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="optimize-rendering-with-the-css-contain-property">Optimize
+Rendering with the CSS Contain Property</h1>
+<p>The CSS <code>contain</code> property significantly improves
+rendering performance in large HTML trees by isolating DOM subtrees from
+the rest of the document. In standard browser rendering, changes to a
+single element's dimensions or contents can trigger cascading style
+recalculations, layout reflows, and repaints across the entire page. By
+applying the <code>contain</code> property, developers declare that an
+element's internal layout, painting, or sizing changes are independent
+of the rest of the DOM, allowing the browser engine to bypass expensive
+global recalculations and localize work to that specific subtree.</p>
+<h2 id="the-rendering-challenge-in-deep-doms">The Rendering Challenge in
+Deep DOMs</h2>
+<p>Modern web applications frequently handle tens of thousands of DOM
+nodes. When an element inside a deeply nested tree updates—such as
+expanding an accordion, changing text, or toggling a class—the browser
+must traverse the tree to compute the blast radius of that change.</p>
+<p>By default, the browser assumes any DOM mutation might affect the
+geometry or appearance of ancestor, descendant, or sibling nodes. As the
+DOM grows, this process creates CPU bottlenecks, causing dropped frames,
+input lag, and poor Interaction to Next Paint (INP) scores.</p>
+<h2 id="how-css-contain-solves-the-problem">How CSS <code>contain</code>
+Solves the Problem</h2>
+<p>The <code>contain</code> property breaks this dependency chain. It
+provides explicit boundaries to the rendering engine, telling it that
+what happens inside an element stays inside that element. The property
+accepts several distinct values that target specific phases of the
+rendering pipeline.</p>
+<h3 id="layout-containment-contain-layout">Layout Containment
+(<code>contain: layout</code>)</h3>
+<p>Layout containment isolates the geometry calculations of an element.
+The browser guarantees that:</p>
+<ul>
+<li>Internal layout changes to the element or its descendants will never
+affect the layout of elements outside the container.</li>
+<li>External layout changes will not affect the layout inside the
+container.</li>
+</ul>
+<p>This allows the browser to perform localized reflows. If a nested
+element within a contained container resizes, the browser recalculates
+the layout only for that specific subtree, leaving the rest of the page
+untouched.</p>
+<h3 id="paint-containment-contain-paint">Paint Containment
+(<code>contain: paint</code>)</h3>
+<p>Paint containment establishes an isolated clipping and stacking
+context for the element's visual output. It guarantees that:</p>
+<ul>
+<li>Descendant elements cannot visually overflow or draw outside the
+bounds of the containing box.</li>
+<li>If the containing element is completely off-screen, the browser can
+skip painting its descendants entirely.</li>
+</ul>
+<p>This dramatically reduces GPU memory overhead and rasterization time,
+particularly on long, scrollable pages.</p>
+<h3 id="size-containment-contain-size">Size Containment
+(<code>contain: size</code>)</h3>
+<p>Size containment isolates size computation by treating the container
+as if it has no contents when calculating its own dimensions.</p>
+<ul>
+<li>The container's size is determined solely by explicit CSS rules
+(such as <code>width</code>, <code>height</code>, or
+<code>aspect-ratio</code>), completely ignoring the size of its
+children.</li>
+<li>This eliminates the risk of circular layout dependencies and allows
+the browser to compute the outer page layout without needing to parse or
+evaluate the contents inside the container first.</li>
+</ul>
+<h3 id="style-containment-contain-style">Style Containment
+(<code>contain: style</code>)</h3>
+<p>Style containment prevents scoped CSS properties, such as CSS
+counters and quotes, from leaking out into the rest of the document
+tree. While it does not scope standard visual styles like colors or
+fonts, it ensures that counters incremented within the contained subtree
+do not affect numbering elsewhere on the page.</p>
+<h2 id="practical-shorthands-content-and-strict">Practical Shorthands:
+<code>content</code> and <code>strict</code></h2>
+<p>CSS provides two combined values for convenience:</p>
+<ul>
+<li><strong><code>contain: content</code></strong>: Combines
+<code>layout</code> and <code>paint</code>. This is the most practical
+choice for dynamic components whose heights or widths cannot be
+predefined, such as dynamic user comments, feed items, or dashboard
+widgets.</li>
+<li><strong><code>contain: strict</code></strong>: Combines
+<code>size</code>, <code>layout</code>, and <code>paint</code>. This
+offers the highest performance gains because it completely detaches the
+subtree from all layout and paint pipelines. It requires that the
+element has an explicitly defined size.</li>
+</ul>
+<h2 id="performance-impact-on-real-world-uis">Performance Impact on
+Real-World UIs</h2>
+<p>Applying <code>contain</code> transforms large, monolithic DOM trees
+into collections of decoupled micro-trees. In practical terms, this
+produces measurable performance benefits:</p>
+<ol type="1">
+<li><strong>Faster Script-to-Screen Latency:</strong> When JavaScript
+modifies a contained card within a list of 1,000 items, the browser's
+layout recalculation phase drops from dozens of milliseconds to a
+fraction of a millisecond.</li>
+<li><strong>Smooth Scrolling:</strong> Pages with complex, repeated
+components (like data tables or social media timelines) maintain 60 to
+120 FPS scrolling because offscreen contained elements are omitted from
+the paint cycle.</li>
+<li><strong>Optimized Foundation for
+<code>content-visibility</code>:</strong> The <code>contain</code>
+property powers modern APIs like <code>content-visibility: auto</code>,
+which leverages size and paint containment under the hood to
+automatically skip rendering entirely for elements outside the
+viewport.</li>
+</ol></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML iFrame Security Risks and Implications - html</title>
+    <meta name="description" content="Embedding external content using an HTML <iframe> is a standard web development practice, but it introduces significant security vulnerabilities to both the parent site and its visitors. This article examines the core security risks associated with ifram">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-iframe-security-risks-and-implications">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML iFrame Security Risks and Implications - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-iframe-security-risks-and-implications" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Embedding external content using an HTML <iframe> is a standard web development practice, but it introduces significant security vulnerabilities to both the parent site and its visitors. This article examines the core security risks associated with ifram" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-iframe-security-risks-and-implications">HTML iFrame
+Security Risks and Implications</h1>
+<p>Embedding external content using an HTML <code>&lt;iframe&gt;</code>
+is a standard web development practice, but it introduces significant
+security vulnerabilities to both the parent site and its visitors. This
+article examines the core security risks associated with
+iframes—including clickjacking, cross-site scripting, top-level
+navigation hijacking, and data leaks—while outlining essential defenses
+such as the <code>sandbox</code> attribute and Content Security Policies
+to protect web applications.</p>
+<h3 id="clickjacking-ui-redressing">Clickjacking (UI Redressing)</h3>
+<p>Clickjacking occurs when an attacker embeds a legitimate website into
+a transparent or deceptive iframe on a malicious page. Users believe
+they are interacting with the visible host page, but their clicks are
+registered by the hidden iframe underneath. This technique can trick
+authenticated users into inadvertently transferring funds, modifying
+account settings, or granting unauthorized permissions.</p>
+<h3 id="cross-site-scripting-xss-and-malicious-execution">Cross-Site
+Scripting (XSS) and Malicious Execution</h3>
+<p>If an embedded third-party source is compromised or inherently
+malicious, it can execute malicious JavaScript. Without proper
+isolation, the embedded page might attempt to interact with the parent
+window's Document Object Model (DOM) if both share the same origin,
+potentially reading sensitive session data, capturing user keystrokes,
+or modifying content displayed on the host page.</p>
+<h3 id="top-level-window-hijacking">Top-Level Window Hijacking</h3>
+<p>By default, an untrusted page embedded within an iframe can
+manipulate the browser's top-level browsing context using
+<code>window.top.location</code>. This allows attackers to redirect
+users away from the legitimate host page to a malicious phishing site or
+malware distribution URL without user interaction or permission.</p>
+<h3 id="credential-harvesting-and-phishing">Credential Harvesting and
+Phishing</h3>
+<p>Embedded iframes can render convincing replica login interfaces or
+prompts. Users often struggle to distinguish between the host
+application's native inputs and those hosted inside an iframe, making
+iframe-based credential harvesting a potent phishing attack vector.</p>
+<h3 id="data-leakage-via-http-referrers">Data Leakage via HTTP
+Referrers</h3>
+<p>When a browser loads an iframe, it automatically sends an HTTP
+<code>Referer</code> header to the third-party server. If the parent
+page's URL contains sensitive tokens, user identifiers, or session
+variables within the path or query parameters, that information is
+automatically leaked to the embedded content provider.</p>
+<h3 id="core-defense-mechanisms">Core Defense Mechanisms</h3>
+<p>To eliminate or reduce these security risks, implement the following
+defensive controls:</p>
+<ul>
+<li><strong>The <code>sandbox</code> Attribute:</strong> Always apply
+the <code>sandbox</code> attribute to restrict the iframe's
+capabilities. A bare <code>sandbox</code> attribute restricts scripts,
+forms, popups, and same-origin privileges. Selectively enable only
+required features (e.g., <code>sandbox="allow-scripts"</code>). Avoid
+combining <code>allow-scripts</code> and <code>allow-same-origin</code>,
+as this allows the iframe to bypass its own sandbox.</li>
+<li><strong>Frame Protection Headers:</strong> To prevent your own
+application from being embedded in unauthorized iframes (preventing
+clickjacking), define the
+<code>Content-Security-Policy: frame-ancestors</code> directive (e.g.,
+<code>frame-ancestors 'none'</code> or
+<code>frame-ancestors 'self'</code>), or use the legacy
+<code>X-Frame-Options: DENY</code> header.</li>
+<li><strong>Restrict Embedding Sources:</strong> Use the CSP
+<code>frame-src</code> or <code>child-src</code> directives to define an
+explicit whitelist of trusted domains permitted to be loaded inside
+iframes across your application.</li>
+<li><strong>Permissions Policy:</strong> Use the <code>allow</code>
+attribute on the iframe to restrict access to sensitive browser
+features, explicitly disabling access to hardware such as cameras,
+microphones, geolocation, and payment APIs (e.g.,
+<code>allow="camera 'none'; microphone 'none'"</code>).</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Role of the Action Attribute in HTML Forms - html</title>
+    <meta name="description" content="The action attribute in an HTML <form> element defines the destination URL where collected form data is sent upon submission. This article explains the fundamental purpose of the action attribute, how it directs data using relative and absolute paths, ho">
+    <link rel="canonical" href="https://salivity.github.io/html/article/the-role-of-the-action-attribute-in-html-forms">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="The Role of the Action Attribute in HTML Forms - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/the-role-of-the-action-attribute-in-html-forms" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The action attribute in an HTML <form> element defines the destination URL where collected form data is sent upon submission. This article explains the fundamental purpose of the action attribute, how it directs data using relative and absolute paths, ho" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="the-role-of-the-action-attribute-in-html-forms">The Role of the
+Action Attribute in HTML Forms</h1>
+<p>The <code>action</code> attribute in an HTML
+<code>&lt;form&gt;</code> element defines the destination URL where
+collected form data is sent upon submission. This article explains the
+fundamental purpose of the <code>action</code> attribute, how it directs
+data using relative and absolute paths, how it pairs with HTTP
+submission methods, and what occurs when the attribute is left blank or
+omitted entirely.</p>
+<h2 id="defining-the-submission-target">Defining the Submission
+Target</h2>
+<p>When a user submits an HTML form, the browser packages the values
+entered into the form controls (such as text inputs, checkboxes, and
+radio buttons) paired with their respective <code>name</code>
+attributes. The <code>action</code> attribute instructs the browser
+where to dispatch this packaged payload. Without a specified
+destination, the browser cannot determine which server-side script, API
+endpoint, or page is responsible for handling the submitted
+information.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">form</span><span class="ot"> action</span><span class="op">=</span><span class="st">&quot;/api/contact-us&quot;</span><span class="ot"> method</span><span class="op">=</span><span class="st">&quot;POST&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;text&quot;</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;username&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;submit&quot;</span><span class="dt">&gt;</span>Submit<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">form</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this example, clicking the submit button directs the browser to
+send the form data directly to the <code>/api/contact-us</code>
+endpoint.</p>
+<h2 id="absolute-vs-relative-urls">Absolute vs. Relative URLs</h2>
+<p>The <code>action</code> attribute accepts two types of URLs:</p>
+<ul>
+<li><strong>Absolute URLs:</strong> Direct the form data to an external
+server or a fully specified domain (e.g.,
+<code>action="https://api.example.com/v1/register"</code>). This is
+commonly used when transmitting data to third-party payment gateways,
+authentication providers, or dedicated microservices.</li>
+<li><strong>Relative URLs:</strong> Direct the data to a path on the
+same host and protocol (e.g., <code>action="/submit"</code> or
+<code>action="process.php"</code>). The browser resolves this path
+against the current document's base URL, making it ideal for standard
+internal application routing.</li>
+</ul>
+<h2 id="interaction-with-the-method-attribute">Interaction with the
+<code>method</code> Attribute</h2>
+<p>The destination defined by the <code>action</code> attribute works
+directly alongside the form's <code>method</code> attribute, which
+dictates the HTTP method used during transit:</p>
+<ul>
+<li><strong>GET:</strong> The browser appends the serialized form data
+directly to the URL specified in the <code>action</code> attribute as a
+query string (e.g., <code>/search?query=html</code>).</li>
+<li><strong>POST:</strong> The browser sends the form data inside the
+HTTP request body to the URL specified in the <code>action</code>
+attribute, leaving the visible URL clean and securing sensitive data
+from appearing in browser histories or server access logs.</li>
+</ul>
+<h2 id="omitting-the-action-attribute">Omitting the <code>action</code>
+Attribute</h2>
+<p>If the <code>action</code> attribute is omitted, left empty
+(<code>action=""</code>), or set to <code>#</code>, the browser defaults
+to submitting the form data back to the current page's URL. This pattern
+is often used in traditional server-rendered applications where the same
+file or controller handles both displaying the form via a
+<code>GET</code> request and validating its submission via a
+<code>POST</code> request.</p>
+<h2 id="modern-web-applications-and-javascript">Modern Web Applications
+and JavaScript</h2>
+<p>In single-page applications (SPAs) and modern JavaScript frameworks,
+client-side scripts often intercept form submissions using
+<code>event.preventDefault()</code> to handle data asynchronously via
+<code>fetch()</code> or <code>XMLHttpRequest</code>. Even in these
+architectures, providing a valid <code>action</code> attribute remains a
+best practice. It ensures progressive enhancement, allowing the form to
+gracefully fall back to standard HTML submission if JavaScript fails to
+load or is disabled by the client.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Cumulative Layout Shift Measures Visual Instability - html</title>
+    <meta name="description" content="This article explains how Cumulative Layout Shift (CLS) quantifies unexpected visual movement caused by dynamically loaded HTML elements. Readers will learn the exact mathematical formula browsers use—multiplying the impact fraction by the distance fra">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-cumulative-layout-shift-measures-visual-instability">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How Cumulative Layout Shift Measures Visual Instability - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-cumulative-layout-shift-measures-visual-instability" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains how Cumulative Layout Shift (CLS) quantifies unexpected visual movement caused by dynamically loaded HTML elements. Readers will learn the exact mathematical formula browsers use—multiplying the impact fraction by the distance fra" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-cumulative-layout-shift-measures-visual-instability">How
+Cumulative Layout Shift Measures Visual Instability</h1>
+<p>This article explains how Cumulative Layout Shift (CLS) quantifies
+unexpected visual movement caused by dynamically loaded HTML elements.
+Readers will learn the exact mathematical formula browsers
+use—multiplying the impact fraction by the distance fraction—as well as
+how session windows aggregate these shifts, how user interactions are
+accounted for, and why unreserved space for dynamic content triggers
+high CLS scores.</p>
+<h2 id="the-mechanism-behind-layout-shifts">The Mechanism Behind Layout
+Shifts</h2>
+<p>When a browser renders a webpage, it calculates the position and
+dimensions of every Document Object Model (DOM) element in the visual
+viewport. A layout shift occurs whenever a visible element changes its
+start position (its top-left coordinates in the layout grid) between two
+rendered frames without direct user interaction.</p>
+<p>Dynamically loaded HTML elements—such as client-side rendered
+components, asynchronously injected advertisements, late-loading web
+fonts, or images without explicit dimension attributes—are the primary
+culprits. When these elements enter the DOM after initial layout
+calculations, they displace already rendered content downward or
+sideways, causing visual instability.</p>
+<h2 id="the-layout-shift-score-formula">The Layout Shift Score
+Formula</h2>
+<p>To quantify this instability, the browser calculates a Layout Shift
+Score for every unexpected shift event using two metrics: the
+<strong>Impact Fraction</strong> and the <strong>Distance
+Fraction</strong>.</p>
+<pre><code>Layout Shift Score = Impact Fraction × Distance Fraction</code></pre>
+<h3 id="1-the-impact-fraction">1. The Impact Fraction</h3>
+<p>The impact fraction measures how unstable elements impact the
+viewport area between two frames.</p>
+<p>To determine this value:</p>
+<ul>
+<li>The browser calculates the union of the visible bounding boxes of
+all <em>unstable elements</em> before the shift and after the
+shift.</li>
+<li>It then divides this combined area by the total area of the visible
+viewport.</li>
+</ul>
+<p>For example, if an asynchronously loaded banner pushes content down
+so that the affected elements occupied 50% of the viewport prior to the
+shift and now occupy 50% in their new position, with a total combined
+area covering 75% of the viewport, the impact fraction is
+<code>0.75</code>.</p>
+<h3 id="2-the-distance-fraction">2. The Distance Fraction</h3>
+<p>The distance fraction measures the greatest distance any single
+unstable element moved relative to the viewport's largest dimension
+(either width or height).</p>
+<ul>
+<li>If an element shifts vertically by 150 pixels on a viewport that is
+1000 pixels high, the greatest movement distance is 150 pixels.</li>
+<li>The distance fraction is <code>150 / 1000 = 0.15</code>.</li>
+</ul>
+<p>Multiplying these two fractions yields the shift score for that
+single event:</p>
+<pre><code>0.75 (Impact Fraction) × 0.15 (Distance Fraction) = 0.1125</code></pre>
+<h2 id="session-windows-and-cumulative-aggregation">Session Windows and
+Cumulative Aggregation</h2>
+<p>Rather than summing every shift linearly across an entire page
+lifecycle, modern implementations of CLS group layout shifts into
+<strong>session windows</strong>.</p>
+<ul>
+<li>A session window contains one or more layout shifts that occur in
+rapid succession.</li>
+<li>A window opens with the first layout shift and continues until there
+is a gap of at least 1 second between shifts.</li>
+<li>A session window has a maximum total duration cap of 5 seconds.</li>
+</ul>
+<p>The overall CLS score of a page represents the <strong>maximum
+session window score</strong>—the highest combined score of any single
+window observed during the page visit. This approach ensures that pages
+with long lifespans (like Single Page Applications) are not unfairly
+penalized for isolated, spread-out shifts while still heavily penalizing
+rapid bursts of instability caused by dynamic rendering.</p>
+<h2 id="expected-vs-unexpected-shifts">Expected vs. Unexpected
+Shifts</h2>
+<p>CLS exclusively quantifies <em>unexpected</em> movement. Layout
+shifts that occur within 500 milliseconds of an explicit user
+interaction—such as a tap, click, or keystroke—are flagged with a
+<code>hadRecentInput</code> boolean.</p>
+<p>The browser excludes these shifts from the CLS calculation under the
+assumption that the layout update was an expected response to user
+intent (such as expanding an accordion menu or submitting a form).
+However, dynamic elements loaded via asynchronous network requests
+triggered by a user action often exceed the 500ms window, resulting in
+penalized shifts unless layout dimensions are reserved in advance.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

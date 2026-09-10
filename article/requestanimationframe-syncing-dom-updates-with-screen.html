@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>requestAnimationFrame: Syncing DOM Updates with Screen - html</title>
+    <meta name="description" content="The requestAnimationFrame() API is a native browser method designed to synchronize JavaScript-driven DOM updates with the display hardware's native refresh cycle. Instead of relying on unpredictable timers, it instructs the browser to execute a specified">
+    <link rel="canonical" href="https://salivity.github.io/html/article/requestanimationframe-syncing-dom-updates-with-screen">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="requestAnimationFrame: Syncing DOM Updates with Screen - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/requestanimationframe-syncing-dom-updates-with-screen" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The requestAnimationFrame() API is a native browser method designed to synchronize JavaScript-driven DOM updates with the display hardware's native refresh cycle. Instead of relying on unpredictable timers, it instructs the browser to execute a specified" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1
+id="requestanimationframe-syncing-dom-updates-with-screen">requestAnimationFrame:
+Syncing DOM Updates with Screen</h1>
+<p>The <code>requestAnimationFrame()</code> API is a native browser
+method designed to synchronize JavaScript-driven DOM updates with the
+display hardware's native refresh cycle. Instead of relying on
+unpredictable timers, it instructs the browser to execute a specified
+callback right before the next repaint occurs. This overview explains
+how <code>requestAnimationFrame()</code> eliminates visual stutter,
+adapts dynamically to varying monitor refresh rates, optimizes system
+resources, and batches layout changes for fluid user interfaces.</p>
+<h3 id="the-problem-with-traditional-timers">The Problem with
+Traditional Timers</h3>
+<p>Before <code>requestAnimationFrame()</code>, developers used
+<code>setTimeout()</code> and <code>setInterval()</code> to create
+animations. These methods are fundamentally detached from the display
+hardware.</p>
+<p>A standard display updates at a fixed interval governed by a vertical
+synchronization (VSYNC) signal—typically every 16.67 milliseconds on a
+standard 60Hz display. Timers run on the JavaScript event loop queue and
+are prone to delays caused by other executing tasks. If a timer fires
+midway through a refresh cycle, the browser cannot render the update
+until the next cycle, resulting in dropped frames (jank) or visual
+tearing, where parts of two different frames appear on the screen
+simultaneously.</p>
+<h3 id="the-role-of-requestanimationframe">The Role of
+<code>requestAnimationFrame()</code></h3>
+<p><code>requestAnimationFrame()</code> resolves timing mismatches by
+transferring scheduling control from the script to the browser's
+rendering engine. When invoked, it schedules a callback function to run
+during the browser's render pipeline, immediately before the style
+calculation, layout, and paint stages take place.</p>
+<p>Key operational roles include:</p>
+<ul>
+<li><strong>VSYNC Synchronization:</strong> The browser aligns
+JavaScript execution directly with the display's VSYNC signal. This
+guarantees that DOM mutations are captured and painted in the very next
+frame, preventing frame skipping.</li>
+<li><strong>Dynamic Refresh Rate Adaptation:</strong> Different displays
+operate at different frequencies, such as 60Hz, 120Hz, or 144Hz.
+<code>requestAnimationFrame()</code> automatically matches the target
+display's refresh rate without requiring hardcoded intervals. On a 120Hz
+screen, it fires roughly every 8.33 milliseconds; on a 60Hz screen, it
+fires every 16.67 milliseconds.</li>
+<li><strong>Layout and Paint Batching:</strong> Because callbacks run
+just prior to the browser's restyle and layout calculations, all DOM
+updates made across multiple animations can be computed and painted in a
+single pass, drastically reducing layout thrashing.</li>
+<li><strong>Resource Conservation and Throttling:</strong> When a
+browser tab is minimized, placed in the background, or hidden behind
+another window, the browser automatically pauses or dramatically slows
+down <code>requestAnimationFrame()</code> execution. This minimizes CPU
+and GPU usage and preserves battery life on mobile devices, an
+optimization that standard timers do not natively provide.</li>
+</ul>
+<h3 id="standard-implementation-pattern">Standard Implementation
+Pattern</h3>
+<p>To build a continuous animation, <code>requestAnimationFrame()</code>
+is called recursively inside its own callback function. The browser
+passes a high-resolution timestamp (<code>DOMHighResTimeStamp</code>) to
+the callback, representing the exact time the frame started
+rendering.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> startTimestamp <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> element <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;animatedElement&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">step</span>(timestamp) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="op">!</span>startTimestamp) startTimestamp <span class="op">=</span> timestamp<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> progress <span class="op">=</span> timestamp <span class="op">-</span> startTimestamp<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Update DOM properties based on elapsed time</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  element<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">transform</span> <span class="op">=</span> <span class="vs">`translateX(</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(progress <span class="op">/</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">200</span>)<span class="sc">}</span><span class="vs">px)`</span><span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Continue the loop if the condition is met</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (progress <span class="op">&lt;</span> <span class="dv">2000</span>) {</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">window</span><span class="op">.</span><span class="fu">requestAnimationFrame</span>(step)<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">// Initiate the animation</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">window</span><span class="op">.</span><span class="fu">requestAnimationFrame</span>(step)<span class="op">;</span></span></code></pre></div>
+<p>Using the provided timestamp allows animations to be time-based
+rather than frame-based, ensuring that movement remains consistent
+regardless of whether the user is on a high-refresh monitor or
+experiencing temporary frame rate drops. By aligning code execution
+directly with the display cycle, <code>requestAnimationFrame()</code>
+serves as the foundational mechanism for high-performance rendering on
+the modern web.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

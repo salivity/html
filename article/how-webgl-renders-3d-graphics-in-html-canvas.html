@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How WebGL Renders 3D Graphics in HTML Canvas - html</title>
+    <meta name="description" content="The WebGL (Web Graphics Library) API enables web browsers to render high-performance, interactive 2D and 3D graphics directly within an HTML <canvas> element without external plugins. By acting as a low-level JavaScript interface to the computer's Graphi">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-webgl-renders-3d-graphics-in-html-canvas">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How WebGL Renders 3D Graphics in HTML Canvas - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-webgl-renders-3d-graphics-in-html-canvas" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The WebGL (Web Graphics Library) API enables web browsers to render high-performance, interactive 2D and 3D graphics directly within an HTML <canvas> element without external plugins. By acting as a low-level JavaScript interface to the computer's Graphi" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-webgl-renders-3d-graphics-in-html-canvas">How WebGL Renders
+3D Graphics in HTML Canvas</h1>
+<p>The WebGL (Web Graphics Library) API enables web browsers to render
+high-performance, interactive 2D and 3D graphics directly within an HTML
+<code>&lt;canvas&gt;</code> element without external plugins. By acting
+as a low-level JavaScript interface to the computer's Graphics
+Processing Unit (GPU), WebGL executes a programmable rendering pipeline
+that transforms mathematical coordinate data into fully shaded,
+interactive visual scenes at native screen refresh rates.</p>
+<h3 id="acquiring-the-rendering-context">Acquiring the Rendering
+Context</h3>
+<p>The process begins with the HTML <code>&lt;canvas&gt;</code> element,
+which serves as the physical drawing buffer on the web page. JavaScript
+code initializes the graphics environment by requesting a context via
+<code>canvas.getContext('webgl')</code> or
+<code>canvas.getContext('webgl2')</code>. This context exposes the state
+machine and complete library of WebGL methods required to configure GPU
+memory and issue draw commands.</p>
+<h3 id="transferring-data-to-gpu-buffers">Transferring Data to GPU
+Buffers</h3>
+<p>Because standard JavaScript objects reside in CPU memory, geometry
+data—such as 3D vertices, texture coordinates, surface normals, and
+color values—must be converted into typed arrays (such as
+<code>Float32Array</code>). WebGL creates GPU buffer objects
+(<code>gl.createBuffer()</code>) and binds them, uploading these raw
+byte streams directly into high-speed VRAM. This minimizes CPU-GPU
+communication overhead during rendering.</p>
+<h3 id="the-programmable-pipeline-shaders">The Programmable Pipeline:
+Shaders</h3>
+<p>WebGL relies on custom programs written in the OpenGL ES Shading
+Language (GLSL) that execute directly on the GPU's parallel cores. The
+pipeline requires two primary shaders:</p>
+<ol type="1">
+<li><strong>Vertex Shader:</strong> Processes each vertex in 3D space.
+It applies matrix transformations—Model, View, and Projection
+matrices—to translate local 3D coordinates into 2D clip-space
+coordinates, establishing depth, perspective, and object
+positioning.</li>
+<li><strong>Fragment Shader:</strong> Determines the final color value
+of every pixel covered by the geometry. It computes lighting models,
+shadow calculations, materials, and maps textures to the surface.</li>
+</ol>
+<p>JavaScript compiles both shaders at runtime, links them into a single
+WebGL program object, and instructs the context to use that program for
+subsequent draw calls.</p>
+<h3 id="rasterization-and-depth-testing">Rasterization and Depth
+Testing</h3>
+<p>Once the vertex shader establishes the vertices of primitives
+(typically triangles), the GPU's fixed-function hardware rasterizes
+them, breaking the continuous geometric surfaces down into discrete
+screen pixels known as fragments. During this stage, WebGL performs
+automated operations like the depth test (Z-buffering). The depth test
+compares the distance of each fragment against existing values in the
+depth buffer to ensure that closer objects correctly occlude geometry
+located behind them.</p>
+<h3 id="executing-the-draw-call">Executing the Draw Call</h3>
+<p>With the buffers bound, attributes mapped, uniforms (global variables
+like camera position) set, and shaders active, JavaScript triggers the
+render operation using methods such as <code>gl.drawArrays()</code> or
+<code>gl.drawElements()</code>. The GPU processes the geometry across
+hundreds or thousands of concurrent cores, computes pixel colors via the
+fragment shader, and writes the resulting image to the canvas
+framebuffer.</p>
+<h3 id="handling-interactivity-and-animation">Handling Interactivity and
+Animation</h3>
+<p>To achieve interactivity and smooth motion, the application
+integrates with the browser's <code>requestAnimationFrame()</code>
+cycle. When a user interacts with the canvas—via mouse movements,
+keyboard presses, or touch inputs—event handlers alter underlying
+transform matrices or physics states. On each animation frame, WebGL
+clears the previous buffer, recalculates these dynamic variables, and
+executes a new draw call. This updates the rendered scene instantly to
+create a fluid, responsive 3D experience.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

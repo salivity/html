@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purpose of apple-mobile-web-app-capable Meta Tag - html</title>
+    <meta name="description" content="The apple-mobile-web-app-capable meta tag is a legacy proprietary HTML tag developed by Apple to enable full-screen, standalone mode for web applications saved to an iOS device's Home Screen. When set, it instructs Mobile Safari to launch the saved web p">
+    <link rel="canonical" href="https://salivity.github.io/html/article/purpose-of-apple-mobile-web-app-capable-meta-tag">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Purpose of apple-mobile-web-app-capable Meta Tag - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/purpose-of-apple-mobile-web-app-capable-meta-tag" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The apple-mobile-web-app-capable meta tag is a legacy proprietary HTML tag developed by Apple to enable full-screen, standalone mode for web applications saved to an iOS device's Home Screen. When set, it instructs Mobile Safari to launch the saved web p" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="purpose-of-apple-mobile-web-app-capable-meta-tag">Purpose of
+apple-mobile-web-app-capable Meta Tag</h1>
+<p>The <code>apple-mobile-web-app-capable</code> meta tag is a legacy
+proprietary HTML tag developed by Apple to enable full-screen,
+standalone mode for web applications saved to an iOS device's Home
+Screen. When set, it instructs Mobile Safari to launch the saved web
+page without the default browser chrome, such as the top navigation
+address bar and the bottom toolbar, providing a user experience that
+mimics a native iOS application.</p>
+<h3 id="basic-syntax-and-implementation">Basic Syntax and
+Implementation</h3>
+<p>To activate standalone mode, the tag must be placed inside the
+<code>&lt;head&gt;</code> section of an HTML document:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;apple-mobile-web-app-capable&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;yes&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>The tag accepts two values:</p>
+<ul>
+<li><code>yes</code>: Enables standalone mode when the user adds the
+website to their Home Screen.</li>
+<li><code>no</code>: The default behavior. The website opens inside the
+standard Safari browser interface with all navigation controls
+visible.</li>
+</ul>
+<h3 id="key-effects-on-the-user-experience">Key Effects on the User
+Experience</h3>
+<p>When a user bookmarks a site using the "Add to Home Screen" option,
+iOS evaluates this tag:</p>
+<ol type="1">
+<li><strong>Removal of Browser Chrome:</strong> The URL address bar and
+bottom navigation toolbar (back, forward, share, tabs) are completely
+hidden, maximizing the available screen real estate for web
+content.</li>
+<li><strong>Dedicated App Instance:</strong> Tapping the Home Screen
+icon launches the web application in its own separate process rather
+than opening a tab inside the Safari browser.</li>
+<li><strong>Status Bar Customization:</strong> It works in conjunction
+with the <code>apple-mobile-web-app-status-bar-style</code> meta tag,
+which allows developers to customize the appearance of the iOS status
+bar (default, black, or translucent black).</li>
+</ol>
+<h3 id="limitations-in-legacy-ios">Limitations in Legacy iOS</h3>
+<p>While the tag successfully mimics a native app shell, legacy
+implementations introduced specific challenges:</p>
+<ul>
+<li><strong>Hyperlink Handling:</strong> Clicking an external link
+within a standalone web app traditionally forced iOS to open the
+destination URL in Safari, removing the user from the standalone
+container unless handled with custom JavaScript.</li>
+<li><strong>Session and State Isolation:</strong> In earlier iOS
+versions, standalone web apps operated in separate sandbox environments
+from Safari, meaning cookies, local storage, and login sessions were not
+shared between the browser and the Home Screen app.</li>
+</ul>
+<h3 id="modern-context">Modern Context</h3>
+<p>While Mobile Safari still recognizes
+<code>apple-mobile-web-app-capable</code> for backwards compatibility,
+the modern web standard has shifted toward the W3C Web App Manifest
+(<code>manifest.json</code>). Modern Progressive Web Apps (PWAs)
+configure standalone display behavior using the
+<code>"display": "standalone"</code> or
+<code>"display": "fullscreen"</code> properties in the manifest file.
+However, developers frequently retain this legacy meta tag to ensure
+older iOS versions continue to render the web application in full-screen
+mode.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

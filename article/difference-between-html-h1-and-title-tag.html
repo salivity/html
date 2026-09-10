@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difference Between HTML H1 and Title Tag - html</title>
+    <meta name="description" content="While both the <h1> element and the <title> element communicate the primary topic of a webpage, they serve fundamentally different semantic roles in HTML architecture. The <title> tag defines the global identity of the entire document for external enviro">
+    <link rel="canonical" href="https://salivity.github.io/html/article/difference-between-html-h1-and-title-tag">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Difference Between HTML H1 and Title Tag - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/difference-between-html-h1-and-title-tag" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="While both the <h1> element and the <title> element communicate the primary topic of a webpage, they serve fundamentally different semantic roles in HTML architecture. The <title> tag defines the global identity of the entire document for external enviro" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="difference-between-html-h1-and-title-tag">Difference Between
+HTML H1 and Title Tag</h1>
+<p>While both the <code>&lt;h1&gt;</code> element and the
+<code>&lt;title&gt;</code> element communicate the primary topic of a
+webpage, they serve fundamentally different semantic roles in HTML
+architecture. The <code>&lt;title&gt;</code> tag defines the global
+identity of the entire document for external environments like browser
+tabs and search engine result pages, whereas the <code>&lt;h1&gt;</code>
+tag defines the primary, visible heading of the content within the
+document body. Understanding this distinction is essential for writing
+accessible, semantically correct, and search-optimized HTML.</p>
+<h3 id="placement-and-document-structure">Placement and Document
+Structure</h3>
+<p>The most immediate technical difference lies in their location within
+the HTML tree:</p>
+<ul>
+<li><strong><code>&lt;title&gt;</code>:</strong> Located exclusively
+within the <code>&lt;head&gt;</code> section of the HTML document. It
+represents document-level metadata and is never rendered directly onto
+the visible webpage canvas.</li>
+<li><strong><code>&lt;h1&gt;</code>:</strong> Located within the
+<code>&lt;body&gt;</code> section of the HTML document. It represents
+content-level structure and is rendered directly on the page for users
+to read.</li>
+</ul>
+<h3 id="user-interface-and-display-context">User Interface and Display
+Context</h3>
+<p>Because these tags target different contexts, users interact with
+them in distinct ways:</p>
+<ul>
+<li><strong><code>&lt;title&gt;</code>:</strong> Displays as the label
+on browser tabs, appears in browser history, serves as the default name
+when saving a bookmark, and functions as the clickable headline in
+search engine results.</li>
+<li><strong><code>&lt;h1&gt;</code>:</strong> Displays at the top of the
+visible page layout, serving as the main visual heading that introduces
+the article, product, or section to the reader.</li>
+</ul>
+<h3 id="accessibility-and-screen-readers">Accessibility and Screen
+Readers</h3>
+<p>Assistive technologies rely on both tags to help visually impaired
+users navigate the web, but they use them at different stages of the
+browsing experience:</p>
+<ul>
+<li><strong><code>&lt;title&gt;</code>:</strong> Read aloud immediately
+when a webpage loads. This lets screen reader users instantly confirm
+which website and page they have opened before interacting with any
+content.</li>
+<li><strong><code>&lt;h1&gt;</code>:</strong> Read when the user begins
+navigating the body content. Screen reader users frequently navigate
+pages by jumping from heading to heading; the <code>&lt;h1&gt;</code>
+serves as the primary landmark indicating where the main body content
+begins.</li>
+</ul>
+<h3 id="cardinality-usage-rules">Cardinality (Usage Rules)</h3>
+<p>HTML standards and best practices dictate how many times each element
+should appear:</p>
+<ul>
+<li><strong><code>&lt;title&gt;</code>:</strong> A valid HTML document
+must have exactly one <code>&lt;title&gt;</code> element. Having none or
+more than one violates standard HTML specifications.</li>
+<li><strong><code>&lt;h1&gt;</code>:</strong> While modern HTML
+specifications technically permit multiple <code>&lt;h1&gt;</code>
+elements across sectioning tags, accessibility standards (such as WCAG)
+and search engines strongly recommend using only one
+<code>&lt;h1&gt;</code> per page to maintain a clear, hierarchical
+content outline.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

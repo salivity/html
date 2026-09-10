@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Purpose of the HTML ins Element - html</title>
+    <meta name="description" content="The HTML <ins> element is a semantic tag designed to represent content that has been added or inserted into an existing document, effectively tracking revisions and updates. This article explores the core purpose of the <ins> tag, its key attributes for">
+    <link rel="canonical" href="https://salivity.github.io/html/article/semantic-purpose-of-the-html-ins-element">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Semantic Purpose of the HTML ins Element - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/semantic-purpose-of-the-html-ins-element" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <ins> element is a semantic tag designed to represent content that has been added or inserted into an existing document, effectively tracking revisions and updates. This article explores the core purpose of the <ins> tag, its key attributes for" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="semantic-purpose-of-the-html-ins-element">Semantic Purpose of
+the HTML ins Element</h1>
+<p>The HTML <code>&lt;ins&gt;</code> element is a semantic tag designed
+to represent content that has been added or inserted into an existing
+document, effectively tracking revisions and updates. This article
+explores the core purpose of the <code>&lt;ins&gt;</code> tag, its key
+attributes for document versioning, how it differs from purely stylistic
+formatting elements, and its implications for web accessibility.</p>
+<h3 id="the-role-of-ins-in-document-editing">The Role of
+<code>&lt;ins&gt;</code> in Document Editing</h3>
+<p>The primary semantic function of <code>&lt;ins&gt;</code> (short for
+"inserted text") is to signal to browsers, search engines, and assistive
+technologies that a specific block of text or inline content was not
+part of the original version of a document. It is the HTML standard for
+indicating modifications, updates, or editorial corrections over
+time.</p>
+<p>The <code>&lt;ins&gt;</code> element is most commonly paired with the
+<code>&lt;del&gt;</code> (deleted text) element. Together, they create a
+standardized, machine-readable way to display document revisions,
+similar to the "track changes" feature in word processing software.</p>
+<h3 id="supporting-attributes">Supporting Attributes</h3>
+<p>To provide full context for an edit, the <code>&lt;ins&gt;</code>
+element supports two specific semantic attributes:</p>
+<ul>
+<li><strong><code>datetime</code></strong>: Accepts a machine-readable
+timestamp (typically in ISO 8601 format) indicating exactly when the
+addition was made. This allows user agents and scripts to parse edit
+timelines automatically.</li>
+<li><strong><code>cite</code></strong>: Accepts a URL pointing to a
+document or resource that explains the rationale or authorization behind
+the insertion.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>The conference will begin at <span class="dt">&lt;</span><span class="kw">del</span><span class="dt">&gt;</span>9:00 AM<span class="dt">&lt;/</span><span class="kw">del</span><span class="dt">&gt;</span> <span class="dt">&lt;</span><span class="kw">ins</span><span class="ot"> datetime</span><span class="op">=</span><span class="st">&quot;2024-05-10T08:30&quot;</span><span class="ot"> cite</span><span class="op">=</span><span class="st">&quot;updates.html#schedule&quot;</span><span class="dt">&gt;</span>10:00 AM<span class="dt">&lt;/</span><span class="kw">ins</span><span class="dt">&gt;</span>.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="semantic-meaning-vs-visual-styling">Semantic Meaning vs. Visual
+Styling</h3>
+<p>By default, most web browsers render content wrapped in an
+<code>&lt;ins&gt;</code> tag with an underline. However, the element
+must not be used solely for visual styling.</p>
+<ul>
+<li><strong><code>&lt;ins&gt;</code></strong>: Carries explicit semantic
+meaning that the text represents an addition to an earlier draft or
+version.</li>
+<li><strong><code>&lt;u&gt;</code></strong>: Historically used for
+underlines, it now represents text with an unarticulated, non-textual
+annotation (such as indicating misspelled words in Chinese text).</li>
+<li><strong>CSS <code>text-decoration: underline</code></strong>: The
+appropriate method for applying an underline purely for aesthetic
+reasons without conveying editorial meaning.</li>
+</ul>
+<h3 id="accessibility-considerations">Accessibility Considerations</h3>
+<p>While <code>&lt;ins&gt;</code> provides valuable semantic markup,
+most screen readers do not announce the presence of inserted text by
+default to avoid cluttering auditory output. For critical revision
+histories, developers should ensure that changes are also communicated
+via context, text-based notices, or ARIA attributes so that assistive
+technology users are aware of the editorial updates.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

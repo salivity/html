@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding aria-current="page" in HTML Navigation - html</title>
+    <meta name="description" content="The aria-current="page" attribute is a WAI-ARIA specification used to inform assistive technologies, such as screen readers, that a specific link represents the current active page within a navigation menu. While sighted users rely on visual cues like ba">
+    <link rel="canonical" href="https://salivity.github.io/html/article/understanding-aria-current-page-in-html-navigation">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Understanding aria-current="page" in HTML Navigation - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/understanding-aria-current-page-in-html-navigation" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The aria-current="page" attribute is a WAI-ARIA specification used to inform assistive technologies, such as screen readers, that a specific link represents the current active page within a navigation menu. While sighted users rely on visual cues like ba" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="understanding-aria-currentpage-in-html-navigation">Understanding
+aria-current="page" in HTML Navigation</h1>
+<p>The <code>aria-current="page"</code> attribute is a WAI-ARIA
+specification used to inform assistive technologies, such as screen
+readers, that a specific link represents the current active page within
+a navigation menu. While sighted users rely on visual cues like
+background colors, borders, or bold text to identify where they are on a
+website, assistive technology requires programmatic markup to convey
+this context. This article explains how <code>aria-current="page"</code>
+works, why it is critical for web accessibility, and how to implement it
+correctly in both HTML and CSS.</p>
+<h3 id="the-purpose-of-aria-currentpage">The Purpose of
+<code>aria-current="page"</code></h3>
+<p>When navigating a website, standard HTML markup provides no native
+way to indicate that a specific anchor (<code>&lt;a&gt;</code>) tag
+points to the document currently being viewed. Historically, developers
+relied solely on custom class names like <code>.active</code> or
+<code>.current</code> paired with visual styling.</p>
+<p>While CSS classes create visual distinction, screen readers cannot
+interpret their semantic meaning. Without programmatic identification, a
+visually impaired user must deduce their location based on the page's
+heading rather than the navigation list itself. Adding
+<code>aria-current="page"</code> explicitly communicates state,
+prompting screen readers to announce words like "current page" alongside
+the link’s label.</p>
+<h3 id="values-of-the-aria-current-attribute">Values of the
+<code>aria-current</code> Attribute</h3>
+<p>The <code>aria-current</code> attribute accepts several token values
+depending on the context of the container:</p>
+<ul>
+<li><strong><code>page</code></strong>: Indicates the current page
+within a set of pages (used on primary site navigation).</li>
+<li><strong><code>step</code></strong>: Indicates the current step
+within a multi-step flow or process indicator.</li>
+<li><strong><code>location</code></strong>: Indicates the current item
+within a visual flow or map.</li>
+<li><strong><code>date</code></strong>: Indicates the current date
+within a calendar or schedule.</li>
+<li><strong><code>time</code></strong>: Indicates the current time
+within a timetable.</li>
+<li><strong><code>true</code></strong>: A generic fallback indicating an
+active item in any generic set.</li>
+<li><strong><code>false</code></strong>: The default state, indicating
+the item is not active.</li>
+</ul>
+<p>For website navigation menus, <code>page</code> is the most accurate
+and descriptive value.</p>
+<h3 id="implementation-example">Implementation Example</h3>
+<p>In a standard navigation bar, apply <code>aria-current="page"</code>
+only to the link corresponding to the current URL.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">nav</span><span class="ot"> aria-label</span><span class="op">=</span><span class="st">&quot;Main Navigation&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">ul</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/&quot;</span><span class="dt">&gt;</span>Home<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/about&quot;</span><span class="ot"> aria-current</span><span class="op">=</span><span class="st">&quot;page&quot;</span><span class="dt">&gt;</span>About Us<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/services&quot;</span><span class="dt">&gt;</span>Services<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/contact&quot;</span><span class="dt">&gt;</span>Contact<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">ul</span><span class="dt">&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">nav</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When a screen reader encounters the "About Us" link, it will announce
+it as "About Us, current page, link," immediately orienting the
+user.</p>
+<h3 id="styling-with-css-using-attribute-selectors">Styling with CSS
+Using Attribute Selectors</h3>
+<p>Using <code>aria-current="page"</code> also simplifies CSS
+architecture by eliminating the need for duplicate visual class names
+like <code>.active</code>. You can target the attribute directly in your
+stylesheet:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Base navigation link styles */</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>nav a {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#333333</span><span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">text-decoration</span><span class="ch">:</span> <span class="dv">none</span><span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">/* Style for the current page */</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>nav a<span class="ex">[</span><span class="ss">aria-current</span><span class="op">=</span><span class="st">&quot;page&quot;</span><span class="ex">]</span> {</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="kw">color</span><span class="ch">:</span> <span class="cn">#0056b3</span><span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">bold</span><span class="op">;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">border-bottom</span><span class="ch">:</span> <span class="dv">2</span><span class="dt">px</span> <span class="dv">solid</span> <span class="cn">#0056b3</span><span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>This ensures that the visual style and the accessibility state are
+tied to the exact same source of truth in the DOM.</p>
+<h3 id="best-practices">Best Practices</h3>
+<ul>
+<li><strong>Single Current Item</strong>: Only one item within a
+specific navigation set should have <code>aria-current="page"</code> at
+any given time.</li>
+<li><strong>Single-Page Applications (SPAs)</strong>: When client-side
+routing changes the view without a full page reload, ensure your
+JavaScript router moves the <code>aria-current="page"</code> attribute
+to the newly active link.</li>
+<li><strong>Contrast Requirements</strong>: When applying visual styles
+to the active link, ensure that the active state meets WCAG color
+contrast requirements (at least 3:1 against adjacent colors or a
+distinct non-color indicator like an underline).</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

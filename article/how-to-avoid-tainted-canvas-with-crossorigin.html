@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Avoid Tainted Canvas with Crossorigin - html</title>
+    <meta name="description" content="When loading images from external domains onto an HTML canvas, browsers enforce strict security boundaries to protect sensitive user data. Without proper permissions, drawing an external image marks the canvas as "tainted," which permanently blocks any a">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-to-avoid-tainted-canvas-with-crossorigin">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Avoid Tainted Canvas with Crossorigin - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-to-avoid-tainted-canvas-with-crossorigin" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="When loading images from external domains onto an HTML canvas, browsers enforce strict security boundaries to protect sensitive user data. Without proper permissions, drawing an external image marks the canvas as "tainted," which permanently blocks any a" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-avoid-tainted-canvas-with-crossorigin">How to Avoid
+Tainted Canvas with Crossorigin</h1>
+<p>When loading images from external domains onto an HTML canvas,
+browsers enforce strict security boundaries to protect sensitive user
+data. Without proper permissions, drawing an external image marks the
+canvas as "tainted," which permanently blocks any attempt to export or
+read back its pixel data. This article explains what causes a tainted
+canvas, how the <code>crossorigin</code> attribute resolves this issue
+through Cross-Origin Resource Sharing (CORS), and how to implement it
+correctly.</p>
+<h3 id="what-is-a-tainted-canvas">What Is a Tainted Canvas?</h3>
+<p>A canvas becomes tainted the moment it renders an image, SVG, or
+video hosted on a different origin (domain, protocol, or port) without
+explicit CORS authorization. The browser allows the visual rendering of
+the media, but it treats the data as potentially untrusted.</p>
+<p>Once a canvas is tainted, calling data-extraction methods will fail
+immediately by throwing a <code>SecurityError</code>. The affected
+methods include:</p>
+<ul>
+<li><code>canvas.toDataURL()</code></li>
+<li><code>canvas.toBlob()</code></li>
+<li><code>context.getImageData()</code></li>
+</ul>
+<p>This restriction prevents malicious scripts from loading third-party
+images (such as private user content from an authenticated session on
+another site) and reading raw pixel data to steal information.</p>
+<h3 id="the-function-of-the-crossorigin-attribute">The Function of the
+<code>crossorigin</code> Attribute</h3>
+<p>The <code>crossorigin</code> attribute tells the browser to request
+the external resource using standard CORS mechanisms rather than a
+standard, unauthenticated GET request.</p>
+<p>When you attach <code>crossorigin</code> to an
+<code>&lt;img&gt;</code> element or set the <code>crossOrigin</code>
+property in JavaScript, the browser adds an <code>Origin</code> header
+to the outgoing HTTP request. If the server hosting the image allows
+access, it replies with an <code>Access-Control-Allow-Origin</code>
+response header. Upon verifying this header, the browser considers the
+image clean and allows the canvas to remain untainted after drawing
+it.</p>
+<h3 id="attribute-values">Attribute Values</h3>
+<p>The <code>crossorigin</code> attribute accepts two values:</p>
+<ul>
+<li><strong><code>anonymous</code></strong>: The browser sends a CORS
+request without credentials. Cookies, HTTP authentication, and
+client-side SSL certificates are not transmitted to the cross-origin
+server. If the attribute is defined without a value (e.g.,
+<code>&lt;img crossorigin src="..."&gt;</code>), it defaults to
+<code>anonymous</code>.</li>
+<li><strong><code>use-credentials</code></strong>: The browser sends a
+CORS request that includes credentials (such as cookies or authorization
+headers). The remote server must respond with
+<code>Access-Control-Allow-Credentials: true</code> and specify your
+exact origin in <code>Access-Control-Allow-Origin</code> rather than
+using a wildcard (<code>*</code>).</li>
+</ul>
+<h3 id="implementation-in-javascript">Implementation in JavaScript</h3>
+<p>To load an external image into a canvas dynamically without tainting
+it, set the <code>crossOrigin</code> property before assigning the
+<code>src</code> attribute:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> canvas <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;myCanvas&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> ctx <span class="op">=</span> canvas<span class="op">.</span><span class="fu">getContext</span>(<span class="st">&#39;2d&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> img <span class="op">=</span> <span class="kw">new</span> <span class="fu">Image</span>()<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>img<span class="op">.</span><span class="at">crossOrigin</span> <span class="op">=</span> <span class="st">&#39;anonymous&#39;</span><span class="op">;</span> <span class="co">// Request CORS access</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>img<span class="op">.</span><span class="at">onload</span> <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  ctx<span class="op">.</span><span class="fu">drawImage</span>(img<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">// This will now execute safely without throwing a SecurityError</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> dataURL <span class="op">=</span> canvas<span class="op">.</span><span class="fu">toDataURL</span>(<span class="st">&#39;image/png&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>img<span class="op">.</span><span class="at">src</span> <span class="op">=</span> <span class="st">&#39;https://example.com/image.png&#39;</span><span class="op">;</span></span></code></pre></div>
+<p>Setting <code>crossOrigin</code> before <code>src</code> ensures the
+browser initiates the network request with the appropriate CORS headers
+from the start.</p>
+<h3 id="server-requirements">Server Requirements</h3>
+<p>The <code>crossorigin</code> attribute cannot bypass security
+restrictions on its own. For the canvas to remain untainted, the remote
+image server must be configured to return valid CORS headers:</p>
+<pre class="http"><code>Access-Control-Allow-Origin: *</code></pre>
+<p>If the server does not return this header, or if it rejects the
+origin, the image will fail to load entirely, resulting in a CORS
+network error. The image must either be served with valid CORS headers
+or hosted on the same origin as the application to allow pixel
+manipulation on a canvas.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

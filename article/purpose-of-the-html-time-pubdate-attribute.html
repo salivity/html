@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purpose of the HTML time pubdate Attribute - html</title>
+    <meta name="description" content="In the early iterations of HTML5, the pubdate attribute was introduced as a companion to the <time> element to explicitly identify when a document or article was published. Although it was eventually removed from the web standards in favor of alternative">
+    <link rel="canonical" href="https://salivity.github.io/html/article/purpose-of-the-html-time-pubdate-attribute">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Purpose of the HTML time pubdate Attribute - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/purpose-of-the-html-time-pubdate-attribute" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="In the early iterations of HTML5, the pubdate attribute was introduced as a companion to the <time> element to explicitly identify when a document or article was published. Although it was eventually removed from the web standards in favor of alternative" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="purpose-of-the-html-time-pubdate-attribute">Purpose of the HTML
+time pubdate Attribute</h1>
+<p>In the early iterations of HTML5, the <code>pubdate</code> attribute
+was introduced as a companion to the <code>&lt;time&gt;</code> element
+to explicitly identify when a document or article was published.
+Although it was eventually removed from the web standards in favor of
+alternative structured data formats, understanding its historical
+purpose highlights how the web evolved to make temporal metadata
+understandable to search engines, feed aggregators, and assistive
+technologies.</p>
+<h2 id="identifying-publication-dates-in-html5">Identifying Publication
+Dates in HTML5</h2>
+<p>The <code>&lt;time&gt;</code> element was created in HTML5 to
+represent dates, times, or durations in a machine-readable format.
+However, a single web page or blog post often contains multiple dates,
+such as an event date, a historical timeline, a comment timestamp, or
+the date the post itself went live.</p>
+<p>The boolean <code>pubdate</code> attribute was designed to
+differentiate between generic dates and the actual publication date of
+the content. When present on a <code>&lt;time&gt;</code> tag, it
+signaled to user agents and crawlers that the enclosed date was the
+official publication timestamp.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">article</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">h1</span><span class="dt">&gt;</span>New Discoveries in Astronomy<span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Published on <span class="dt">&lt;</span><span class="kw">time</span><span class="ot"> datetime</span><span class="op">=</span><span class="st">&quot;2011-04-15&quot;</span><span class="ot"> pubdate</span><span class="dt">&gt;</span>April 15, 2011<span class="dt">&lt;/</span><span class="kw">time</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>The telescope first observed the phenomenon on <span class="dt">&lt;</span><span class="kw">time</span><span class="ot"> datetime</span><span class="op">=</span><span class="st">&quot;2009-08-20&quot;</span><span class="dt">&gt;</span>August 20, 2009<span class="dt">&lt;/</span><span class="kw">time</span><span class="dt">&gt;</span>.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">article</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this example, parsers could clearly recognize that the article was
+published in April 2011, while the August 2009 date was merely
+referenced within the body text.</p>
+<h2 id="scoping-rules">Scoping Rules</h2>
+<p>The behavior of <code>pubdate</code> relied on DOM hierarchy
+rules:</p>
+<ol type="1">
+<li><strong>Nearest Article Ancestor:</strong> If the
+<code>&lt;time pubdate&gt;</code> element was inside an
+<code>&lt;article&gt;</code> element, it represented the publication
+date of that specific <code>&lt;article&gt;</code>.</li>
+<li><strong>Document Level:</strong> If the
+<code>&lt;time pubdate&gt;</code> element was not enclosed within an
+<code>&lt;article&gt;</code> tag, it represented the publication date of
+the entire document.</li>
+</ol>
+<p>This scoping allowed web pages displaying multiple items—such as a
+blog archive or a news index—to clearly mark the distinct publication
+date of each separate article.</p>
+<h2 id="deprecation-and-modern-alternatives">Deprecation and Modern
+Alternatives</h2>
+<p>The <code>pubdate</code> attribute was dropped from the HTML
+specification around late 2011. Several factors contributed to its
+removal:</p>
+<ul>
+<li><strong>Limited Browser and Tool Support:</strong> Web browsers did
+not build native functionality around it, and adoption by major search
+engines remained low.</li>
+<li><strong>Redundancy with Microdata:</strong> The emergence and broad
+industry support for Schema.org and Microdata provided a more versatile
+and expressive way to mark up metadata across different types of
+content.</li>
+</ul>
+<p>Today, publication dates are typically marked up using Schema.org
+properties combined with the standard <code>&lt;time&gt;</code>
+element:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">article</span><span class="ot"> itemscope itemtype</span><span class="op">=</span><span class="st">&quot;https://schema.org/BlogPosting&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">h1</span><span class="ot"> itemprop</span><span class="op">=</span><span class="st">&quot;headline&quot;</span><span class="dt">&gt;</span>New Discoveries in Astronomy<span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Published: <span class="dt">&lt;</span><span class="kw">time</span><span class="ot"> itemprop</span><span class="op">=</span><span class="st">&quot;datePublished&quot;</span><span class="ot"> datetime</span><span class="op">=</span><span class="st">&quot;2024-05-10&quot;</span><span class="dt">&gt;</span>May 10, 2024<span class="dt">&lt;/</span><span class="kw">time</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">article</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>While <code>pubdate</code> is obsolete and invalid in modern HTML5
+validation, its introduction marked an important transitional phase in
+web development toward standardized, semantic publishing metadata.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

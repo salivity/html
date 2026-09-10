@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Viewport Meta Affects CSS Media Queries - html</title>
+    <meta name="description" content="CSS @media rules evaluate the dimensions of the browser's layout viewport, but mobile browsers rely on the HTML <meta name="viewport"> configuration to determine what that layout viewport actually is. Without this meta tag, mobile browsers default to sim">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-viewport-meta-affects-css-media-queries">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How Viewport Meta Affects CSS Media Queries - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-viewport-meta-affects-css-media-queries" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="CSS @media rules evaluate the dimensions of the browser's layout viewport, but mobile browsers rely on the HTML <meta name="viewport"> configuration to determine what that layout viewport actually is. Without this meta tag, mobile browsers default to sim" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-viewport-meta-affects-css-media-queries">How Viewport Meta
+Affects CSS Media Queries</h1>
+<p>CSS <code>@media</code> rules evaluate the dimensions of the
+browser's layout viewport, but mobile browsers rely on the HTML
+<code>&lt;meta name="viewport"&gt;</code> configuration to determine
+what that layout viewport actually is. Without this meta tag, mobile
+browsers default to simulating a desktop screen (usually around 980
+pixels wide), preventing screen-width-dependent media queries from
+triggering on handheld devices. Properly configuring the viewport meta
+tag synchronizes the browser's rendering canvas with the device's actual
+display dimensions, allowing CSS media queries to adapt layouts
+accurately.</p>
+<h3 id="the-layout-viewport-vs-mobile-default-behavior">The Layout
+Viewport vs. Mobile Default Behavior</h3>
+<p>Desktop browsers match their viewport directly to the size of the
+browser window. When a user resizes a desktop window, CSS media queries
+like <code>@media (max-width: 768px)</code> evaluate against that
+changing width in real time.</p>
+<p>Mobile browsers function differently by default. Because legacy
+websites were not built for small screens, mobile browsers historically
+introduced an artificial layout viewport—typically 980px wide—and then
+visually scaled the rendered page down to fit the smaller physical
+screen. In this default state:</p>
+<ul>
+<li>A phone with a physical width of 390px reports a viewport width of
+980px to CSS.</li>
+<li>A media query targeting mobile devices
+(<code>@media (max-width: 600px)</code>) evaluates to
+<code>false</code>.</li>
+<li>A media query targeting desktop devices
+(<code>@media (min-width: 769px)</code>) evaluates to
+<code>true</code>.</li>
+</ul>
+<h3 id="the-role-of-the-viewport-meta-tag">The Role of the Viewport Meta
+Tag</h3>
+<p>To bridge this gap, the HTML
+<code>&lt;meta name="viewport"&gt;</code> tag explicitly instructs the
+browser how to define the layout viewport.</p>
+<p>The standard responsive configuration is:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;viewport&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>This tag alters the layout environment in two distinct ways:</p>
+<ol type="1">
+<li><strong><code>width=device-width</code></strong>: Forces the layout
+viewport to match the device's screen width in device-independent pixels
+(CSS pixels). On a device with a 412px wide screen, the CSS layout
+viewport becomes exactly 412px.</li>
+<li><strong><code>initial-scale=1.0</code></strong>: Sets a 1:1
+relationship between CSS pixels and device-independent pixels upon page
+load, preventing the browser from zooming out to show a wider virtual
+canvas.</li>
+</ol>
+<h3 id="direct-impact-on-media-rules">Direct Impact on
+<code>@media</code> Rules</h3>
+<p>Once the viewport meta tag is added, CSS media query conditions align
+directly with the device's screen dimensions:</p>
+<ul>
+<li><strong>Width-based Queries</strong>: Conditions like
+<code>@media (max-width: 480px)</code> now evaluate as <code>true</code>
+on smartphones, applying mobile-specific styles.</li>
+<li><strong>Orientation Queries</strong>:
+<code>@media (orientation: landscape)</code> and
+<code>@media (orientation: portrait)</code> depend on the ratio of
+viewport width to height. The meta tag ensures these values correspond
+to the actual physical orientation rather than a fixed virtual desktop
+ratio.</li>
+<li><strong>Resolution Queries</strong>: Properties such as
+<code>min-resolution</code> or
+<code>-webkit-min-device-pixel-ratio</code> measure pixel density, but
+layout-related queries (<code>min-width</code>, <code>max-width</code>)
+depend solely on the CSS pixel boundaries established by the meta
+tag.</li>
+</ul>
+<h3 id="custom-viewport-configurations">Custom Viewport
+Configurations</h3>
+<p>The values assigned to the viewport meta tag dictate the exact
+threshold numbers that CSS media queries receive:</p>
+<ul>
+<li><strong>Fixed Width Overrides</strong>: If the meta tag is set to
+<code>&lt;meta name="viewport" content="width=1200"&gt;</code>, the
+layout viewport will permanently remain 1200px wide, regardless of
+device size. Consequently, <code>@media (max-width: 768px)</code> will
+never trigger on any mobile device.</li>
+<li><strong>Scale Alterations</strong>: Manipulating
+<code>initial-scale</code> or minimum/maximum zoom attributes can alter
+the initial dimensions calculated by the browser, directly shifting the
+breakpoint at which media queries execute.</li>
+</ul>
+<p>The HTML viewport meta configuration sets the baseline dimensions of
+the canvas, and CSS <code>@media</code> rules read those dimensions to
+apply the appropriate styles. Without the meta tag, responsive CSS media
+queries cannot function as intended on mobile devices.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

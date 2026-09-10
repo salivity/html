@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is the Novalidate Attribute in HTML Forms? - html</title>
+    <meta name="description" content="The novalidate attribute is a boolean attribute used on HTML <form> elements to disable the browser's built-in constraint validation upon form submission. This guide explains what the attribute does, why developers choose to bypass native validation, com">
+    <link rel="canonical" href="https://salivity.github.io/html/article/what-is-the-novalidate-attribute-in-html-forms">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is the Novalidate Attribute in HTML Forms? - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/what-is-the-novalidate-attribute-in-html-forms" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The novalidate attribute is a boolean attribute used on HTML <form> elements to disable the browser's built-in constraint validation upon form submission. This guide explains what the attribute does, why developers choose to bypass native validation, com" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-the-novalidate-attribute-in-html-forms">What Is the
+Novalidate Attribute in HTML Forms?</h1>
+<p>The <code>novalidate</code> attribute is a boolean attribute used on
+HTML <code>&lt;form&gt;</code> elements to disable the browser's
+built-in constraint validation upon form submission. This guide explains
+what the attribute does, why developers choose to bypass native
+validation, common practical use cases, and how to implement it
+effectively without compromising your application's security.</p>
+<h3 id="what-does-the-novalidate-attribute-do">What Does the
+<code>novalidate</code> Attribute Do?</h3>
+<p>Modern browsers automatically validate form controls before
+submitting data based on HTML5 attributes such as <code>required</code>,
+<code>type="email"</code>, <code>pattern</code>, <code>min</code>, and
+<code>max</code>. When invalid data is entered, the browser halts
+submission and displays a native error popup.</p>
+<p>Adding the <code>novalidate</code> attribute instructs the browser to
+skip this process entirely. The form will submit immediately, regardless
+of whether the inputs meet the defined constraints.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">form</span><span class="ot"> action</span><span class="op">=</span><span class="st">&quot;/submit&quot;</span><span class="ot"> method</span><span class="op">=</span><span class="st">&quot;post&quot;</span><span class="ot"> novalidate</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> for</span><span class="op">=</span><span class="st">&quot;email&quot;</span><span class="dt">&gt;</span>Email:<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;email&quot;</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;email&quot;</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;email&quot;</span><span class="ot"> required</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;submit&quot;</span><span class="dt">&gt;</span>Submit<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">form</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In the example above, even though the <code>required</code> and
+<code>type="email"</code> attributes are present, clicking the submit
+button will not trigger the browser's native error bubble if the input
+is left blank or contains an invalid email format.</p>
+<h3 id="why-use-novalidate">Why Use <code>novalidate</code>?</h3>
+<p>Disabling native browser validation is a standard practice in modern
+web development for several reasons:</p>
+<ol type="1">
+<li><p><strong>Custom JavaScript Validation</strong><br />
+Native validation tooltips differ visually across browsers (Chrome,
+Safari, Firefox) and offer limited styling options. Developers often use
+<code>novalidate</code> to suppress these inconsistent popups so they
+can implement fully styled, branded, and accessible validation messages
+using JavaScript or UI libraries.</p></li>
+<li><p><strong>Access to the Constraint Validation API</strong><br />
+Using <code>novalidate</code> stops the browser from <em>blocking</em>
+submission, but it does not remove the element constraints. JavaScript
+can still query the Constraint Validation API (using methods like
+<code>checkValidity()</code> or properties like
+<code>validity.valid</code>) to run checks manually before determining
+whether to allow submission.</p></li>
+<li><p><strong>"Save Draft" Functionality</strong><br />
+Multi-step forms or complex documents often require users to save
+progress before all required fields are completed. While developers
+typically use the <code>formnovalidate</code> attribute on a specific
+"Save Draft" button for this purpose, <code>novalidate</code> can
+achieve a similar result at the form level.</p></li>
+<li><p><strong>Testing Server-Side Validation</strong><br />
+Client-side validation should never replace server-side validation.
+Adding <code>novalidate</code> allows developers and QA testers to
+submit deliberately malformed data through the interface to ensure that
+server-side validation and error handling work as expected.</p></li>
+</ol>
+<h3 id="server-side-security-considerations">Server-Side Security
+Considerations</h3>
+<p>The <code>novalidate</code> attribute only affects client-side
+behavior in the browser. It does not sanitize inputs or protect
+endpoints against malicious requests. Any user can remove the attribute
+via browser developer tools or bypass the browser entirely using tools
+like cURL or Postman. Always enforce rigorous server-side validation
+regardless of whether <code>novalidate</code> is present.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

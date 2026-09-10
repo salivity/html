@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difference Between <b> and <strong> in HTML - html</title>
+    <meta name="description" content="While both the <b> and <strong> tags typically render text in bold by default across web browsers, they serve fundamentally different purposes in modern HTML. The primary difference lies in semantics: <b> is used for stylistic emphasis without implying e">
+    <link rel="canonical" href="https://salivity.github.io/html/article/difference-between-b-and-strong-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Difference Between <b> and <strong> in HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/difference-between-b-and-strong-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="While both the <b> and <strong> tags typically render text in bold by default across web browsers, they serve fundamentally different purposes in modern HTML. The primary difference lies in semantics: <b> is used for stylistic emphasis without implying e" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="difference-between--and--in-html">Difference Between <b> and
+<strong> in HTML</h1>
+<p>While both the <code>&lt;b&gt;</code> and <code>&lt;strong&gt;</code>
+tags typically render text in bold by default across web browsers, they
+serve fundamentally different purposes in modern HTML. The primary
+difference lies in semantics: <code>&lt;b&gt;</code> is used for
+stylistic emphasis without implying extra importance, whereas
+<code>&lt;strong&gt;</code> conveys that the enclosed text possesses
+strong importance, seriousness, or urgency. Understanding this
+distinction is essential for writing accessible, maintainable, and
+standard-compliant web pages.</p>
+<h3 id="the-semantic-meaning-of-strong">The Semantic Meaning of
+<code>&lt;strong&gt;</code></h3>
+<p>The <code>&lt;strong&gt;</code> tag is a semantic element that
+represents text of high importance, seriousness, or urgency relative to
+surrounding content. When user agents, such as web browsers or assistive
+technologies, encounter a <code>&lt;strong&gt;</code> element, they
+interpret the content as having greater significance.</p>
+<p>Common use cases for <code>&lt;strong&gt;</code> include:</p>
+<ul>
+<li><strong>Warnings or cautions:</strong> Alerting users to critical
+information (e.g., "<strong>Warning:</strong> This action cannot be
+undone.").</li>
+<li><strong>Key takeaways:</strong> Emphasizing crucial definitions or
+summary points within a body of text.</li>
+<li><strong>Urgent notices:</strong> Highlighting deadlines or
+conditions that require immediate attention.</li>
+</ul>
+<h3 id="the-semantic-meaning-of-b">The Semantic Meaning of
+<code>&lt;b&gt;</code></h3>
+<p>In HTML5, the <code>&lt;b&gt;</code> tag was redefined to represent
+text to which attention is being drawn for utilitarian purposes, without
+conveying any additional importance, seriousness, or urgency. It
+represents a stylistic offset from the standard prose.</p>
+<p>Common use cases for <code>&lt;b&gt;</code> include:</p>
+<ul>
+<li><strong>Keywords in a summary:</strong> Drawing attention to key
+terms in a document overview.</li>
+<li><strong>Product names in reviews:</strong> Highlighting specific
+brand or item names without elevating their contextual importance.</li>
+<li><strong>Action words in instructions:</strong> Highlighting user
+interface actions, such as "Click the <b>Submit</b> button to
+proceed."</li>
+</ul>
+<h3 id="accessibility-and-screen-readers">Accessibility and Screen
+Readers</h3>
+<p>The distinction between <code>&lt;b&gt;</code> and
+<code>&lt;strong&gt;</code> significantly impacts web accessibility.
+Screen readers and other assistive tools interpret semantic tags to
+alter their delivery:</p>
+<ul>
+<li>A screen reader may announce text wrapped in
+<code>&lt;strong&gt;</code> with a different vocal tone, pitch, or
+inflection to convey its importance to visually impaired users.</li>
+<li>Content wrapped in <code>&lt;b&gt;</code> is typically read without
+any special vocal inflection, as it lacks semantic weight. Using
+<code>&lt;b&gt;</code> when content is genuinely critical can prevent
+assistive technology users from recognizing that urgency.</li>
+</ul>
+<h3 id="search-engine-optimization-seo">Search Engine Optimization
+(SEO)</h3>
+<p>Search engines prioritize semantic markup to better parse and
+understand page structure. Search engine crawlers recognize
+<code>&lt;strong&gt;</code> as an indicator of critical keywords and
+thematic focus within a paragraph. In contrast, the
+<code>&lt;b&gt;</code> element provides minimal to no semantic signal to
+search engines regarding content priority.</p>
+<h3 id="when-to-use-css-instead">When to Use CSS Instead</h3>
+<p>Neither <code>&lt;b&gt;</code> nor <code>&lt;strong&gt;</code> should
+be used purely for visual decoration. If text needs to be bold solely
+for layout or aesthetic reasons without semantic importance or specific
+stylistic offset, modern web standards dictate using CSS:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.bold-text</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">bold</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Reserving <code>&lt;strong&gt;</code> for genuine importance and
+<code>&lt;b&gt;</code> for conventional stylistic offsets ensures clean
+code, optimal search performance, and broad accessibility.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

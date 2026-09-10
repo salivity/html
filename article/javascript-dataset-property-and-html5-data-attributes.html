@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Dataset Property and HTML5 Data Attributes - html</title>
+    <meta name="description" content="The dataset property in JavaScript provides a convenient, standardized interface for reading, writing, and manipulating custom HTML5 data- attributes on DOM elements. Instead of relying on generic attribute methods, developers can use this property to ac">
+    <link rel="canonical" href="https://salivity.github.io/html/article/javascript-dataset-property-and-html5-data-attributes">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="JavaScript Dataset Property and HTML5 Data Attributes - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/javascript-dataset-property-and-html5-data-attributes" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The dataset property in JavaScript provides a convenient, standardized interface for reading, writing, and manipulating custom HTML5 data- attributes on DOM elements. Instead of relying on generic attribute methods, developers can use this property to ac" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1
+id="javascript-dataset-property-and-html5-data-attributes">JavaScript
+Dataset Property and HTML5 Data Attributes</h1>
+<p>The <code>dataset</code> property in JavaScript provides a
+convenient, standardized interface for reading, writing, and
+manipulating custom HTML5 <code>data-*</code> attributes on DOM
+elements. Instead of relying on generic attribute methods, developers
+can use this property to access element-specific metadata as a
+structured JavaScript object. This article explains the primary purpose
+of the <code>dataset</code> property, how it handles naming conventions,
+and how to use it efficiently to manage custom application data.</p>
+<h2 id="the-core-purpose-of-dataset">The Core Purpose of
+<code>dataset</code></h2>
+<p>Before HTML5, embedding custom data within HTML elements required
+non-standard attributes or relying on classes, which could lead to
+invalid HTML and rendering inconsistencies. HTML5 introduced
+<code>data-*</code> attributes to allow custom data storage directly on
+elements.</p>
+<p>The <code>dataset</code> property exists on any HTML DOM element (via
+the <code>HTMLElement</code> interface) to expose these
+<code>data-*</code> attributes as a <code>DOMStringMap</code>. Its
+primary purposes are:</p>
+<ul>
+<li><strong>Simplifying Syntax:</strong> Eliminating the need to
+repeatedly call <code>element.getAttribute('data-...')</code> and
+<code>element.setAttribute('data-...', ...)</code>.</li>
+<li><strong>Object-Oriented Access:</strong> Providing a native
+JavaScript object interface where attributes are accessed via standard
+dot notation or bracket notation.</li>
+<li><strong>Automatic Name Mapping:</strong> Converting hyphenated
+(kebab-case) attribute names into standard JavaScript camelCase
+properties automatically.</li>
+</ul>
+<h2 id="automatic-name-conversion">Automatic Name Conversion</h2>
+<p>HTML attribute names are case-insensitive and conventionally use
+hyphens (<code>kebab-case</code>), whereas JavaScript properties
+conventionally use <code>camelCase</code>. The <code>dataset</code>
+property automatically translates between the two formats:</p>
+<ol type="1">
+<li>The <code>data-</code> prefix is stripped away.</li>
+<li>Any lowercase letter preceded by a hyphen is converted to
+uppercase.</li>
+<li>The hyphens are removed.</li>
+</ol>
+<p>For example:</p>
+<ul>
+<li><code>data-user-id="42"</code> becomes
+<code>element.dataset.userId</code></li>
+<li><code>data-is-active="true"</code> becomes
+<code>element.dataset.isActive</code></li>
+<li><code>data-date-of-birth="1990-01-01"</code> becomes
+<code>element.dataset.dateOfBirth</code></li>
+</ul>
+<p>When setting values in JavaScript using camelCase, the reverse
+happens in the DOM. Assigning
+<code>element.dataset.userRole = "admin"</code> will result in the HTML
+element having the attribute <code>data-user-role="admin"</code>.</p>
+<h2 id="reading-writing-and-deleting-data">Reading, Writing, and
+Deleting Data</h2>
+<p>Working with the <code>dataset</code> property follows standard
+JavaScript object manipulation patterns.</p>
+<h3 id="reading-data">Reading Data</h3>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> button <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&#39;#submit-btn&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">// HTML: &lt;button id=&quot;submit-btn&quot; data-action=&quot;save&quot; data-timeout-ms=&quot;5000&quot;&gt;Save&lt;/button&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> action <span class="op">=</span> button<span class="op">.</span><span class="at">dataset</span><span class="op">.</span><span class="at">action</span><span class="op">;</span> <span class="co">// &quot;save&quot;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> timeout <span class="op">=</span> button<span class="op">.</span><span class="at">dataset</span><span class="op">.</span><span class="at">timeoutMs</span><span class="op">;</span> <span class="co">// &quot;5000&quot;</span></span></code></pre></div>
+<h3 id="writing-data">Writing Data</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Setting an existing or new data attribute</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>button<span class="op">.</span><span class="at">dataset</span><span class="op">.</span><span class="at">status</span> <span class="op">=</span> <span class="st">&quot;processing&quot;</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Resulting HTML: data-status=&quot;processing&quot;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>button<span class="op">.</span><span class="at">dataset</span><span class="op">.</span><span class="at">timeoutMs</span> <span class="op">=</span> <span class="st">&quot;10000&quot;</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Resulting HTML: data-timeout-ms=&quot;10000&quot;</span></span></code></pre></div>
+<h3 id="deleting-data">Deleting Data</h3>
+<p>To completely remove a <code>data-*</code> attribute from the DOM
+element, use the <code>delete</code> operator:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">delete</span> button<span class="op">.</span><span class="at">dataset</span><span class="op">.</span><span class="at">status</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">// The &#39;data-status&#39; attribute is removed from the DOM</span></span></code></pre></div>
+<h2 id="dataset-vs-getattribute-and-setattribute">Dataset vs.
+getAttribute and setAttribute</h2>
+<p>While <code>getAttribute('data-name')</code> and
+<code>setAttribute('data-name', 'value')</code> accomplish the same
+underlying result, the <code>dataset</code> property is preferred in
+modern JavaScript for several reasons:</p>
+<ul>
+<li><strong>Readability:</strong> <code>element.dataset.id</code> is
+shorter and more expressive than
+<code>element.getAttribute('data-id')</code>.</li>
+<li><strong>Maintainability:</strong> Modifying values is direct via
+assignment operators rather than method calls.</li>
+<li><strong>Separation of Concerns:</strong> <code>dataset</code>
+exclusively touches custom data, preventing accidental modification of
+standard attributes like <code>id</code>, <code>class</code>,
+<code>href</code>, or <code>aria-*</code> roles.</li>
+</ul>
+<h2 id="key-considerations">Key Considerations</h2>
+<ul>
+<li><strong>Type Handling:</strong> All values stored in
+<code>dataset</code> are converted to strings. Numbers, booleans, and
+objects will be coerced into string representations. For complex data
+like JSON, manual parsing (<code>JSON.parse()</code>) and serialization
+(<code>JSON.stringify()</code>) are required.</li>
+<li><strong>Performance:</strong> Accessing attributes via
+<code>dataset</code> is slightly slower in performance-critical loops
+than direct property access, though the difference is negligible in most
+real-world applications.</li>
+<li><strong>DOM Reflection:</strong> Any change made to
+<code>element.dataset</code> immediately reflects in the DOM, making it
+observable by CSS attribute selectors (e.g.,
+<code>[data-status="active"]</code>) and MutationObservers.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How HTML Form Validation Triggers CSS :valid and :invalid - html</title>
+    <meta name="description" content="HTML form validation relies on built-in browser constraints to dynamically evaluate user input and apply the :valid and :invalid CSS pseudo-classes. This article explains the underlying mechanics of how native HTML validation attributes connect to the br">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-html-form-validation-triggers-css-valid-and-invalid">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How HTML Form Validation Triggers CSS :valid and :invalid - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-html-form-validation-triggers-css-valid-and-invalid" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="HTML form validation relies on built-in browser constraints to dynamically evaluate user input and apply the :valid and :invalid CSS pseudo-classes. This article explains the underlying mechanics of how native HTML validation attributes connect to the br" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-html-form-validation-triggers-css-valid-and-invalid">How
+HTML Form Validation Triggers CSS :valid and :invalid</h1>
+<p>HTML form validation relies on built-in browser constraints to
+dynamically evaluate user input and apply the <code>:valid</code> and
+<code>:invalid</code> CSS pseudo-classes. This article explains the
+underlying mechanics of how native HTML validation attributes connect to
+the browser's Constraint Validation API, how input states are calculated
+in real time, and how these evaluations immediately dictate which CSS
+pseudo-class matches an element.</p>
+<h2 id="the-constraint-validation-engine">The Constraint Validation
+Engine</h2>
+<p>Modern browsers feature a native Constraint Validation engine that
+automatically tracks form elements such as <code>&lt;input&gt;</code>,
+<code>&lt;select&gt;</code>, and <code>&lt;textarea&gt;</code>.
+Validation is defined directly within HTML using specific constraint
+attributes, including:</p>
+<ul>
+<li><code>required</code>: Mandates that the field must contain a
+value.</li>
+<li><code>type</code>: Enforces specific formats (e.g.,
+<code>type="email"</code>, <code>type="url"</code>, or
+<code>type="number"</code>).</li>
+<li><code>pattern</code>: Matches input against a regular
+expression.</li>
+<li><code>min</code> and <code>max</code>: Constrains numerical or date
+ranges.</li>
+<li><code>minlength</code> and <code>maxlength</code>: Restricts
+character count.</li>
+</ul>
+<p>When an element has one or more of these attributes, the browser
+monitors changes to the element's value against these criteria.</p>
+<h2 id="the-validitystate-object">The <code>ValidityState</code>
+Object</h2>
+<p>Beneath the surface, every submittable form control has an associated
+<code>ValidityState</code> JavaScript object accessed through
+<code>element.validity</code>. This object contains a set of boolean
+flags that monitor specific validation rules:</p>
+<ul>
+<li><code>valueMissing</code>: True if a <code>required</code> field is
+empty.</li>
+<li><code>typeMismatch</code>: True if the value does not conform to the
+expected format (e.g., an invalid email).</li>
+<li><code>patternMismatch</code>: True if the input fails to match a
+defined <code>pattern</code>.</li>
+<li><code>rangeUnderflow</code> / <code>rangeOverflow</code>: True if
+the value breaches <code>min</code> or <code>max</code>.</li>
+<li><code>tooShort</code> / <code>tooLong</code>: True if length
+constraints are violated.</li>
+<li><code>badInput</code>: True if the browser cannot interpret the
+entered data.</li>
+<li><code>customError</code>: True if a custom message has been set
+using <code>element.setCustomValidity()</code>.</li>
+</ul>
+<p>The engine continuously evaluates these flags. If every constraint
+flag is <code>false</code>, the summary property
+<code>validity.valid</code> is set to <code>true</code>. If even a
+single flag evaluates to <code>true</code>, <code>validity.valid</code>
+is set to <code>false</code>.</p>
+<h2 id="how-valid-and-invalid-are-triggered">How <code>:valid</code> and
+<code>:invalid</code> Are Triggered</h2>
+<p>The CSS pseudo-classes <code>:valid</code> and <code>:invalid</code>
+map directly to the boolean status of
+<code>element.validity.valid</code>.</p>
+<ol type="1">
+<li><strong>Applying <code>:valid</code>:</strong> When a form control
+meets all constraint conditions, <code>validity.valid</code> is
+<code>true</code>. The browser attaches the <code>:valid</code>
+pseudo-class to the element, allowing styles like green borders or
+checkmark icons to render.</li>
+<li><strong>Applying <code>:invalid</code>:</strong> If any constraint
+fails, <code>validity.valid</code> becomes <code>false</code>. The
+browser strips <code>:valid</code> and activates the
+<code>:invalid</code> pseudo-class, applying error styling such as red
+borders or alert indicators.</li>
+</ol>
+<p>This matching is instantaneous. As the user types, selects, or
+deletes content, the browser updates the <code>ValidityState</code>
+object on every input event, which immediately toggles the corresponding
+pseudo-class in the rendering engine.</p>
+<h2 id="form-level-matching">Form-Level Matching</h2>
+<p>The trigger mechanism is not limited to individual controls. Parent
+<code>&lt;form&gt;</code> elements and <code>&lt;fieldset&gt;</code>
+containers also react to validation constraints. A
+<code>&lt;form&gt;</code> will match the <code>:valid</code> selector
+only if every submittable control within it is valid. If a single
+descendant control violates a constraint, the parent
+<code>&lt;form&gt;</code> matches <code>:invalid</code>, allowing
+developers to style entire forms or submit buttons conditionally based
+on total form readiness.</p>
+<h2 id="default-states-and-edge-cases">Default States and Edge
+Cases</h2>
+<p>Understanding the default behavior of constraint validation prevents
+common styling issues:</p>
+<ul>
+<li><strong>Empty Optional Fields:</strong> An empty, non-required field
+inherently satisfies all constraints. As a result, it evaluates to
+<code>validity.valid = true</code> and matches <code>:valid</code> by
+default.</li>
+<li><strong>Initial Page Load:</strong> Because browsers evaluate
+constraints immediately upon rendering the DOM, an empty field with a
+<code>required</code> attribute triggers <code>:invalid</code>
+instantly, even before a user has interacted with the form. To prevent
+forms from displaying red error styles on load, developers often pair
+<code>:valid</code> and <code>:invalid</code> with
+<code>:not(:placeholder-shown)</code> or rely on the newer
+<code>:user-invalid</code> and <code>:user-valid</code> pseudo-classes,
+which only trigger after direct user interaction.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

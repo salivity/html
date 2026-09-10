@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purpose of Doctype Declaration in Modern HTML - html</title>
+    <meta name="description" content="This article explains the purpose and necessity of the doctype declaration in modern web development. While modern web pages no longer rely on complex document type definitions, the simple <!DOCTYPE html> preamble remains critical. Readers will learn how">
+    <link rel="canonical" href="https://salivity.github.io/html/article/purpose-of-doctype-declaration-in-modern-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Purpose of Doctype Declaration in Modern HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/purpose-of-doctype-declaration-in-modern-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains the purpose and necessity of the doctype declaration in modern web development. While modern web pages no longer rely on complex document type definitions, the simple <!DOCTYPE html> preamble remains critical. Readers will learn how" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="purpose-of-doctype-declaration-in-modern-html">Purpose of
+Doctype Declaration in Modern HTML</h1>
+<p>This article explains the purpose and necessity of the doctype
+declaration in modern web development. While modern web pages no longer
+rely on complex document type definitions, the simple
+<code>&lt;!DOCTYPE html&gt;</code> preamble remains critical. Readers
+will learn how the doctype ensures consistent rendering across different
+browsers, the difference between Standards Mode and Quirks Mode, and why
+this declaration must always be the first line of code in an HTML
+document.</p>
+<p>The doctype declaration, written as
+<code>&lt;!DOCTYPE html&gt;</code>, is an instruction placed at the very
+top of an HTML document before the opening <code>&lt;html&gt;</code>
+tag. It is not an HTML element or tag; instead, it tells the web browser
+which specification of HTML the page is written in. In modern HTML
+(HTML5), its primary function is to trigger "Standards Mode" in the
+browser.</p>
+<p>Historically, the World Wide Web Consortium (W3C) based HTML on
+Standard Generalized Markup Language (SGML). This required long, complex
+doctype declarations referencing external Document Type Definitions
+(DTDs) so browsers knew how to validate and parse elements. As the web
+evolved, browser vendors created backward-compatible rendering engines.
+When encountering an outdated page or one without a doctype, the browser
+defaults to "Quirks Mode."</p>
+<p>Quirks Mode emulates the non-standard behaviors of legacy browsers
+from the late 1990s, such as Internet Explorer 5 and Netscape Navigator.
+In Quirks Mode, browsers calculate dimensions using the obsolete box
+model, handle CSS inheritance inconsistently, and misinterpret margins
+or table formatting. Modern CSS, responsive design patterns, and
+JavaScript APIs can fail or produce visual errors if a page
+inadvertently triggers Quirks Mode.</p>
+<p>By including <code>&lt;!DOCTYPE html&gt;</code>, developers force the
+browser into full Standards Mode. In this mode, the rendering engine
+strictly adheres to modern W3C and WHATWG specifications. This ensures
+that features like Flexbox, Grid, CSS custom properties, and modern DOM
+elements render uniformly across all browsers, including Google Chrome,
+Mozilla Firefox, Apple Safari, and Microsoft Edge.</p>
+<p>Because modern HTML5 is no longer based on SGML, the doctype does not
+require a reference to an external DTD. The HTML5 specification
+intentionally kept the declaration minimal
+(<code>&lt;!DOCTYPE html&gt;</code>) solely to satisfy the browser's
+requirement for activating Standards Mode. Omitting it leads to
+unpredictable layout rendering and cross-browser discrepancies, making
+it an indispensable component of every modern web page.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

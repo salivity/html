@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Footer Tag: Metadata, Copyright, and Links - html</title>
+    <meta name="description" content="The HTML <footer> element serves as a semantic container designed to hold closing content, administrative details, and metadata for its nearest sectioning ancestor or the whole web page. By encapsulating elements such as copyright statements, authorship">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-footer-tag-metadata-copyright-and-links">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Footer Tag: Metadata, Copyright, and Links - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-footer-tag-metadata-copyright-and-links" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <footer> element serves as a semantic container designed to hold closing content, administrative details, and metadata for its nearest sectioning ancestor or the whole web page. By encapsulating elements such as copyright statements, authorship" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-footer-tag-metadata-copyright-and-links">HTML Footer Tag:
+Metadata, Copyright, and Links</h1>
+<p>The HTML <code>&lt;footer&gt;</code> element serves as a semantic
+container designed to hold closing content, administrative details, and
+metadata for its nearest sectioning ancestor or the whole web page. By
+encapsulating elements such as copyright statements, authorship
+credentials, contact details, and secondary navigation, the
+<code>&lt;footer&gt;</code> provides search engines, browsers, and
+assistive technologies with explicit context about the ownership,
+relevance, and structure of a document's concluding information.</p>
+<h3 id="semantic-role-of-the-footer-element">Semantic Role of the Footer
+Element</h3>
+<p>In semantic HTML, the <code>&lt;footer&gt;</code> element signifies
+the conclusion of a section of content. It can be utilized at the
+document level—typically placed directly inside the
+<code>&lt;body&gt;</code> element—or scoped locally within sectioning
+containers like <code>&lt;article&gt;</code>,
+<code>&lt;section&gt;</code>, or <code>&lt;aside&gt;</code>. When placed
+directly inside the <code>&lt;body&gt;</code>, it automatically receives
+an implicit ARIA landmark role of <code>contentinfo</code>, provided it
+is not scoped within another sectioning element. This landmark enables
+assistive technologies, such as screen readers, to quickly jump to
+high-level site metadata and legal notices.</p>
+<h3 id="displaying-copyright-and-legal-notices">Displaying Copyright and
+Legal Notices</h3>
+<p>Copyright notices protect intellectual property and identify the
+rights holder of the published material. The <code>&lt;footer&gt;</code>
+is the standard location for this information. Authors often combine the
+<code>&lt;footer&gt;</code> with the <code>&lt;small&gt;</code> element
+to represent side comments, copyright disclaimers, or licensing
+terms.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">footer</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">small</span><span class="dt">&gt;</span><span class="dv">&amp;copy;</span> 2026 Example Corporation. All rights reserved.<span class="dt">&lt;/</span><span class="kw">small</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">footer</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Using <code>&lt;small&gt;</code> inside the
+<code>&lt;footer&gt;</code> conveys small print semantically,
+reinforcing to user agents that the text represents legal caveats,
+disclaimers, or rights statements rather than primary body text.</p>
+<h3 id="conveying-metadata-and-authorship">Conveying Metadata and
+Authorship</h3>
+<p>The <code>&lt;footer&gt;</code> element frequently contains metadata
+regarding who created the document, when it was published, and how to
+reach the author. For article-level footers, author bios and publication
+details fit naturally within this tag.</p>
+<p>To provide clear structural meaning:</p>
+<ul>
+<li><strong>The <code>&lt;address&gt;</code> Element:</strong> When
+contact information is included within a footer, it should be wrapped in
+an <code>&lt;address&gt;</code> tag. When positioned within the main
+document <code>&lt;footer&gt;</code>, the <code>&lt;address&gt;</code>
+tag provides contact methods for the entire site. When placed inside an
+<code>&lt;article&gt;</code> footer, it specifies contact details
+specifically for that article's author.</li>
+<li><strong>The <code>&lt;time&gt;</code> Element:</strong> Publication
+dates, revision timestamps, or copyright years can be enclosed in
+<code>&lt;time&gt;</code> elements with machine-readable
+<code>datetime</code> attributes, allowing search engines to parse
+content freshness accurately.</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">footer</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Published by:<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">address</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    Written by Jane Doe<span class="dt">&lt;</span><span class="kw">br</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    Contact: <span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;mailto:jane@example.com&quot;</span><span class="dt">&gt;</span>jane@example.com<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">address</span><span class="dt">&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Updated: <span class="dt">&lt;</span><span class="kw">time</span><span class="ot"> datetime</span><span class="op">=</span><span class="st">&quot;2026-03-30&quot;</span><span class="dt">&gt;</span>March 30, 2026<span class="dt">&lt;/</span><span class="kw">time</span><span class="dt">&gt;&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">footer</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3
+id="organizing-closing-links-and-supplementary-navigation">Organizing
+Closing Links and Supplementary Navigation</h3>
+<p>Websites rely on the footer to present auxiliary navigation links
+that do not belong in the primary header. These closing links often lead
+to privacy policies, terms of service, sitemaps, support centers, and
+social media profiles.</p>
+<p>To properly convey closing links:</p>
+<ul>
+<li>Wrap collections of links within a <code>&lt;nav&gt;</code> element
+inside the <code>&lt;footer&gt;</code>.</li>
+<li>Use an <code>aria-label</code> attribute on the nested
+<code>&lt;nav&gt;</code> (e.g.,
+<code>aria-label="Footer Navigation"</code>) to distinguish it from the
+main site navigation for screen reader users.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">footer</span><span class="dt">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">nav</span><span class="ot"> aria-label</span><span class="op">=</span><span class="st">&quot;Footer Navigation&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">ul</span><span class="dt">&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/privacy&quot;</span><span class="dt">&gt;</span>Privacy Policy<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/terms&quot;</span><span class="dt">&gt;</span>Terms of Service<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/sitemap&quot;</span><span class="dt">&gt;</span>Sitemap<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">ul</span><span class="dt">&gt;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">nav</span><span class="dt">&gt;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">footer</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="search-engine-and-accessibility-benefits">Search Engine and
+Accessibility Benefits</h3>
+<p>Proper implementation of the <code>&lt;footer&gt;</code> tag
+eliminates ambiguity. Search engine crawlers recognize the element as
+supplementary, ensuring that repeated navigational links and
+boilerplates are not indexed as the main topical content of the page.
+Simultaneously, assistive devices allow users to bypass repetitive
+content directly to the footer landmarks, making critical legal,
+administrative, and navigational data immediately accessible.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

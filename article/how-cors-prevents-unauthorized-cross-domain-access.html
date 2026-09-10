@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How CORS Prevents Unauthorized Cross-Domain Access - html</title>
+    <meta name="description" content="Cross-Origin Resource Sharing (CORS) is a browser-enforced security mechanism that allows servers to control which external domains can access their resources. By working alongside the foundational Same-Origin Policy (SOP), CORS provides a framework of H">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-cors-prevents-unauthorized-cross-domain-access">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How CORS Prevents Unauthorized Cross-Domain Access - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-cors-prevents-unauthorized-cross-domain-access" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Cross-Origin Resource Sharing (CORS) is a browser-enforced security mechanism that allows servers to control which external domains can access their resources. By working alongside the foundational Same-Origin Policy (SOP), CORS provides a framework of H" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-cors-prevents-unauthorized-cross-domain-access">How CORS
+Prevents Unauthorized Cross-Domain Access</h1>
+<p>Cross-Origin Resource Sharing (CORS) is a browser-enforced security
+mechanism that allows servers to control which external domains can
+access their resources. By working alongside the foundational
+Same-Origin Policy (SOP), CORS provides a framework of HTTP headers that
+dictate whether web applications running at one origin can read data
+requested from a different origin. This article explains how CORS
+functions, the critical role browsers play in enforcement, and how
+explicit server policies prevent malicious scripts from extracting
+sensitive data across domains.</p>
+<h3 id="the-foundation-the-same-origin-policy">The Foundation: The
+Same-Origin Policy</h3>
+<p>To understand CORS, one must first understand the Same-Origin Policy
+(SOP). Under the SOP, a web browser restricts scripts running on one
+origin from interacting with resources on another origin. An origin is
+defined by the combination of the protocol (e.g., HTTPS), host (e.g.,
+example.com), and port (e.g., 443).</p>
+<p>Without these restrictions, a malicious website loaded in a user's
+browser could execute JavaScript to send requests to the user's online
+bank, healthcare portal, or internal intranet. Since the browser
+automatically includes authenticated session cookies with requests to
+those domains, the malicious script could read the response and
+exfiltrate private data. The SOP prevents this scenario by disallowing
+the malicious site's scripts from reading cross-origin responses.</p>
+<h3 id="how-cors-safely-relaxes-the-rules">How CORS Safely Relaxes the
+Rules</h3>
+<p>While the SOP is essential, modern web architectures often require
+legitimate cross-origin communication, such as a frontend application
+hosted on <code>frontend.example.com</code> requesting data from an API
+on <code>api.example.com</code>. CORS provides a secure way to relax the
+SOP when explicitly intended by the resource owner.</p>
+<p>CORS does not disable security; instead, it establishes an opt-in
+model managed via HTTP response headers:</p>
+<ul>
+<li><strong><code>Access-Control-Allow-Origin</code></strong>: Specifies
+which external origins are allowed to access the resource. If the value
+does not match the requesting site's origin (or is not a wildcard
+<code>*</code>), the browser blocks the requesting script from accessing
+the data.</li>
+<li><strong><code>Access-Control-Allow-Methods</code></strong>: Lists
+the HTTP methods (e.g., <code>GET</code>, <code>POST</code>,
+<code>PUT</code>, <code>DELETE</code>) permitted during a cross-origin
+request.</li>
+<li><strong><code>Access-Control-Allow-Headers</code></strong>: Dictates
+which custom headers can be sent with the actual request.</li>
+<li><strong><code>Access-Control-Allow-Credentials</code></strong>:
+Indicates whether the browser can expose the response to the frontend
+script when the request includes ambient credentials like cookies or
+HTTP authentication headers.</li>
+</ul>
+<h3 id="preflight-requests-for-unsafe-operations">Preflight Requests for
+Unsafe Operations</h3>
+<p>For simple requests (typically basic <code>GET</code> or
+<code>POST</code> requests with standard headers), the browser sends the
+request immediately and checks the returning
+<code>Access-Control-Allow-Origin</code> header before letting
+JavaScript read the response.</p>
+<p>However, for requests that might modify server state or use custom
+headers (such as <code>PUT</code>, <code>DELETE</code>, or requests
+carrying <code>Authorization</code> tokens), the browser initiates a
+"preflight" request. The browser automatically sends an
+<code>OPTIONS</code> request to the target server before dispatching the
+actual request. The server must reply with appropriate CORS headers
+confirming that the origin, method, and headers are authorized. If the
+preflight fails or returns unauthorized status, the browser drops the
+operation entirely, preventing the actual request from ever reaching the
+server.</p>
+<h3 id="protecting-authenticated-data">Protecting Authenticated
+Data</h3>
+<p>The primary way CORS protects sensitive data is by strictly
+regulating credentialed requests. When malicious sites attempt to steal
+data, they rely on the victim's authenticated browser session.</p>
+<p>Under CORS rules:</p>
+<ol type="1">
+<li>A server must explicitly return
+<code>Access-Control-Allow-Credentials: true</code> to allow
+cross-origin reads on credentialed requests.</li>
+<li>When credentials are included, the server <strong>cannot</strong>
+use a wildcard (<code>*</code>) for the
+<code>Access-Control-Allow-Origin</code> header. It must explicitly
+state the exact matching origin of the client.</li>
+</ol>
+<p>If a malicious site on <code>attacker.com</code> tries to fetch data
+from <code>api.bank.com</code>, the browser will attach the user's bank
+cookies, but <code>api.bank.com</code> will not list
+<code>attacker.com</code> in its
+<code>Access-Control-Allow-Origin</code> header. Consequently, the
+browser completely blocks the script on <code>attacker.com</code> from
+reading the returned HTML, JSON, or any other response data.</p>
+<h3 id="summary-of-browser-enforcement">Summary of Browser
+Enforcement</h3>
+<p>It is crucial to note that CORS is a client-side, browser-enforced
+security control. It protects users from having their sensitive data
+read by untrusted third-party scripts. By requiring explicit,
+server-defined allowances through HTTP headers, CORS ensures that HTML
+documents and APIs remain strictly inaccessible to unauthorized
+domains.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

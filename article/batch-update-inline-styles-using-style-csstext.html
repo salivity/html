@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch Update Inline Styles Using style.cssText - html</title>
+    <meta name="description" content="This article provides an overview of how the JavaScript style.cssText property facilitates batch updating of inline CSS styles on DOM elements. By interacting with the entire inline style declaration as a single string, developers can apply multiple styl">
+    <link rel="canonical" href="https://salivity.github.io/html/article/batch-update-inline-styles-using-style-csstext">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Batch Update Inline Styles Using style.cssText - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/batch-update-inline-styles-using-style-csstext" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides an overview of how the JavaScript style.cssText property facilitates batch updating of inline CSS styles on DOM elements. By interacting with the entire inline style declaration as a single string, developers can apply multiple styl" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="batch-update-inline-styles-using-stylecsstext">Batch Update
+Inline Styles Using style.cssText</h1>
+<p>This article provides an overview of how the JavaScript
+<code>style.cssText</code> property facilitates batch updating of inline
+CSS styles on DOM elements. By interacting with the entire inline style
+declaration as a single string, developers can apply multiple style
+properties simultaneously, avoiding repetitive assignments and
+streamlining DOM updates.</p>
+<h3 id="what-is-stylecsstext">What Is style.cssText?</h3>
+<p>The <code>style.cssText</code> property is an accessor of the
+<code>CSSStyleDeclaration</code> interface that gets or sets the
+serialized content of an HTML element's inline <code>style</code>
+attribute. Instead of treating individual CSS rules as separate
+JavaScript properties (such as <code>element.style.color</code>),
+<code>style.cssText</code> represents all inline rules as a single
+string formatted in standard CSS syntax.</p>
+<h3 id="the-limitation-of-individual-style-assignments">The Limitation
+of Individual Style Assignments</h3>
+<p>Typically, updating an element's inline styles in JavaScript requires
+setting individual properties sequentially using camelCase notation:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> element <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;box&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>element<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">color</span> <span class="op">=</span> <span class="st">&quot;red&quot;</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>element<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">backgroundColor</span> <span class="op">=</span> <span class="st">&quot;black&quot;</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>element<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">fontSize</span> <span class="op">=</span> <span class="st">&quot;16px&quot;</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>element<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">padding</span> <span class="op">=</span> <span class="st">&quot;10px&quot;</span><span class="op">;</span></span></code></pre></div>
+<p>While functional, this approach requires multiple JavaScript-to-DOM
+write operations. For complex or frequent updates, multiple property
+writes can cause performance overhead and require repetitive code.</p>
+<h3 id="how-stylecsstext-enables-batch-updates">How style.cssText
+Enables Batch Updates</h3>
+<p>The <code>style.cssText</code> property allows you to define multiple
+CSS rules inside a single assignment string using standard kebab-case
+CSS syntax:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> element <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;box&quot;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>element<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">cssText</span> <span class="op">=</span> <span class="st">&quot;color: red; background-color: black; font-size: 16px; padding: 10px;&quot;</span><span class="op">;</span></span></code></pre></div>
+<p>When you assign a string to <code>style.cssText</code>, the browser's
+CSS parser processes the entire declaration block at once. This
+mechanism updates the element's inline styling in a single write
+operation, replacing multiple individual setter calls with one
+action.</p>
+<h3 id="overwriting-vs-appending-styles">Overwriting vs. Appending
+Styles</h3>
+<p>By default, directly assigning a new value to
+<code>style.cssText</code> completely overwrites any existing inline
+styles on that element:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Any existing inline styles on &#39;element&#39; will be removed and replaced</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>element<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">cssText</span> <span class="op">=</span> <span class="st">&quot;width: 100px; height: 100px;&quot;</span><span class="op">;</span></span></code></pre></div>
+<p>If you need to batch update new styles while preserving the element's
+existing inline declarations, you can append the new styles using
+concatenation:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Appends new styles while retaining previous inline declarations</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>element<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">cssText</span> <span class="op">+=</span> <span class="st">&quot;width: 100px; height: 100px;&quot;</span><span class="op">;</span></span></code></pre></div>
+<h3 id="key-advantages-of-using-stylecsstext">Key Advantages of Using
+style.cssText</h3>
+<ul>
+<li><strong>Native CSS Syntax:</strong> You can write standard CSS
+declarations (e.g., <code>margin-top</code>, <code>font-size</code>)
+directly, eliminating the need to convert property names to camelCase
+(<code>marginTop</code>, <code>fontSize</code>).</li>
+<li><strong>Reduced Code Complexity:</strong> Applying dozens of inline
+properties requires only a single template literal or string rather than
+multiple repetitive lines of JavaScript.</li>
+<li><strong>Efficient DOM Interaction:</strong> By consolidating the
+update into a single operation, the browser modifies the DOM's style
+attribute in one step, minimizing the overhead associated with
+repetitive DOM interface access.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

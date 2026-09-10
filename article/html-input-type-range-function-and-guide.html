@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Input Type Range: Function and Guide - html</title>
+    <meta name="description" content="This article provides a concise overview of the HTML <input type="range"> element, detailing its primary function, key configuration attributes, and ideal implementation scenarios. Readers will learn how this specialized form control enables smooth numer">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-input-type-range-function-and-guide">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Input Type Range: Function and Guide - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-input-type-range-function-and-guide" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides a concise overview of the HTML <input type="range"> element, detailing its primary function, key configuration attributes, and ideal implementation scenarios. Readers will learn how this specialized form control enables smooth numer" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-input-type-range-function-and-guide">HTML Input Type Range:
+Function and Guide</h1>
+<p>This article provides a concise overview of the HTML
+<code>&lt;input type="range"&gt;</code> element, detailing its primary
+function, key configuration attributes, and ideal implementation
+scenarios. Readers will learn how this specialized form control enables
+smooth numerical input within bounded limits, how to customize its
+behavior, and how to display dynamic values to improve user
+experience.</p>
+<hr />
+<h3 id="what-is-input-typerange">What Is
+<code>&lt;input type="range"&gt;</code>?</h3>
+<p>The <code>&lt;input type="range"&gt;</code> element creates a
+graphical slider control on a web page. Its primary function is to let
+users select a numerical value from a bounded range by dragging a slider
+thumb along a horizontal (or sometimes vertical) track.</p>
+<p>Unlike a standard text field or a number input
+(<code>&lt;input type="number"&gt;</code>), the range slider is best
+suited for inputs where the exact numerical value is secondary to the
+relative magnitude, such as adjusting volume, screen brightness, or
+filter intensity.</p>
+<h3 id="key-attributes">Key Attributes</h3>
+<p>By default, an unmodified <code>&lt;input type="range"&gt;</code>
+defaults to a scale from 0 to 100 with a starting value of 50. Several
+key attributes control its behavior and boundaries:</p>
+<ul>
+<li><strong><code>min</code></strong>: Defines the lowest acceptable
+value in the range. The default is <code>0</code>.</li>
+<li><strong><code>max</code></strong>: Defines the highest acceptable
+value in the range. The default is <code>100</code>.</li>
+<li><strong><code>step</code></strong>: Specifies the granularity of the
+movement along the track. The default step is <code>1</code>. Setting
+<code>step="5"</code> means the slider can only stop at multiples of
+five. Decimals (such as <code>step="0.1"</code>) are also
+supported.</li>
+<li><strong><code>value</code></strong>: Sets the initial position of
+the slider thumb when the page loads. If omitted, it defaults to the
+midpoint between <code>min</code> and <code>max</code>.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> for</span><span class="op">=</span><span class="st">&quot;volume&quot;</span><span class="dt">&gt;</span>Volume Control<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;range&quot;</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;volume&quot;</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;volume&quot;</span><span class="ot"> min</span><span class="op">=</span><span class="st">&quot;0&quot;</span><span class="ot"> max</span><span class="op">=</span><span class="st">&quot;10&quot;</span><span class="ot"> step</span><span class="op">=</span><span class="st">&quot;1&quot;</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;5&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="displaying-the-selected-value">Displaying the Selected
+Value</h3>
+<p>A native range input does not visually display the currently selected
+numerical value to the user. To present the exact number, developers
+typically pair the slider with an <code>&lt;output&gt;</code> element
+and update it using JavaScript via the <code>input</code> event
+listener.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> for</span><span class="op">=</span><span class="st">&quot;price&quot;</span><span class="dt">&gt;</span>Maximum Price:<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;range&quot;</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;price&quot;</span><span class="ot"> min</span><span class="op">=</span><span class="st">&quot;10&quot;</span><span class="ot"> max</span><span class="op">=</span><span class="st">&quot;500&quot;</span><span class="ot"> step</span><span class="op">=</span><span class="st">&quot;10&quot;</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;100&quot;</span><span class="ot"> </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ot">       oninput</span><span class="op">=</span><span class="st">&quot;priceOutput.value = this.value&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>$<span class="dt">&lt;</span><span class="kw">output</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;priceOutput&quot;</span><span class="dt">&gt;</span>100<span class="dt">&lt;/</span><span class="kw">output</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="when-to-use-a-range-slider">When to Use a Range Slider</h3>
+<p>Use <code>type="range"</code> in the following scenarios:</p>
+<ul>
+<li><strong>Subjective or relative adjustments:</strong> Settings like
+audio volume, zoom levels, image contrast, or color saturation.</li>
+<li><strong>Broad filtering:</strong> E-commerce filters, such as
+setting an approximate budget or selecting a distance radius.</li>
+<li><strong>Interactive calculators:</strong> Dashboards where users can
+see dynamic graphical updates as they slide between minimum and maximum
+bounds.</li>
+</ul>
+<p>Avoid using it when high data precision is strictly required, such as
+entering credit card numbers, dates, or exact currency amounts, unless
+paired directly with an editable text field.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

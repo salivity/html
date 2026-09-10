@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styling HTML Dialog Backdrop with CSS - html</title>
+    <meta name="description" content="The native HTML <dialog> element simplifies modal creation, and the CSS ::backdrop pseudo-element provides direct control over the full-screen overlay rendered behind it. This article explains how the ::backdrop pseudo-element functions, how to apply sty">
+    <link rel="canonical" href="https://salivity.github.io/html/article/styling-html-dialog-backdrop-with-css">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Styling HTML Dialog Backdrop with CSS - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/styling-html-dialog-backdrop-with-css" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The native HTML <dialog> element simplifies modal creation, and the CSS ::backdrop pseudo-element provides direct control over the full-screen overlay rendered behind it. This article explains how the ::backdrop pseudo-element functions, how to apply sty" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="styling-html-dialog-backdrop-with-css">Styling HTML Dialog
+Backdrop with CSS</h1>
+<p>The native HTML <code>&lt;dialog&gt;</code> element simplifies modal
+creation, and the CSS <code>::backdrop</code> pseudo-element provides
+direct control over the full-screen overlay rendered behind it. This
+article explains how the <code>::backdrop</code> pseudo-element
+functions, how to apply styles such as dimming colors and blur effects,
+and the essential browser behaviors developers need to know when
+designing modal experiences.</p>
+<h3 id="how-the-backdrop-pseudo-element-works">How the
+<code>::backdrop</code> Pseudo-Element Works</h3>
+<p>The <code>::backdrop</code> pseudo-element is automatically generated
+by the browser when an HTML <code>&lt;dialog&gt;</code> is displayed as
+a modal using the JavaScript method <code>dialog.showModal()</code>. If
+a dialog is rendered via standard HTML attributes or opened using
+<code>dialog.show()</code>, it behaves as a non-modal element, and no
+backdrop will be generated.</p>
+<p>When active, the backdrop sits in the top layer of the browser
+rendering tree. It is positioned directly beneath the open
+<code>&lt;dialog&gt;</code> element and above all other elements on the
+web page, completely covering the viewport.</p>
+<h3 id="basic-background-styling">Basic Background Styling</h3>
+<p>By default, modern browsers apply a semi-transparent black or gray
+overlay to the backdrop. You can override these defaults by targeting
+the <code>::backdrop</code> pseudo-element in your CSS stylesheet:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dialog<span class="in">::backdrop</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.7</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Because the pseudo-element is an independent layer, you can use any
+valid CSS background property, including hex colors, gradients, and
+SVGs:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dialog<span class="in">::backdrop</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background</span><span class="ch">:</span> <span class="fu">linear-gradient(</span><span class="dv">45</span><span class="dt">deg</span><span class="op">,</span> <span class="fu">rgba(</span><span class="dv">20</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">40</span><span class="op">,</span> <span class="dv">0.8</span><span class="fu">)</span><span class="op">,</span> <span class="fu">rgba(</span><span class="dv">60</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="dv">30</span><span class="op">,</span> <span class="dv">0.8</span><span class="fu">))</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="applying-blur-and-visual-effects">Applying Blur and Visual
+Effects</h3>
+<p>To create modern depth-of-field effects, use the
+<code>backdrop-filter</code> property. This property applies visual
+filters to the content underneath the backdrop, rather than the backdrop
+itself:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dialog<span class="in">::backdrop</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="fu">rgba(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0.3</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">backdrop-filter</span><span class="ch">:</span> <span class="fu">blur(</span><span class="dv">8</span><span class="dt">px</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>This creates a frosted-glass effect that blurs the underlying page
+content while maintaining focus on the <code>&lt;dialog&gt;</code>
+container.</p>
+<h3 id="animating-the-backdrop">Animating the Backdrop</h3>
+<p>Modern CSS allows you to animate the backdrop using CSS transitions
+and <code>@starting-style</code>, or via standard
+<code>@keyframes</code>:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dialog {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">transition</span><span class="ch">:</span> <span class="dv">opacity 0.3</span><span class="dt">s</span> <span class="dv">ease</span><span class="op">,</span> <span class="dv">display 0.3</span><span class="dt">s</span> <span class="dv">ease</span> <span class="dv">allow-discrete</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>dialog<span class="in">::backdrop</span> {</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="fu">rgb(</span><span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> / <span class="dv">0</span><span class="dt">%</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">transition</span><span class="ch">:</span> <span class="dv">background-color 0.3</span><span class="dt">s</span> <span class="dv">ease</span><span class="op">,</span> <span class="dv">display 0.3</span><span class="dt">s</span> <span class="dv">ease</span> <span class="dv">allow-discrete</span><span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>dialog<span class="ex">[</span><span class="ss">open</span><span class="ex">]</span><span class="in">::backdrop</span> {</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">background-color</span><span class="ch">:</span> <span class="fu">rgb(</span><span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> / <span class="dv">60</span><span class="dt">%</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="im">@starting-style</span> {</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  dialog<span class="ex">[</span><span class="ss">open</span><span class="ex">]</span><span class="in">::backdrop</span> {</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">background-color</span><span class="ch">:</span> <span class="fu">rgb(</span><span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> / <span class="dv">0</span><span class="dt">%</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The <code>allow-discrete</code> keyword ensures the browser
+transitions properties on elements transitioning between
+<code>display: none</code> and <code>display: block</code>.</p>
+<h3 id="key-technical-considerations">Key Technical Considerations</h3>
+<ul>
+<li><strong>Viewport Isolation:</strong> The backdrop always spans the
+entire viewport. It cannot be clipped by a parent element's
+<code>overflow: hidden</code>, <code>position: relative</code>, or
+<code>z-index</code> properties.</li>
+<li><strong>Inheritance:</strong> The <code>::backdrop</code>
+pseudo-element does not inherit CSS properties from the
+<code>&lt;dialog&gt;</code> element or the <code>&lt;body&gt;</code>.
+Properties such as <code>opacity</code> or custom properties must be
+applied to <code>dialog::backdrop</code> directly.</li>
+<li><strong>Click Dismissal:</strong> Although the backdrop visually
+isolates the dialog and prevents pointer events on background page
+content, it does not close the dialog by default. Closing a dialog on
+backdrop click requires adding an event listener that detects clicks
+occurring outside the dialog's bounding rectangle.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

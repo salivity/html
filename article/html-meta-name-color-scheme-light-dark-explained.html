@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Meta Name Color-Scheme Light Dark Explained - html</title>
+    <meta name="description" content="The <meta name="color-scheme" content="light dark"> declaration in HTML informs the browser that a webpage is designed to support both light and dark system themes. By declaring this tag in the document's <head>, developers instruct the browser to automa">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-meta-name-color-scheme-light-dark-explained">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Meta Name Color-Scheme Light Dark Explained - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-meta-name-color-scheme-light-dark-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The <meta name="color-scheme" content="light dark"> declaration in HTML informs the browser that a webpage is designed to support both light and dark system themes. By declaring this tag in the document's <head>, developers instruct the browser to automa" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-meta-name-color-scheme-light-dark-explained">HTML Meta Name
+Color-Scheme Light Dark Explained</h1>
+<p>The
+<code>&lt;meta name="color-scheme" content="light dark"&gt;</code>
+declaration in HTML informs the browser that a webpage is designed to
+support both light and dark system themes. By declaring this tag in the
+document's <code>&lt;head&gt;</code>, developers instruct the browser to
+automatically adapt native user interface elements—such as form
+controls, scrollbars, and default page backgrounds—to align with the
+user's operating system preferences immediately upon loading.</p>
+<h3 id="preventing-the-flash-of-white-fowc">Preventing the Flash of
+White (FOWC)</h3>
+<p>By default, web browsers assume documents are built exclusively for
+light mode, rendering the default canvas background as bright white.
+When a user with a dark system theme visits a dark-themed website, there
+is often an abrupt white flash before external CSS stylesheets are
+downloaded and parsed.</p>
+<p>Placing
+<code>&lt;meta name="color-scheme" content="light dark"&gt;</code> in
+the HTML allows the browser engine to set the default canvas background
+to dark instantly during early parsing, eliminating the flash of
+unstyled, bright content.</p>
+<h3 id="styling-native-form-controls-and-scrollbars">Styling Native Form
+Controls and Scrollbars</h3>
+<p>Browsers provide native styling for standard interface components,
+including:</p>
+<ul>
+<li>Scrollbars</li>
+<li>Form inputs (text fields, checkboxes, radio buttons)</li>
+<li>Drop-down menus (<code>&lt;select&gt;</code>)</li>
+<li>Buttons</li>
+<li>System highlight colors</li>
+</ul>
+<p>Without this meta tag, browsers render these native elements using
+standard light-mode styles, even if the website's custom CSS uses a dark
+palette. The meta declaration forces the browser to render the native,
+operating-system-level dark variants for these controls
+automatically.</p>
+<h3 id="meta-tag-vs-css-color-scheme">Meta Tag vs. CSS
+<code>color-scheme</code></h3>
+<p>While CSS provides an identical property
+(<code>:root { color-scheme: light dark; }</code>), the HTML
+<code>&lt;meta&gt;</code> tag has a significant timing advantage.</p>
+<ul>
+<li><strong>HTML Meta Tag:</strong> Executed immediately as the browser
+reads the <code>&lt;head&gt;</code>. It styles the viewport and native
+UI before any stylesheets are fetched over the network.</li>
+<li><strong>CSS Declaration:</strong> Only takes effect after the CSS
+file is fully downloaded, parsed, and applied.</li>
+</ul>
+<p>Using both—or prioritizing the meta tag—ensures that the browser
+interface never defaults to a bright theme while waiting for dark theme
+stylesheets to process.</p>
+<h3 id="how-it-interacts-with-css-media-queries">How It Interacts with
+CSS Media Queries</h3>
+<p>The declaration does not automatically rewrite custom CSS colors. It
+does not replace <code>@media (prefers-color-scheme: dark)</code>.
+Instead, it complements your media queries:</p>
+<ul>
+<li><strong>The Meta Tag</strong> handles browser-controlled UI defaults
+(scrollbars, input frames, default background).</li>
+<li><strong>The CSS Media Query</strong> handles custom application
+styling (typography, custom containers, brand colors).</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

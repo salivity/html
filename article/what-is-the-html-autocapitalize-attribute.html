@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is the HTML autocapitalize Attribute? - html</title>
+    <meta name="description" content="The autocapitalize attribute is an HTML attribute that controls how mobile and virtual keyboards automatically capitalize letters as a user types into form fields. By defining the capitalization behavior directly in the markup, developers can tailor text">
+    <link rel="canonical" href="https://salivity.github.io/html/article/what-is-the-html-autocapitalize-attribute">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is the HTML autocapitalize Attribute? - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/what-is-the-html-autocapitalize-attribute" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The autocapitalize attribute is an HTML attribute that controls how mobile and virtual keyboards automatically capitalize letters as a user types into form fields. By defining the capitalization behavior directly in the markup, developers can tailor text" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-the-html-autocapitalize-attribute">What Is the HTML
+autocapitalize Attribute?</h1>
+<p>The <code>autocapitalize</code> attribute is an HTML attribute that
+controls how mobile and virtual keyboards automatically capitalize
+letters as a user types into form fields. By defining the capitalization
+behavior directly in the markup, developers can tailor text entry to
+specific types of data, streamlining the mobile user experience and
+preventing input errors in fields like usernames, URLs, or personal
+names.</p>
+<h3 id="the-purpose-of-autocapitalize">The Purpose of
+<code>autocapitalize</code></h3>
+<p>Mobile operating systems such as iOS and Android typically default to
+capitalizing the first letter of a text input. While this behavior is
+ideal for standard paragraphs or messages, it introduces unnecessary
+friction when users enter email addresses, usernames, coupon codes, or
+computer code.</p>
+<p>The <code>autocapitalize</code> attribute communicates with the
+device's virtual keyboard, instructing it when—and if—to activate the
+Shift key automatically. It is important to note that this attribute
+only affects virtual keyboards; it does not alter input from physical
+keyboards, nor does it visually transform text after it has been typed
+like CSS <code>text-transform</code> does.</p>
+<h3 id="supported-values">Supported Values</h3>
+<p>The <code>autocapitalize</code> attribute accepts five standard
+values to cover various input scenarios:</p>
+<ul>
+<li><strong><code>none</code> (or <code>off</code>)</strong>: Disables
+automatic capitalization completely. Every character defaults to
+lowercase unless the user manually shifts the keyboard. This is
+essential for usernames, handles, and programming fields.</li>
+<li><strong><code>sentences</code> (or <code>on</code>)</strong>: The
+default behavior for standard text inputs. The keyboard automatically
+capitalizes the first letter of each sentence.</li>
+<li><strong><code>words</code></strong>: Capitalizes the first letter of
+every word. This value is best used for fields requiring proper nouns,
+such as full names, street addresses, or product titles.</li>
+<li><strong><code>characters</code></strong>: Forces every letter to be
+capitalized (caps lock behavior). This is ideal for inputs like state
+abbreviations, postal codes, license plates, or airport codes.</li>
+</ul>
+<h3 id="usage-and-scope">Usage and Scope</h3>
+<p>The attribute can be used directly on <code>&lt;input&gt;</code> and
+<code>&lt;textarea&gt;</code> elements:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Disabling capitalization for a username --&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;text&quot;</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;username&quot;</span><span class="ot"> autocapitalize</span><span class="op">=</span><span class="st">&quot;none&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Capitalizing each word for a full name --&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;text&quot;</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;fullname&quot;</span><span class="ot"> autocapitalize</span><span class="op">=</span><span class="st">&quot;words&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Capitalizing all letters for a promo code --&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">input</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;text&quot;</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;promo&quot;</span><span class="ot"> autocapitalize</span><span class="op">=</span><span class="st">&quot;characters&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Beyond individual inputs, <code>autocapitalize</code> can also be
+applied to:</p>
+<ul>
+<li><strong><code>&lt;form&gt;</code> elements</strong>: Setting the
+attribute on a form sets the default capitalization behavior for all
+descendant inputs, though individual inputs can still override it.</li>
+<li><strong><code>contenteditable</code> elements</strong>: Any custom
+editable container can utilize the attribute to dictate virtual keyboard
+input.</li>
+</ul>
+<h3 id="interactions-with-input-types">Interactions with Input
+Types</h3>
+<p>Modern browsers automatically disable capitalization for specific
+input types, such as <code>type="email"</code>,
+<code>type="password"</code>, and <code>type="url"</code>. However,
+standard <code>type="text"</code> fields do not receive these automatic
+protections. Using <code>autocapitalize</code> ensures that standard
+text fields behave appropriately according to the intended data type,
+significantly improving mobile form usability.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

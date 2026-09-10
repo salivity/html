@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Anchor Positioning and HTML Anchor Attributes - html</title>
+    <meta name="description" content="CSS Anchor Positioning allows developers to tether positioned elements to target anchors across a webpage without complex JavaScript calculations. When combined with the HTML anchor attribute, this specification creates an implicit binding directly in th">
+    <link rel="canonical" href="https://salivity.github.io/html/article/css-anchor-positioning-and-html-anchor-attributes">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="CSS Anchor Positioning and HTML Anchor Attributes - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/css-anchor-positioning-and-html-anchor-attributes" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="CSS Anchor Positioning allows developers to tether positioned elements to target anchors across a webpage without complex JavaScript calculations. When combined with the HTML anchor attribute, this specification creates an implicit binding directly in th" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="css-anchor-positioning-and-html-anchor-attributes">CSS Anchor
+Positioning and HTML Anchor Attributes</h1>
+<p>CSS Anchor Positioning allows developers to tether positioned
+elements to target anchors across a webpage without complex JavaScript
+calculations. When combined with the HTML <code>anchor</code> attribute,
+this specification creates an implicit binding directly in the markup,
+bypassing the need for manual CSS anchor naming and offering tighter
+semantic integration. This article examines how the HTML
+<code>anchor</code> attribute interacts with CSS Anchor Positioning,
+detailing implicit anchoring mechanics, precedence rules, and
+accessibility benefits.</p>
+<h3 id="the-mechanism-of-the-html-anchor-attribute">The Mechanism of the
+HTML Anchor Attribute</h3>
+<p>The HTML <code>anchor</code> attribute allows an element to
+declaratively reference another element by referencing its
+<code>id</code>. For example:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;menu-btn&quot;</span><span class="dt">&gt;</span>Actions<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> popover anchor</span><span class="op">=</span><span class="st">&quot;menu-btn&quot;</span><span class="dt">&gt;</span>Menu Options<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When an element includes the <code>anchor="menu-btn"</code>
+attribute, the browser establishes an <strong>implicit anchor
+reference</strong>. In the CSS Anchor Positioning specification, an
+implicit anchor serves as the default target for anchor-based
+positioning properties without needing an explicit
+<code>anchor-name</code> declared on the target.</p>
+<h3 id="implicit-anchor-resolution-in-css">Implicit Anchor Resolution in
+CSS</h3>
+<p>Ordinarily, CSS Anchor Positioning requires two explicit CSS
+declarations:</p>
+<ol type="1">
+<li><code>anchor-name: --my-anchor;</code> on the anchor element.</li>
+<li><code>position-anchor: --my-anchor;</code> on the positioned
+element.</li>
+</ol>
+<p>When an element is bound via the HTML <code>anchor</code> attribute,
+the second declaration becomes unnecessary. The browser automatically
+assigns the referenced DOM element as the anchored element's default
+anchor reference.</p>
+<p>Properties such as <code>position-area</code> or functions like
+<code>anchor()</code> resolve against this implicit anchor
+automatically:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[</span><span class="ss">popover</span><span class="ex">]</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">position</span><span class="ch">:</span> <span class="dv">fixed</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  position-area<span class="ch">:</span> <span class="dv">bottom</span> <span class="dv">span-right</span><span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">margin</span><span class="ch">:</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Because the implicit anchor is already set in the HTML markup,
+<code>position-area: bottom span-right</code> evaluates directly against
+<code>#menu-btn</code>. Similarly, positional functions resolve without
+parameters specifying an anchor name:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">[</span><span class="ss">popover</span><span class="ex">]</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">position</span><span class="ch">:</span> <span class="dv">fixed</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">top</span><span class="ch">:</span> anchor<span class="fu">(</span><span class="dv">bottom</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">left</span><span class="ch">:</span> anchor<span class="fu">(</span><span class="dv">left</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="cascade-and-precedence-rules">Cascade and Precedence Rules</h3>
+<p>CSS retains full control over positioning overrides. If both the HTML
+<code>anchor</code> attribute and CSS anchor properties are present,
+standard CSS precedence applies:</p>
+<ul>
+<li><strong>Default State:</strong> If <code>position-anchor</code> is
+set to <code>auto</code> (the default value), the element uses the
+implicit anchor defined by the HTML <code>anchor</code> attribute.</li>
+<li><strong>CSS Override:</strong> If a developer explicitly declares
+<code>position-anchor: --custom-anchor;</code> in the stylesheet, the
+CSS declaration overrides the HTML attribute for styling purposes. The
+element will physically align with <code>--custom-anchor</code> while
+maintaining its DOM-level association via HTML.</li>
+<li><strong>Explicit Function Targets:</strong> Supplying an explicit
+anchor name inside the <code>anchor()</code> function (e.g.,
+<code>top: anchor(--other-anchor bottom)</code>) overrides both the HTML
+attribute and the <code>position-anchor</code> property for that
+specific property.</li>
+</ul>
+<h3 id="semantic-and-accessibility-implications">Semantic and
+Accessibility Implications</h3>
+<p>Pure CSS anchor positioning (<code>anchor-name</code> and
+<code>position-anchor</code>) only creates visual associations. Screen
+readers and assistive technologies do not infer a structural
+relationship between two elements solely based on CSS anchor
+properties.</p>
+<p>The HTML <code>anchor</code> attribute bridges this gap. It creates a
+relationship within the DOM tree, particularly when paired with the
+Popover API or focus management routines. By pairing layout anchoring
+with HTML-level relationships, assistive technologies can identify that
+the positioned element is conceptually anchored to its invoker or
+target.</p>
+<h3 id="scoping-and-dom-boundaries">Scoping and DOM Boundaries</h3>
+<p>For an HTML <code>anchor</code> attribute to resolve properly:</p>
+<ul>
+<li>The target element must exist within the same tree scope (i.e.,
+inside the same document or the same Shadow DOM tree).</li>
+<li>If the ID referenced in the <code>anchor</code> attribute cannot be
+found or is removed from the DOM, the implicit anchor evaluates to
+<code>null</code>.</li>
+<li>When the implicit anchor fails to resolve, CSS fallback rules take
+over, typically causing the positioned element to position relative to
+its standard containing block.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

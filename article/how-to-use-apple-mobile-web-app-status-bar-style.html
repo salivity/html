@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use apple-mobile-web-app-status-bar-style - html</title>
+    <meta name="description" content="The apple-mobile-web-app-status-bar-style meta tag controls the appearance of the top status bar on iOS devices when a website is launched as a Progressive Web App (PWA) from the home screen. This article details how the tag works, its required prerequis">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-to-use-apple-mobile-web-app-status-bar-style">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use apple-mobile-web-app-status-bar-style - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-to-use-apple-mobile-web-app-status-bar-style" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The apple-mobile-web-app-status-bar-style meta tag controls the appearance of the top status bar on iOS devices when a website is launched as a Progressive Web App (PWA) from the home screen. This article details how the tag works, its required prerequis" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-apple-mobile-web-app-status-bar-style">How to Use
+apple-mobile-web-app-status-bar-style</h1>
+<p>The <code>apple-mobile-web-app-status-bar-style</code> meta tag
+controls the appearance of the top status bar on iOS devices when a
+website is launched as a Progressive Web App (PWA) from the home screen.
+This article details how the tag works, its required prerequisites, the
+available styling values, and how to handle content positioning to
+ensure an optimal visual presentation on Apple mobile devices.</p>
+<h3 id="prerequisites-for-the-meta-tag">Prerequisites for the Meta
+Tag</h3>
+<p>The <code>apple-mobile-web-app-status-bar-style</code> tag does not
+affect standard Safari browsing. It only takes effect after a user adds
+the webpage to their iOS Home Screen and opens it as a standalone web
+application.</p>
+<p>For the status bar tag to function, you must also include the
+<code>apple-mobile-web-app-capable</code> meta tag set to
+<code>yes</code>:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;apple-mobile-web-app-capable&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;yes&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;apple-mobile-web-app-status-bar-style&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;default&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="supported-values-and-their-effects">Supported Values and Their
+Effects</h3>
+<p>The <code>content</code> attribute accepts one of three values:</p>
+<h4 id="1-default">1. <code>default</code></h4>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;apple-mobile-web-app-status-bar-style&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;default&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<ul>
+<li><strong>Appearance:</strong> A standard status bar with a white
+background and dark text and icons.</li>
+<li><strong>Layout behavior:</strong> The status bar occupies its own
+space at the top of the screen. Web content begins immediately below the
+status bar, preventing any overlapping.</li>
+</ul>
+<h4 id="2-black">2. <code>black</code></h4>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;apple-mobile-web-app-status-bar-style&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;black&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<ul>
+<li><strong>Appearance:</strong> An opaque black background with white
+text and icons.</li>
+<li><strong>Layout behavior:</strong> Like the <code>default</code>
+setting, the status bar pushes the web content down. Content begins
+below the status bar rather than underneath it.</li>
+</ul>
+<h4 id="3-black-translucent">3. <code>black-translucent</code></h4>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;apple-mobile-web-app-status-bar-style&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;black-translucent&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<ul>
+<li><strong>Appearance:</strong> A transparent status bar with white
+text and icons.</li>
+<li><strong>Layout behavior:</strong> The status bar floats directly on
+top of the web content. The webpage extends to fill the entire screen,
+including the area behind the status bar, time, and battery
+indicators.</li>
+</ul>
+<h3 id="handling-layout-with-black-translucent">Handling Layout with
+<code>black-translucent</code></h3>
+<p>When using <code>black-translucent</code>, page elements at the top
+of your layout (such as headers, navigation bars, or titles) will render
+underneath the status bar indicators unless compensated for with
+CSS.</p>
+<p>To prevent content from colliding with system indicators:</p>
+<ol type="1">
+<li>Enable full-bleed layout in your viewport tag:</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;viewport&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;width=device-width, initial-scale=1.0, viewport-fit=cover&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<ol start="2" type="1">
+<li>Use CSS safe area environment variables to add padding to the top of
+your layout:</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>header {</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">padding-top</span><span class="ch">:</span> <span class="fu">env(</span>safe-area-inset-top<span class="fu">)</span><span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>This ensures that your background color or image fills the entire
+display while keeping interactive elements and text safely below the iOS
+status bar.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

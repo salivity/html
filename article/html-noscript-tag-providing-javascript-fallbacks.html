@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML noscript Tag: Providing JavaScript Fallbacks - html</title>
+    <meta name="description" content="The HTML <noscript> tag defines an alternate block of content to be rendered exclusively when JavaScript is disabled in the user's browser or when a browser does not support client-side scripting. This article explains how the tag functions, where it can">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-noscript-tag-providing-javascript-fallbacks">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML noscript Tag: Providing JavaScript Fallbacks - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-noscript-tag-providing-javascript-fallbacks" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <noscript> tag defines an alternate block of content to be rendered exclusively when JavaScript is disabled in the user's browser or when a browser does not support client-side scripting. This article explains how the tag functions, where it can" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-noscript-tag-providing-javascript-fallbacks">HTML noscript
+Tag: Providing JavaScript Fallbacks</h1>
+<p>The HTML <code>&lt;noscript&gt;</code> tag defines an alternate block
+of content to be rendered exclusively when JavaScript is disabled in the
+user's browser or when a browser does not support client-side scripting.
+This article explains how the tag functions, where it can be placed
+within a document, its primary use cases for graceful degradation, and
+the technical limitations developers must keep in mind.</p>
+<h3 id="how-the-noscript-tag-works">How the
+<code>&lt;noscript&gt;</code> Tag Works</h3>
+<p>Web browsers evaluate the <code>&lt;noscript&gt;</code> element based
+on the execution state of JavaScript:</p>
+<ul>
+<li><strong>JavaScript Enabled:</strong> The browser completely ignores
+the <code>&lt;noscript&gt;</code> tag and its inner contents. No
+elements inside it are rendered to the DOM, and inline styles or links
+inside it are not processed.</li>
+<li><strong>JavaScript Disabled or Unsupported:</strong> The browser
+ignores the wrapping <code>&lt;noscript&gt;</code> tags and parses
+everything inside them as standard HTML.</li>
+</ul>
+<p>This conditional rendering requires no external scripts, making it
+the native mechanism for delivering fallbacks when client-side scripting
+is unavailable.</p>
+<h3 id="placement-rules-in-html">Placement Rules in HTML</h3>
+<p>The <code>&lt;noscript&gt;</code> tag can be used in both the
+<code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> sections of an
+HTML document, but the permitted content differs based on location:</p>
+<ol type="1">
+<li><p><strong>Inside the <code>&lt;head&gt;</code>:</strong> When
+placed in the document head, the <code>&lt;noscript&gt;</code> element
+can only contain specific resource-linking elements:
+<code>&lt;link&gt;</code>, <code>&lt;style&gt;</code>, and
+<code>&lt;meta&gt;</code>. It cannot contain interactive elements or
+layout containers.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">noscript</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;fallback-styles.css&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">noscript</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span></code></pre></div></li>
+<li><p><strong>Inside the <code>&lt;body&gt;</code>:</strong> When
+placed in the body, <code>&lt;noscript&gt;</code> can hold any standard
+HTML element, including paragraphs, forms, custom alerts, or alternative
+visual layouts.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">noscript</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;warning-banner&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>JavaScript is required for interactive features. Please enable it to use the checkout form.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">noscript</span><span class="dt">&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span></code></pre></div></li>
+</ol>
+<h3 id="primary-use-cases">Primary Use Cases</h3>
+<ul>
+<li><strong>User Notifications:</strong> The most common implementation
+is displaying a banner or static message explaining that certain dynamic
+features—such as single-page app routing or rich text editors—require
+JavaScript to function properly.</li>
+<li><strong>Fallback Form Handling:</strong> If an application relies on
+JavaScript to send forms via AJAX, the <code>&lt;noscript&gt;</code> tag
+can wrap a standard HTML form with a traditional <code>action</code> and
+<code>method</code> attribute to ensure submissions still work via
+server-side processing.</li>
+<li><strong>Alternative Resource Loading:</strong> It allows developers
+to apply basic CSS adjustments or load static images when script-based
+dynamic styling or lazy-loading libraries are inactive.</li>
+<li><strong>Analytics and Tracking Fallbacks:</strong> Many tracking
+services employ a 1x1 tracking pixel inside a
+<code>&lt;noscript&gt;</code> tag within an <code>&lt;img&gt;</code>
+element so basic page views can still be recorded even without tracking
+scripts running.</li>
+</ul>
+<h3 id="key-limitations">Key Limitations</h3>
+<p>While the <code>&lt;noscript&gt;</code> tag is effective for
+completely disabled scripts, it has specific constraints:</p>
+<ul>
+<li><strong>Script Errors:</strong> The <code>&lt;noscript&gt;</code>
+block will not display if JavaScript is enabled but fails to execute due
+to network errors, syntax bugs, or blocked external script files.</li>
+<li><strong>Single-Page Application (SPA) Limits:</strong>
+<code>&lt;noscript&gt;</code> cannot replicate complex client-side
+application logic. It can only present static alternatives or redirect
+the user to a server-rendered alternative page.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

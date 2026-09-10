@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is the Purpose of Skip Links in HTML? - html</title>
+    <meta name="description" content="Skip links are internal anchor links placed at the very top of a web page that allow keyboard-only users and screen reader users to bypass repetitive header navigation and jump directly to the primary content. This article explains the fundamental purpos">
+    <link rel="canonical" href="https://salivity.github.io/html/article/what-is-the-purpose-of-skip-links-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is the Purpose of Skip Links in HTML? - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/what-is-the-purpose-of-skip-links-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Skip links are internal anchor links placed at the very top of a web page that allow keyboard-only users and screen reader users to bypass repetitive header navigation and jump directly to the primary content. This article explains the fundamental purpos" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-the-purpose-of-skip-links-in-html">What Is the Purpose
+of Skip Links in HTML?</h1>
+<p>Skip links are internal anchor links placed at the very top of a web
+page that allow keyboard-only users and screen reader users to bypass
+repetitive header navigation and jump directly to the primary content.
+This article explains the fundamental purpose of skip links, how they
+function using native HTML anchor tags, and why they are an essential
+component of web accessibility and WCAG compliance.</p>
+<h2 id="the-problem-with-repetitive-navigation">The Problem with
+Repetitive Navigation</h2>
+<p>Most websites feature global elements at the top of every page, such
+as logos, search bars, utility links, and expansive navigation menus.
+While mouse users can effortlessly look past these elements and click
+wherever they want, keyboard users must navigate sequentially using the
+<code>Tab</code> key.</p>
+<p>Without a skip link, a person relying on a keyboard or assistive
+technology must press <code>Tab</code> dozens of times on every single
+page load just to reach the first line of an article or the core
+content. This repetitive process causes physical strain, increases
+cognitive fatigue, and creates a frustrating user experience.</p>
+<h2 id="how-skip-links-work">How Skip Links Work</h2>
+<p>A skip link is created using a standard HTML anchor tag
+(<code>&lt;a&gt;</code>) placed as the first focusable element inside
+the <code>&lt;body&gt;</code>. The link targets an ID assigned to the
+main content wrapper.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">body</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;#main-content&quot;</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;skip-link&quot;</span><span class="dt">&gt;</span>Skip to main content<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">header</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- Navigation with dozens of focusable links --&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">header</span><span class="dt">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">main</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;main-content&quot;</span><span class="ot"> tabindex</span><span class="op">=</span><span class="st">&quot;-1&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- Primary page content begins here --&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">main</span><span class="dt">&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">body</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When a user loads the page and presses the <code>Tab</code> key, the
+skip link receives focus first. Pressing <code>Enter</code> shifts both
+the visual viewport and the keyboard focus directly to the target
+element (<code>#main-content</code>), allowing the user to immediately
+interact with the page's unique information. The
+<code>tabindex="-1"</code> attribute on the <code>&lt;main&gt;</code>
+element ensures that focus programmatically moves to the container in
+all browsers without adding it to the normal tab sequence.</p>
+<h2 id="visual-styling-and-user-experience">Visual Styling and User
+Experience</h2>
+<p>Skip links are typically hidden off-screen by default using CSS so
+they do not disrupt the visual layout for mouse users. However, they are
+styled to become fully visible on the screen when they receive keyboard
+focus (<code>:focus</code>). This visual indicator provides immediate
+feedback to sighted keyboard users that the shortcut is active and
+available.</p>
+<h2 id="accessibility-and-standards-compliance">Accessibility and
+Standards Compliance</h2>
+<p>Implementing skip links fulfills a primary requirement of the Web
+Content Accessibility Guidelines (WCAG), specifically <strong>Success
+Criterion 2.4.1: Bypass Blocks (Level A)</strong>. This standard
+mandates that web pages provide a mechanism to bypass blocks of content
+that are repeated across multiple Web pages.</p>
+<p>By using native HTML anchor tags to create skip links, developers
+provide a fast, lightweight, and universally supported solution that
+significantly improves site navigation for users with motor
+disabilities, visual impairments, and anyone relying on alternative
+input devices.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

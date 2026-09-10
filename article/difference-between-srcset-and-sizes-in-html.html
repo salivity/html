@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difference Between srcset and sizes in HTML - html</title>
+    <meta name="description" content="Responsive web design requires serving the right image size to the right device to optimize performance and bandwidth. The srcset and sizes attributes work together within the standard HTML <img> tag to achieve this, but they perform two distinct roles.">
+    <link rel="canonical" href="https://salivity.github.io/html/article/difference-between-srcset-and-sizes-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Difference Between srcset and sizes in HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/difference-between-srcset-and-sizes-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Responsive web design requires serving the right image size to the right device to optimize performance and bandwidth. The srcset and sizes attributes work together within the standard HTML <img> tag to achieve this, but they perform two distinct roles." />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="difference-between-srcset-and-sizes-in-html">Difference Between
+srcset and sizes in HTML</h1>
+<p>Responsive web design requires serving the right image size to the
+right device to optimize performance and bandwidth. The
+<code>srcset</code> and <code>sizes</code> attributes work together
+within the standard HTML <code>&lt;img&gt;</code> tag to achieve this,
+but they perform two distinct roles. In short, <code>srcset</code>
+defines the list of available image source files and their actual
+physical dimensions, while <code>sizes</code> tells the browser how much
+layout space the image will occupy across different screen
+conditions.</p>
+<h2 id="what-is-the-srcset-attribute">What is the srcset Attribute?</h2>
+<p>The <code>srcset</code> (source set) attribute provides the browser
+with a comma-separated list of image files to choose from, rather than
+relying on a single static file specified in the <code>src</code>
+attribute.</p>
+<p>Each item in the <code>srcset</code> consists of:</p>
+<ol type="1">
+<li>The image URL.</li>
+<li>A descriptor indicating the image's intrinsic size or target pixel
+density.</li>
+</ol>
+<p>There are two types of descriptors used in <code>srcset</code>:</p>
+<ul>
+<li><strong>Width descriptors (<code>w</code>):</strong> Specifies the
+native pixel width of the image file (for example,
+<code>image-small.jpg 400w</code>, meaning the file is 400 pixels
+wide).</li>
+<li><strong>Pixel density descriptors (<code>x</code>):</strong>
+Specifies target screen densities (for example,
+<code>image-2x.jpg 2x</code> for high-density Retina displays).</li>
+</ul>
+<p>When using width descriptors (<code>w</code>), the browser needs
+additional layout context to know which image to download, which is
+where the <code>sizes</code> attribute becomes necessary.</p>
+<h2 id="what-is-the-sizes-attribute">What is the sizes Attribute?</h2>
+<p>The <code>sizes</code> attribute tells the browser what width the
+image will render at in the page layout before the page's external CSS
+is downloaded and parsed.</p>
+<p>Because browsers download images concurrently while fetching CSS, the
+browser cannot know how wide an image will be rendered on the screen
+from stylesheets alone. The <code>sizes</code> attribute bridges this
+gap.</p>
+<p>A <code>sizes</code> value contains a comma-separated list of:</p>
+<ol type="1">
+<li>A media condition (similar to a media query).</li>
+<li>The intended slot width the image will occupy when that condition is
+true (using units like <code>vw</code>, <code>px</code>,
+<code>em</code>, or <code>rem</code>, but not percentages).</li>
+<li>A fallback slot width at the very end.</li>
+</ol>
+<p>For example: <code>sizes="(max-width: 768px) 100vw, 50vw"</code>
+tells the browser: "If the viewport width is 768 pixels or less, this
+image takes up 100% of the viewport width. Otherwise, it takes up
+50%."</p>
+<h2 id="key-differences">Key Differences</h2>
+<ul>
+<li><strong>Purpose:</strong> <code>srcset</code> defines the
+<strong>supply</strong> (the available files and their native
+dimensions). <code>sizes</code> defines the <strong>demand</strong> (the
+display width the layout will assign to the image).</li>
+<li><strong>Descriptors vs. Units:</strong> <code>srcset</code> uses
+intrinsic pixel widths (<code>w</code>) or display multipliers
+(<code>x</code>). <code>sizes</code> uses CSS length values
+(<code>px</code>, <code>vw</code>, <code>calc()</code>, etc.).</li>
+<li><strong>Dependency:</strong> <code>sizes</code> has no effect
+without <code>srcset</code> using <code>w</code> descriptors.
+Conversely, <code>srcset</code> can function on its own when using pixel
+density descriptors (<code>1x</code>, <code>2x</code>), but requires
+<code>sizes</code> when using width descriptors (<code>w</code>) in
+dynamic layouts.</li>
+</ul>
+<h2 id="how-they-function-together">How They Function Together</h2>
+<p>When a browser encounters an <code>&lt;img&gt;</code> tag with both
+attributes:</p>
+<ol type="1">
+<li>It checks the current viewport width and matches the relevant rule
+in the <code>sizes</code> attribute to calculate the image's target
+display width.</li>
+<li>It evaluates the device's screen pixel ratio (DPR).</li>
+<li>It multiplies the target display width by the DPR to determine the
+ideal pixel resolution.</li>
+<li>It scans the <code>srcset</code> list and downloads the smallest
+available image that meets or exceeds that required resolution.</li>
+</ol></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

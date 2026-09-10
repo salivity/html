@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How COEP Enables High-Resolution Timers - html</title>
+    <meta name="description" content="The Cross-Origin Embedder Policy (COEP) isolates an HTML document by preventing it from loading any cross-origin resources that have not explicitly granted permission to be embedded. When combined with Cross-Origin Opener Policy (COOP), COEP places the d">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-coep-enables-high-resolution-timers">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How COEP Enables High-Resolution Timers - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-coep-enables-high-resolution-timers" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Cross-Origin Embedder Policy (COEP) isolates an HTML document by preventing it from loading any cross-origin resources that have not explicitly granted permission to be embedded. When combined with Cross-Origin Opener Policy (COOP), COEP places the d" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-coep-enables-high-resolution-timers">How COEP Enables
+High-Resolution Timers</h1>
+<p>The Cross-Origin Embedder Policy (COEP) isolates an HTML document by
+preventing it from loading any cross-origin resources that have not
+explicitly granted permission to be embedded. When combined with
+Cross-Origin Opener Policy (COOP), COEP places the document in a secure,
+cross-origin isolated execution context. This isolation mitigates the
+risk of Spectre-style side-channel attacks, allowing web browsers to
+safely restore powerful browser features, including
+microsecond-precision high-resolution timers and
+<code>SharedArrayBuffer</code>.</p>
+<h3 id="the-security-problem-spectre-and-timers">The Security Problem:
+Spectre and Timers</h3>
+<p>In 2018, the discovery of the Spectre vulnerability revealed that
+speculative execution in modern CPUs could be exploited to read
+sensitive memory data across security boundaries. Attackers could
+measure the exact time it takes to access data in the CPU cache to infer
+private memory contents.</p>
+<p>To execute a cache-timing attack, an attacker requires:</p>
+<ol type="1">
+<li>Access to sensitive cross-origin data in the same process
+memory.</li>
+<li>An extremely precise clock to measure microsecond or nanosecond
+timing differences.</li>
+</ol>
+<p>To neutralize this threat, browser vendors coarsened the resolution
+of timers like <code>performance.now()</code> and disabled features like
+<code>SharedArrayBuffer</code>, which could be repurposed as
+high-precision timers via web workers.</p>
+<h3 id="how-coep-establishes-document-isolation">How COEP Establishes
+Document Isolation</h3>
+<p>Browsers introduced the "cross-origin isolated" state to safely
+re-enable high-performance features. COEP is the resource-loading
+gatekeeper for this state.</p>
+<p>When a server sends the HTTP header:</p>
+<pre class="http"><code>Cross-Origin-Embedder-Policy: require-corp</code></pre>
+<p>The browser refuses to load any cross-origin resource (such as
+images, scripts, stylesheets, or iframes) unless the resource explicitly
+opts into being loaded. A third-party resource can opt in by serving one
+of the following headers:</p>
+<ul>
+<li><strong>Cross-Origin Resource Policy (CORP):</strong>
+<code>Cross-Origin-Resource-Policy: cross-origin</code></li>
+<li><strong>Cross-Origin Resource Sharing (CORS):</strong> Providing
+standard CORS headers such as
+<code>Access-Control-Allow-Origin: *</code></li>
+</ul>
+<p>Alternatively, the <code>credentialless</code> directive can be
+used:</p>
+<pre class="http"><code>Cross-Origin-Embedder-Policy: credentialless</code></pre>
+<p>Under <code>credentialless</code>, requests to cross-origin resources
+without CORP headers are sent without credentials (cookies, client
+certificates), preventing authenticated sensitive data from entering the
+process.</p>
+<h3 id="the-role-of-coop">The Role of COOP</h3>
+<p>COEP cannot secure a document alone. It works in conjunction with the
+Cross-Origin Opener Policy (COOP):</p>
+<pre class="http"><code>Cross-Origin-Opener-Policy: same-origin</code></pre>
+<p>While COEP restricts what a document can load as subresources, COOP
+ensures that cross-origin windows cannot retain a direct DOM reference
+to the document, and vice versa. Together, COOP and COEP guarantee that
+untrusted cross-origin code and data never reside in the same browsing
+context group or process.</p>
+<h3 id="unlocking-high-resolution-timers">Unlocking High-Resolution
+Timers</h3>
+<p>When an HTML document delivers both
+<code>Cross-Origin-Opener-Policy: same-origin</code> and
+<code>Cross-Origin-Embedder-Policy: require-corp</code> (or
+<code>credentialless</code>), the browser designates the environment as
+cross-origin isolated. This can be verified in JavaScript via:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (self<span class="op">.</span><span class="at">crossOriginIsolated</span>) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Document is isolated; high-performance features are available</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>With complete control over what memory enters the process, the risk
+of side-channel data leakage is virtually eliminated. Consequently, the
+browser lifts security restrictions:</p>
+<ul>
+<li><strong><code>performance.now()</code>:</strong> Timing precision is
+restored from coarsened millisecond increments back to microsecond
+fidelity (e.g., 5 microseconds or better, depending on the browser
+engine).</li>
+<li><strong><code>SharedArrayBuffer</code>:</strong> Web Workers can
+share memory directly without risk of creating ad-hoc high-precision
+timers across cross-origin contexts.</li>
+</ul>
+<p>By using COEP to strictly control resource embedding, the web
+platform separates sensitive data from untrusted contexts, making
+high-precision timing safe once again.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

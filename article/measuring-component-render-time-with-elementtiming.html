@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Measuring Component Render Time with elementtiming - html</title>
+    <meta name="description" content="This article explores the HTML elementtiming attribute, a web platform feature designed to measure the precise render and paint times of specific DOM elements. By annotating key visual elements directly in the HTML and querying them with the Performance">
+    <link rel="canonical" href="https://salivity.github.io/html/article/measuring-component-render-time-with-elementtiming">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Measuring Component Render Time with elementtiming - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/measuring-component-render-time-with-elementtiming" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explores the HTML elementtiming attribute, a web platform feature designed to measure the precise render and paint times of specific DOM elements. By annotating key visual elements directly in the HTML and querying them with the Performance" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="measuring-component-render-time-with-elementtiming">Measuring
+Component Render Time with elementtiming</h1>
+<p>This article explores the HTML <code>elementtiming</code> attribute,
+a web platform feature designed to measure the precise render and paint
+times of specific DOM elements. By annotating key visual elements
+directly in the HTML and querying them with the Performance Timeline
+API, developers can track component-level performance in real user
+monitoring (RUM) setups, moving beyond broad, page-level performance
+metrics.</p>
+<h3 id="what-is-the-elementtiming-attribute">What is the
+<code>elementtiming</code> Attribute?</h3>
+<p>The <code>elementtiming</code> attribute is an HTML attribute that
+allows developers to flag specific elements for performance measurement.
+When added to an element, the browser records timing metrics—such as
+when the element was requested, when it loaded, and when it was first
+rendered on the screen—and exposes these metrics via the Performance
+Timeline API.</p>
+<p>Traditionally, web performance focused on aggregate, page-level
+milestones such as First Contentful Paint (FCP) and Largest Contentful
+Paint (LCP). While useful, these metrics do not identify when a critical
+business component—such as a hero carousel, checkout button, or search
+results widget—actually renders. The <code>elementtiming</code>
+attribute bridges this gap by enabling granular, element-specific
+performance telemetry.</p>
+<h3 id="supported-elements">Supported Elements</h3>
+<p>The <code>elementtiming</code> attribute can be applied to several
+types of HTML elements:</p>
+<ul>
+<li>Image elements: <code>&lt;img&gt;</code></li>
+<li>Image elements inside an SVG: <code>&lt;image&gt;</code></li>
+<li>Poster images of video elements:
+<code>&lt;video poster="..."&gt;</code></li>
+<li>Elements with a <code>background-image</code> styled via CSS</li>
+<li>Text-containing elements: block-level or inline elements containing
+direct text nodes (e.g., <code>&lt;h1&gt;</code>,
+<code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>)</li>
+</ul>
+<h3 id="how-to-use-the-attribute">How to Use the Attribute</h3>
+<p>To track an element, assign the <code>elementtiming</code> attribute
+with an identifier string of your choice:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;hero.jpg&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Featured Product&quot;</span><span class="ot"> elementtiming</span><span class="op">=</span><span class="st">&quot;hero-banner&quot;</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">h1</span><span class="ot"> elementtiming</span><span class="op">=</span><span class="st">&quot;main-heading&quot;</span><span class="dt">&gt;</span>Product Details<span class="dt">&lt;/</span><span class="kw">h1</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>The string value assigned to the attribute acts as an identifier in
+the performance data, allowing scripts to map timing entries back to
+specific components.</p>
+<h3 id="accessing-the-metrics-in-javascript">Accessing the Metrics in
+JavaScript</h3>
+<p>Browsers expose element timing records through the
+<code>PerformanceObserver</code> API using the <code>element</code>
+entry type. When observed, the browser dispatches
+<code>PerformanceElementTiming</code> objects containing performance
+metrics.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> observer <span class="op">=</span> <span class="kw">new</span> <span class="bu">PerformanceObserver</span>((entryList) <span class="kw">=&gt;</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> entry <span class="kw">of</span> entryList<span class="op">.</span><span class="fu">getEntries</span>()) {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Element ID:&#39;</span><span class="op">,</span> entry<span class="op">.</span><span class="at">identifier</span>)<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Render Time:&#39;</span><span class="op">,</span> entry<span class="op">.</span><span class="at">renderTime</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Load Time:&#39;</span><span class="op">,</span> entry<span class="op">.</span><span class="at">loadTime</span>)<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Element Node:&#39;</span><span class="op">,</span> entry<span class="op">.</span><span class="at">element</span>)<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>observer<span class="op">.</span><span class="fu">observe</span>({ <span class="dt">type</span><span class="op">:</span> <span class="st">&#39;element&#39;</span><span class="op">,</span> <span class="dt">buffered</span><span class="op">:</span> <span class="kw">true</span> })<span class="op">;</span></span></code></pre></div>
+<p>The resulting <code>PerformanceElementTiming</code> interface
+provides several key properties:</p>
+<ul>
+<li><strong><code>identifier</code></strong>: The string value provided
+in the <code>elementtiming</code> attribute.</li>
+<li><strong><code>renderTime</code></strong>: The exact timestamp when
+the element was painted to the screen. If an image is hosted on an
+external origin without a <code>Timing-Allow-Origin</code> header, this
+value defaults to <code>0</code> for security reasons.</li>
+<li><strong><code>loadTime</code></strong>: The timestamp when the
+resource finished loading (relevant for images and external
+assets).</li>
+<li><strong><code>intersectionRect</code></strong>: The visible
+coordinates and dimensions of the element within the viewport at the
+time of rendering.</li>
+<li><strong><code>naturalWidth</code> and
+<code>naturalHeight</code></strong>: The intrinsic dimensions of an
+image asset before CSS scaling.</li>
+</ul>
+<h3 id="key-use-cases">Key Use Cases</h3>
+<ol type="1">
+<li><strong>Component-Level Observability</strong>: Track the render
+speeds of isolated UI components, design system elements, or
+micro-frontends across different client devices.</li>
+<li><strong>A/B Testing Impact</strong>: Measure whether code changes,
+layout shifts, or asset optimizations directly alter the display time of
+call-to-action buttons or hero media.</li>
+<li><strong>Single-Page Application (SPA) Updates</strong>: Identify the
+exact moment dynamically injected DOM elements appear following
+client-side routing and asynchronous data fetching.</li>
+</ol></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

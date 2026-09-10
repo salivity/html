@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How og:image Configures Thumbnail Previews - html</title>
+    <meta name="description" content="The Open Graph og:image meta tag is an HTML element that specifies the graphic asset social networks, messaging platforms, and search engines display when a webpage URL is shared. By declaring this tag within an HTML document's <head> section, developers">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-og-image-configures-thumbnail-previews">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How og:image Configures Thumbnail Previews - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-og-image-configures-thumbnail-previews" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Open Graph og:image meta tag is an HTML element that specifies the graphic asset social networks, messaging platforms, and search engines display when a webpage URL is shared. By declaring this tag within an HTML document's <head> section, developers" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-ogimage-configures-thumbnail-previews">How og:image
+Configures Thumbnail Previews</h1>
+<p>The Open Graph <code>og:image</code> meta tag is an HTML element that
+specifies the graphic asset social networks, messaging platforms, and
+search engines display when a webpage URL is shared. By declaring this
+tag within an HTML document's <code>&lt;head&gt;</code> section,
+developers instruct web crawlers to fetch and render a dedicated preview
+card, directly controlling how the page visually appears across external
+platforms like Facebook, LinkedIn, Slack, and Discord.</p>
+<h3 id="the-basic-syntax-and-placement">The Basic Syntax and
+Placement</h3>
+<p>The <code>og:image</code> tag resides in the
+<code>&lt;head&gt;</code> of an HTML document. It uses the
+<code>property</code> and <code>content</code> attributes:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> property</span><span class="op">=</span><span class="st">&quot;og:image&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;https://example.com/assets/preview.jpg&quot;</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Web scrapers require the <code>content</code> attribute to contain a
+fully qualified, absolute URL (including <code>https://</code>).
+Relative paths often fail to resolve properly on third-party platforms,
+leading to broken or missing previews.</p>
+<h3 id="how-platforms-process-the-tag">How Platforms Process the
+Tag</h3>
+<p>When a user pastes a URL into a platform that supports the Open Graph
+protocol:</p>
+<ol type="1">
+<li><strong>Scraping:</strong> The platform sends an automated user
+agent (bot) to fetch the HTML source of the target page.</li>
+<li><strong>Parsing:</strong> The bot scans the
+<code>&lt;head&gt;</code> section for Open Graph protocol metadata.</li>
+<li><strong>Fetching Asset:</strong> Upon finding <code>og:image</code>,
+the bot requests the image file from the specified URL.</li>
+<li><strong>Caching:</strong> The platform downloads and stores the
+image on its own content delivery network (CDN) to optimize loading
+times for subsequent shares.</li>
+<li><strong>Rendering:</strong> The platform constructs a visual preview
+card combining the image with other metadata, such as
+<code>og:title</code> and <code>og:description</code>.</li>
+</ol>
+<h3 id="supplementary-image-tags">Supplementary Image Tags</h3>
+<p>To optimize how platforms load and render thumbnail previews, the
+Open Graph standard includes complementary sub-properties:</p>
+<ul>
+<li><strong><code>og:image:width</code> and
+<code>og:image:height</code>:</strong> Declares dimensions in pixels.
+Specifying these dimensions enables crawlers to reserve the layout and
+render the preview card immediately on the first share without having to
+download and measure the image file first.</li>
+<li><strong><code>og:image:type</code>:</strong> Defines the MIME type
+of the image (e.g., <code>image/jpeg</code>, <code>image/png</code>, or
+<code>image/webp</code>).</li>
+<li><strong><code>og:image:alt</code>:</strong> Provides descriptive alt
+text for visually impaired users and screen readers.</li>
+</ul>
+<p>Example implementation with sub-properties:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> property</span><span class="op">=</span><span class="st">&quot;og:image&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;https://example.com/assets/preview.jpg&quot;</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> property</span><span class="op">=</span><span class="st">&quot;og:image:width&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;1200&quot;</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> property</span><span class="op">=</span><span class="st">&quot;og:image:height&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;630&quot;</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> property</span><span class="op">=</span><span class="st">&quot;og:image:type&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;image/jpeg&quot;</span><span class="ot"> </span><span class="dt">/&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> property</span><span class="op">=</span><span class="st">&quot;og:image:alt&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;Article summary card with title and graphic&quot;</span><span class="ot"> </span><span class="dt">/&gt;</span></span></code></pre></div>
+<h3 id="technical-standards-and-best-practices">Technical Standards and
+Best Practices</h3>
+<p>To ensure consistent display across different platforms, adhere to
+these technical specifications:</p>
+<ul>
+<li><strong>Dimensions and Aspect Ratio:</strong> The industry standard
+for high-resolution feed previews is 1200 x 630 pixels, representing a
+1.91:1 aspect ratio. This size ensures the card renders cleanly across
+both desktop and mobile viewports without cropping.</li>
+<li><strong>File Formats:</strong> Standard image formats such as JPEG,
+PNG, and WebP are widely supported. SVG files are not universally
+supported by social media scrapers and should be avoided.</li>
+<li><strong>File Size:</strong> Keep image files under 8MB (ideally
+under 1MB) to ensure fast fetching times. Heavy files may cause crawlers
+to time out, resulting in a default placeholder or a text-only link
+preview.</li>
+<li><strong>Fallback Behavior:</strong> If an HTML document lacks an
+<code>og:image</code> tag, crawlers will attempt to guess an image by
+parsing the <code>&lt;img&gt;</code> tags within the document body,
+often resulting in unintended, low-quality, or oddly cropped
+thumbnails.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

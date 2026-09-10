@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding the First Rule of ARIA - html</title>
+    <meta name="description" content="This article provides an overview of the First Rule of ARIA (Accessible Rich Internet Applications), explaining its core directive regarding native HTML semantics. You will learn why web developers are strongly advised to prioritize built-in HTML element">
+    <link rel="canonical" href="https://salivity.github.io/html/article/understanding-the-first-rule-of-aria">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Understanding the First Rule of ARIA - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/understanding-the-first-rule-of-aria" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides an overview of the First Rule of ARIA (Accessible Rich Internet Applications), explaining its core directive regarding native HTML semantics. You will learn why web developers are strongly advised to prioritize built-in HTML element" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="understanding-the-first-rule-of-aria">Understanding the First
+Rule of ARIA</h1>
+<p>This article provides an overview of the First Rule of ARIA
+(Accessible Rich Internet Applications), explaining its core directive
+regarding native HTML semantics. You will learn why web developers are
+strongly advised to prioritize built-in HTML elements over custom ARIA
+attributes, the technical benefits of this approach for accessibility,
+and the specific scenarios where applying ARIA is truly necessary.</p>
+<p>The First Rule of ARIA, defined by the W3C, states: <strong>If you
+can use a native HTML element or attribute with the semantics and
+behavior you require already built in, instead of repurposing an element
+and adding an ARIA role, state, or property to make it accessible, then
+do so.</strong></p>
+<p>In short: <strong>Use native HTML instead of ARIA whenever
+possible.</strong></p>
+<h3 id="why-native-html-takes-precedence">Why Native HTML Takes
+Precedence</h3>
+<p>Native HTML elements provide essential accessibility features
+automatically, requiring no extra JavaScript or ARIA markup to function
+correctly:</p>
+<ul>
+<li><strong>Built-in Keyboard Accessibility:</strong> Elements like
+<code>&lt;button&gt;</code>, <code>&lt;select&gt;</code>, and
+<code>&lt;a&gt;</code> are focusable via the <code>Tab</code> key and
+respond to keyboard interactions (such as <code>Enter</code> and
+<code>Space</code>) right out of the box.</li>
+<li><strong>Semantic Meaning:</strong> Assistive technologies, such as
+screen readers, automatically recognize the role and state of native
+elements without additional code.</li>
+<li><strong>Less Maintenance:</strong> Using native elements
+significantly reduces the amount of custom code needed to manage focus,
+states, and keyboard events.</li>
+</ul>
+<h3 id="a-practical-comparison">A Practical Comparison</h3>
+<p>Consider creating a clickable button.</p>
+<p><strong>The Incorrect Approach (Relying on ARIA):</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> role</span><span class="op">=</span><span class="st">&quot;button&quot;</span><span class="ot"> tabindex</span><span class="op">=</span><span class="st">&quot;0&quot;</span><span class="dt">&gt;</span>Click Me<span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Using a <code>&lt;div&gt;</code> with <code>role="button"</code>
+tells a screen reader that the element is a button, but it does not
+actually behave like one. To make this accessible, you must manually
+write JavaScript to handle keydown events for <code>Enter</code> and
+<code>Space</code>, manage focus styles, and handle disabled states.</p>
+<p><strong>The Correct Approach (The First Rule in Action):</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;button&quot;</span><span class="dt">&gt;</span>Click Me<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>The native <code>&lt;button&gt;</code> element provides keyboard
+focus, activates with keyboard presses, announces its role to assistive
+software, and supports attributes like <code>disabled</code>
+automatically.</p>
+<h3 id="when-should-aria-be-used">When Should ARIA Be Used?</h3>
+<p>The First Rule does not mean ARIA should never be used. ARIA is
+essential when:</p>
+<ul>
+<li>HTML lacks a native semantic equivalent for a design pattern (such
+as tabs, tree views, or modal dialogs).</li>
+<li>You need to expose dynamic states or properties that native HTML
+cannot convey, such as <code>aria-expanded="false"</code> or
+<code>aria-live="polite"</code>.</li>
+<li>Visual design or legacy constraints prevent the use of standard
+native elements.</li>
+</ul>
+<p>ARIA is intended to fill the gaps in HTML, not to replace native
+elements. When building accessible interfaces, the most reliable
+practice is to start with semantic HTML and only layer in ARIA when
+native capabilities fall short.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

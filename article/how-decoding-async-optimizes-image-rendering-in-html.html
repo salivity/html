@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How decoding="async" Optimizes Image Rendering in HTML - html</title>
+    <meta name="description" content="The decoding="async" attribute in HTML optimizes web performance by instructing the browser to decode compressed image data off the main execution thread. By offloading this computationally heavy rasterization process to a background thread, the browser">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-decoding-async-optimizes-image-rendering-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How decoding="async" Optimizes Image Rendering in HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-decoding-async-optimizes-image-rendering-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The decoding="async" attribute in HTML optimizes web performance by instructing the browser to decode compressed image data off the main execution thread. By offloading this computationally heavy rasterization process to a background thread, the browser" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-decodingasync-optimizes-image-rendering-in-html">How
+decoding="async" Optimizes Image Rendering in HTML</h1>
+<p>The <code>decoding="async"</code> attribute in HTML optimizes web
+performance by instructing the browser to decode compressed image data
+off the main execution thread. By offloading this computationally heavy
+rasterization process to a background thread, the browser prevents UI
+freezes, maintains responsive frame rates, and improves Core Web Vitals
+such as Interaction to Next Paint (INP) and Total Blocking Time
+(TBT).</p>
+<h3 id="the-problem-with-synchronous-image-decoding">The Problem with
+Synchronous Image Decoding</h3>
+<p>Before a browser can display a downloaded image format (such as JPEG,
+PNG, or WebP), it must decompress the binary data into a raw pixel
+bitmap. By default, browsers often handle this decoding synchronously on
+the main thread.</p>
+<p>Because the main thread is also responsible for running JavaScript,
+calculating styles, computing layouts, and responding to user
+interactions, synchronous decoding introduces latency. If a browser
+encounters a large or complex image, the decoding process can lock the
+main thread, causing noticeable scroll stuttering, delayed button
+responses, and dropped animation frames (jank).</p>
+<h3 id="how-decodingasync-solves-the-issue">How
+<code>decoding="async"</code> Solves the Issue</h3>
+<p>Applying <code>decoding="async"</code> allows the browser to decouple
+image decoding from the main rendering loop:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;large-graphic.webp&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Descriptive text&quot;</span><span class="ot"> decoding</span><span class="op">=</span><span class="st">&quot;async&quot;</span><span class="ot"> width</span><span class="op">=</span><span class="st">&quot;800&quot;</span><span class="ot"> height</span><span class="op">=</span><span class="st">&quot;600&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When this attribute is present:</p>
+<ol type="1">
+<li><strong>Background Processing:</strong> The browser downloads the
+image and immediately transfers the decoding task to a background thread
+or asynchronous worker.</li>
+<li><strong>Unblocked Main Thread:</strong> The main thread continues
+executing JavaScript, processing DOM updates, and handling user input
+without interruption.</li>
+<li><strong>Independent Paint:</strong> Once the background thread
+completes decoding the bitmap, the browser updates the display list and
+paints the image onto the screen during the next available frame.</li>
+</ol>
+<h3 id="performance-benefits">Performance Benefits</h3>
+<ul>
+<li><strong>Smoother User Interactions:</strong> By removing decode
+computation from the main thread, the page remains fully responsive to
+user input, significantly optimizing the page's INP metric.</li>
+<li><strong>Elimination of Scroll Jank:</strong> Fast scrolling through
+galleries or content-heavy feeds is substantially smoother because
+incoming images do not stall the rendering engine.</li>
+<li><strong>Faster Time to Interactive:</strong> Web applications with
+heavy client-side JavaScript execution can initialize and run scripts
+without waiting for image decoding queues to resolve.</li>
+</ul>
+<h3 id="distinguishing-decodingasync-from-loadinglazy">Distinguishing
+<code>decoding="async"</code> from <code>loading="lazy"</code></h3>
+<p>It is common to confuse decoding with loading, but they control
+different stages of the image rendering pipeline:</p>
+<ul>
+<li><strong><code>loading="lazy"</code></strong> delays the <em>network
+request</em> (fetching) of an image until it approaches the
+viewport.</li>
+<li><strong><code>decoding="async"</code></strong> alters the
+<em>processing mechanism</em> (decompression) after the image data has
+already been fetched.</li>
+</ul>
+<p>For non-critical images located below the fold, pairing both
+attributes provides optimal performance by deferring both the network
+impact and the CPU load.</p>
+<h3 id="best-practices">Best Practices</h3>
+<ul>
+<li><strong>Use for Non-Critical Images:</strong> Use
+<code>decoding="async"</code> on secondary images, infinite scroll
+feeds, and below-the-fold content.</li>
+<li><strong>Avoid on Largest Contentful Paint (LCP) Images:</strong> For
+the primary hero image or critical above-the-fold content, omit
+<code>decoding="async"</code> or use <code>decoding="sync"</code>.
+Asynchronous decoding can introduce a slight delay before the decoded
+image paints, which may negatively impact your LCP score.</li>
+<li><strong>Always Provide Explicit Dimensions:</strong> Always include
+<code>width</code> and <code>height</code> attributes on the
+<code>&lt;img&gt;</code> tag to reserve layout space and prevent
+Cumulative Layout Shift (CLS) when the asynchronously decoded image
+finally renders.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

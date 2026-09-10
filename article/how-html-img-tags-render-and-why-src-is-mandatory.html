@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How HTML img Tags Render and Why src is Mandatory - html</title>
+    <meta name="description" content="This article explores how web browsers process and display images using the HTML <img> tag, detailing the technical lifecycle from HTML parsing to pixel rasterization on screen. It also examines the foundational role of the src (source) attribute, explai">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-html-img-tags-render-and-why-src-is-mandatory">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How HTML img Tags Render and Why src is Mandatory - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-html-img-tags-render-and-why-src-is-mandatory" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explores how web browsers process and display images using the HTML <img> tag, detailing the technical lifecycle from HTML parsing to pixel rasterization on screen. It also examines the foundational role of the src (source) attribute, explai" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-html-img-tags-render-and-why-src-is-mandatory">How HTML img
+Tags Render and Why src is Mandatory</h1>
+<p>This article explores how web browsers process and display images
+using the HTML <code>&lt;img&gt;</code> tag, detailing the technical
+lifecycle from HTML parsing to pixel rasterization on screen. It also
+examines the foundational role of the <code>src</code> (source)
+attribute, explaining why the HTML specification strictly requires it to
+fetch and present graphical content to users.</p>
+<h3 id="how-the-img-tag-renders-images">How the <code>&lt;img&gt;</code>
+Tag Renders Images</h3>
+<p>The <code>&lt;img&gt;</code> element is an empty, or void, element,
+meaning it contains no closing tag and holds no direct text content.
+Instead of embedding graphic data directly inside the HTML markup, the
+browser handles image rendering through an asynchronous multi-step
+pipeline:</p>
+<ol type="1">
+<li><strong>HTML Parsing and Tokenization:</strong> As the browser
+parses the HTML document into the Document Object Model (DOM), it
+encounters the <code>&lt;img&gt;</code> node. It recognizes that an
+external resource is needed and creates an image request.</li>
+<li><strong>Asynchronous Fetching:</strong> The browser initiates a
+non-blocking HTTP GET request via the network stack to retrieve the
+image file specified by the resource path. Because this request is
+asynchronous, the browser continues parsing the remainder of the HTML
+document without waiting for the image data to download.</li>
+<li><strong>Layout and Dimension Calculation:</strong>
+<ul>
+<li>If explicit <code>width</code> and <code>height</code> attributes
+(or CSS dimensions) are provided, the browser immediately allocates a
+layout box of that size. This prevents layout shifts while the image
+downloads.</li>
+<li>If dimensions are not provided, the browser waits until the image
+headers arrive to determine its intrinsic dimensions, triggering a
+layout recalculation (reflow) once size information becomes
+available.</li>
+</ul></li>
+<li><strong>Decoding:</strong> Once the file data (such as JPEG, PNG, or
+WebP) finishes downloading, the browser's rendering engine delegates the
+compressed binary stream to an image decoder. The decoder converts this
+data into an uncompressed bitmap format of raw pixel values residing in
+memory.</li>
+<li><strong>Rasterization and Painting:</strong> Finally, the browser's
+compositing engine coordinates with the GPU or CPU to draw the decoded
+pixels directly onto the screen at the designated coordinates determined
+during the layout phase.</li>
+</ol>
+<h3 id="why-the-src-attribute-is-mandatory">Why the <code>src</code>
+Attribute Is Mandatory</h3>
+<p>The <code>src</code> (source) attribute provides the uniform resource
+locator (URL) or file path pointing to the image asset. Under the HTML
+standard, this attribute is mandatory for several critical technical
+reasons:</p>
+<ul>
+<li><strong>Resource Identification:</strong> The
+<code>&lt;img&gt;</code> element is fundamentally a placeholder. Unlike
+vector formats like inline SVG, the <code>&lt;img&gt;</code> tag
+contains no intrinsic graphic instructions. Without the <code>src</code>
+attribute, the browser has no target endpoint to query over the network,
+rendering the element functionally inert.</li>
+<li><strong>Specification Compliance:</strong> The W3C and WHATWG HTML
+specifications define the <code>src</code> attribute as required.
+Omitting it results in invalid HTML, which can cause unpredictable
+rendering behavior across different browsers and automated testing
+tools.</li>
+<li><strong>Layout and Error Handling:</strong> An
+<code>&lt;img&gt;</code> tag without a <code>src</code> attribute
+triggers broken image behavior. Browsers may render an empty
+placeholder, an empty inline frame, or a broken image icon. Furthermore,
+omitting <code>src</code> while providing an <code>alt</code> attribute
+causes the browser to display only the fallback text, bypassing the
+intended media presentation entirely.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

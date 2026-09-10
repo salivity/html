@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role of Service Workers in Offline Web Experiences - html</title>
+    <meta name="description" content="Service Workers registered via HTML scripts act as a programmable proxy between the web browser and the network, serving as the foundational technology for modern offline web applications. By initiating registration directly in the client-side document,">
+    <link rel="canonical" href="https://salivity.github.io/html/article/role-of-service-workers-in-offline-web-experiences">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Role of Service Workers in Offline Web Experiences - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/role-of-service-workers-in-offline-web-experiences" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Service Workers registered via HTML scripts act as a programmable proxy between the web browser and the network, serving as the foundational technology for modern offline web applications. By initiating registration directly in the client-side document," />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="role-of-service-workers-in-offline-web-experiences">Role of
+Service Workers in Offline Web Experiences</h1>
+<p>Service Workers registered via HTML scripts act as a programmable
+proxy between the web browser and the network, serving as the
+foundational technology for modern offline web applications. By
+initiating registration directly in the client-side document, web
+developers can intercept network traffic, cache critical application
+assets, and serve saved content whenever an internet connection becomes
+unstable or completely unavailable.</p>
+<h3 id="registration-via-html-scripts">Registration via HTML
+Scripts</h3>
+<p>The process begins in the main execution thread of the webpage,
+typically through an inline or linked <code>&lt;script&gt;</code> tag in
+the HTML. Because Service Workers run on a separate background thread
+without access to the DOM, they cannot register themselves; the HTML
+document must initiate the registration process.</p>
+<p>A standard implementation verifies browser compatibility and invokes
+the registration API:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="st">&#39;serviceWorker&#39;</span> <span class="kw">in</span> <span class="bu">navigator</span>) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">window</span><span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">&#39;load&#39;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">navigator</span><span class="op">.</span><span class="at">serviceWorker</span><span class="op">.</span><span class="fu">register</span>(<span class="st">&#39;/service-worker.js&#39;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">then</span>((registration) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Service Worker registered with scope:&#39;</span><span class="op">,</span> registration<span class="op">.</span><span class="at">scope</span>)<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      })</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>      <span class="op">.</span><span class="fu">catch</span>((error) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">&#39;Service Worker registration failed:&#39;</span><span class="op">,</span> error)<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>      })<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Registering during the window's <code>load</code> event ensures that
+the service worker setup does not compete for bandwidth or processing
+power during the initial page render. The location from which the script
+is registered also determines its "scope," which defines the path
+hierarchy of network requests the worker is allowed to intercept.</p>
+<h3 id="asset-caching-and-the-install-phase">Asset Caching and the
+Install Phase</h3>
+<p>Once registered via the HTML script, the browser downloads and
+installs the dedicated service worker file. During the
+<code>install</code> lifecycle event, the service worker takes advantage
+of the Cache API to download and store essential static resources, such
+as HTML files, stylesheets, JavaScript bundles, and images.</p>
+<p>This process, known as precaching, ensures that the core application
+shell is permanently stored on the user's device. When a user
+subsequently navigates to the page without an internet connection, the
+underlying infrastructure of the site is already locally available.</p>
+<h3 id="intercepting-requests-with-fetch-handlers">Intercepting Requests
+with Fetch Handlers</h3>
+<p>The primary operational role of a Service Worker during runtime is
+listening to <code>fetch</code> events. Whenever the browser makes an
+HTTP request—whether for a stylesheet, an API call, or navigation to
+another page—the Service Worker intercepts it before it reaches the
+network.</p>
+<p>Developers define caching strategies within the worker to handle
+these requests:</p>
+<ul>
+<li><strong>Cache First:</strong> The worker checks the local cache for
+a matching response. If found, it returns the local asset instantly
+without hitting the network. If not found, it falls back to the
+network.</li>
+<li><strong>Network First:</strong> The worker attempts to fetch the
+latest data from the server. If the network fails or times out, it
+serves the cached version.</li>
+<li><strong>Stale-While-Revalidate:</strong> The worker serves the
+cached version immediately for speed, while simultaneously fetching an
+updated copy in the background to refresh the cache for future
+visits.</li>
+</ul>
+<p>Through these strategies, the Service Worker guarantees that a user
+receives a functional interface rather than a standard browser error
+screen when offline.</p>
+<h3 id="providing-custom-offline-fallbacks">Providing Custom Offline
+Fallbacks</h3>
+<p>Beyond serving static shells, Service Workers enable custom offline
+fallbacks. If an application requires dynamic data that is not stored in
+the cache, the Service Worker can detect the network failure and return
+a custom offline HTML page or a default JSON response. This maintains
+application state and informs the user of connectivity issues without
+breaking the application flow.</p>
+<h3 id="background-synchronization">Background Synchronization</h3>
+<p>Service Workers also support the Background Sync API. If a user
+submits a form, sends a message, or attempts an action while
+disconnected, the Service Worker can capture that request and defer
+execution until the browser detects a stable connection. This ensures
+user actions are not lost, completing the seamless transition between
+online and offline states.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

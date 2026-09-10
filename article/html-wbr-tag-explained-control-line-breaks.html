@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML wbr Tag Explained: Control Line Breaks - html</title>
+    <meta name="description" content="The <wbr> (Word Break Opportunity) tag in HTML specifies an exact position within a string of text where the browser is allowed to insert an optional line break. This article explains what the <wbr> tag does, how it functions in responsive web design, ho">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-wbr-tag-explained-control-line-breaks">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML wbr Tag Explained: Control Line Breaks - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-wbr-tag-explained-control-line-breaks" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The <wbr> (Word Break Opportunity) tag in HTML specifies an exact position within a string of text where the browser is allowed to insert an optional line break. This article explains what the <wbr> tag does, how it functions in responsive web design, ho" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-wbr-tag-explained-control-line-breaks">HTML wbr Tag
+Explained: Control Line Breaks</h1>
+<p>The <code>&lt;wbr&gt;</code> (Word Break Opportunity) tag in HTML
+specifies an exact position within a string of text where the browser is
+allowed to insert an optional line break. This article explains what the
+<code>&lt;wbr&gt;</code> tag does, how it functions in responsive web
+design, how it contrasts with other line-breaking techniques like
+<code>&lt;br&gt;</code> and <code>&amp;shy;</code>, and the practical
+scenarios where it should be implemented.</p>
+<h3 id="what-is-the-wbr-tag">What Is the <code>&lt;wbr&gt;</code>
+Tag?</h3>
+<p>The <code>&lt;wbr&gt;</code> element represents a "Word Break
+Opportunity." It is an empty (void) element, meaning it does not require
+a closing tag. When placed inside a word or a continuous string of
+characters without spaces, it tells the browser: "If this text is too
+long to fit inside its container, break the line here." If the container
+is wide enough to display the full text, the browser ignores the tag and
+displays the word normally without any gaps or hyphens.</p>
+<h3 id="wbr-vs-br"><code>&lt;wbr&gt;</code> vs.
+<code>&lt;br&gt;</code></h3>
+<p>Understanding the difference between <code>&lt;wbr&gt;</code> and
+<code>&lt;br&gt;</code> is critical for layout control:</p>
+<ul>
+<li><strong><code>&lt;br&gt;</code> (Hard Break):</strong> Forces the
+text immediately following it onto a new line, regardless of screen
+width, container size, or available space.</li>
+<li><strong><code>&lt;wbr&gt;</code> (Soft/Conditional Break):</strong>
+Only breaks the line if the text exceeds the container boundary. If
+there is enough room, it renders no visible change.</li>
+</ul>
+<h3 id="wbr-vs-the-soft-hyphen-shy"><code>&lt;wbr&gt;</code> vs. the
+Soft Hyphen (<code>&amp;shy;</code>)</h3>
+<p>Both <code>&lt;wbr&gt;</code> and the soft hyphen entity
+(<code>&amp;shy;</code>) provide conditional line breaks, but they
+render differently:</p>
+<ul>
+<li><strong><code>&amp;shy;</code>:</strong> When a break occurs, the
+browser automatically displays a visible hyphen (<code>-</code>) at the
+point of the break.</li>
+<li><strong><code>&lt;wbr&gt;</code>:</strong> When a break occurs, the
+browser wraps the text to the next line without adding a hyphen or any
+extra punctuation.</li>
+</ul>
+<h3 id="practical-use-cases">Practical Use Cases</h3>
+<p>Browsers by default only break lines at whitespace or existing
+hyphens. When encountering long, unbroken strings, the layout can break,
+causing horizontal scrollbars or clipping. The <code>&lt;wbr&gt;</code>
+tag is particularly useful in several specific situations:</p>
+<ol type="1">
+<li><strong>Long URLs and File Paths:</strong> URLs often have no
+natural spaces. Placing <code>&lt;wbr&gt;</code> after slashes or query
+parameters allows the address to wrap neatly on mobile screens without
+adding misleading hyphens (e.g.,
+<code>https://example.com/&lt;wbr&gt;categories/&lt;wbr&gt;products</code>).</li>
+<li><strong>Lengthy Technical Terms:</strong> Specialized terminology,
+chemical names, or German compound nouns can easily overflow narrow
+columns unless given designated break points.</li>
+<li><strong>Code Snippets and Namespaces:</strong> Long programming
+identifiers (like
+<code>VeryLongMethodName&lt;wbr&gt;WithMultipleParameters</code>) can
+wrap cleanly without altering the readability of the code name.</li>
+</ol>
+<h3 id="syntax-and-implementation">Syntax and Implementation</h3>
+<p>Using the <code>&lt;wbr&gt;</code> tag is straightforward:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  Super<span class="dt">&lt;</span><span class="kw">wbr</span><span class="dt">&gt;</span>cali<span class="dt">&lt;</span><span class="kw">wbr</span><span class="dt">&gt;</span>fragi<span class="dt">&lt;</span><span class="kw">wbr</span><span class="dt">&gt;</span>listic<span class="dt">&lt;</span><span class="kw">wbr</span><span class="dt">&gt;</span>expi<span class="dt">&lt;</span><span class="kw">wbr</span><span class="dt">&gt;</span>ali<span class="dt">&lt;</span><span class="kw">wbr</span><span class="dt">&gt;</span>docious</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>On wide viewports, the word renders as a single, uninterrupted word.
+On narrow screens, such as smartphones, the browser wraps the word
+precisely at one of the predefined break opportunities instead of
+causing an overflow or splitting the word awkwardly.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

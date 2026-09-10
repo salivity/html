@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatting Math Variables with the HTML Var Tag - html</title>
+    <meta name="description" content="The HTML <var> element represents a variable in mathematical expressions or programming contexts within academic and technical documents. By default, web browsers format the contents of a <var> tag in italics, aligning with international typographic stan">
+    <link rel="canonical" href="https://salivity.github.io/html/article/formatting-math-variables-with-the-html-var-tag">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Formatting Math Variables with the HTML Var Tag - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/formatting-math-variables-with-the-html-var-tag" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <var> element represents a variable in mathematical expressions or programming contexts within academic and technical documents. By default, web browsers format the contents of a <var> tag in italics, aligning with international typographic stan" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="formatting-math-variables-with-the-html-var-tag">Formatting Math
+Variables with the HTML Var Tag</h1>
+<p>The HTML <code>&lt;var&gt;</code> element represents a variable in
+mathematical expressions or programming contexts within academic and
+technical documents. By default, web browsers format the contents of a
+<code>&lt;var&gt;</code> tag in italics, aligning with international
+typographic standards for mathematical notation. Beyond basic visual
+styling, the tag serves a critical semantic role in academic HTML
+publishing by distinguishing mathematical symbols from general
+emphasized text, improving accessibility for assistive technologies, and
+providing structured hooks for custom typographic styling.</p>
+<h3 id="default-browser-rendering-and-typographic-conventions">Default
+Browser Rendering and Typographic Conventions</h3>
+<p>In standard user-agent stylesheets, the <code>&lt;var&gt;</code>
+element is assigned a single primary rule:
+<code>font-style: italic</code>. This default behavior directly mirrors
+standard academic publishing conventions—such as those defined by ISO
+80000-2 and the American Mathematical Society (AMS)—which dictate that
+single-letter variables representing scalar quantities (such as <span
+class="math inline">\(x\)</span>, <span
+class="math inline">\(y\)</span>, or <span
+class="math inline">\(n\)</span>) must be rendered in sloping type.
+Because <code>&lt;var&gt;</code> is an inline element, it flows
+seamlessly within running text, allowing expressions like
+<code>&lt;var&gt;E&lt;/var&gt; = &lt;var&gt;m&lt;/var&gt;&lt;var&gt;c&lt;/var&gt;&lt;sup&gt;2&lt;/sup&gt;</code>
+to match the surrounding paragraph height and baseline.</p>
+<h3 id="semantic-differentiation-in-academic-markup">Semantic
+Differentiation in Academic Markup</h3>
+<p>Unlike the <code>&lt;i&gt;</code> (idiomatic text) or
+<code>&lt;em&gt;</code> (stress emphasis) elements,
+<code>&lt;var&gt;</code> carries explicit machine-readable meaning. In
+peer-reviewed journals, digital textbooks, and preprint servers,
+semantic distinction is vital for:</p>
+<ul>
+<li><strong>Screen Readers and Accessibility:</strong> Specialized
+text-to-speech engines can announce the content of
+<code>&lt;var&gt;</code> tags explicitly as variables rather than
+reading them with vocal emphasis or treating them as foreign terms.</li>
+<li><strong>Text Mining and Indexing:</strong> Search engines and
+academic parsers can isolate mathematical variables from narrative text,
+facilitating automated formula indexing, knowledge graph construction,
+and cross-referencing.</li>
+<li><strong>Targeted CSS Styling:</strong> Academic publishers can style
+all mathematical entities globally without inadvertently altering
+italicized book titles, foreign phrases, or emphasized prose.</li>
+</ul>
+<h3 id="advanced-formatting-and-css-integration">Advanced Formatting and
+CSS Integration</h3>
+<p>While default italics suffice for basic inline variables, academic
+publications often require rigorous typographical adjustments to
+replicate traditional print mathematics. Publishers typically target the
+<code>&lt;var&gt;</code> tag with custom CSS to control font families,
+metrics, and case-specific variants:</p>
+<ul>
+<li><strong>Math-Specific Typefaces:</strong> CSS rules commonly apply
+dedicated fonts such as Computer Modern, Latin Modern Math, STIX Two
+Text, or Times New Roman to <code>&lt;var&gt;</code> elements:
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>var {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-family</span><span class="ch">:</span> <span class="st">&quot;STIX Two Math&quot;</span><span class="op">,</span> <span class="st">&quot;Latin Modern Math&quot;</span><span class="op">,</span> <span class="st">&quot;Times New Roman&quot;</span><span class="op">,</span> <span class="dv">serif</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">italic</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">letter-spacing</span><span class="ch">:</span> <span class="dv">0.05</span><span class="dt">em</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<li><strong>Vectors and Matrices:</strong> Academic conventions dictate
+that vectors and matrices appear in bold upright or bold italic type
+rather than standard italics. Publishers often use classes on the
+variable tag (e.g.,
+<code>&lt;var class="vector"&gt;v&lt;/var&gt;</code>) paired with CSS:
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>var<span class="fu">.vector</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-style</span><span class="ch">:</span> <span class="dv">normal</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">font-weight</span><span class="ch">:</span> <span class="dv">bold</span><span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<li><strong>Handling Indices:</strong> Complex variables often contain
+subscripts or superscripts. Nesting <code>&lt;sub&gt;</code> and
+<code>&lt;sup&gt;</code> within <code>&lt;var&gt;</code> (or vice versa)
+maintains semantic grouping while styling components properly:
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">var</span><span class="dt">&gt;</span>x<span class="dt">&lt;</span><span class="kw">sub</span><span class="dt">&gt;&lt;</span><span class="kw">var</span><span class="dt">&gt;</span>i<span class="dt">&lt;/</span><span class="kw">var</span><span class="dt">&gt;&lt;/</span><span class="kw">sub</span><span class="dt">&gt;&lt;/</span><span class="kw">var</span><span class="dt">&gt;</span></span></code></pre></div></li>
+</ul>
+<h3 id="relationship-with-mathml">Relationship with MathML</h3>
+<p>For extensive equations, MathML (<code>&lt;math&gt;</code>) provides
+a robust XML-based standard using the <code>&lt;mi&gt;</code> (math
+identifier) tag. However, the standard HTML <code>&lt;var&gt;</code>
+element remains essential in academic workflows. It offers a
+lightweight, dependency-free alternative for referencing variables
+within narrative paragraphs without the overhead of loading full MathML
+blocks or JavaScript-driven rendering engines like MathJax or KaTeX.
+When used systematically, <code>&lt;var&gt;</code> bridges standard web
+typography and rigorous scientific notation.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

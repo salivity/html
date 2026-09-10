@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why HTML Tags Must Be Properly Nested - html</title>
+    <meta name="description" content="Properly nesting HTML tags without overlapping boundaries is essential for creating valid, accessible, and high-performing websites. When tags overlap instead of closing in the reverse order of their opening, browsers must guess how to construct the page">
+    <link rel="canonical" href="https://salivity.github.io/html/article/why-html-tags-must-be-properly-nested">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Why HTML Tags Must Be Properly Nested - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/why-html-tags-must-be-properly-nested" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Properly nesting HTML tags without overlapping boundaries is essential for creating valid, accessible, and high-performing websites. When tags overlap instead of closing in the reverse order of their opening, browsers must guess how to construct the page" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="why-html-tags-must-be-properly-nested">Why HTML Tags Must Be
+Properly Nested</h1>
+<p>Properly nesting HTML tags without overlapping boundaries is
+essential for creating valid, accessible, and high-performing websites.
+When tags overlap instead of closing in the reverse order of their
+opening, browsers must guess how to construct the page, which leads to
+visual bugs, broken layouts, accessibility barriers, and unpredictable
+JavaScript behavior. Understanding the technical requirements behind
+proper nesting ensures that web pages render consistently and
+efficiently across all modern browsers and devices.</p>
+<h2 id="the-document-object-model-dom-is-a-tree-structure">The Document
+Object Model (DOM) is a Tree Structure</h2>
+<p>HTML documents are not flat text files; they are hierarchical data
+structures known as the Document Object Model (DOM). Every open tag
+creates a parent or sibling node, and its closing tag signifies the end
+of that specific node branch.</p>
+<p>When tags overlap—for example, writing
+<code>&lt;b&gt;&lt;i&gt;text&lt;/b&gt;&lt;/i&gt;</code> instead of
+<code>&lt;b&gt;&lt;i&gt;text&lt;/i&gt;&lt;/b&gt;</code>—the strict
+parent-child relationship is broken. A node cannot simultaneously be
+both a parent and a child of another node. Well-formed nesting ensures
+that every element exists cleanly within its proper container,
+preserving the integrity of the DOM tree.</p>
+<h2 id="inconsistent-browser-error-handling">Inconsistent Browser Error
+Handling</h2>
+<p>Modern web browsers feature built-in error-correction algorithms
+designed to fix poorly written HTML on the fly. However, relying on
+browser correction is risky:</p>
+<ul>
+<li><strong>Engine Differences:</strong> Different rendering engines
+(Blink, Gecko, WebKit) may interpret and correct overlapping tags
+differently, leading to cross-browser inconsistencies.</li>
+<li><strong>Unexpected Node Duplication:</strong> Browsers often fix
+overlapping tags by closing and immediately reopening elements under the
+hood. For instance,
+<code>&lt;a&gt;&lt;p&gt;Link&lt;/a&gt;&lt;/p&gt;</code> might be
+restructured internally as
+<code>&lt;p&gt;&lt;a&gt;Link&lt;/a&gt;&lt;/p&gt;</code>, altering your
+intended layout.</li>
+<li><strong>Performance Overhead:</strong> The browser engine must
+expend additional processing cycles restructuring invalid markup rather
+than rendering the page immediately.</li>
+</ul>
+<h2 id="broken-css-inheritance-and-layouts">Broken CSS Inheritance and
+Layouts</h2>
+<p>CSS relies heavily on the DOM hierarchy to apply styles. Rules based
+on inheritance, descendant selectors (<code>div span</code>), and child
+combinators (<code>ul &gt; li</code>) depend entirely on accurate tag
+boundaries.</p>
+<p>Overlapping tags can cause CSS properties to inherit improperly or
+cause specific rules to fail completely. An unclosed or improperly
+nested tag can unintentionally wrap surrounding elements, causing styles
+like margins, background colors, or font weights to leak across
+unrelated sections of the page.</p>
+<h2 id="javascript-and-event-handling-failures">JavaScript and Event
+Handling Failures</h2>
+<p>JavaScript interacts with web pages directly through the DOM using
+methods such as <code>document.getElementById()</code>,
+<code>querySelector()</code>, and traversals like
+<code>.parentNode</code> or <code>.children</code>.</p>
+<p>When tags overlap, the generated DOM will not match your source code.
+This mismatch causes common scripting errors:</p>
+<ul>
+<li>Event listeners may fail to fire because they are attached to
+elements that the browser relocated.</li>
+<li>DOM traversal scripts may target the wrong element or return
+<code>null</code>.</li>
+<li>Dynamic content injection can break entire page layouts if elements
+are inserted into misplaced parent containers.</li>
+</ul>
+<h2 id="compromised-accessibility">Compromised Accessibility</h2>
+<p>Assistive technologies, such as screen readers used by visually
+impaired individuals, navigate web pages using the semantic structure of
+the DOM. Overlapping tags disrupt this linear and structural flow. A
+screen reader may announce text formatting incorrectly, fail to
+recognize interactive controls, or lose track of list and table
+hierarchies, making the website unusable for people relying on assistive
+tools.</p>
+<h2 id="search-engine-crawling-and-standards-compliance">Search Engine
+Crawling and Standards Compliance</h2>
+<p>Search engine crawlers parse HTML to extract content, metadata, and
+structural relationships. While search bots are resilient, heavily
+malformed HTML with overlapping tags can hinder the crawler's ability to
+index page content accurately. Validating code according to W3C
+standards by ensuring all tags are closed in the correct order
+guarantees that search engines, social media scrapers, and external
+parsers interpret your content exactly as intended.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

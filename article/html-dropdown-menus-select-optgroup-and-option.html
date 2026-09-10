@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Dropdown Menus: Select, Optgroup, and Option - html</title>
+    <meta name="description" content="HTML dropdown menus provide an intuitive way for users to select one or more choices from a predefined list within web forms. This article explains how the <select>, <optgroup>, and <option> elements work together to create accessible, well-structured, a">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-dropdown-menus-select-optgroup-and-option">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Dropdown Menus: Select, Optgroup, and Option - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-dropdown-menus-select-optgroup-and-option" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="HTML dropdown menus provide an intuitive way for users to select one or more choices from a predefined list within web forms. This article explains how the <select>, <optgroup>, and <option> elements work together to create accessible, well-structured, a" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-dropdown-menus-select-optgroup-and-option">HTML Dropdown
+Menus: Select, Optgroup, and Option</h1>
+<p>HTML dropdown menus provide an intuitive way for users to select one
+or more choices from a predefined list within web forms. This article
+explains how the <code>&lt;select&gt;</code>,
+<code>&lt;optgroup&gt;</code>, and <code>&lt;option&gt;</code> elements
+work together to create accessible, well-structured, and organized
+dropdown menus, covering the role of each element, their primary
+attributes, and practical implementation examples.</p>
+<h3 id="the-select-element-the-container">The
+<code>&lt;select&gt;</code> Element: The Container</h3>
+<p>The <code>&lt;select&gt;</code> element acts as the parent container
+that initializes the dropdown control. When placed inside a form, it
+establishes the control that collects and submits the user's choice to a
+server.</p>
+<p>Key attributes of the <code>&lt;select&gt;</code> element
+include:</p>
+<ul>
+<li><code>name</code>: Defines the variable name sent with the form data
+upon submission.</li>
+<li><code>id</code>: Connects the dropdown to an external
+<code>&lt;label&gt;</code> element for accessibility.</li>
+<li><code>multiple</code>: A boolean attribute that allows users to
+select more than one item from the list.</li>
+<li><code>size</code>: Specifies the number of visible rows at one time,
+turning a traditional dropdown into a scrolling list box if the value is
+greater than one.</li>
+<li><code>required</code>: Ensures the user makes a selection before
+submitting the form.</li>
+<li><code>disabled</code>: Deactivates the entire dropdown control.</li>
+</ul>
+<h3 id="the-option-element-individual-choices">The
+<code>&lt;option&gt;</code> Element: Individual Choices</h3>
+<p>The <code>&lt;option&gt;</code> element defines the individual
+choices available within the <code>&lt;select&gt;</code> element. Each
+<code>&lt;option&gt;</code> represents a selectable item displayed to
+the user.</p>
+<p>Key attributes of the <code>&lt;option&gt;</code> element
+include:</p>
+<ul>
+<li><code>value</code>: The actual data string submitted to the server
+when that option is chosen. If omitted, the text content between the
+opening and closing tags is submitted by default.</li>
+<li><code>selected</code>: A boolean attribute indicating that the
+option should be chosen by default when the page loads.</li>
+<li><code>disabled</code>: Prevents the user from selecting that
+specific option, often used for instructional placeholders (such as
+"Select an option").</li>
+</ul>
+<h3 id="the-optgroup-element-grouping-related-options">The
+<code>&lt;optgroup&gt;</code> Element: Grouping Related Options</h3>
+<p>The <code>&lt;optgroup&gt;</code> element organizes related
+<code>&lt;option&gt;</code> items into categorized sub-lists within the
+main <code>&lt;select&gt;</code> container. This is particularly useful
+for long menus, such as country lists, vehicle makes, or time zones, as
+it creates visual hierarchy without adding extra forms.</p>
+<p>Key features and attributes of the <code>&lt;optgroup&gt;</code>
+element:</p>
+<ul>
+<li><code>label</code>: A required attribute that specifies the text
+heading for the group. This label is non-selectable by the user.</li>
+<li><code>disabled</code>: Disables all <code>&lt;option&gt;</code>
+elements nested within that specific group at once.</li>
+<li>Browsers automatically indent the nested <code>&lt;option&gt;</code>
+elements beneath the group label, improving readability and user
+navigation.</li>
+</ul>
+<h3 id="implementation-example">Implementation Example</h3>
+<p>The following code illustrates how these three elements combine to
+form a structured, categorized dropdown menu:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">label</span><span class="ot"> for</span><span class="op">=</span><span class="st">&quot;car-select&quot;</span><span class="dt">&gt;</span>Choose a vehicle:<span class="dt">&lt;/</span><span class="kw">label</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">select</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;car-select&quot;</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;car&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">option</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;&quot;</span><span class="ot"> disabled selected</span><span class="dt">&gt;</span>--Please choose an option--<span class="dt">&lt;/</span><span class="kw">option</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">optgroup</span><span class="ot"> label</span><span class="op">=</span><span class="st">&quot;Electric&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">option</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;tesla&quot;</span><span class="dt">&gt;</span>Tesla Model 3<span class="dt">&lt;/</span><span class="kw">option</span><span class="dt">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">option</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;nissan_leaf&quot;</span><span class="dt">&gt;</span>Nissan Leaf<span class="dt">&lt;/</span><span class="kw">option</span><span class="dt">&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">option</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;chevy_bolt&quot;</span><span class="dt">&gt;</span>Chevy Bolt<span class="dt">&lt;/</span><span class="kw">option</span><span class="dt">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">optgroup</span><span class="dt">&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">optgroup</span><span class="ot"> label</span><span class="op">=</span><span class="st">&quot;Gasoline&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">option</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;honda_civic&quot;</span><span class="dt">&gt;</span>Honda Civic<span class="dt">&lt;/</span><span class="kw">option</span><span class="dt">&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">option</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;ford_mustang&quot;</span><span class="dt">&gt;</span>Ford Mustang<span class="dt">&lt;/</span><span class="kw">option</span><span class="dt">&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">option</span><span class="ot"> value</span><span class="op">=</span><span class="st">&quot;toyota_corolla&quot;</span><span class="dt">&gt;</span>Toyota Corolla<span class="dt">&lt;/</span><span class="kw">option</span><span class="dt">&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">optgroup</span><span class="dt">&gt;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">select</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this structure, the <code>&lt;select&gt;</code> element manages
+the overall control, the <code>&lt;optgroup&gt;</code> tags segment the
+options into distinct fuel types, and the <code>&lt;option&gt;</code>
+elements supply the selectable vehicle models.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

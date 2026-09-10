@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Sanitizer API: Native Browser Security Explained - html</title>
+    <meta name="description" content="The HTML Sanitizer API is a native browser specification designed to eliminate Cross-Site Scripting (XSS) vulnerabilities by safely parsing and cleaning untrusted HTML directly within the browser. Historically, developers relied on third-party JavaScript">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-sanitizer-api-native-browser-security-explained">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Sanitizer API: Native Browser Security Explained - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-sanitizer-api-native-browser-security-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML Sanitizer API is a native browser specification designed to eliminate Cross-Site Scripting (XSS) vulnerabilities by safely parsing and cleaning untrusted HTML directly within the browser. Historically, developers relied on third-party JavaScript" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-sanitizer-api-native-browser-security-explained">HTML
+Sanitizer API: Native Browser Security Explained</h1>
+<p>The HTML Sanitizer API is a native browser specification designed to
+eliminate Cross-Site Scripting (XSS) vulnerabilities by safely parsing
+and cleaning untrusted HTML directly within the browser. Historically,
+developers relied on third-party JavaScript libraries or risky custom
+implementations to strip malicious scripts and attributes from
+user-supplied data. This article explores the purpose, functionality,
+and advantages of bringing native HTML sanitization directly into the
+web platform.</p>
+<h3 id="the-problem-with-traditional-html-sanitization">The Problem with
+Traditional HTML Sanitization</h3>
+<p>Web applications frequently display user-generated content, such as
+comments, formatted text, or rich media. When rendering this markup
+using native methods like <code>element.innerHTML</code>, any executable
+JavaScript—such as <code>&lt;script&gt;</code> tags or inline
+<code>onload</code> and <code>onerror</code> handlers—can run in the
+user's browser, leading to XSS attacks.</p>
+<p>To prevent this, developers typically rely on external client-side
+libraries. While effective, this approach presents distinct
+challenges:</p>
+<ul>
+<li><strong>Bundle Overhead:</strong> Including external sanitization
+libraries increases page size and loading times.</li>
+<li><strong>Mutation XSS (mXSS):</strong> External parsers might
+interpret an HTML snippet differently than the browser's native parser
+does. An attacker can craft edge-case markup that passes the third-party
+sanitizer as safe, but mutates into executable code when handed to the
+browser’s internal DOM engine.</li>
+<li><strong>Maintenance:</strong> Third-party libraries require constant
+updating to patch newly discovered evasion techniques.</li>
+</ul>
+<h3 id="the-purpose-of-the-html-sanitizer-api">The Purpose of the HTML
+Sanitizer API</h3>
+<p>The primary purpose of the HTML Sanitizer API is to provide a
+standardized, robust, and zero-dependency mechanism for stripping
+dangerous code from arbitrary HTML strings before they enter the
+Document Object Model (DOM).</p>
+<p>Because the sanitizer is part of the browser platform itself, it uses
+the exact same parsing and rendering engine that builds the DOM. This
+alignment effectively neutralizes mutation XSS, as there is no disparity
+between how the sanitizer and the browser interpret incoming HTML
+nodes.</p>
+<h3 id="how-it-works">How It Works</h3>
+<p>The API introduces the <code>Sanitizer</code> interface and
+integrates directly with standard DOM insertion methods. Instead of
+assigning a cleaned string to <code>element.innerHTML</code>, developers
+can use methods such as <code>element.setHTML()</code>.</p>
+<p>Under the hood, the API performs the following actions:</p>
+<ol type="1">
+<li><strong>Safe by Default:</strong> The default configuration
+automatically removes known malicious elements (like
+<code>&lt;script&gt;</code>, <code>&lt;object&gt;</code>, and
+<code>&lt;iframe&gt;</code>) and dangerous attributes (like inline
+<code>onclick</code> or other event handlers), while preserving safe
+layout elements like <code>&lt;p&gt;</code>, <code>&lt;b&gt;</code>, and
+<code>&lt;div&gt;</code>.</li>
+<li><strong>Context-Aware Cleaning:</strong> The sanitizer processes the
+content in the context of the target element, ensuring proper structure
+and namespace compliance.</li>
+<li><strong>Custom Configurations:</strong> Developers can instantiate
+custom <code>Sanitizer</code> objects with explicit allowlists or
+blocklists for elements and attributes to meet specific application
+requirements.</li>
+</ol>
+<h3 id="key-benefits">Key Benefits</h3>
+<ul>
+<li><strong>Built-in Performance:</strong> Written in low-level browser
+code (such as C++ or Rust), native sanitization executes faster than
+equivalent JavaScript libraries.</li>
+<li><strong>Zero Dependency:</strong> Reduces JavaScript bundle sizes
+and removes the overhead of auditing third-party sanitization
+packages.</li>
+<li><strong>Consistent Security Posture:</strong> Provides a unified
+standard across all browsers, reducing implementation bugs across
+different web development teams.</li>
+</ul>
+<p>The HTML Sanitizer API moves the responsibility of HTML parsing
+security to the browser vendor, delivering a safer, faster, and more
+reliable default for rendering dynamic content on the modern web.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

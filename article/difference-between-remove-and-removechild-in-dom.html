@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difference Between remove and removeChild in DOM - html</title>
+    <meta name="description" content="Manipulating the Document Object Model (DOM) often requires deleting elements from a web page. JavaScript provides two primary methods for this task: remove() and removeChild(). While both achieve the goal of taking an element out of the DOM tree, they d">
+    <link rel="canonical" href="https://salivity.github.io/html/article/difference-between-remove-and-removechild-in-dom">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Difference Between remove and removeChild in DOM - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/difference-between-remove-and-removechild-in-dom" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Manipulating the Document Object Model (DOM) often requires deleting elements from a web page. JavaScript provides two primary methods for this task: remove() and removeChild(). While both achieve the goal of taking an element out of the DOM tree, they d" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="difference-between-remove-and-removechild-in-dom">Difference
+Between remove and removeChild in DOM</h1>
+<p>Manipulating the Document Object Model (DOM) often requires deleting
+elements from a web page. JavaScript provides two primary methods for
+this task: <code>remove()</code> and <code>removeChild()</code>. While
+both achieve the goal of taking an element out of the DOM tree, they
+differ fundamentally in syntax, return values, caller requirements, and
+browser support. This guide clearly breaks down those differences so you
+know precisely when and how to use each method.</p>
+<h3 id="1-the-caller-element">1. The Caller Element</h3>
+<p>The most noticeable difference lies in which element calls the
+method.</p>
+<ul>
+<li><strong><code>remove()</code></strong>: Called directly on the
+element you wish to delete.
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> element <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;target&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>element<span class="op">.</span><span class="fu">remove</span>()<span class="op">;</span></span></code></pre></div></li>
+<li><strong><code>removeChild()</code></strong>: Called on the
+<strong>parent</strong> of the element you wish to delete, passing the
+target element as an argument.
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> parent <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;parent&quot;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> child <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;target&quot;</span>)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>parent<span class="op">.</span><span class="fu">removeChild</span>(child)<span class="op">;</span></span></code></pre></div></li>
+</ul>
+<p>If you do not have a direct reference to the parent element when
+using <code>removeChild()</code>, you must traverse to it first:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>element<span class="op">.</span><span class="at">parentNode</span><span class="op">.</span><span class="fu">removeChild</span>(element)<span class="op">;</span></span></code></pre></div>
+<h3 id="2-return-values">2. Return Values</h3>
+<p>What each method returns after execution affects how you handle the
+removed node afterwards.</p>
+<ul>
+<li><strong><code>remove()</code></strong>: Returns
+<code>undefined</code>. Once called, it simply detaches the node from
+the tree without providing a reference back.</li>
+<li><strong><code>removeChild()</code></strong>: Returns a reference to
+the removed child node. This is useful if you want to store the element
+in memory and re-insert it elsewhere in the DOM later.</li>
+</ul>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// removeChild preserves a reference:</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> removedElement <span class="op">=</span> parent<span class="op">.</span><span class="fu">removeChild</span>(child)<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">document</span><span class="op">.</span><span class="at">body</span><span class="op">.</span><span class="fu">appendChild</span>(removedElement)<span class="op">;</span> <span class="co">// Re-attached elsewhere</span></span></code></pre></div>
+<h3 id="3-error-handling">3. Error Handling</h3>
+<ul>
+<li><strong><code>remove()</code></strong>: Takes no arguments and does
+not throw an error if the element is already disconnected.</li>
+<li><strong><code>removeChild()</code></strong>: Requires a valid child
+node as an argument. If the passed node is not a direct child of the
+calling parent, it throws a <code>NotFoundError</code>
+(DOMException).</li>
+</ul>
+<h3 id="4-browser-compatibility">4. Browser Compatibility</h3>
+<ul>
+<li><strong><code>removeChild()</code></strong>: Part of the DOM Level 1
+specification. It is universally supported by all browsers, including
+Internet Explorer and legacy environments.</li>
+<li><strong><code>remove()</code></strong>: Introduced later in the DOM
+Level 4 specification. It is fully supported in all modern evergreen
+browsers (Chrome, Firefox, Safari, Edge), but it is not supported in
+Internet Explorer without a polyfill.</li>
+</ul>
+<h3 id="quick-summary">Quick Summary</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;"><code>element.remove()</code></th>
+<th
+style="text-align: left;"><code>parent.removeChild(child)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Called On</strong></td>
+<td style="text-align: left;">The target element itself</td>
+<td style="text-align: left;">The parent of the target element</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Parameters</strong></td>
+<td style="text-align: left;">None</td>
+<td style="text-align: left;">The child node to remove</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Return Value</strong></td>
+<td style="text-align: left;"><code>undefined</code></td>
+<td style="text-align: left;">The removed node</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Legacy Support</strong></td>
+<td style="text-align: left;">Modern browsers (No IE support)</td>
+<td style="text-align: left;">All browsers (including IE)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Best Used For</strong></td>
+<td style="text-align: left;">Quick, clean deletion without re-use</td>
+<td style="text-align: left;">Moving nodes or supporting legacy
+browsers</td>
+</tr>
+</tbody>
+</table></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

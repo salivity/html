@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Media Queries Work in HTML Picture Sources - html</title>
+    <meta name="description" content="The HTML <picture> element allows developers to deliver responsive images by pairing one or more <source> elements with a fallback <img> tag. Within each <source> tag, the media attribute accepts standard CSS media queries to conditionally serve differen">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-media-queries-work-in-html-picture-sources">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How Media Queries Work in HTML Picture Sources - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-media-queries-work-in-html-picture-sources" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <picture> element allows developers to deliver responsive images by pairing one or more <source> elements with a fallback <img> tag. Within each <source> tag, the media attribute accepts standard CSS media queries to conditionally serve differen" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-media-queries-work-in-html-picture-sources">How Media
+Queries Work in HTML Picture Sources</h1>
+<p>The HTML <code>&lt;picture&gt;</code> element allows developers to
+deliver responsive images by pairing one or more
+<code>&lt;source&gt;</code> elements with a fallback
+<code>&lt;img&gt;</code> tag. Within each <code>&lt;source&gt;</code>
+tag, the <code>media</code> attribute accepts standard CSS media queries
+to conditionally serve different image files based on device
+characteristics, viewport dimensions, or user preferences. This article
+explains the evaluation order, syntax support, and browser behavior that
+govern how these embedded media queries operate.</p>
+<h2 id="first-match-wins-evaluation">First-Match-Wins Evaluation</h2>
+<p>Browsers parse <code>&lt;source&gt;</code> elements inside a
+<code>&lt;picture&gt;</code> element sequentially from top to bottom.
+The first <code>&lt;source&gt;</code> whose <code>media</code> query
+evaluates to <code>true</code> is selected, and all subsequent
+<code>&lt;source&gt;</code> elements are ignored.</p>
+<p>Because of this "first-match-wins" logic, the order in which sources
+are declared is critical:</p>
+<ul>
+<li><strong>Mobile-first approach:</strong> When using
+<code>min-width</code> queries, order the sources from the largest
+breakpoint to the smallest breakpoint.</li>
+<li><strong>Desktop-first approach:</strong> When using
+<code>max-width</code> queries, order the sources from the smallest
+breakpoint to the largest breakpoint.</li>
+</ul>
+<p>If the order is inverted (for example, placing a
+<code>min-width: 320px</code> query above a
+<code>min-width: 1024px</code> query), the smaller condition evaluates
+to <code>true</code> first on large screens, preventing the larger, more
+appropriate image from ever being loaded.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">picture</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Evaluated first --&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(min-width: 1024px)&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;large.jpg&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Evaluated second --&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(min-width: 640px)&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;medium.jpg&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">&lt;!-- Fallback if no media queries match --&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;small.jpg&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Example responsive image&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">picture</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="supported-media-features">Supported Media Features</h2>
+<p>The <code>media</code> attribute accepts any valid CSS media query
+that can be used in a standard stylesheet. This includes:</p>
+<ul>
+<li><strong>Viewport Dimensions:</strong> Width and height conditions
+such as <code>(min-width: 768px)</code>,
+<code>(max-width: 1200px)</code>, or range syntax like
+<code>(600px &lt;= width &lt;= 900px)</code>.</li>
+<li><strong>Device Orientation:</strong> Queries such as
+<code>(orientation: landscape)</code> and
+<code>(orientation: portrait)</code>.</li>
+<li><strong>Display Density and Resolution:</strong> Queries such as
+<code>(min-resolution: 2dppx)</code> or
+<code>(-webkit-min-device-pixel-ratio: 2)</code>.</li>
+<li><strong>User Preferences:</strong> Accessibility and system
+preference queries such as <code>(prefers-color-scheme: dark)</code> to
+switch between light and dark versions of an image, or
+<code>(prefers-reduced-data: reduce)</code> for compressed assets.</li>
+</ul>
+<p>Media queries can also be combined using logical operators like
+<code>and</code>, <code>not</code>, and comma-separated lists (which act
+as an <code>or</code> condition).</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">picture</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(prefers-color-scheme: dark) and (min-width: 800px)&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;dark-large.jpg&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(prefers-color-scheme: dark)&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;dark-small.jpg&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> media</span><span class="op">=</span><span class="st">&quot;(min-width: 800px)&quot;</span><span class="ot"> srcset</span><span class="op">=</span><span class="st">&quot;light-large.jpg&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;light-small.jpg&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Theme-adaptive diagram&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">picture</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2 id="preload-scanner-compatibility-and-resource-loading">Preload
+Scanner Compatibility and Resource Loading</h2>
+<p>Browsers utilize a speculative pre-parser (often called the preload
+scanner) to discover and fetch critical resources before the full DOM
+and CSSOM are constructed.</p>
+<p>Because the <code>media</code> attribute is baked directly into the
+HTML structure, the browser's preload scanner can evaluate these queries
+against the current viewport and device state immediately. The browser
+only requests the single image source that matches the active query,
+preventing wasted bandwidth and unnecessary network requests.</p>
+<p>If the environment changes dynamically—such as when a user resizes
+the browser window or flips their device between portrait and landscape
+modes—the browser re-evaluates the queries in the
+<code>&lt;picture&gt;</code> element and fetches the newly matched
+source file if necessary.</p>
+<h2 id="the-role-of-the-fallback-img-element">The Role of the Fallback
+<code>&lt;img&gt;</code> Element</h2>
+<p>The <code>&lt;source&gt;</code> element does not render pixels on the
+page by itself; it merely supplies alternative URLs and configuration
+data. The mandatory <code>&lt;img&gt;</code> element at the end of the
+<code>&lt;picture&gt;</code> block is what actually renders the selected
+image.</p>
+<p>When a <code>media</code> query on a <code>&lt;source&gt;</code>
+evaluates to <code>true</code>, the browser takes that source's
+<code>srcset</code> and applies it to the underlying
+<code>&lt;img&gt;</code> element. If none of the media queries match, or
+if the browser does not support the <code>&lt;picture&gt;</code> tag,
+the <code>src</code> attribute of the fallback <code>&lt;img&gt;</code>
+is displayed.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

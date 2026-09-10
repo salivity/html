@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How the HTML Anchor Element Creates Hyperlinks - html</title>
+    <meta name="description" content="The anchor element, designated by the <a> tag, is the foundational building block of web navigation in HTML. It creates hyperlinks that connect the current web document to other documents, specific page sections, files, or external web addresses. By util">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-the-html-anchor-element-creates-hyperlinks">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How the HTML Anchor Element Creates Hyperlinks - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-the-html-anchor-element-creates-hyperlinks" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The anchor element, designated by the <a> tag, is the foundational building block of web navigation in HTML. It creates hyperlinks that connect the current web document to other documents, specific page sections, files, or external web addresses. By util" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-the-html-anchor-element-creates-hyperlinks">How the HTML
+Anchor Element Creates Hyperlinks</h1>
+<p>The anchor element, designated by the <code>&lt;a&gt;</code> tag, is
+the foundational building block of web navigation in HTML. It creates
+hyperlinks that connect the current web document to other documents,
+specific page sections, files, or external web addresses. By utilizing
+the <code>href</code> attribute to specify a target destination, the
+anchor element instructs the browser to retrieve and display a new
+resource whenever a user interacts with the enclosed text or media.</p>
+<h3 id="the-basic-anatomy-of-an-anchor-element">The Basic Anatomy of an
+Anchor Element</h3>
+<p>An anchor link consists of three primary components: the opening
+<code>&lt;a&gt;</code> tag, the destination attribute, and the
+interactive content (anchor text).</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;https://example.com/about.html&quot;</span><span class="dt">&gt;</span>Learn About Us<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span></code></pre></div>
+<ul>
+<li><strong>The <code>&lt;a&gt;</code> tag:</strong> Signals to the web
+browser that the enclosed content is an active link.</li>
+<li><strong>The <code>href</code> attribute:</strong> Stands for
+"Hypertext Reference." It contains the URL or file path of the
+destination document.</li>
+<li><strong>Anchor Content:</strong> The text, image, or nested HTML
+element that the user clicks on.</li>
+<li><strong>The <code>&lt;/a&gt;</code> tag:</strong> Closes the anchor
+element and ends the link scope.</li>
+</ul>
+<h3 id="the-role-of-the-href-attribute-in-connecting-documents">The Role
+of the <code>href</code> Attribute in Connecting Documents</h3>
+<p>Without the <code>href</code> attribute, the <code>&lt;a&gt;</code>
+element acts merely as a placeholder and will not create a navigable
+hyperlink. When the <code>href</code> is present, it defines the path
+the browser follows using either absolute or relative URLs.</p>
+<h4 id="absolute-urls">Absolute URLs</h4>
+<p>Absolute URLs provide the complete internet address of a target
+document, including the protocol (<code>http://</code> or
+<code>https://</code>) and domain name. These are primarily used to link
+to external websites or different domains.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;https://www.w3.org&quot;</span><span class="dt">&gt;</span>Visit W3C<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span></code></pre></div>
+<h4 id="relative-urls">Relative URLs</h4>
+<p>Relative URLs point to documents located within the same website or
+file system. The path is calculated relative to the current document's
+location.</p>
+<ul>
+<li><strong>Same Directory:</strong>
+<code>&lt;a href="contact.html"&gt;Contact&lt;/a&gt;</code> links to a
+file in the same folder.</li>
+<li><strong>Subdirectory:</strong>
+<code>&lt;a href="blog/post.html"&gt;Read Post&lt;/a&gt;</code>
+navigates down into a subfolder.</li>
+<li><strong>Parent Directory:</strong>
+<code>&lt;a href="../index.html"&gt;Home&lt;/a&gt;</code> navigates up
+one folder level.</li>
+</ul>
+<h3 id="how-the-browser-processes-the-link">How the Browser Processes
+the Link</h3>
+<p>When a user clicks an anchor element with an <code>href</code> value,
+the browser executes a standard navigation sequence:</p>
+<ol type="1">
+<li><strong>URL Resolution:</strong> The browser resolves the target
+path, converting relative paths into fully qualified URLs based on the
+current document's base address.</li>
+<li><strong>Network Request:</strong> The browser sends an HTTP or HTTPS
+request to the server hosting the target document.</li>
+<li><strong>Response Handling:</strong> The server returns the requested
+document along with HTTP response headers (such as
+<code>Content-Type: text/html</code>).</li>
+<li><strong>Parsing and Rendering:</strong> The browser tears down the
+current document's rendering state (unless instructed otherwise) and
+parses the incoming HTML to render the new page.</li>
+</ol>
+<h3
+id="controlling-browsing-context-with-the-target-attribute">Controlling
+Browsing Context with the <code>target</code> Attribute</h3>
+<p>By default, an anchor element loads the linked document in the
+current browsing context (replacing the active page). The
+<code>target</code> attribute alters this behavior:</p>
+<ul>
+<li><strong><code>_self</code> (Default):</strong> Loads the linked
+document in the current window or tab.</li>
+<li><strong><code>_blank</code>:</strong> Loads the linked document in a
+new tab or window.</li>
+</ul>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">a</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;https://example.com/guide.html&quot;</span><span class="ot"> target</span><span class="op">=</span><span class="st">&quot;_blank&quot;</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;noopener noreferrer&quot;</span><span class="dt">&gt;</span>User Guide<span class="dt">&lt;/</span><span class="kw">a</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>When using <code>target="_blank"</code>, it is standard practice to
+include <code>rel="noopener noreferrer"</code> to prevent security
+vulnerabilities, such as reverse tabnabbing, and to stop the new page
+from accessing the origin page via the <code>window.opener</code>
+object.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

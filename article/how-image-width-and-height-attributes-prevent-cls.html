@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Image Width and Height Attributes Prevent CLS - html</title>
+    <meta name="description" content="Cumulative Layout Shift (CLS) occurs when elements on a web page move unexpectedly while content is still downloading, disrupting the user experience and hurting Core Web Vitals scores. Setting explicit width and height attributes on HTML <img> tags prev">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-image-width-and-height-attributes-prevent-cls">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How Image Width and Height Attributes Prevent CLS - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-image-width-and-height-attributes-prevent-cls" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Cumulative Layout Shift (CLS) occurs when elements on a web page move unexpectedly while content is still downloading, disrupting the user experience and hurting Core Web Vitals scores. Setting explicit width and height attributes on HTML <img> tags prev" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-image-width-and-height-attributes-prevent-cls">How Image
+Width and Height Attributes Prevent CLS</h1>
+<p>Cumulative Layout Shift (CLS) occurs when elements on a web page move
+unexpectedly while content is still downloading, disrupting the user
+experience and hurting Core Web Vitals scores. Setting explicit
+<code>width</code> and <code>height</code> attributes on HTML
+<code>&lt;img&gt;</code> tags prevents this issue by allowing the
+browser to calculate the image's aspect ratio and reserve the necessary
+layout space before the image file finishes downloading.</p>
+<h3 id="the-cause-of-image-driven-layout-shift">The Cause of
+Image-Driven Layout Shift</h3>
+<p>When a browser parses an HTML document without image dimensions, it
+creates a zero-height placeholder for each image element. The browser
+then continues rendering the rest of the page layout, such as text and
+buttons, directly beneath that placeholder.</p>
+<p>Once the image file finally downloads over the network, the browser
+suddenly discovers its true dimensions. It then reflows the page to make
+room for the new graphic, abruptly pushing all surrounding content
+downward. This sudden jump is a primary contributor to a poor CLS
+score.</p>
+<h3 id="how-width-and-height-attributes-solve-the-problem">How
+<code>width</code> and <code>height</code> Attributes Solve the
+Problem</h3>
+<p>Modern web browsers feature an internal user-agent stylesheet rule
+that calculates an image's intrinsic aspect ratio directly from its HTML
+<code>width</code> and <code>height</code> attributes:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>img {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">aspect-ratio</span><span class="ch">:</span> <span class="fu">attr(</span><span class="dv">width</span><span class="fu">)</span> / <span class="fu">attr(</span><span class="dv">height</span><span class="fu">)</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Because this calculation happens during the initial HTML parsing
+phase, the browser knows the proportional space the image will occupy
+long before the image asset actually loads. It reserves the precise box
+dimensions within the Document Object Model (DOM), ensuring surrounding
+content stays in its intended position both before and after the asset
+arrives.</p>
+<h3 id="working-with-responsive-images">Working with Responsive
+Images</h3>
+<p>Adding fixed <code>width</code> and <code>height</code> attributes in
+HTML does not prevent an image from being responsive. In modern web
+design, developers use standard CSS rules alongside HTML attributes:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>img {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">max-width</span><span class="ch">:</span> <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">height</span><span class="ch">:</span> <span class="bu">auto</span><span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>When this CSS is applied, the browser uses the HTML
+<code>width</code> and <code>height</code> strictly to determine the
+aspect ratio, while the CSS determines the fluid display size based on
+the parent container. As the container width changes across different
+screen sizes, the browser immediately calculates the correct
+corresponding height, maintaining layout stability across all
+devices.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Are Conditional Comments in Internet Explorer? - html</title>
+    <meta name="description" content="Conditional comments were proprietary Microsoft HTML extensions used between Internet Explorer 5 and Internet Explorer 9 to deliver targeted code—such as CSS fixes and JavaScript polyfills—specifically to legacy IE versions while remaining invisible">
+    <link rel="canonical" href="https://salivity.github.io/html/article/what-are-conditional-comments-in-internet-explorer">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Are Conditional Comments in Internet Explorer? - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/what-are-conditional-comments-in-internet-explorer" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Conditional comments were proprietary Microsoft HTML extensions used between Internet Explorer 5 and Internet Explorer 9 to deliver targeted code—such as CSS fixes and JavaScript polyfills—specifically to legacy IE versions while remaining invisible" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-are-conditional-comments-in-internet-explorer">What Are
+Conditional Comments in Internet Explorer?</h1>
+<p>Conditional comments were proprietary Microsoft HTML extensions used
+between Internet Explorer 5 and Internet Explorer 9 to deliver targeted
+code—such as CSS fixes and JavaScript polyfills—specifically to legacy
+IE versions while remaining invisible to other web browsers. This
+article explains how conditional comments worked, their common syntax,
+why web developers relied on them, and their eventual obsolescence in
+modern web development.</p>
+<h2 id="how-conditional-comments-worked">How Conditional Comments
+Worked</h2>
+<p>Standard HTML comments use the <code>&lt;!-- comment --&gt;</code>
+syntax, which browsers ignore during rendering. Microsoft extended this
+behavior in Internet Explorer 5 by introducing conditional logic inside
+comment blocks.</p>
+<p>When a standard-compliant browser like Mozilla Firefox, Opera, or
+Google Chrome encountered a conditional comment, it treated the entire
+block as plain HTML comments and ignored the contents. However, Internet
+Explorer contained an internal parser that evaluated the condition. If
+the condition evaluated to true, IE executed or rendered the HTML, CSS,
+or script tags nested inside.</p>
+<h2 id="basic-syntax-and-types">Basic Syntax and Types</h2>
+<p>Conditional comments primarily came in two distinct formats:
+downlevel-hidden and downlevel-revealed.</p>
+<h3 id="1-downlevel-hidden-comments">1. Downlevel-Hidden Comments</h3>
+<p>This was the most common format. Browsers other than IE completely
+hid the content because the opening and closing tags resembled standard
+HTML comment delimiters.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--[if IE 6]&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;ie6-fixes.css&quot; /&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;![endif]--&gt;</span></span></code></pre></div>
+<p>In this example, only Internet Explorer 6 loaded
+<code>ie6-fixes.css</code>. All other browsers ignored the block
+entirely.</p>
+<h3 id="2-downlevel-revealed-comments">2. Downlevel-Revealed
+Comments</h3>
+<p>This format allowed developers to show content to non-IE browsers
+while hiding it from specific IE versions. The syntax intentionally
+omitted standard comment markers around the inner content for non-IE
+parsers:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!--[if !IE]&gt; --&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>You are using a modern browser or a non-IE browser.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- &lt;![endif]--&gt;</span></span></code></pre></div>
+<h2 id="supported-operators">Supported Operators</h2>
+<p>Conditional comments supported conditional operators to target
+specific versions or ranges of Internet Explorer:</p>
+<ul>
+<li><code>[if IE]</code>: Targets all supported versions of Internet
+Explorer (IE5 through IE9).</li>
+<li><code>[if IE 7]</code>: Targets Internet Explorer 7
+specifically.</li>
+<li><code>[if lt IE 8]</code>: Less than (targets versions below
+IE8).</li>
+<li><code>[if lte IE 8]</code>: Less than or equal to (targets IE8 and
+older).</li>
+<li><code>[if gt IE 6]</code>: Greater than (targets versions above
+IE6).</li>
+<li><code>[if gte IE 7]</code>: Greater than or equal to (targets IE7
+and newer).</li>
+<li><code>[if !IE]</code>: Logical NOT (targets non-IE browsers in
+downlevel-revealed syntax).</li>
+</ul>
+<p>Multiple conditions could also be combined using the
+<code>&amp;</code> (AND) and <code>|</code> (OR) operators.</p>
+<h2 id="primary-use-cases">Primary Use Cases</h2>
+<p>Before standardized rendering across browsers, legacy Internet
+Explorer versions suffered from significant non-standard behaviors, such
+as the proprietary Box Model bug in IE5/6, lack of support for HTML5
+elements, and incomplete CSS selector support.</p>
+<p>Developers primarily used conditional comments to:</p>
+<ul>
+<li>Load dedicated fallback stylesheets containing CSS hacks
+specifically for older IE versions without polluting standard
+stylesheets.</li>
+<li>Load polyfills and shims, such as <code>html5shiv.js</code>,
+enabling older IE versions to recognize elements like
+<code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, and
+<code>&lt;nav&gt;</code>.</li>
+<li>Apply specific CSS classes to the root <code>&lt;html&gt;</code> tag
+(e.g., <code>&lt;html class="ie8"&gt;</code>), allowing developers to
+scope IE-specific CSS rules inside a single global stylesheet.</li>
+</ul>
+<h2 id="deprecation-and-modern-status">Deprecation and Modern
+Status</h2>
+<p>Microsoft deprecated conditional comments starting with Internet
+Explorer 10. When running in standard mode, IE10 and IE11 treat
+conditional comments as regular HTML comments and ignore them entirely.
+Microsoft Edge, which replaced Internet Explorer, does not support them
+under any circumstances.</p>
+<p>In modern web development, conditional comments are obsolete.
+Cross-browser compatibility is now handled through web standards, CSS
+feature queries (<code>@supports</code>), progressive enhancement, and
+automated transpilation tools.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

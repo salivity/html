@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How the HTML Tokenizer Converts Characters to Tokens - html</title>
+    <meta name="description" content="This article explains how an HTML parser breaks down raw input character streams into discrete tokens through the process of tokenization. By utilizing a state machine defined by the HTML5 specification, the tokenizer systematically reads characters one">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-the-html-tokenizer-converts-characters-to-tokens">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How the HTML Tokenizer Converts Characters to Tokens - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-the-html-tokenizer-converts-characters-to-tokens" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains how an HTML parser breaks down raw input character streams into discrete tokens through the process of tokenization. By utilizing a state machine defined by the HTML5 specification, the tokenizer systematically reads characters one" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-the-html-tokenizer-converts-characters-to-tokens">How the
+HTML Tokenizer Converts Characters to Tokens</h1>
+<p>This article explains how an HTML parser breaks down raw input
+character streams into discrete tokens through the process of
+tokenization. By utilizing a state machine defined by the HTML5
+specification, the tokenizer systematically reads characters one by one,
+tracks transitions across various internal states, decodes entities, and
+emits structured tokens such as tags, attributes, and text nodes to the
+subsequent tree-construction stage.</p>
+<h2 id="the-state-machine-model">The State Machine Model</h2>
+<p>At the core of the HTML tokenizer is a finite-state machine (FSM).
+The tokenizer accepts a stream of Unicode code points as input and
+processes them sequentially. Depending on the current state and the
+incoming character, the tokenizer performs three primary actions: it
+updates its internal state, consumes the character, and optionally emits
+a token or appends data to a pending token.</p>
+<h2 id="types-of-tokens">Types of Tokens</h2>
+<p>The output of the tokenizer consists of specific token objects passed
+directly to the tree construction phase:</p>
+<ul>
+<li><strong>DOCTYPE tokens</strong>: Represent document
+declarations.</li>
+<li><strong>Start tag tokens</strong>: Contain the element name,
+self-closing flag, and an associated list of attributes.</li>
+<li><strong>End tag tokens</strong>: Represent closing tags.</li>
+<li><strong>Comment tokens</strong>: Enclose developer notes and
+commented-out markup.</li>
+<li><strong>Character tokens</strong>: Represent plain text and
+whitespace.</li>
+<li><strong>End-of-file (EOF) tokens</strong>: Signal the termination of
+the input stream.</li>
+</ul>
+<h2 id="core-states-and-transitions">Core States and Transitions</h2>
+<p>The tokenizer begins in the <strong>Data state</strong>. The
+lifecycle of character parsing moves through a set of foundational
+states:</p>
+<ol type="1">
+<li><p><strong>Data State</strong>: The tokenizer consumes characters
+normally. If it encounters regular text, it emits a Character token.
+When it encounters the less-than character (<code>&lt;</code>), it
+transitions to the <strong>Tag Open state</strong> without emitting a
+token.</p></li>
+<li><p><strong>Tag Open State</strong>: Upon reading
+<code>&lt;</code>:</p>
+<ul>
+<li>An exclamation mark (<code>!</code>) transitions the machine to
+states handling DOCTYPEs, comments, or CDATA blocks.</li>
+<li>A forward slash (<code>/</code>) transitions to the <strong>End Tag
+Open state</strong>.</li>
+<li>An ASCII letter transitions to the <strong>Tag Name state</strong>
+and initializes a new start tag token.</li>
+<li>Any other character triggers a parse error, emits the
+<code>&lt;</code> as a character, and returns to the Data state.</li>
+</ul></li>
+<li><p><strong>Tag Name State</strong>: The tokenizer collects
+characters to build the element name (such as <code>div</code> or
+<code>p</code>).</p>
+<ul>
+<li>A whitespace character transitions to the <strong>Before Attribute
+Name state</strong>.</li>
+<li>A greater-than character (<code>&gt;</code>) finalizes and emits the
+tag token, returning the machine to the Data state.</li>
+<li>A forward slash (<code>/</code>) transitions to the
+<strong>Self-Closing Start Tag state</strong>.</li>
+</ul></li>
+<li><p><strong>Attribute Parsing States</strong>: When attributes exist,
+the machine cycles through states such as <strong>Attribute
+Name</strong>, <strong>Before Attribute Value</strong>, and
+<strong>Attribute Value</strong> (which has variants for double-quoted,
+single-quoted, and unquoted values). The tokenizer constructs key-value
+pairs and appends them to the current start tag token before returning
+to the Tag Name or closing state.</p></li>
+</ol>
+<h2 id="character-reference-decoding">Character Reference Decoding</h2>
+<p>When processing text inside the Data state or inside attribute
+values, the tokenizer handles character references (HTML entities like
+<code>&amp;amp;</code> or <code>&amp;#123;</code>). When an ampersand
+(<code>&amp;</code>) is consumed, the machine enters specialized
+character reference states. It consumes the following characters to
+resolve the entity against a standard lookup table, replaces the
+sequence with the resolved Unicode character, and returns to its prior
+parsing state.</p>
+<h2 id="the-feedback-loop-with-tree-construction">The Feedback Loop with
+Tree Construction</h2>
+<p>Tokenization does not happen entirely in isolation. The HTML parser
+operates with a feedback loop where the tree constructor can alter the
+state of the tokenizer.</p>
+<p>For instance, when the tree builder processes a start tag for a
+<code>&lt;script&gt;</code>, <code>&lt;style&gt;</code>, or
+<code>&lt;textarea&gt;</code> element, it instructs the tokenizer to
+switch into raw text states (such as <strong>RAWTEXT</strong>,
+<strong>RCDATA</strong>, or <strong>Script Data</strong>). In these
+states, the tokenizer treats markup characters like <code>&lt;</code>
+and <code>&gt;</code> as plain text rather than the beginning of new
+tags, until it encounters a matching end tag sequence (e.g.,
+<code>&lt;/script&gt;</code>). This bidirectional communication ensures
+that embedded languages and plain text blocks are parsed according to
+their specific syntactic rules.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

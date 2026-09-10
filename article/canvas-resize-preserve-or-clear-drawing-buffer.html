@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Resize: Preserve or Clear Drawing Buffer - html</title>
+    <meta name="description" content="Resizing an HTML <canvas> element fundamentally alters how its visual contents are handled depending on whether you modify its internal dimensions or its CSS styling. Modifying the canvas's intrinsic width and height attributes clears the drawing buffer">
+    <link rel="canonical" href="https://salivity.github.io/html/article/canvas-resize-preserve-or-clear-drawing-buffer">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Canvas Resize: Preserve or Clear Drawing Buffer - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/canvas-resize-preserve-or-clear-drawing-buffer" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Resizing an HTML <canvas> element fundamentally alters how its visual contents are handled depending on whether you modify its internal dimensions or its CSS styling. Modifying the canvas's intrinsic width and height attributes clears the drawing buffer" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="canvas-resize-preserve-or-clear-drawing-buffer">Canvas Resize:
+Preserve or Clear Drawing Buffer</h1>
+<p>Resizing an HTML <code>&lt;canvas&gt;</code> element fundamentally
+alters how its visual contents are handled depending on whether you
+modify its internal dimensions or its CSS styling. Modifying the
+canvas's intrinsic <code>width</code> and <code>height</code> attributes
+clears the drawing buffer and resets the rendering context to its
+default state. Conversely, altering the dimensions using CSS preserves
+the buffer's contents but scales the existing bitmap, which often
+introduces blurriness or visual distortion.</p>
+<h2 id="intrinsic-dimensions-vs-css-styling">Intrinsic Dimensions vs.
+CSS Styling</h2>
+<p>An HTML <code>&lt;canvas&gt;</code> element has two distinct sizing
+mechanisms:</p>
+<ol type="1">
+<li><strong>Drawing Buffer Dimensions (Intrinsic Size):</strong>
+Controlled by the <code>width</code> and <code>height</code> attributes
+directly on the HTML element or through DOM properties (e.g.,
+<code>canvas.width = 800</code>). This defines the actual pixel
+resolution of the canvas's internal bitmap.</li>
+<li><strong>Display Dimensions (CSS Size):</strong> Controlled via CSS
+rules or inline styles (e.g.,
+<code>canvas.style.width = '800px'</code>). This defines the size of the
+element on the screen.</li>
+</ol>
+<p>If you resize a canvas using only CSS, the browser preserves the
+drawing buffer completely. However, it scales the internal bitmap to fit
+the new CSS layout box, behaving identically to an
+<code>&lt;img&gt;</code> tag. This operation does not wipe the canvas,
+but expanding the CSS size causes pixelation or blurring.</p>
+<h2 id="why-changing-intrinsic-dimensions-clears-the-buffer">Why
+Changing Intrinsic Dimensions Clears the Buffer</h2>
+<p>According to the HTML specification, setting either the
+<code>width</code> or <code>height</code> attribute on a
+<code>&lt;canvas&gt;</code> element—even to its current value—instantly
+resets the element's bitmap to transparent black
+(<code>rgba(0, 0, 0, 0)</code>).</p>
+<p>In addition to clearing all drawn pixels, mutating the intrinsic
+dimensions resets the entire 2D rendering context state. This means:</p>
+<ul>
+<li>Transformations (such as <code>scale</code>, <code>rotate</code>, or
+<code>translate</code>) revert to the identity matrix.</li>
+<li>Clipping regions are removed.</li>
+<li>Styling properties (like <code>fillStyle</code>,
+<code>strokeStyle</code>, <code>lineWidth</code>, and <code>font</code>)
+return to their initial default values.</li>
+</ul>
+<h2 id="how-to-preserve-the-drawing-buffer-on-intrinsic-resize">How to
+Preserve the Drawing Buffer on Intrinsic Resize</h2>
+<p>Because the browser does not natively retain pixels when the
+intrinsic dimensions change, you must manually preserve and restore the
+content if dynamic resizing is required.</p>
+<h3 id="method-1-offscreen-canvas--in-memory-copy">Method 1: Offscreen
+Canvas / In-Memory Copy</h3>
+<p>The most robust approach is copying the current canvas to an
+in-memory canvas before resizing, then redrawing it back onto the
+original canvas:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">resizeCanvas</span>(canvas<span class="op">,</span> newWidth<span class="op">,</span> newHeight) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Create an in-memory canvas to hold the current image</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tempCanvas <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&#39;canvas&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  tempCanvas<span class="op">.</span><span class="at">width</span> <span class="op">=</span> canvas<span class="op">.</span><span class="at">width</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  tempCanvas<span class="op">.</span><span class="at">height</span> <span class="op">=</span> canvas<span class="op">.</span><span class="at">height</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> tempCtx <span class="op">=</span> tempCanvas<span class="op">.</span><span class="fu">getContext</span>(<span class="st">&#39;2d&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  tempCtx<span class="op">.</span><span class="fu">drawImage</span>(canvas<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Resize the original canvas (this clears its contents and resets state)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  canvas<span class="op">.</span><span class="at">width</span> <span class="op">=</span> newWidth<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  canvas<span class="op">.</span><span class="at">height</span> <span class="op">=</span> newHeight<span class="op">;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Restore the previous content onto the resized canvas</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ctx <span class="op">=</span> canvas<span class="op">.</span><span class="fu">getContext</span>(<span class="st">&#39;2d&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  ctx<span class="op">.</span><span class="fu">drawImage</span>(tempCanvas<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="method-2-imagedata-snapshot">Method 2: ImageData Snapshot</h3>
+<p>Alternatively, you can extract the raw pixel array using
+<code>getImageData()</code> and restore it with
+<code>putImageData()</code>:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> ctx <span class="op">=</span> canvas<span class="op">.</span><span class="fu">getContext</span>(<span class="st">&#39;2d&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> data <span class="op">=</span> ctx<span class="op">.</span><span class="fu">getImageData</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> canvas<span class="op">.</span><span class="at">width</span><span class="op">,</span> canvas<span class="op">.</span><span class="at">height</span>)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>canvas<span class="op">.</span><span class="at">width</span> <span class="op">=</span> newWidth<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>canvas<span class="op">.</span><span class="at">height</span> <span class="op">=</span> newHeight<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>ctx<span class="op">.</span><span class="fu">putImageData</span>(data<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span></code></pre></div>
+<p>While functional, this method ignores canvas transformations and is
+generally slower than <code>drawImage()</code> for larger resolutions
+because it operates on raw pixel data in JavaScript memory.</p>
+<h2 id="webgl-considerations">WebGL Considerations</h2>
+<p>For WebGL contexts (<code>getContext('webgl')</code> or
+<code>getContext('webgl2')</code>), changing the <code>width</code> or
+<code>height</code> attributes similarly destroys the underlying drawing
+buffer and recreates it to match the new dimensions.</p>
+<p>Additionally, the WebGL context creation attribute
+<code>preserveDrawingBuffer</code> dictates whether the frame buffer is
+preserved between display compositing passes, but it does
+<strong>not</strong> prevent the buffer from being destroyed and
+reallocated when the intrinsic canvas dimensions are altered. When
+resizing in WebGL, you must update the viewport using
+<code>gl.viewport(0, 0, newWidth, newHeight)</code> and re-render the
+scene.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

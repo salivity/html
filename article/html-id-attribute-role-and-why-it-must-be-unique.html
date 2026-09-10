@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML id Attribute: Role and Why It Must Be Unique - html</title>
+    <meta name="description" content="The HTML id attribute serves as a distinct identifier for a single element within an HTML document, playing a crucial role in styling, scripting, accessibility, and navigation. Because browsers, assistive technologies, and scripts rely on this identifier">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-id-attribute-role-and-why-it-must-be-unique">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML id Attribute: Role and Why It Must Be Unique - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-id-attribute-role-and-why-it-must-be-unique" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML id attribute serves as a distinct identifier for a single element within an HTML document, playing a crucial role in styling, scripting, accessibility, and navigation. Because browsers, assistive technologies, and scripts rely on this identifier" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-id-attribute-role-and-why-it-must-be-unique">HTML id
+Attribute: Role and Why It Must Be Unique</h1>
+<p>The HTML <code>id</code> attribute serves as a distinct identifier
+for a single element within an HTML document, playing a crucial role in
+styling, scripting, accessibility, and navigation. Because browsers,
+assistive technologies, and scripts rely on this identifier to target
+exact elements, maintaining document-wide uniqueness is critical.
+Failing to keep IDs unique results in unpredictable JavaScript behavior,
+broken form associations, navigation errors, and invalid markup.</p>
+<h3 id="core-roles-of-the-id-attribute">Core Roles of the
+<code>id</code> Attribute</h3>
+<ol type="1">
+<li><strong>JavaScript DOM Manipulation:</strong> The most common
+programmatic use of an ID is locating elements using
+<code>document.getElementById('unique-id')</code>. This method provides
+an efficient way to select, update, or manipulate a single DOM
+node.</li>
+<li><strong>Anchor Navigation and Deep Linking:</strong> The
+<code>id</code> attribute acts as a fragment identifier for internal
+page navigation. By linking to a hash-prefixed value (e.g.,
+<code>&lt;a href="#contact"&gt;</code>), users can jump directly to the
+element assigned that specific ID.</li>
+<li><strong>Form and Label Associations:</strong> The
+<code>&lt;label&gt;</code> element uses the <code>for</code> attribute
+to reference the <code>id</code> of an <code>&lt;input&gt;</code>,
+<code>&lt;textarea&gt;</code>, or <code>&lt;select&gt;</code> element.
+This programmatic connection ensures that clicking the label focuses the
+corresponding input field.</li>
+<li><strong>Accessibility (ARIA Relationships):</strong> Assistive
+technologies rely on IDs to create semantic connections between
+elements. Attributes like <code>aria-labelledby</code>,
+<code>aria-describedby</code>, and <code>aria-controls</code> take IDs
+as their values to describe or control other interface components for
+screen readers.</li>
+<li><strong>CSS Styling:</strong> IDs can be used as CSS selectors
+prefixed by <code>#</code> (e.g., <code>#header</code>). While modern
+CSS architecture generally favors classes due to specificity concerns,
+the ID selector remains a valid method to apply styles to a singular
+element.</li>
+</ol>
+<h3 id="why-the-id-attribute-must-be-unique">Why the <code>id</code>
+Attribute Must Be Unique</h3>
+<p>The W3C and WHATWG HTML specifications explicitly mandate that an ID
+value must be unique among all the IDs in the element's subtree. There
+are several direct consequences when this rule is violated:</p>
+<ul>
+<li><strong>Unpredictable JavaScript Execution:</strong> Methods like
+<code>document.getElementById()</code> are designed under the assumption
+that only one match exists. If duplicate IDs are present, the method
+returns only the first matching element encountered in the DOM tree,
+ignoring subsequent elements. This breaks event listeners, data
+retrieval, and DOM updates for duplicate nodes.</li>
+<li><strong>Broken Accessibility Relationships:</strong> Screen readers
+rely on unambiguous ID references to read descriptions or declare
+states. When duplicate IDs exist, assistive technology cannot reliably
+determine which element is linked to an <code>aria-labelledby</code> or
+<code>&lt;label for="..."&gt;</code> attribute, making forms and
+interfaces inaccessible.</li>
+<li><strong>Anchor Navigation Failures:</strong> When a URL contains a
+fragment identifier pointing to an ID that appears multiple times, the
+browser will navigate only to the first occurrence, rendering subsequent
+targets unreachable via direct links.</li>
+<li><strong>Failed Markup Validation:</strong> Duplicate IDs cause HTML
+documents to fail standard W3C markup validation. Invalid markup can
+lead to inconsistencies in how different browser rendering engines parse
+and repair the document structure.</li>
+</ul>
+<p>For styling or grouping multiple elements that share identical
+behavior, the <code>class</code> attribute should always be used instead
+of <code>id</code>.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

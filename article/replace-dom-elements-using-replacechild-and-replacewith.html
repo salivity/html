@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Replace DOM Elements Using replaceChild and replaceWith - html</title>
+    <meta name="description" content="Updating elements inside an existing HTML Document Object Model (DOM) tree is a fundamental operation in web development, typically achieved using either Node.replaceChild() or the modern Element.replaceWith(). While both methods swap an existing node fo">
+    <link rel="canonical" href="https://salivity.github.io/html/article/replace-dom-elements-using-replacechild-and-replacewith">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Replace DOM Elements Using replaceChild and replaceWith - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/replace-dom-elements-using-replacechild-and-replacewith" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Updating elements inside an existing HTML Document Object Model (DOM) tree is a fundamental operation in web development, typically achieved using either Node.replaceChild() or the modern Element.replaceWith(). While both methods swap an existing node fo" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="replace-dom-elements-using-replacechild-and-replacewith">Replace
+DOM Elements Using replaceChild and replaceWith</h1>
+<p>Updating elements inside an existing HTML Document Object Model (DOM)
+tree is a fundamental operation in web development, typically achieved
+using either <code>Node.replaceChild()</code> or the modern
+<code>Element.replaceWith()</code>. While both methods swap an existing
+node for a new one without altering the surrounding document hierarchy,
+they differ significantly in their syntax, flexibility, and parent-child
+requirements. This guide explores how both methods manipulate the DOM
+tree, how the browser processes the replacement, and which approach best
+suits specific use cases.</p>
+<h3 id="the-replacechild-method">The <code>replaceChild()</code>
+Method</h3>
+<p>The <code>replaceChild()</code> method is a core method of the
+<code>Node</code> interface. It operates from the perspective of the
+parent element and requires an explicit reference to that parent to
+execute the replacement.</p>
+<h4 id="syntax">Syntax</h4>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>parentNode<span class="op">.</span><span class="fu">replaceChild</span>(newChild<span class="op">,</span> oldChild)<span class="op">;</span></span></code></pre></div>
+<h4 id="how-it-works-in-the-dom-tree">How It Works in the DOM Tree</h4>
+<ol type="1">
+<li><strong>Targeting</strong>: The developer must select the parent
+container, the node to be inserted, and the node being removed.</li>
+<li><strong>Atomic Swap</strong>: The browser locates
+<code>oldChild</code> within <code>parentNode.childNodes</code>. It
+detaches <code>oldChild</code> from the live DOM tree and places
+<code>newChild</code> in its exact index position.</li>
+<li><strong>Return Value</strong>: It returns the removed node
+(<code>oldChild</code>). This reference remains stored in memory,
+allowing developers to reinsert it elsewhere or inspect it later.</li>
+</ol>
+<h4 id="example">Example</h4>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> parent <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;list&quot;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> oldItem <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;item-to-replace&quot;</span>)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> newItem <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&quot;li&quot;</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>newItem<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">&quot;Updated Item&quot;</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> removedItem <span class="op">=</span> parent<span class="op">.</span><span class="fu">replaceChild</span>(newItem<span class="op">,</span> oldItem)<span class="op">;</span></span></code></pre></div>
+<hr />
+<h3 id="the-replacewith-method">The <code>replaceWith()</code>
+Method</h3>
+<p>Introduced in modern DOM specifications, <code>replaceWith()</code>
+is a method on the <code>ChildNode</code> (and <code>Element</code>)
+interface. It operates directly on the node that needs to be replaced,
+eliminating the need to explicitly query or reference the parent
+element.</p>
+<h4 id="syntax-1">Syntax</h4>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>node<span class="op">.</span><span class="fu">replaceWith</span>(<span class="op">...</span>nodesOrStrings)<span class="op">;</span></span></code></pre></div>
+<h4 id="how-it-works-in-the-dom-tree-1">How It Works in the DOM
+Tree</h4>
+<ol type="1">
+<li><strong>Targeting</strong>: Called directly on the target element
+itself (<code>element.replaceWith(...)</code>).</li>
+<li><strong>Direct Replacement</strong>: The browser internally
+determines the parent element and swaps the target element with the
+provided argument(s).</li>
+<li><strong>Multi-Node and Text Insertion</strong>: Unlike
+<code>replaceChild()</code>, <code>replaceWith()</code> can accept
+multiple nodes and plain text strings. Strings are automatically
+converted into equivalent <code>Text</code> nodes before insertion.</li>
+<li><strong>Return Value</strong>: It returns
+<code>undefined</code>.</li>
+</ol>
+<h4 id="example-1">Example</h4>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> oldItem <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&quot;item-to-replace&quot;</span>)<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> newItem <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&quot;li&quot;</span>)<span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>newItem<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> <span class="st">&quot;Updated Item&quot;</span><span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Replaces the element directly</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>oldItem<span class="op">.</span><span class="fu">replaceWith</span>(newItem)<span class="op">;</span></span></code></pre></div>
+<p>You can also replace an element with multiple nodes or strings
+simultaneously:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> target <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&quot;.placeholder&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>target<span class="op">.</span><span class="fu">replaceWith</span>(<span class="st">&quot;Hello, &quot;</span><span class="op">,</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">&quot;strong&quot;</span>)<span class="op">,</span> <span class="st">&quot; world!&quot;</span>)<span class="op">;</span></span></code></pre></div>
+<hr />
+<h3 id="key-differences-and-behavioral-impact-on-the-dom">Key
+Differences and Behavioral Impact on the DOM</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;"><code>replaceChild()</code></th>
+<th style="text-align: left;"><code>replaceWith()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Caller</strong></td>
+<td style="text-align: left;">Must be called on the parent node
+(<code>parent.replaceChild(...)</code>)</td>
+<td style="text-align: left;">Called directly on the target element
+(<code>element.replaceWith(...)</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Accepted Arguments</strong></td>
+<td style="text-align: left;">Exactly one replacement
+<code>Node</code></td>
+<td style="text-align: left;">One or more <code>Node</code> objects or
+strings</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Return Value</strong></td>
+<td style="text-align: left;">The replaced (removed)
+<code>Node</code></td>
+<td style="text-align: left;"><code>undefined</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>String Handling</strong></td>
+<td style="text-align: left;">Throws a <code>TypeError</code> if passed
+a raw string</td>
+<td style="text-align: left;">Automatically converts strings to
+<code>Text</code> nodes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Browser Support</strong></td>
+<td style="text-align: left;">Legacy and modern browsers (Deep
+historical support)</td>
+<td style="text-align: left;">Modern browsers (Requires polyfills for
+legacy Internet Explorer)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="memory-and-event-listener-lifecycle">Memory and Event Listener
+Lifecycle</h3>
+<p>When either method updates an element in the HTML tree:</p>
+<ul>
+<li><strong>Reflow and Repaint</strong>: The browser recalculates the
+layout (reflow) and updates the screen (repaint) only for the affected
+portion of the tree, avoiding a full page reload.</li>
+<li><strong>Detached Nodes</strong>: The replaced element is detached
+from the live document. If no JavaScript variable references it, the
+garbage collector safely destroys it.</li>
+<li><strong>Event Listeners</strong>: Any event listeners attached via
+<code>addEventListener</code> to the original node remain bound to that
+detached node in memory. They do not transfer automatically to the new
+replacement node.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How iframe sandbox allow-scripts Works - html</title>
+    <meta name="description" content="The HTML iframe sandbox attribute restricts the capabilities of embedded content to protect the host page from malicious or untrusted code. By default, applying an empty sandbox attribute disables all dynamic capabilities, including script execution. Add">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-iframe-sandbox-allow-scripts-works">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How iframe sandbox allow-scripts Works - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-iframe-sandbox-allow-scripts-works" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML iframe sandbox attribute restricts the capabilities of embedded content to protect the host page from malicious or untrusted code. By default, applying an empty sandbox attribute disables all dynamic capabilities, including script execution. Add" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-iframe-sandbox-allow-scripts-works">How iframe sandbox
+allow-scripts Works</h1>
+<p>The HTML <code>iframe</code> <code>sandbox</code> attribute restricts
+the capabilities of embedded content to protect the host page from
+malicious or untrusted code. By default, applying an empty
+<code>sandbox</code> attribute disables all dynamic capabilities,
+including script execution. Adding the <code>allow-scripts</code> token
+selectively lifts one of the most critical restrictions by re-enabling
+JavaScript execution inside the framed document, while leaving other
+crucial security boundaries intact.</p>
+<h3 id="the-baseline-sandbox-environment">The Baseline Sandbox
+Environment</h3>
+<p>When an <code>iframe</code> includes the <code>sandbox</code>
+attribute without any tokens (or with unrelated tokens), the browser
+places the framed document inside a heavily locked-down, unique-origin
+environment. In this baseline state:</p>
+<ul>
+<li>JavaScript execution is completely disabled.</li>
+<li>Form submissions are blocked.</li>
+<li>Popups, modals, and new tabs cannot be spawned.</li>
+<li>Storage mechanisms like <code>localStorage</code> and
+<code>document.cookie</code> are unavailable.</li>
+<li>Navigation of the parent or top-level browsing context is
+prevented.</li>
+</ul>
+<h3 id="how-allow-scripts-modifies-execution">How
+<code>allow-scripts</code> Modifies Execution</h3>
+<p>Adding <code>allow-scripts</code> specifically reactivates the
+embedded document's JavaScript runtime. Once applied, the framed page
+can:</p>
+<ul>
+<li>Run inline <code>&lt;script&gt;</code> tags and load external script
+files.</li>
+<li>Execute event listeners (such as <code>click</code>,
+<code>mousemove</code>, and <code>load</code>).</li>
+<li>Use browser timers and timing APIs like <code>setTimeout</code>,
+<code>setInterval</code>, and <code>requestAnimationFrame</code>.</li>
+<li>Make asynchronous network requests using <code>fetch()</code> or
+<code>XMLHttpRequest</code>, subject to standard Cross-Origin Resource
+Sharing (CORS) rules.</li>
+</ul>
+<h3 id="persistent-restrictions">Persistent Restrictions</h3>
+<p>Enabling <code>allow-scripts</code> does not grant unrestricted
+access. Unless additional tokens are explicitly declared, the iframe
+environment still enforces substantial limitations:</p>
+<ul>
+<li><strong>Unique Origin (Cross-Origin Isolation):</strong> The
+document continues to run in a unique, opaque origin
+(<code>null</code>). Even if the framed page is hosted on the same
+domain as the parent page, scripts cannot access parent DOM nodes,
+inspect parent variables, or read parent cookies.</li>
+<li><strong>Storage Access:</strong> Because the origin is treated as
+unique, APIs that rely on persistent origin-based storage (such as
+<code>localStorage</code> and <code>IndexedDB</code>) remain restricted
+or inaccessible.</li>
+<li><strong>No Top Navigation:</strong> Scripts cannot redirect the
+parent page via <code>window.top.location</code> unless the
+<code>allow-top-navigation</code> token is also supplied.</li>
+<li><strong>No Unsolicited Popups:</strong> Calls to
+<code>window.open()</code> remain blocked unless paired with
+<code>allow-popups</code>.</li>
+</ul>
+<h3 id="critical-security-risk-pairing-with-allow-same-origin">Critical
+Security Risk: Pairing with <code>allow-same-origin</code></h3>
+<p>A well-known vulnerability occurs when combining
+<code>allow-scripts</code> with <code>allow-same-origin</code> on an
+untrusted page hosted on the same origin as the parent site. When both
+tokens are present, the framed script executes within the parent's
+actual origin rather than an opaque one. This allows the embedded script
+to access the parent page's DOM and programmatic interfaces directly,
+enabling it to remove the <code>sandbox</code> attribute entirely and
+bypass all intended security boundaries.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

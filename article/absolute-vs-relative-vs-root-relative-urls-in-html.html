@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absolute vs Relative vs Root-Relative URLs in HTML - html</title>
+    <meta name="description" content="Understanding the difference between absolute, relative, and root-relative URLs is fundamental for structuring website navigation, organizing internal assets, and avoiding broken links. While all three formats direct a web browser to a specific destinati">
+    <link rel="canonical" href="https://salivity.github.io/html/article/absolute-vs-relative-vs-root-relative-urls-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Absolute vs Relative vs Root-Relative URLs in HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/absolute-vs-relative-vs-root-relative-urls-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Understanding the difference between absolute, relative, and root-relative URLs is fundamental for structuring website navigation, organizing internal assets, and avoiding broken links. While all three formats direct a web browser to a specific destinati" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="absolute-vs-relative-vs-root-relative-urls-in-html">Absolute vs
+Relative vs Root-Relative URLs in HTML</h1>
+<p>Understanding the difference between absolute, relative, and
+root-relative URLs is fundamental for structuring website navigation,
+organizing internal assets, and avoiding broken links. While all three
+formats direct a web browser to a specific destination, they differ in
+how they reference the target location. Absolute URLs provide the
+complete path from the protocol to the specific file, relative URLs
+point to files based on the position of the current document, and
+root-relative URLs always reference resources starting from the
+website's root domain.</p>
+<h2 id="absolute-urls">Absolute URLs</h2>
+<p>An absolute URL contains the complete address required to locate a
+resource on the internet. It includes the transfer protocol
+(<code>http://</code> or <code>https://</code>), the domain name (such
+as <code>www.example.com</code>), and the path to the specific page or
+asset.</p>
+<ul>
+<li><strong>Example:</strong>
+<code>&lt;a href="https://www.example.com/blog/article.html"&gt;Read Article&lt;/a&gt;</code></li>
+<li><strong>How it works:</strong> Regardless of where this link is
+placed, the browser will always navigate to the exact web address
+specified.</li>
+<li><strong>When to use:</strong> Use absolute URLs when linking to
+external websites, within XML sitemaps, for canonical tags, or when
+referencing assets hosted on a third-party Content Delivery Network
+(CDN).</li>
+</ul>
+<h2 id="relative-urls-document-relative">Relative URLs
+(Document-Relative)</h2>
+<p>A relative URL references a file based on the directory location of
+the file that contains the link. It does not include a protocol, domain
+name, or a leading forward slash.</p>
+<ul>
+<li><strong>Example (same folder):</strong>
+<code>&lt;a href="contact.html"&gt;Contact&lt;/a&gt;</code> tells the
+browser to find <code>contact.html</code> in the same directory as the
+current page.</li>
+<li><strong>Example (subfolder):</strong>
+<code>&lt;a href="images/photo.jpg"&gt;View Photo&lt;/a&gt;</code> looks
+for a folder named <code>images</code> inside the current folder.</li>
+<li><strong>Example (parent directory):</strong>
+<code>&lt;a href="../index.html"&gt;Home&lt;/a&gt;</code> uses
+<code>../</code> to tell the browser to move up one folder level before
+locating <code>index.html</code>.</li>
+<li><strong>When to use:</strong> Relative URLs are convenient for quick
+local testing or small, static websites where directory structures are
+simple and unlikely to change.</li>
+<li><strong>Drawback:</strong> If you move the source document to a
+different directory level, the relative links within that document will
+break unless they are updated.</li>
+</ul>
+<h2 id="root-relative-urls-server-relative">Root-Relative URLs
+(Server-Relative)</h2>
+<p>A root-relative URL begins with a single forward slash
+(<code>/</code>). This slash instructs the browser to start from the
+root directory of the current domain, bypassing the current page's
+subfolder depth completely.</p>
+<ul>
+<li><strong>Example:</strong>
+<code>&lt;a href="/about.html"&gt;About Us&lt;/a&gt;</code></li>
+<li><strong>Example with path:</strong>
+<code>&lt;a href="/assets/css/style.css"&gt;Stylesheet&lt;/a&gt;</code></li>
+<li><strong>How it works:</strong> If a user is on
+<code>https://www.example.com/blog/news/2024/page.html</code> and clicks
+a link with <code>href="/contact.html"</code>, the browser navigates
+directly to <code>https://www.example.com/contact.html</code>.</li>
+<li><strong>When to use:</strong> Root-relative paths are ideal for
+internal navigation menus, headers, footers, and shared assets like
+stylesheets and scripts. Because they work identically across all pages
+regardless of folder depth, moving a page to another folder will not
+break its root-relative links.</li>
+</ul>
+<h2 id="quick-comparison-summary">Quick Comparison Summary</h2>
+<ul>
+<li><strong>Absolute:</strong> Defines the full web address
+(<code>https://example.com/page.html</code>). Essential for external
+linking and SEO tags.</li>
+<li><strong>Relative:</strong> Resolves in relation to the current
+file's folder (<code>page.html</code> or <code>../page.html</code>).
+Dependent on the source file's directory depth.</li>
+<li><strong>Root-Relative:</strong> Resolves in relation to the domain
+root (<code>/page.html</code>). Ideal for internal links across
+site-wide templates.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

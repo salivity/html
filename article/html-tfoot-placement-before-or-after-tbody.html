@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML tfoot Placement: Before or After tbody - html</title>
+    <meta name="description" content="This article examines the structural role, parsing mechanics, and rendering behavior of the HTML <tfoot> element when placed before versus after the <tbody> tag. It covers the evolution of the HTML specification from HTML4 to the HTML Living Standard, ho">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-tfoot-placement-before-or-after-tbody">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML tfoot Placement: Before or After tbody - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-tfoot-placement-before-or-after-tbody" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article examines the structural role, parsing mechanics, and rendering behavior of the HTML <tfoot> element when placed before versus after the <tbody> tag. It covers the evolution of the HTML specification from HTML4 to the HTML Living Standard, ho" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-tfoot-placement-before-or-after-tbody">HTML tfoot
+Placement: Before or After tbody</h1>
+<p>This article examines the structural role, parsing mechanics, and
+rendering behavior of the HTML <code>&lt;tfoot&gt;</code> element when
+placed before versus after the <code>&lt;tbody&gt;</code> tag. It covers
+the evolution of the HTML specification from HTML4 to the HTML Living
+Standard, how browser rendering engines process table layouts, and the
+implications for accessibility and Document Object Model (DOM)
+ordering.</p>
+<h2 id="historical-context-html4-vs-html5">Historical Context: HTML4 vs.
+HTML5</h2>
+<p>In HTML4 and XHTML, authors were required to place
+<code>&lt;tfoot&gt;</code> <em>before</em> <code>&lt;tbody&gt;</code> if
+a footer was used. The original intent was performance-oriented: tables
+were frequently used for large data sets, and streaming browsers could
+parse and render the header (<code>&lt;thead&gt;</code>) and footer
+(<code>&lt;tfoot&gt;</code>) before receiving and rendering potentially
+thousands of <code>&lt;tbody&gt;</code> rows. This allowed print engines
+and early browsers to determine pagination boundaries and render table
+summaries upfront.</p>
+<p>HTML5 relaxed this restriction. The HTML specification was updated to
+permit <code>&lt;tfoot&gt;</code> to be placed either before or after
+<code>&lt;tbody&gt;</code>. In modern HTML (HTML Living Standard by
+WHATWG), placing <code>&lt;tfoot&gt;</code> <em>after</em>
+<code>&lt;tbody&gt;</code> is officially recommended to align with
+logical source order, though browsers continue to accept both placements
+for backward compatibility.</p>
+<h2 id="html-parser-behavior-and-dom-construction">HTML Parser Behavior
+and DOM Construction</h2>
+<p>The HTML parser constructs the DOM tree sequentially based on
+tokens:</p>
+<ul>
+<li><strong>Placement Before <code>&lt;tbody&gt;</code>:</strong> When
+the parser encounters <code>&lt;tfoot&gt;</code> before
+<code>&lt;tbody&gt;</code>, the <code>&lt;tfoot&gt;</code> node becomes
+a child of <code>&lt;table&gt;</code> and precedes the
+<code>&lt;tbody&gt;</code> child node in the DOM tree.</li>
+<li><strong>Placement After <code>&lt;tbody&gt;</code>:</strong> When
+placed after, the <code>&lt;tfoot&gt;</code> node appears after
+<code>&lt;tbody&gt;</code> in the DOM tree.</li>
+</ul>
+<p>The parser does not reorder the DOM nodes automatically. The node
+order directly reflects the order of the tags in the raw HTML
+markup.</p>
+<h2 id="visual-rendering-and-layout-processing">Visual Rendering and
+Layout Processing</h2>
+<p>Regardless of whether <code>&lt;tfoot&gt;</code> appears before or
+after <code>&lt;tbody&gt;</code> in the markup or the DOM, CSS table
+formatting algorithms dictate its visual rendering:</p>
+<ul>
+<li><strong>Visual Order:</strong> The CSS Table Formatting Model
+specifies that elements with <code>display: table-footer-group</code>
+(the default user-agent style for <code>&lt;tfoot&gt;</code>) must be
+rendered visually at the bottom of the table, below any elements with
+<code>display: table-row-group</code> (<code>&lt;tbody&gt;</code>).</li>
+<li><strong>Print Rendering:</strong> In paged media (such as printing),
+browsers and print engines repeat headers and footers across page
+breaks. This behavior functions identically regardless of whether
+<code>&lt;tfoot&gt;</code> is placed before or after
+<code>&lt;tbody&gt;</code>.</li>
+</ul>
+<h2 id="impact-on-accessibility-and-user-experience">Impact on
+Accessibility and User Experience</h2>
+<p>While visual rendering remains identical, the physical placement of
+<code>&lt;tfoot&gt;</code> significantly affects assistive
+technologies:</p>
+<ul>
+<li><strong>Linear Reading Order:</strong> Screen readers and
+accessibility APIs traverse tables primarily through the DOM tree. When
+<code>&lt;tfoot&gt;</code> is placed before <code>&lt;tbody&gt;</code>,
+screen readers operating in linear reading mode encounter summary or
+total values before the user has heard the data rows.</li>
+<li><strong>Semantic Confusion:</strong> Reading conclusions and totals
+before the data breaks cognitive expectations for non-visual users.</li>
+</ul>
+<p>Placing <code>&lt;tfoot&gt;</code> after <code>&lt;tbody&gt;</code>
+ensures that the DOM tree matches the logical reading order, providing a
+cohesive experience across visual and non-visual user agents. Modern
+best practices dictate always placing <code>&lt;tfoot&gt;</code> after
+<code>&lt;tbody&gt;</code>.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

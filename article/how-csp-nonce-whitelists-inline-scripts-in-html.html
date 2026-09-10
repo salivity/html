@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How CSP Nonce Whitelists Inline Scripts in HTML - html</title>
+    <meta name="description" content="This article explains how the Content Security Policy (CSP) nonce attribute allows developers to securely whitelist inline scripts in modern web applications. You will learn what a nonce is, how the server and browser collaborate to validate it, and how">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-csp-nonce-whitelists-inline-scripts-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How CSP Nonce Whitelists Inline Scripts in HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-csp-nonce-whitelists-inline-scripts-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains how the Content Security Policy (CSP) nonce attribute allows developers to securely whitelist inline scripts in modern web applications. You will learn what a nonce is, how the server and browser collaborate to validate it, and how" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-csp-nonce-whitelists-inline-scripts-in-html">How CSP Nonce
+Whitelists Inline Scripts in HTML</h1>
+<p>This article explains how the Content Security Policy (CSP)
+<code>nonce</code> attribute allows developers to securely whitelist
+inline scripts in modern web applications. You will learn what a nonce
+is, how the server and browser collaborate to validate it, and how this
+mechanism prevents Cross-Site Scripting (XSS) attacks while still
+allowing critical inline JavaScript to execute.</p>
+<p>A Content Security Policy (CSP) restricts the resources a browser is
+allowed to load and execute for a given page. By default, a strict CSP
+blocks all inline <code>&lt;script&gt;</code> elements because it cannot
+inherently distinguish between legitimate application scripts written by
+the developer and malicious scripts injected through an XSS
+vulnerability.</p>
+<p>To resolve this issue without resorting to the dangerous
+<code>'unsafe-inline'</code> directive, CSP introduces the
+<code>nonce</code>—an abbreviation for "number used once." A nonce is a
+cryptographically strong, pseudo-random token generated dynamically by
+the server for every individual HTTP request.</p>
+<p>The whitelisting process functions through a three-step validation
+cycle between the web server and the client browser:</p>
+<ol type="1">
+<li><p><strong>Header Declaration:</strong> For every page request, the
+server generates a unique, unguessable string (typically
+Base64-encoded). The server includes this token in the
+<code>Content-Security-Policy</code> HTTP response header within the
+<code>script-src</code> directive, formatted as
+<code>'nonce-&lt;token&gt;'</code>:</p>
+<pre class="http"><code>Content-Security-Policy: script-src &#39;nonce-rAnd0m12345&#39; &#39;strict-dynamic&#39;;</code></pre></li>
+<li><p><strong>Attribute Injection:</strong> When rendering the HTML
+response, the server attaches the exact same token to the
+<code>nonce</code> attribute of every authorized inline script:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> nonce</span><span class="op">=</span><span class="st">&quot;rAnd0m12345&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&quot;This authorized inline script will execute.&quot;</span>)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span></code></pre></div></li>
+<li><p><strong>Browser Verification:</strong> When the browser parses
+the HTML document, it inspects every <code>&lt;script&gt;</code>
+element. It extracts the value of the <code>nonce</code> attribute and
+compares it directly against the nonce defined in the CSP header. If the
+values match identically, the browser executes the script. If the
+attribute is missing, malformed, or contains an incorrect value, the
+browser suppresses execution and logs a CSP violation.</p></li>
+</ol>
+<p>This mechanism protects against injection attacks because an attacker
+cannot predict the unique nonce assigned to a victim's session. Any
+payload injected via input fields, query parameters, or stored databases
+will lack the correct <code>nonce</code> value for that specific request
+lifecycle, causing the browser to safely neutralize the malicious code.
+For maximum security, nonces must never be hardcoded, must be discarded
+after a single response, and should contain sufficient cryptographic
+entropy (at least 128 bits).</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

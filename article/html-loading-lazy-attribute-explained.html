@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML loading="lazy" Attribute Explained - html</title>
+    <meta name="description" content="The loading="lazy" attribute is a native HTML feature that defers the loading of offscreen images and iframes until the user scrolls near them. By preventing the browser from downloading non-critical resources during the initial page render, this attribu">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-loading-lazy-attribute-explained">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML loading="lazy" Attribute Explained - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-loading-lazy-attribute-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The loading="lazy" attribute is a native HTML feature that defers the loading of offscreen images and iframes until the user scrolls near them. By preventing the browser from downloading non-critical resources during the initial page render, this attribu" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-loadinglazy-attribute-explained">HTML loading="lazy"
+Attribute Explained</h1>
+<p>The <code>loading="lazy"</code> attribute is a native HTML feature
+that defers the loading of offscreen images and iframes until the user
+scrolls near them. By preventing the browser from downloading
+non-critical resources during the initial page render, this attribute
+significantly improves page load times, conserves network bandwidth, and
+reduces memory consumption. This article explains how the attribute
+functions, its performance benefits, and the best practices for using it
+effectively.</p>
+<h3 id="how-it-works">How It Works</h3>
+<p>Traditionally, browsers download all images and iframes defined in
+the HTML immediately upon parsing the page, regardless of whether those
+elements are visible to the user.</p>
+<p>Applying <code>loading="lazy"</code> instructs the browser to delay
+fetching the resource until it reaches a calculated distance from the
+viewport. The browser calculates this threshold dynamically based on
+factors such as connection type and speed, ensuring the asset finishes
+downloading just before it scrolls into view.</p>
+<p>The attribute accepts two values:</p>
+<ul>
+<li><code>lazy</code>: Defers loading until the asset is within a
+calculated distance from the viewport.</li>
+<li><code>eager</code>: Loads the resource immediately upon page parse,
+regardless of where it is positioned on the page (this is typically the
+default browser behavior).</li>
+</ul>
+<h3 id="key-performance-benefits">Key Performance Benefits</h3>
+<ul>
+<li><strong>Faster Initial Page Load:</strong> By reducing the number of
+immediate network requests, the browser can prioritize critical
+resources like CSS, JavaScript, and above-the-fold content.</li>
+<li><strong>Bandwidth Savings:</strong> Users only download assets they
+actually view. If a user leaves a page without scrolling to the bottom,
+the deferred images and embedded frames are never retrieved.</li>
+<li><strong>Lower Memory Usage:</strong> Deferring heavy elements,
+particularly third-party embeds via <code>&lt;iframe&gt;</code> (such as
+maps, videos, or widgets), decreases the overall memory footprint of the
+browser tab.</li>
+</ul>
+<h3 id="best-practices-for-implementation">Best Practices for
+Implementation</h3>
+<ol type="1">
+<li><strong>Avoid Above-the-Fold Content:</strong> Never apply
+<code>loading="lazy"</code> to images or iframes visible in the initial
+viewport, especially the Largest Contentful Paint (LCP) element.
+Delaying above-the-fold assets hurts perceived performance and degrades
+Core Web Vitals scores.</li>
+<li><strong>Explicit Dimensions:</strong> Always define
+<code>width</code> and <code>height</code> (or use CSS aspect-ratio) on
+lazy-loaded elements. This allows the browser to reserve the correct
+amount of space in the layout before the media downloads, preventing
+Cumulative Layout Shift (CLS).</li>
+<li><strong>No JavaScript Required:</strong> Because lazy loading is
+natively supported by all modern browsers, it works without external
+JavaScript libraries or intersection observers, reducing client-side
+execution overhead.</li>
+</ol></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

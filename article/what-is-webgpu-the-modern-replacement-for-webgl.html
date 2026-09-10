@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is WebGPU: The Modern Replacement for WebGL - html</title>
+    <meta name="description" content="WebGPU is a modern web standard designed to replace WebGL, giving web applications low-level, high-performance access to device graphics processing units (GPUs). While WebGL was modeled after the aging OpenGL standard, WebGPU aligns with contemporary gra">
+    <link rel="canonical" href="https://salivity.github.io/html/article/what-is-webgpu-the-modern-replacement-for-webgl">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is WebGPU: The Modern Replacement for WebGL - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/what-is-webgpu-the-modern-replacement-for-webgl" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="WebGPU is a modern web standard designed to replace WebGL, giving web applications low-level, high-performance access to device graphics processing units (GPUs). While WebGL was modeled after the aging OpenGL standard, WebGPU aligns with contemporary gra" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-webgpu-the-modern-replacement-for-webgl">What Is WebGPU:
+The Modern Replacement for WebGL</h1>
+<p>WebGPU is a modern web standard designed to replace WebGL, giving web
+applications low-level, high-performance access to device graphics
+processing units (GPUs). While WebGL was modeled after the aging OpenGL
+standard, WebGPU aligns with contemporary graphics APIs like Vulkan,
+Metal, and DirectX 12. This shift significantly reduces CPU overhead,
+introduces native support for general-purpose GPU computing, and enables
+complex 3D graphics, machine learning models, and simulations to run
+natively inside web browsers at near-native speeds.</p>
+<h3 id="the-limitations-of-webgl">The Limitations of WebGL</h3>
+<p>WebGL served the web well for over a decade, but its architecture is
+based on OpenGL ES, a standard designed in an era when GPUs functioned
+very differently. Key limitations include:</p>
+<ul>
+<li><strong>High CPU Overhead:</strong> WebGL relies heavily on the
+browser and graphics drivers to validate states continuously, creating a
+major CPU bottleneck during draw calls.</li>
+<li><strong>Lack of Multithreading:</strong> WebGL operations are bound
+to a single thread, restricting an application's ability to prepare
+rendering commands across multiple CPU cores.</li>
+<li><strong>No Native Compute Shaders:</strong> WebGL is strictly a
+rendering pipeline. Performing general-purpose computing (such as
+machine learning or physics calculations) required developers to encode
+data into textures and trick the fragment shader into processing
+it.</li>
+</ul>
+<h3 id="core-purposes-and-advantages-of-webgpu">Core Purposes and
+Advantages of WebGPU</h3>
+<p>WebGPU was engineered from the ground up to eliminate these
+bottlenecks and reflect how modern hardware actually works.</p>
+<h4 id="1-alignment-with-modern-native-apis">1. Alignment with Modern
+Native APIs</h4>
+<p>WebGPU acts as a common abstraction layer over modern
+platform-specific APIs: Direct3D 12 (Windows), Metal (macOS/iOS), and
+Vulkan (Linux/Android). This native alignment allows browsers to pass
+commands to the hardware with minimal translation and drastically
+reduced driver overhead.</p>
+<h4 id="2-native-gpu-compute-gpgpu">2. Native GPU Compute (GPGPU)</h4>
+<p>Beyond rendering pixels, WebGPU introduces compute shaders using the
+WebGPU Shading Language (WGSL). Compute shaders enable developers to use
+the GPU's massive parallel processing power for non-rendering tasks,
+such as:</p>
+<ul>
+<li>Running machine learning models directly on the client side.</li>
+<li>Complex physics and particle simulations.</li>
+<li>Image and video processing algorithms.</li>
+<li>Large-scale data analysis and visualization.</li>
+</ul>
+<h4 id="3-reduced-cpu-bottlenecks-and-better-state-management">3.
+Reduced CPU Bottlenecks and Better State Management</h4>
+<p>WebGPU uses pre-validated pipeline state objects. Instead of
+validating graphics settings on every single draw call like WebGL,
+WebGPU validates state configurations upfront. This separation of
+resource creation and execution frees up the CPU to handle application
+logic rather than graphics driver management.</p>
+<h4 id="4-multithreading-capabilities">4. Multithreading
+Capabilities</h4>
+<p>WebGPU allows applications to generate rendering and compute commands
+across background threads (Web Workers). These pre-recorded command
+buffers can then be submitted to the GPU queue on the main thread,
+maximizing the use of modern multi-core CPUs.</p>
+<h3 id="summary">Summary</h3>
+<p>The purpose of WebGPU is to bridge the performance and capability gap
+between native applications and the web. By providing access to modern
+graphics architectures and native compute capabilities, WebGPU
+transforms the browser into a viable platform for high-end gaming,
+interactive 3D design software, and on-device artificial
+intelligence.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

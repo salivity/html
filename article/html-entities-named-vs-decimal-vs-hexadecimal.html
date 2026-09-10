@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Entities: Named vs Decimal vs Hexadecimal - html</title>
+    <meta name="description" content="HTML character entities are used to display reserved characters, invisible symbols, or characters not present on a standard keyboard without breaking HTML markup. While named, decimal, and hexadecimal entities can all render the exact same character in a">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-entities-named-vs-decimal-vs-hexadecimal">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Entities: Named vs Decimal vs Hexadecimal - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-entities-named-vs-decimal-vs-hexadecimal" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="HTML character entities are used to display reserved characters, invisible symbols, or characters not present on a standard keyboard without breaking HTML markup. While named, decimal, and hexadecimal entities can all render the exact same character in a" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-entities-named-vs-decimal-vs-hexadecimal">HTML Entities:
+Named vs Decimal vs Hexadecimal</h1>
+<p>HTML character entities are used to display reserved characters,
+invisible symbols, or characters not present on a standard keyboard
+without breaking HTML markup. While named, decimal, and hexadecimal
+entities can all render the exact same character in a browser, they
+differ in how they reference the underlying character set, their syntax,
+readability, and the total range of characters they can represent.</p>
+<h3 id="the-basic-structure">The Basic Structure</h3>
+<p>All HTML character entities share a common syntax: they begin with an
+ampersand (<code>&amp;</code>) and terminate with a semicolon
+(<code>;</code>). The characters placed between the ampersand and
+semicolon dictate whether the entity is interpreted by the browser as a
+named entity, a decimal entity, or a hexadecimal entity.</p>
+<h3 id="named-character-entities">Named Character Entities</h3>
+<p>Named entities use predefined, human-readable keywords to represent
+characters.</p>
+<ul>
+<li><strong>Syntax:</strong> <code>&amp;name;</code></li>
+<li><strong>Examples:</strong>
+<ul>
+<li><code>&amp;lt;</code> renders the less-than sign
+(<code>&lt;</code>)</li>
+<li><code>&amp;amp;</code> renders the ampersand
+(<code>&amp;</code>)</li>
+<li><code>&amp;copy;</code> renders the copyright symbol
+(<code>©</code>)</li>
+</ul></li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li><strong>Readability:</strong> They are easy for developers to
+remember and recognize directly within source code without consulting
+external reference tables.</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li><strong>Limited Availability:</strong> Only a subset of characters
+has assigned entity names defined in HTML specifications. Obscure
+symbols, specialized math characters, or emojis do not have named
+equivalents.</li>
+<li><strong>Case Sensitivity:</strong> Names are strictly
+case-sensitive. For instance, <code>&amp;Eacute;</code> produces
+uppercase É, while <code>&amp;eacute;</code> produces lowercase é.</li>
+</ul>
+<h3 id="decimal-character-entities">Decimal Character Entities</h3>
+<p>Decimal entities refer to characters using their base-10 numerical
+code points in the Unicode/ISO 10646 character set.</p>
+<ul>
+<li><strong>Syntax:</strong> <code>&amp;#number;</code></li>
+<li><strong>Examples:</strong>
+<ul>
+<li><code>&amp;#60;</code> renders <code>&lt;</code></li>
+<li><code>&amp;#38;</code> renders <code>&amp;</code></li>
+<li><code>&amp;#169;</code> renders <code>©</code></li>
+</ul></li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li><strong>Comprehensive Scope:</strong> Decimal entities can represent
+any valid character in the entire Unicode standard, far exceeding the
+limits of named entities.</li>
+<li><strong>Compatibility:</strong> Older browsers and legacy systems
+have consistent support for decimal numbers.</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li><strong>Poor Readability:</strong> A numerical value like
+<code>&amp;#169;</code> provides no intuitive clue about the character
+it renders unless the developer is familiar with ASCII or Unicode code
+points.</li>
+</ul>
+<h3 id="hexadecimal-character-entities">Hexadecimal Character
+Entities</h3>
+<p>Hexadecimal entities refer to characters using their base-16
+numerical values, preceded by the letter <code>x</code>.</p>
+<ul>
+<li><strong>Syntax:</strong> <code>&amp;#xHEX;</code></li>
+<li><strong>Examples:</strong>
+<ul>
+<li><code>&amp;#x3C;</code> renders <code>&lt;</code></li>
+<li><code>&amp;#x26;</code> renders <code>&amp;</code></li>
+<li><code>&amp;#xA9;</code> renders <code>©</code></li>
+</ul></li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li><strong>Unicode Standard Alignment:</strong> Unicode characters are
+formally documented using hexadecimal notation (e.g.,
+<code>U+00A9</code>). Converting a standard Unicode code point to an
+HTML entity simply requires replacing <code>U+</code> with
+<code>&amp;#x</code>, eliminating the need to convert base-16 values to
+base-10.</li>
+<li><strong>Full Unicode Access:</strong> Like decimal entities,
+hexadecimal covers every available character in Unicode.</li>
+<li><strong>Case Insensitivity for Code:</strong> The <code>x</code>
+prefix and the hexadecimal digits (A–F) can be written in either
+uppercase or lowercase (e.g., <code>&amp;#xa9;</code> and
+<code>&amp;#xA9;</code> are identical).</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li><strong>Poor Readability:</strong> Like decimal values, hex codes
+are abstract numbers that are difficult to interpret without a reference
+sheet.</li>
+</ul>
+<h3 id="summary-of-key-differences">Summary of Key Differences</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Named Entities</th>
+<th style="text-align: left;">Decimal Entities</th>
+<th style="text-align: left;">Hexadecimal Entities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Prefix Syntax</strong></td>
+<td style="text-align: left;"><code>&amp;</code></td>
+<td style="text-align: left;"><code>&amp;#</code></td>
+<td style="text-align: left;"><code>&amp;#x</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Value Type</strong></td>
+<td style="text-align: left;">Keyword text</td>
+<td style="text-align: left;">Base-10 integer</td>
+<td style="text-align: left;">Base-16 alphanumeric</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Character Coverage</strong></td>
+<td style="text-align: left;">Limited set</td>
+<td style="text-align: left;">Full Unicode range</td>
+<td style="text-align: left;">Full Unicode range</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ease of Reading</strong></td>
+<td style="text-align: left;">High</td>
+<td style="text-align: left;">Low</td>
+<td style="text-align: left;">Low</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Unicode Direct
+Mapping</strong></td>
+<td style="text-align: left;">No</td>
+<td style="text-align: left;">Requires conversion</td>
+<td style="text-align: left;">Direct match to <code>U+</code>
+values</td>
+</tr>
+</tbody>
+</table>
+<p>For standard structural characters like <code>&lt;</code>
+(<code>&amp;lt;</code>), <code>&gt;</code> (<code>&amp;gt;</code>), and
+<code>&amp;</code> (<code>&amp;amp;</code>), named entities remain the
+industry standard due to legibility. For extended characters, emojis, or
+specialized typography, hexadecimal entities are generally preferred by
+modern developers because of their direct 1:1 mapping with the Unicode
+standard.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

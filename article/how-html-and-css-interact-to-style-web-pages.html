@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How HTML and CSS Interact to Style Web Pages - html</title>
+    <meta name="description" content="Hypertext Markup Language (HTML) and Cascading Style Sheets (CSS) form the foundation of modern web design, functioning as a synchronized pair where HTML provides structural content and CSS defines the visual presentation. While HTML marks up elements li">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-html-and-css-interact-to-style-web-pages">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How HTML and CSS Interact to Style Web Pages - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-html-and-css-interact-to-style-web-pages" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Hypertext Markup Language (HTML) and Cascading Style Sheets (CSS) form the foundation of modern web design, functioning as a synchronized pair where HTML provides structural content and CSS defines the visual presentation. While HTML marks up elements li" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-html-and-css-interact-to-style-web-pages">How HTML and CSS
+Interact to Style Web Pages</h1>
+<p>Hypertext Markup Language (HTML) and Cascading Style Sheets (CSS)
+form the foundation of modern web design, functioning as a synchronized
+pair where HTML provides structural content and CSS defines the visual
+presentation. While HTML marks up elements like headings, paragraphs,
+and containers, CSS targets these elements to control color, layout,
+typography, and responsiveness. This article explains how these two
+languages connect, how the browser processes them through the Document
+Object Model (DOM), and the mechanics of turning raw code into a fully
+realized visual interface.</p>
+<h2 id="separation-of-structure-and-presentation">Separation of
+Structure and Presentation</h2>
+<p>HTML is a markup language responsible strictly for the semantic
+structure of a document. It defines <em>what</em> content is
+present—such as an image, a button, or an article section—without
+dictating how that content should appear.</p>
+<p>CSS is a style sheet language responsible for the aesthetics and
+layout. It defines <em>how</em> the HTML elements should look across
+different screen sizes and devices. By separating structure from
+presentation, developers can maintain clean code, improve accessibility,
+and redesign an entire website simply by modifying a single CSS file
+without altering the underlying HTML.</p>
+<h2 id="methods-of-linking-css-to-html">Methods of Linking CSS to
+HTML</h2>
+<p>For CSS to affect HTML, the browser must be instructed to apply the
+styles to the document. This connection happens in three ways:</p>
+<ul>
+<li><strong>External Style Sheets:</strong> The most efficient method
+involves linking an independent <code>.css</code> file within the HTML
+<code>&lt;head&gt;</code> section using the <code>&lt;link&gt;</code>
+tag. This allows one style sheet to govern multiple web pages across an
+entire site.</li>
+<li><strong>Internal Style Sheets:</strong> CSS rules are placed
+directly inside a <code>&lt;style&gt;</code> tag within the HTML
+<code>&lt;head&gt;</code>. This approach applies styles specifically to
+that single document.</li>
+<li><strong>Inline Styles:</strong> Styles are declared directly inside
+an HTML element using the <code>style</code> attribute. This method
+overrides external rules and is typically reserved for quick fixes or
+dynamic, script-generated styling.</li>
+</ul>
+<h2 id="targeting-html-elements-with-css-selectors">Targeting HTML
+Elements with CSS Selectors</h2>
+<p>CSS interacts with HTML by referencing specific elements through
+selectors. When the browser reads a CSS rule, it looks for matching
+nodes within the HTML:</p>
+<ul>
+<li><strong>Type Selectors:</strong> Target all instances of an HTML tag
+(e.g., <code>p</code>, <code>h1</code>, <code>div</code>).</li>
+<li><strong>Class Selectors:</strong> Target elements assigned a
+specific <code>class</code> attribute (e.g., <code>.card</code>),
+allowing the same style rules to apply to multiple unrelated
+elements.</li>
+<li><strong>ID Selectors:</strong> Target a unique element assigned a
+distinct <code>id</code> attribute (e.g., <code>#main-header</code>),
+carrying higher specificity than classes.</li>
+<li><strong>Attribute and Pseudo-selectors:</strong> Target elements
+based on their state or attributes, such as hovering over a link
+(<code>a:hover</code>) or targeting specific input types
+(<code>input[type="text"]</code>).</li>
+</ul>
+<h2 id="the-document-object-model-dom-and-the-cssom">The Document Object
+Model (DOM) and the CSSOM</h2>
+<p>The actual visual rendering relies on how browsers parse code:</p>
+<ol type="1">
+<li><strong>Constructing the DOM:</strong> The browser parses the HTML
+document and converts tags into a tree-like data structure called the
+Document Object Model (DOM). Each HTML tag becomes an individual node in
+this tree.</li>
+<li><strong>Constructing the CSSOM:</strong> Simultaneously, the browser
+parses the CSS rules and maps them into the CSS Object Model (CSSOM),
+which details the styling properties intended for each selector.</li>
+<li><strong>Combining into the Render Tree:</strong> The browser merges
+the DOM and CSSOM to create a Render Tree. This tree contains only the
+nodes required to display the page (ignoring hidden elements like
+<code>&lt;head&gt;</code> or items set to <code>display: none</code>)
+along with their calculated styles.</li>
+<li><strong>Layout and Paint:</strong> The browser calculates the exact
+geometry and position of each element on the screen (layout) and fills
+in the actual pixels (painting), producing the final visual presentation
+seen by the user.</li>
+</ol>
+<h2 id="the-cascade-specificity-and-inheritance">The Cascade,
+Specificity, and Inheritance</h2>
+<p>When multiple CSS rules target the same HTML element, the browser
+resolves conflicts using three principles:</p>
+<ul>
+<li><strong>Inheritance:</strong> Certain CSS properties, such as font
+family and text color, automatically pass down from parent HTML
+containers to their child elements unless explicitly overridden.</li>
+<li><strong>Specificity:</strong> Browsers determine which rule takes
+precedence based on how specific the selector is. An inline style
+overrides an ID selector, an ID selector overrides a class selector, and
+a class selector overrides a basic type selector.</li>
+<li><strong>The Cascade:</strong> When rules have equal specificity, the
+browser applies the rule declared last in the code order.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

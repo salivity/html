@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How the HTML Base Href Tag Resolves Relative URLs - html</title>
+    <meta name="description" content="The <base href="..."> tag establishes a single, document-wide reference point that browsers use to resolve all relative paths on an HTML page. By declaring this tag inside the document's <head>, web developers can centrally control where relative links">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-the-html-base-href-tag-resolves-relative-urls">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How the HTML Base Href Tag Resolves Relative URLs - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-the-html-base-href-tag-resolves-relative-urls" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The <base href="..."> tag establishes a single, document-wide reference point that browsers use to resolve all relative paths on an HTML page. By declaring this tag inside the document's <head>, web developers can centrally control where relative links" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-the-html-base-href-tag-resolves-relative-urls">How the HTML
+Base Href Tag Resolves Relative URLs</h1>
+<p>The <code>&lt;base href="..."&gt;</code> tag establishes a single,
+document-wide reference point that browsers use to resolve all relative
+paths on an HTML page. By declaring this tag inside the document's
+<code>&lt;head&gt;</code>, web developers can centrally control where
+relative links—such as stylesheets, images, scripts, and
+hyperlinks—fetch their resources, regardless of the page's current
+directory or URL rewrite rules.</p>
+<h3 id="how-the-base-url-resolution-works">How the Base URL Resolution
+Works</h3>
+<p>Under default browser behavior, relative paths resolve against the
+current document's actual URL. For example, if a page resides at
+<code>https://example.com/blog/posts/</code> and loads an image with
+<code>src="photo.jpg"</code>, the browser requests
+<code>https://example.com/blog/posts/photo.jpg</code>.</p>
+<p>When you include a <code>&lt;base href="..."&gt;</code> tag, the
+browser overrides the current page location and uses the declared base
+URL as the prefix for all relative assets.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">head</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">base</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;https://example.com/assets/&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;css/style.css&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;js/main.js&quot;</span><span class="dt">&gt;&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">head</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this scenario:</p>
+<ul>
+<li><code>css/style.css</code> resolves to
+<code>https://example.com/assets/css/style.css</code>.</li>
+<li><code>js/main.js</code> resolves to
+<code>https://example.com/assets/js/main.js</code>.</li>
+</ul>
+<h3 id="affected-html-elements">Affected HTML Elements</h3>
+<p>The <code>&lt;base&gt;</code> tag affects any attribute accepting a
+relative URI. Common elements include:</p>
+<ul>
+<li><strong>Hyperlinks:</strong> <code>&lt;a href="..."&gt;</code></li>
+<li><strong>Media and embedded elements:</strong>
+<code>&lt;img src="..."&gt;</code>,
+<code>&lt;audio src="..."&gt;</code>,
+<code>&lt;video src="..."&gt;</code>, and
+<code>&lt;iframe src="..."&gt;</code></li>
+<li><strong>External resources:</strong>
+<code>&lt;link href="..."&gt;</code> and
+<code>&lt;script src="..."&gt;</code></li>
+<li><strong>Form handling:</strong>
+<code>&lt;form action="..."&gt;</code></li>
+</ul>
+<h3 id="directory-slashes-and-resolution-rules">Directory Slashes and
+Resolution Rules</h3>
+<p>The presence or absence of a trailing slash in the <code>href</code>
+attribute changes how relative paths are evaluated:</p>
+<ul>
+<li><strong>With a trailing slash
+(<code>https://example.com/subfolder/</code>):</strong> A path like
+<code>script.js</code> becomes
+<code>https://example.com/subfolder/script.js</code>.</li>
+<li><strong>Without a trailing slash
+(<code>https://example.com/subfolder</code>):</strong> The browser
+treats the last segment as a file. A path like <code>script.js</code>
+replaces the last segment, resulting in
+<code>https://example.com/script.js</code>.</li>
+</ul>
+<p>Root-relative paths (paths starting with <code>/</code>) ignore any
+subdirectories defined in the <code>&lt;base&gt;</code> tag and resolve
+directly against the origin host. If the base is
+<code>https://example.com/app/</code>, a link to <code>/style.css</code>
+resolves to <code>https://example.com/style.css</code>, not
+<code>https://example.com/app/style.css</code>.</p>
+<h3 id="important-considerations-and-pitfalls">Important Considerations
+and Pitfalls</h3>
+<ol type="1">
+<li><strong>Placement:</strong> The <code>&lt;base&gt;</code> element
+must be placed inside the <code>&lt;head&gt;</code> tag before any
+elements that load external resources. Any assets declared prior to the
+<code>&lt;base&gt;</code> tag resolve against the standard document
+location.</li>
+<li><strong>Single Occurrence:</strong> An HTML document can contain
+only one <code>&lt;base&gt;</code> tag. If multiple instances are
+declared, the browser honors only the first one.</li>
+<li><strong>Anchor Link Interference:</strong> The
+<code>&lt;base&gt;</code> tag applies to fragment identifiers. A
+standard anchor link such as <code>&lt;a href="#section"&gt;</code> will
+resolve to <code>[base-url]#section</code> rather than jumping to an
+element on the current page. If the base URL differs from the current
+page URL, clicking an anchor link may navigate away from the current
+view.</li>
+</ol></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

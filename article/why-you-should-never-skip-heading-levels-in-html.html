@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why You Should Never Skip Heading Levels in HTML - html</title>
+    <meta name="description" content="Proper heading hierarchy in semantic HTML creates a clear, logical outline of a webpage's content. Skipping heading levels—such as jumping directly from an <h2> to an <h4>—disrupts this structure, creates major accessibility barriers for users relyin">
+    <link rel="canonical" href="https://salivity.github.io/html/article/why-you-should-never-skip-heading-levels-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Why You Should Never Skip Heading Levels in HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/why-you-should-never-skip-heading-levels-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Proper heading hierarchy in semantic HTML creates a clear, logical outline of a webpage's content. Skipping heading levels—such as jumping directly from an <h2> to an <h4>—disrupts this structure, creates major accessibility barriers for users relyin" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="why-you-should-never-skip-heading-levels-in-html">Why You Should
+Never Skip Heading Levels in HTML</h1>
+<p>Proper heading hierarchy in semantic HTML creates a clear, logical
+outline of a webpage's content. Skipping heading levels—such as jumping
+directly from an <code>&lt;h2&gt;</code> to an
+<code>&lt;h4&gt;</code>—disrupts this structure, creates major
+accessibility barriers for users relying on assistive technologies,
+complicates code maintenance, and weakens the document's semantic value
+for search engines. Maintaining a sequential heading order ensures your
+content is universally accessible, structured, and easy to navigate.</p>
+<h3 id="the-impact-on-accessibility">The Impact on Accessibility</h3>
+<p>Screen readers and other assistive technologies rely heavily on
+heading elements (<code>&lt;h1&gt;</code> through
+<code>&lt;h6&gt;</code>) to generate an automated table of contents.
+Blind and visually impaired users frequently navigate web pages by
+jumping from heading to heading to understand the page's structure and
+locate relevant sections quickly.</p>
+<p>When a heading level is skipped (for example, stepping from an
+<code>&lt;h2&gt;</code> straight to an <code>&lt;h4&gt;</code>), screen
+reader software reports the missing level. This causes confusion, as
+users often assume that content was missed, broken, or failed to load
+correctly. A strict sequential order ensures that assistive tools
+accurately convey the relationship between main sections and their
+subsections.</p>
+<h3 id="semantic-hierarchy-vs-visual-presentation">Semantic Hierarchy
+vs. Visual Presentation</h3>
+<p>A frequent reason developers skip heading levels is visual
+styling—selecting an <code>&lt;h4&gt;</code> simply because its default
+browser font size looks better in a specific layout than an
+<code>&lt;h3&gt;</code>. This conflates semantic meaning with visual
+presentation.</p>
+<p>HTML headings exist to define the architecture of the text, not its
+appearance. Semantic HTML dictates that an <code>&lt;h3&gt;</code>
+represents a subtopic of an <code>&lt;h2&gt;</code>, and an
+<code>&lt;h4&gt;</code> represents a subtopic of an
+<code>&lt;h3&gt;</code>. If a design requires a smaller heading, the
+correct approach is to maintain proper semantic order in HTML and adjust
+the font size, weight, and spacing using CSS classes.</p>
+<h3 id="seo-and-search-engine-understanding">SEO and Search Engine
+Understanding</h3>
+<p>Search engine crawlers analyze heading tags to understand the
+context, topical depth, and hierarchy of a webpage. A well-structured
+document helps search algorithms index content more effectively by
+clarifying how topics and subtopics interrelate.</p>
+<p>Skipping headings introduces structural ambiguity. While search
+engines are resilient enough to parse flawed markup, clean semantic
+structures provide clear signals about primary keywords and content
+relationships, contributing to better on-page optimization.</p>
+<h3 id="proper-heading-rules">Proper Heading Rules</h3>
+<p>To maintain proper document structure, follow these core
+principles:</p>
+<ul>
+<li><strong>Single primary title:</strong> Use only one
+<code>&lt;h1&gt;</code> per page for the main title or primary
+subject.</li>
+<li><strong>Sequential descent:</strong> Always increment heading levels
+one step at a time (<code>&lt;h1&gt;</code> to <code>&lt;h2&gt;</code>,
+<code>&lt;h2&gt;</code> to <code>&lt;h3&gt;</code>,
+<code>&lt;h3&gt;</code> to <code>&lt;h4&gt;</code>).</li>
+<li><strong>Ascending levels are valid:</strong> You can jump multiple
+levels when closing subsections and returning to a higher-level topic
+(for example, moving from an <code>&lt;h4&gt;</code> back up to an
+<code>&lt;h2&gt;</code> to start a new main section).</li>
+<li><strong>Separate content from design:</strong> Never pick a heading
+tag based on how it looks; use CSS to style headings to fit your visual
+design.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

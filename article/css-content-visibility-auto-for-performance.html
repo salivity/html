@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS content-visibility: auto for Performance - html</title>
+    <meta name="description" content="The CSS content-visibility: auto property is a modern performance feature that optimizes page load times by allowing the browser to skip rendering work for elements currently outside the user's viewport. By deferring the layout and painting processes of">
+    <link rel="canonical" href="https://salivity.github.io/html/article/css-content-visibility-auto-for-performance">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="CSS content-visibility: auto for Performance - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/css-content-visibility-auto-for-performance" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The CSS content-visibility: auto property is a modern performance feature that optimizes page load times by allowing the browser to skip rendering work for elements currently outside the user's viewport. By deferring the layout and painting processes of" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="css-content-visibility-auto-for-performance">CSS
+content-visibility: auto for Performance</h1>
+<p>The CSS <code>content-visibility: auto</code> property is a modern
+performance feature that optimizes page load times by allowing the
+browser to skip rendering work for elements currently outside the user's
+viewport. By deferring the layout and painting processes of off-screen
+content until it is needed, browsers significantly reduce initial DOM
+rendering costs, speed up Total Blocking Time (TBT), and improve First
+Contentful Paint (FCP).</p>
+<h3 id="skipping-layout-and-painting">Skipping Layout and Painting</h3>
+<p>When <code>content-visibility: auto</code> is applied to an element,
+the browser treats it similarly to an element with heavy rendering
+isolation. If the element is not currently visible on the screen, the
+browser bypasses:</p>
+<ul>
+<li><strong>Layout calculations:</strong> The browser does not calculate
+the geometric positions or dimensions of child elements.</li>
+<li><strong>Painting:</strong> The browser does not rasterize or draw
+the element's visual details.</li>
+<li><strong>Style recalculations:</strong> Certain style calculations
+for child nodes are delayed until the element approaches the
+viewport.</li>
+</ul>
+<p>As a result, a massive page with thousands of off-screen nodes can
+achieve the rendering speed of a much smaller, lightweight page.</p>
+<h3 id="viewport-proximity-detection">Viewport Proximity Detection</h3>
+<p>The browser automatically monitors when an element with
+<code>content-visibility: auto</code> is approaching the viewport. As
+the user scrolls toward the element, the browser preemptively runs the
+layout and paint operations so the content is fully rendered just before
+it enters the visual frame, ensuring a smooth scrolling experience
+without visual flickering.</p>
+<h3 id="preventing-layout-shifts-with-contain-intrinsic-size">Preventing
+Layout Shifts with <code>contain-intrinsic-size</code></h3>
+<p>Because the browser skips rendering off-screen elements, it initially
+assigns them a height and width of <code>0px</code>. Without
+intervention, this causes severe layout shifts and erratic scrollbar
+behavior as items suddenly expand upon entering the viewport.</p>
+<p>To fix this, developers pair <code>content-visibility: auto</code>
+with the <code>contain-intrinsic-size</code> property. This defines
+placeholder dimensions for the unrendered element:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.card</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  content-visibility<span class="ch">:</span> <span class="bu">auto</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">contain-intrinsic-size</span><span class="ch">:</span> <span class="dv">0</span> <span class="dv">450</span><span class="dt">px</span><span class="op">;</span> <span class="co">/* estimated width and height */</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Modern browsers also support
+<code>contain-intrinsic-size: auto 450px</code>, which remembers the
+element's real rendered size once it has been rendered once, preventing
+shifts if the user scrolls back up.</p>
+<h3 id="difference-from-display-none">Difference from
+<code>display: none</code></h3>
+<p>Unlike <code>display: none</code>, which completely removes an
+element from the rendering tree and breaks accessibility,
+<code>content-visibility: auto</code> preserves the element's state:</p>
+<ul>
+<li>The content remains fully searchable using the browser’s "Find on
+page" feature (Ctrl+F / Cmd+F).</li>
+<li>Assistive technologies can still access the DOM tree, and focusing
+on an element inside the hidden container will cause it to render
+automatically.</li>
+<li>Form controls and selection states inside the container remain
+intact.</li>
+</ul>
+<h3 id="ideal-use-cases">Ideal Use Cases</h3>
+<p>The property is best applied to long, content-heavy documents such
+as:</p>
+<ul>
+<li>Long articles or documentation pages split into sections.</li>
+<li>Social media feeds or infinite-scroll layouts.</li>
+<li>E-commerce search results and product listings.</li>
+</ul>
+<p>Placing <code>content-visibility: auto</code> on high-level container
+sections allows browsers to process complex web pages with minimal
+rendering overhead.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

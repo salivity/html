@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Using getComputedStyle to Read Resolved CSS Styles - html</title>
+    <meta name="description" content="This article explores the role of the JavaScript window.getComputedStyle() method in reading the final, resolved CSS properties of HTML elements. You will learn why this method is necessary compared to accessing inline styles directly, how it computes va">
+    <link rel="canonical" href="https://salivity.github.io/html/article/using-getcomputedstyle-to-read-resolved-css-styles">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Using getComputedStyle to Read Resolved CSS Styles - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/using-getcomputedstyle-to-read-resolved-css-styles" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explores the role of the JavaScript window.getComputedStyle() method in reading the final, resolved CSS properties of HTML elements. You will learn why this method is necessary compared to accessing inline styles directly, how it computes va" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="using-getcomputedstyle-to-read-resolved-css-styles">Using
+getComputedStyle to Read Resolved CSS Styles</h1>
+<p>This article explores the role of the JavaScript
+<code>window.getComputedStyle()</code> method in reading the final,
+resolved CSS properties of HTML elements. You will learn why this method
+is necessary compared to accessing inline styles directly, how it
+computes values across the entire CSS cascade, how to inspect
+pseudo-elements, and best practices for using it efficiently in modern
+web development.</p>
+<h2 id="the-purpose-of-getcomputedstyle">The Purpose of
+<code>getComputedStyle()</code></h2>
+<p>In web development, an element's final appearance is rarely
+determined by a single CSS rule. Styles originate from user agent
+defaults, external stylesheets, internal <code>&lt;style&gt;</code>
+tags, inherited properties, and inline attributes.</p>
+<p>The <code>getComputedStyle()</code> method is a built-in browser API
+that calculates and returns an object containing the absolute, active
+CSS values applied to an element after all of these stylesheets, rules,
+and inheritance chains have been resolved.</p>
+<h2 id="the-limitation-of-elementstyle">The Limitation of
+<code>element.style</code></h2>
+<p>A common mistake is attempting to read an element's styles via the
+<code>element.style</code> property:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> box <span class="op">=.</span><span class="fu">querySelector</span>(<span class="st">&#39;.box&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(box<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">width</span>)<span class="op">;</span> <span class="co">// Often returns an empty string &quot;&quot;</span></span></code></pre></div>
+<p>The <code>element.style</code> property only accesses inline styles
+defined directly on the HTML tag (e.g.,
+<code>&lt;div style="width: 100px;"&gt;</code>) or styles set directly
+through JavaScript. It is completely blind to rules declared in external
+stylesheets or <code>&lt;style&gt;</code> blocks.
+<code>getComputedStyle()</code> solves this by evaluating the actual
+rendered state of the element.</p>
+<h2 id="basic-syntax-and-usage">Basic Syntax and Usage</h2>
+<p>The method is attached to the global <code>window</code> object and
+takes the target element as its primary argument:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> element <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&#39;.card&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> computedStyles <span class="op">=</span> <span class="bu">window</span><span class="op">.</span><span class="fu">getComputedStyle</span>(element)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Access via getPropertyValue (recommended)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> backgroundColor <span class="op">=</span> computedStyles<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">&#39;background-color&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">// Access via camelCase property</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> fontSize <span class="op">=</span> computedStyles<span class="op">.</span><span class="at">fontSize</span><span class="op">;</span></span></code></pre></div>
+<p>The returned object is a live, read-only
+<code>CSSStyleDeclaration</code>. Because it is read-only, you cannot
+modify styles through this object; modifications must still be made
+using <code>element.style</code> or by toggling CSS classes.</p>
+<h2 id="value-resolution-and-absolute-units">Value Resolution and
+Absolute Units</h2>
+<p>One of the most critical roles of <code>getComputedStyle()</code> is
+converting relative units into absolute values:</p>
+<ul>
+<li><strong>Dimensions:</strong> Relative units such as
+<code>rem</code>, <code>em</code>, <code>%</code>, <code>vw</code>, and
+<code>vh</code> are calculated and returned as absolute pixel
+(<code>px</code>) values.</li>
+<li><strong>Colors:</strong> Named colors (e.g., <code>red</code>) or
+hex codes are typically normalized to standard <code>rgb()</code> or
+<code>rgba()</code> notation.</li>
+<li><strong>Keywords:</strong> Keywords like <code>auto</code> for
+positioning or margins are converted into their calculated numeric
+values based on the layout context.</li>
+</ul>
+<p>This resolution guarantees that scripts receive predictable,
+quantifiable numbers regardless of how the CSS was originally
+authored.</p>
+<h2 id="inspecting-pseudo-elements">Inspecting Pseudo-Elements</h2>
+<p>Unlike standard DOM selection methods,
+<code>getComputedStyle()</code> allows developers to read the styles
+applied to pseudo-elements like <code>::before</code> and
+<code>::after</code>. This is achieved by passing the pseudo-element
+selector as the optional second argument:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> button <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&#39;.btn&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> beforeStyles <span class="op">=</span> <span class="bu">window</span><span class="op">.</span><span class="fu">getComputedStyle</span>(button<span class="op">,</span> <span class="st">&#39;::before&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> content <span class="op">=</span> beforeStyles<span class="op">.</span><span class="fu">getPropertyValue</span>(<span class="st">&#39;content&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<p>While <code>getComputedStyle()</code> is essential for accurate
+measurements, calling it can be computationally expensive. Reading
+computed styles after modifying the DOM forces the browser to perform a
+synchronous style recalculation (and often a layout reflow) to determine
+the new values. To maintain optimal rendering performance, avoid
+querying computed styles inside high-frequency loops or animation
+frames.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

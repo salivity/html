@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Section vs Article: Semantic Role Differences - html</title>
+    <meta name="description" content="HTML5 introduced semantic tags to give structure and meaning to web content, with <article> and <section> being two of the most frequently confused elements. The primary difference lies in independence: an <article> is designed to hold self-contained, in">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-section-vs-article-semantic-role-differences">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Section vs Article: Semantic Role Differences - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-section-vs-article-semantic-role-differences" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="HTML5 introduced semantic tags to give structure and meaning to web content, with <article> and <section> being two of the most frequently confused elements. The primary difference lies in independence: an <article> is designed to hold self-contained, in" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-section-vs-article-semantic-role-differences">HTML Section
+vs Article: Semantic Role Differences</h1>
+<p>HTML5 introduced semantic tags to give structure and meaning to web
+content, with <code>&lt;article&gt;</code> and
+<code>&lt;section&gt;</code> being two of the most frequently confused
+elements. The primary difference lies in independence: an
+<code>&lt;article&gt;</code> is designed to hold self-contained,
+independently distributable content that makes sense on its own, whereas
+a <code>&lt;section&gt;</code> represents a thematic grouping of related
+content that forms part of a larger document. Understanding this
+distinction is vital for proper document outlining, search engine
+optimization (SEO), and screen reader accessibility.</p>
+<h2 id="the-semantic-role-of-article">The Semantic Role of
+<code>&lt;article&gt;</code></h2>
+<p>The <code>&lt;article&gt;</code> element represents a complete,
+self-contained composition in a document, page, application, or site.
+The defining characteristic of an <code>&lt;article&gt;</code> is that
+it could theoretically be extracted and distributed independently via
+RSS, syndicated across other platforms, or read in isolation without
+losing its core meaning.</p>
+<p>Common use cases for <code>&lt;article&gt;</code> include:</p>
+<ul>
+<li>A blog post or news story</li>
+<li>A forum post or user review</li>
+<li>An individual comment on a post</li>
+<li>An interactive widget or independent product card</li>
+</ul>
+<p>If the content can be shared outside the context of the current page
+and still make complete sense to the reader, wrap it in an
+<code>&lt;article&gt;</code>.</p>
+<h2 id="the-semantic-role-of-section">The Semantic Role of
+<code>&lt;section&gt;</code></h2>
+<p>The <code>&lt;section&gt;</code> element represents a generic
+standalone section of a document that groups related content by a
+specific theme. Unlike an <code>&lt;article&gt;</code>, a
+<code>&lt;section&gt;</code> is not intended to be independently
+distributed; it relies on the broader context of the page or document to
+provide its full meaning.</p>
+<p>Per the HTML specification, a <code>&lt;section&gt;</code> should
+almost always contain an appropriate heading (<code>&lt;h2&gt;</code>
+through <code>&lt;h6&gt;</code>) to define its theme.</p>
+<p>Common use cases for <code>&lt;section&gt;</code> include:</p>
+<ul>
+<li>Chapters in a long-form document</li>
+<li>Distinct page areas such as "About Us," "Services," or
+"Contact"</li>
+<li>Tabbed panels in a user interface</li>
+<li>A specific section of a terms of service agreement</li>
+</ul>
+<p>If the content represents a distinct thematic chapter within a
+broader page, wrap it in a <code>&lt;section&gt;</code>. If the element
+is needed purely for styling, layout, or scripting without any thematic
+meaning, use a generic <code>&lt;div&gt;</code> instead.</p>
+<h2 id="how-to-nest-section-and-article">How to Nest
+<code>&lt;section&gt;</code> and <code>&lt;article&gt;</code></h2>
+<p>HTML allows <code>&lt;section&gt;</code> and
+<code>&lt;article&gt;</code> elements to be nested inside one another
+depending on the document's structure:</p>
+<ul>
+<li><strong><code>&lt;article&gt;</code> inside
+<code>&lt;section&gt;</code>:</strong> A thematic area of a webpage can
+contain multiple independent entries. For example, a "Latest News"
+<code>&lt;section&gt;</code> might contain multiple
+<code>&lt;article&gt;</code> elements, each representing an individual
+news report.</li>
+<li><strong><code>&lt;section&gt;</code> inside
+<code>&lt;article&gt;</code>:</strong> A single, long piece of
+self-contained content can be divided into thematic subsections. For
+example, a detailed blog post wrapped in an <code>&lt;article&gt;</code>
+can use multiple <code>&lt;section&gt;</code> tags to separate the
+introduction, core methodology, and conclusion.</li>
+</ul>
+<h2 id="the-syndication-test">The Syndication Test</h2>
+<p>To quickly decide between the two elements, apply the syndication
+test:</p>
+<ol type="1">
+<li><strong>Could this piece of content be syndicated in an RSS feed or
+shared as a standalone card elsewhere?</strong> If yes, use
+<code>&lt;article&gt;</code>.</li>
+<li><strong>Is this content a thematic sub-part of a larger whole that
+requires a heading?</strong> If yes, use
+<code>&lt;section&gt;</code>.</li>
+<li><strong>Is the wrapper only needed for CSS styling or JavaScript
+hooks?</strong> If yes, use <code>&lt;div&gt;</code>.</li>
+</ol></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

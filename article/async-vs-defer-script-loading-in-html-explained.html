@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async vs Defer: Script Loading in HTML Explained - html</title>
+    <meta name="description" content="When loading external JavaScript files in HTML, the async and defer attributes are boolean attributes used to prevent script loading from blocking the browser from parsing the HTML document. While both attributes allow the browser to download scripts in">
+    <link rel="canonical" href="https://salivity.github.io/html/article/async-vs-defer-script-loading-in-html-explained">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Async vs Defer: Script Loading in HTML Explained - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/async-vs-defer-script-loading-in-html-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="When loading external JavaScript files in HTML, the async and defer attributes are boolean attributes used to prevent script loading from blocking the browser from parsing the HTML document. While both attributes allow the browser to download scripts in" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="async-vs-defer-script-loading-in-html-explained">Async vs Defer:
+Script Loading in HTML Explained</h1>
+<p>When loading external JavaScript files in HTML, the
+<code>async</code> and <code>defer</code> attributes are boolean
+attributes used to prevent script loading from blocking the browser from
+parsing the HTML document. While both attributes allow the browser to
+download scripts in the background without halting the parsing process,
+they differ fundamentally in when the downloaded scripts are executed
+and whether execution order is preserved. Understanding this distinction
+is essential for optimizing web page performance and avoiding script
+dependency errors.</p>
+<h3 id="default-script-loading-without-attributes">Default Script
+Loading (Without Attributes)</h3>
+<p>By default, when a browser encounters a standard
+<code>&lt;script src="..."&gt;</code> tag:</p>
+<ol type="1">
+<li>HTML parsing immediately pauses.</li>
+<li>The browser fetches the script from the network.</li>
+<li>The browser executes the script immediately upon download.</li>
+<li>HTML parsing resumes only after the script finishes executing.</li>
+</ol>
+<p>This default behavior causes render-blocking, which can significantly
+delay page load times and degrade user experience.</p>
+<h3 id="the-async-attribute">The <code>async</code> Attribute</h3>
+<p>The <code>async</code> attribute instructs the browser to download
+the script asynchronously in the background while continuing to parse
+the HTML document.</p>
+<ul>
+<li><strong>Execution Timing:</strong> The script executes the exact
+moment it finishes downloading. This means HTML parsing is paused during
+execution, whenever that happens to occur.</li>
+<li><strong>Execution Order:</strong> Independent and non-deterministic.
+If you load multiple <code>async</code> scripts, they will execute in
+whichever order they finish downloading, not the order they appear in
+the HTML.</li>
+<li><strong>Event Relationship:</strong> May execute before or after the
+<code>DOMContentLoaded</code> event, depending on file size and network
+speed.</li>
+</ul>
+<p><strong>Best Used For:</strong> Independent, third-party scripts that
+do not rely on the DOM or other scripts, such as Google Analytics,
+tracking pixels, and advertising tags.</p>
+<h3 id="the-defer-attribute">The <code>defer</code> Attribute</h3>
+<p>The <code>defer</code> attribute also downloads the script
+asynchronously in the background while HTML parsing continues
+uninterrupted.</p>
+<ul>
+<li><strong>Execution Timing:</strong> The script does not execute
+immediately after downloading. Instead, execution is deferred until the
+HTML parsing is completely finished.</li>
+<li><strong>Execution Order:</strong> Deterministic. Scripts marked with
+<code>defer</code> are guaranteed to execute in the exact order they
+appear in the HTML source code.</li>
+<li><strong>Event Relationship:</strong> All <code>defer</code> scripts
+execute right after the DOM is fully built, immediately before the
+<code>DOMContentLoaded</code> event fires.</li>
+</ul>
+<p><strong>Best Used For:</strong> Scripts that depend on the full DOM
+tree to be available, or scripts that depend on one another (such as a
+library and its dependent plugins).</p>
+<h3 id="summary-of-differences">Summary of Differences</h3>
+<ul>
+<li><strong>HTML Parsing Interruption:</strong> <code>defer</code> never
+interrupts parsing; <code>async</code> interrupts parsing only while
+executing.</li>
+<li><strong>Order Guarantee:</strong> <code>defer</code> maintains the
+order of execution; <code>async</code> executes on a "first to finish
+downloading" basis.</li>
+<li><strong>DOM Readiness:</strong> <code>defer</code> guarantees the
+DOM is fully parsed before running; <code>async</code> does not.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

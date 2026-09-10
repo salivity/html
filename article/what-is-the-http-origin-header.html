@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is the HTTP Origin Header? - html</title>
+    <meta name="description" content="The HTTP Origin request header indicates the source origin—composed of the protocol, domain name, and port—from which a web request originates. This article explains how browsers automatically use the Origin header during fetch calls and HTML form su">
+    <link rel="canonical" href="https://salivity.github.io/html/article/what-is-the-http-origin-header">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is the HTTP Origin Header? - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/what-is-the-http-origin-header" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTTP Origin request header indicates the source origin—composed of the protocol, domain name, and port—from which a web request originates. This article explains how browsers automatically use the Origin header during fetch calls and HTML form su" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-the-http-origin-header">What Is the HTTP Origin
+Header?</h1>
+<p>The HTTP <code>Origin</code> request header indicates the source
+origin—composed of the protocol, domain name, and port—from which a web
+request originates. This article explains how browsers automatically use
+the <code>Origin</code> header during <code>fetch</code> calls and HTML
+form submissions, how it differs from similar headers like
+<code>Referer</code>, and why servers rely on it to enforce Cross-Origin
+Resource Sharing (CORS) and defend against Cross-Site Request Forgery
+(CSRF) attacks.</p>
+<h3 id="anatomy-of-an-origin">Anatomy of an Origin</h3>
+<p>An origin is defined by three components:</p>
+<ul>
+<li><strong>Scheme:</strong> The protocol (e.g.,
+<code>https://</code>)</li>
+<li><strong>Hostname:</strong> The domain or IP address (e.g.,
+<code>example.com</code>)</li>
+<li><strong>Port:</strong> The communication endpoint (e.g.,
+<code>:443</code>, often omitted if default)</li>
+</ul>
+<p>Unlike a full URL, an origin contains no path, query parameters, or
+fragment identifiers. For example, a request originating from
+<code>https://sub.example.com:8080/dashboard?user=1</code> produces the
+origin value:</p>
+<pre class="http"><code>Origin: https://sub.example.com:8080</code></pre>
+<h3 id="the-function-of-the-origin-header-in-fetch-requests">The
+Function of the Origin Header in <code>fetch</code> Requests</h3>
+<p>When a script uses the <code>fetch()</code> API or
+<code>XMLHttpRequest</code> to request data from another domain, the
+browser implements Cross-Origin Resource Sharing (CORS) mechanics:</p>
+<ol type="1">
+<li><strong>Automatic Inclusion:</strong> For cross-origin requests, the
+browser automatically attaches the <code>Origin</code> header.
+JavaScript cannot modify, override, or delete this header, making it
+trustworthy for the receiving server.</li>
+<li><strong>Preflight Checks:</strong> For non-simple requests (such as
+requests sending <code>application/json</code> or custom headers), the
+browser sends an <code>OPTIONS</code> preflight request with the
+<code>Origin</code> header to ask the server for permission.</li>
+<li><strong>Access Control:</strong> The target server inspects the
+<code>Origin</code> header. If the origin is permitted, the server
+responds with <code>Access-Control-Allow-Origin: &lt;origin&gt;</code>.
+If the origin is rejected or omitted, the browser blocks the JavaScript
+client from accessing the response.</li>
+</ol>
+<p>In same-origin <code>fetch</code> requests, modern browsers omit the
+<code>Origin</code> header for <code>GET</code> and <code>HEAD</code>
+methods, but usually include it for state-modifying requests like
+<code>POST</code>, <code>PUT</code>, and <code>DELETE</code>.</p>
+<h3 id="the-function-of-the-origin-header-in-html-forms">The Function of
+the Origin Header in HTML Forms</h3>
+<p>Standard HTML form submissions
+(<code>&lt;form method="POST"&gt;</code>) traditionally navigate the
+user directly to the action URL rather than processing responses through
+client-side scripts. Historically, forms relied on the
+<code>Referer</code> header to indicate where the user came from.</p>
+<p>Modern browsers send the <code>Origin</code> header on cross-origin
+form submissions (specifically <code>POST</code> methods) to improve
+security:</p>
+<ul>
+<li><strong>CSRF Defense:</strong> If a malicious website attempts to
+submit a hidden form to your banking application, the user's browser
+sends the malicious site's domain in the <code>Origin</code> header
+(e.g., <code>Origin: https://malicious-site.com</code>). The target
+application checks this header and rejects the submission if it does not
+match its trusted origins.</li>
+<li><strong>Form GET vs. POST:</strong> Form submissions using
+<code>method="GET"</code> do not typically send an <code>Origin</code>
+header because <code>GET</code> requests are intended to be idempotent
+and safe, representing resource retrieval rather than state
+changes.</li>
+</ul>
+<h3 id="origin-vs-referer">Origin vs. Referer</h3>
+<p>While both headers communicate where a request started, they serve
+distinct purposes:</p>
+<ul>
+<li><strong>Privacy:</strong> The <code>Referer</code> header contains
+the full URL, including path segments and query strings, which may
+inadvertently expose sensitive information. The <code>Origin</code>
+header strictly contains the scheme, host, and port, preserving user
+privacy.</li>
+<li><strong>Reliability:</strong> Browsers frequently strip or redact
+the <code>Referer</code> header based on the site's
+<code>Referrer-Policy</code> (such as downgrading from HTTPS to HTTP).
+In contrast, browsers enforce the <code>Origin</code> header
+specifically for cross-origin security handshakes.</li>
+<li><strong>Presence:</strong> <code>Referer</code> is typically sent on
+standard link navigations; <code>Origin</code> is targeted toward CORS
+requests, preflights, and state-changing HTTP requests.</li>
+</ul>
+<h3 id="how-servers-should-use-the-origin-header">How Servers Should Use
+the Origin Header</h3>
+<ol type="1">
+<li><strong>Validate against an allowlist:</strong> Compare the
+<code>Origin</code> value against an explicit list of trusted domains.
+Avoid dynamically reflecting the incoming <code>Origin</code> value into
+<code>Access-Control-Allow-Origin</code> unless the resource is intended
+to be completely public.</li>
+<li><strong>Mitigate CSRF:</strong> Verify that the <code>Origin</code>
+matches your application's domain for incoming state-modifying requests
+(<code>POST</code>, <code>PUT</code>, <code>DELETE</code>). If the
+header is present and does not match your domain, reject the request
+with an HTTP 403 Forbidden status.</li>
+<li><strong>Handle <code>null</code> values:</strong> The
+<code>Origin</code> header may be set to <code>null</code> in specific
+contexts, such as requests from <code>file://</code> URLs, sandboxed
+<code>&lt;iframe&gt;</code> elements, or cross-origin redirects. Treat
+<code>null</code> origins as untrusted.</li>
+</ol></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

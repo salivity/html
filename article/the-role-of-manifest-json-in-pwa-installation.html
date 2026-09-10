@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Role of manifest.json in PWA Installation - html</title>
+    <meta name="description" content="This article provides a concise overview of the role the manifest.json file plays in Progressive Web App (PWA) installation. When linked in an HTML document's <head>, this JSON-based configuration file acts as the bridge between a traditional website and">
+    <link rel="canonical" href="https://salivity.github.io/html/article/the-role-of-manifest-json-in-pwa-installation">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="The Role of manifest.json in PWA Installation - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/the-role-of-manifest-json-in-pwa-installation" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides a concise overview of the role the manifest.json file plays in Progressive Web App (PWA) installation. When linked in an HTML document's <head>, this JSON-based configuration file acts as the bridge between a traditional website and" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="the-role-of-manifestjson-in-pwa-installation">The Role of
+manifest.json in PWA Installation</h1>
+<p>This article provides a concise overview of the role the
+<code>manifest.json</code> file plays in Progressive Web App (PWA)
+installation. When linked in an HTML document's
+<code>&lt;head&gt;</code>, this JSON-based configuration file acts as
+the bridge between a traditional website and a native-like application,
+providing the browser with the critical metadata required to enable
+installation prompts, configure home screen icons, and control how the
+app launches and displays on a user's device.</p>
+<h3 id="linking-the-manifest-in-html">Linking the Manifest in HTML</h3>
+<p>To enable PWA functionality, the browser must first discover the
+manifest file. This is achieved by including a single link tag within
+the <code>&lt;head&gt;</code> section of the HTML document:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;manifest&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;/manifest.json&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Without this reference, modern browsers will treat the web
+application strictly as a standard website, entirely disabling PWA
+installation capabilities regardless of how the rest of the application
+is constructed.</p>
+<h3 id="triggering-the-installation-criteria">Triggering the
+Installation Criteria</h3>
+<p>Browsers such as Google Chrome, Microsoft Edge, and Samsung Internet
+evaluate specific criteria before determining whether a site qualifies
+for PWA installation. The <code>manifest.json</code> file fulfills
+several non-negotiable requirements for triggering the browser's native
+"Install" button or ambient install badge:</p>
+<ul>
+<li><strong>Identity Definition:</strong> Fields like <code>name</code>
+and <code>short_name</code> define how the app is labeled on the user's
+home screen, application launcher, and settings menu.</li>
+<li><strong>Visual Assets:</strong> The <code>icons</code> array
+provides responsive icon paths and dimensions that the operating system
+uses for splash screens, desktop shortcuts, and taskbar icons.</li>
+<li><strong>Display Mode:</strong> The <code>display</code> property
+dictates whether the app opens with a standard browser UI
+(<code>browser</code>), a native-like window without an address bar
+(<code>standalone</code>), or full-screen mode
+(<code>fullscreen</code>).</li>
+<li><strong>Start Path:</strong> The <code>start_url</code> property
+ensures the application opens to a specific route rather than whichever
+page the user was viewing when they initiated the install.</li>
+</ul>
+<h3 id="controlling-the-app-experience">Controlling the App
+Experience</h3>
+<p>Beyond merely enabling installation, <code>manifest.json</code>
+configures how the operating system renders the installed web
+application:</p>
+<ul>
+<li><strong>Theme and Background Colors:</strong> Properties such as
+<code>theme_color</code> and <code>background_color</code> set the color
+of the operating system's title bar, status bar, and initial splash
+screen during startup.</li>
+<li><strong>Application Scope:</strong> The <code>scope</code> attribute
+establishes the boundaries of the application. Navigating outside this
+defined URL scope forces the browser to open the target link in a
+standard browser tab rather than within the standalone PWA window.</li>
+<li><strong>App Shortcuts and Capabilities:</strong> Advanced
+configurations permit developers to define quick-action shortcuts
+(similar to long-pressing an app icon on mobile platforms), file
+handling rules, and protocol handlers directly within the manifest.</li>
+</ul>
+<h3 id="conclusion">Conclusion</h3>
+<p>The <code>manifest.json</code> file referenced in the HTML
+<code>&lt;head&gt;</code> is the foundational requirement for PWA
+installation. It supplies the operating system and browser with the
+identity, visual assets, and launch rules necessary to convert a
+standard web page into an installable, standalone desktop or mobile
+application.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

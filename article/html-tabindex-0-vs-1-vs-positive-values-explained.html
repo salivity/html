@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Tabindex 0 vs -1 vs Positive Values Explained - html</title>
+    <meta name="description" content="The HTML tabindex attribute controls whether an element can receive keyboard focus and dictates its order in sequential keyboard navigation. The primary difference between its values lies in how the browser handles user interaction: tabindex="0" inserts">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-tabindex-0-vs-1-vs-positive-values-explained">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Tabindex 0 vs -1 vs Positive Values Explained - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-tabindex-0-vs-1-vs-positive-values-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML tabindex attribute controls whether an element can receive keyboard focus and dictates its order in sequential keyboard navigation. The primary difference between its values lies in how the browser handles user interaction: tabindex="0" inserts" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-tabindex-0-vs--1-vs-positive-values-explained">HTML
+Tabindex 0 vs -1 vs Positive Values Explained</h1>
+<p>The HTML <code>tabindex</code> attribute controls whether an element
+can receive keyboard focus and dictates its order in sequential keyboard
+navigation. The primary difference between its values lies in how the
+browser handles user interaction: <code>tabindex="0"</code> inserts an
+element into the natural, source-code tab order;
+<code>tabindex="-1"</code> makes an element focusable programmatically
+via script while excluding it from the keyboard tab sequence; and
+positive <code>tabindex</code> values force a rigid, custom focus order
+that overrides the default flow of the document.</p>
+<h3 id="tabindex0-natural-sequential-focus"><code>tabindex="0"</code>:
+Natural Sequential Focus</h3>
+<p>Setting <code>tabindex="0"</code> makes a non-focusable element
+focusable and places it into the natural tab order of the page based on
+its position in the HTML document.</p>
+<p>Native interactive elements—such as <code>&lt;button&gt;</code>,
+<code>&lt;a&gt;</code>, <code>&lt;input&gt;</code>, and
+<code>&lt;select&gt;</code>—have built-in keyboard focusability by
+default. However, generic structural elements like
+<code>&lt;div&gt;</code> or <code>&lt;span&gt;</code> do not. Applying
+<code>tabindex="0"</code> enables keyboard users to navigate to these
+custom elements using the <code>Tab</code> key in the exact order they
+appear in the DOM.</p>
+<p><strong>Common use cases:</strong></p>
+<ul>
+<li>Custom interactive widgets, such as a custom dropdown or a
+<code>&lt;div&gt;</code> styled as a button.</li>
+<li>Scrollable containers that users need to focus on to scroll using
+arrow keys.</li>
+</ul>
+<h3 id="tabindex-1-programmatic-focus-only"><code>tabindex="-1"</code>:
+Programmatic Focus Only</h3>
+<p>Setting <code>tabindex="-1"</code> removes an element from the
+sequential keyboard navigation flow while still allowing it to receive
+focus via JavaScript using the <code>.focus()</code> method, or through
+mouse clicks. A user pressing the <code>Tab</code> key will skip past
+this element entirely.</p>
+<p>This attribute value is essential for managing focus dynamically in
+single-page applications and complex user interfaces.</p>
+<p><strong>Common use cases:</strong></p>
+<ul>
+<li>Modal dialogs that need immediate focus directed to their header or
+container upon opening.</li>
+<li>Error message summaries at the top of a form that need programmatic
+focus after a failed submission.</li>
+<li>Hidden or off-canvas navigation menus.</li>
+<li>Elements that were previously interactive but are temporarily
+disabled from keyboard navigation.</li>
+</ul>
+<h3 id="positive-tabindex-values-tabindex1-tabindex2-etc">Positive
+<code>tabindex</code> Values (<code>tabindex="1"</code>,
+<code>tabindex="2"</code>, etc.)</h3>
+<p>Any integer greater than zero creates a custom, prioritized tab
+sequence. When a user presses <code>Tab</code>, the browser navigates
+through all elements with positive <code>tabindex</code> values in
+ascending numerical order (<code>1</code>, then <code>2</code>, then
+<code>3</code>), before navigating to elements with
+<code>tabindex="0"</code> or default interactive elements.</p>
+<p>Using positive <code>tabindex</code> values is widely considered an
+accessibility anti-pattern. Because positive values override the visual
+and structural layout of the DOM, they often cause the focus indicator
+to jump erratically across the screen. This creates a disorienting
+experience for keyboard and screen-reader users. Furthermore, positive
+values are difficult to maintain, as adding new focusable components
+requires re-indexing existing attributes across the codebase.</p>
+<h3 id="summary-rule-of-thumb">Summary Rule of Thumb</h3>
+<ul>
+<li>Use <strong><code>tabindex="0"</code></strong> to make
+non-interactive elements reachable via the <code>Tab</code> key
+according to the document source order.</li>
+<li>Use <strong><code>tabindex="-1"</code></strong> for elements that
+should only receive focus dynamically through JavaScript.</li>
+<li>Avoid <strong>positive values</strong> entirely; instead, structure
+your HTML so that the DOM sequence matches the intended logical
+navigation flow.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

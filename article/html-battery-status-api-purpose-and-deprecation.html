@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Battery Status API: Purpose and Deprecation - html</title>
+    <meta name="description" content="The HTML Battery Status API was introduced to allow web applications to monitor a device's battery level and charging status, enabling sites to optimize performance and conserve energy. However, despite its practical utility for power management, the API">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-battery-status-api-purpose-and-deprecation">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Battery Status API: Purpose and Deprecation - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-battery-status-api-purpose-and-deprecation" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML Battery Status API was introduced to allow web applications to monitor a device's battery level and charging status, enabling sites to optimize performance and conserve energy. However, despite its practical utility for power management, the API" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-battery-status-api-purpose-and-deprecation">HTML Battery
+Status API: Purpose and Deprecation</h1>
+<p>The HTML Battery Status API was introduced to allow web applications
+to monitor a device's battery level and charging status, enabling sites
+to optimize performance and conserve energy. However, despite its
+practical utility for power management, the API was systematically
+deprecated across major web browsers after security researchers
+demonstrated that its high-precision metrics could be exploited to track
+and fingerprint users across the web without their consent.</p>
+<h2 id="original-purpose-and-design">Original Purpose and Design</h2>
+<p>Standardized by the World Wide Web Consortium (W3C) around 2012, the
+Battery Status API provided developers with programmatic access to a
+system's power state via the <code>navigator.getBattery()</code>
+interface. The API exposed four core read-only properties:</p>
+<ul>
+<li><strong><code>charging</code></strong>: A boolean indicating whether
+the device was plugged into a power source.</li>
+<li><strong><code>chargingTime</code></strong>: The estimated seconds
+remaining until the battery was fully charged.</li>
+<li><strong><code>dischargingTime</code></strong>: The estimated seconds
+remaining until the battery was completely drained.</li>
+<li><strong><code>level</code></strong>: A floating-point number
+representing the current battery capacity, ranging from <code>0.0</code>
+(fully depleted) to <code>1.0</code> (fully charged).</li>
+</ul>
+<p>The design intended to facilitate power-aware web applications. For
+example, if a user's battery dropped below 15%, a web app could
+automatically throttle high-resolution animations, suspend background
+synchronization tasks, reduce network requests, or auto-save work to
+prevent data loss before the system shut down.</p>
+<h2 id="privacy-risks-and-the-fingerprinting-vector">Privacy Risks and
+the Fingerprinting Vector</h2>
+<p>The primary downfall of the Battery Status API stemmed from
+unexpected privacy implications. In 2015, security researchers published
+findings showing that the API's high precision created a subtle yet
+powerful tracking mechanism.</p>
+<p>When combined, the exact values of <code>level</code>,
+<code>chargingTime</code>, and <code>dischargingTime</code> created a
+unique, temporary identifier for a device. Because battery capacity
+drains gradually and continuously, these readings produced a steady
+identifier that lasted for several minutes or hours.</p>
+<p>Third-party tracking scripts could query this data to correlate user
+activity across multiple contexts:</p>
+<ul>
+<li><strong>Cross-Context Tracking</strong>: Trackers could link a user
+visiting a site in a standard browsing window with their identity in a
+private or "Incognito" session, effectively bypassing private browsing
+protections.</li>
+<li><strong>Cross-Browser Tracking</strong>: The API exposed identical
+physical hardware metrics regardless of whether a user opened Chrome,
+Firefox, or another browser on the same device.</li>
+<li><strong>Persistent Identifiers</strong>: Even if a user cleared
+their cookies, cache, and local storage, the battery readings remained
+constant, allowing trackers to re-identify and recreate the user's
+tracking profile.</li>
+</ul>
+<p>Additionally, concerns arose regarding behavioral profiling. For
+instance, reports surfaced that ride-sharing and service platforms could
+potentially use low-battery status to alter dynamic pricing, assuming
+users with nearly dead batteries would be more desperate to complete a
+transaction quickly.</p>
+<h2 id="deprecation-and-the-modern-web-standard">Deprecation and the
+Modern Web Standard</h2>
+<p>Because the Battery Status API required no user permissions, any
+embedded third-party script or advertisement could silently poll battery
+metrics.</p>
+<p>In response to research demonstrating active in-the-wild exploitation
+by tracking companies, browser vendors began removing support:</p>
+<ul>
+<li><strong>Firefox</strong> removed the API entirely in version 52
+(March 2017).</li>
+<li><strong>WebKit (Apple Safari)</strong> chose never to implement it,
+citing the unacceptable trade-off between power optimization and user
+privacy.</li>
+<li><strong>Chromium-based browsers</strong> initially reduced the
+floating-point precision of the readings to mitigate fingerprinting
+before ultimately deprecating the API for general web access.</li>
+</ul>
+<p>The lifecycle of the Battery Status API stands as a key turning point
+in modern web standards. It demonstrated that exposing seemingly
+innocuous hardware data can lead to deanonymization, permanently
+shifting the priorities of browser vendors toward strict data
+minimization and user privacy over micro-optimizations.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

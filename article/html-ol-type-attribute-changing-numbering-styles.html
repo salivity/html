@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML OL Type Attribute: Changing Numbering Styles - html</title>
+    <meta name="description" content="The type attribute on an HTML ordered list (<ol>) element is used to set the numbering style of list items directly in HTML markup. This article explains the primary function of the type attribute, outlines the five supported values—including standard">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-ol-type-attribute-changing-numbering-styles">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML OL Type Attribute: Changing Numbering Styles - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-ol-type-attribute-changing-numbering-styles" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The type attribute on an HTML ordered list (<ol>) element is used to set the numbering style of list items directly in HTML markup. This article explains the primary function of the type attribute, outlines the five supported values—including standard" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-ol-type-attribute-changing-numbering-styles">HTML OL Type
+Attribute: Changing Numbering Styles</h1>
+<p>The <code>type</code> attribute on an HTML ordered list
+(<code>&lt;ol&gt;</code>) element is used to set the numbering style of
+list items directly in HTML markup. This article explains the primary
+function of the <code>type</code> attribute, outlines the five supported
+values—including standard numbers, letters, and Roman numerals—and
+clarifies when to use this attribute versus modern CSS styling.</p>
+<h3 id="purpose-of-the-type-attribute">Purpose of the <code>type</code>
+Attribute</h3>
+<p>By default, an HTML ordered list renders using standard decimal
+numbers (1, 2, 3, etc.). The <code>type</code> attribute allows
+developers and content authors to explicitly define the numbering scheme
+used for the sequence. While visual formatting is typically handled by
+CSS, the <code>type</code> attribute remains part of the living HTML
+standard because the marker style often carries structural or semantic
+meaning—such as in legal outlines, technical specifications, or
+multiple-choice questions.</p>
+<h3 id="supported-type-values">Supported <code>type</code> Values</h3>
+<p>The <code>&lt;ol&gt;</code> element accepts five specific
+case-sensitive character values:</p>
+<ul>
+<li><strong><code>type="1"</code> (Decimal Numbers):</strong> The
+default format. Items are numbered as 1, 2, 3, 4, etc.</li>
+<li><strong><code>type="a"</code> (Lowercase Letters):</strong> Items
+are labeled with lowercase letters: a, b, c, d, etc.</li>
+<li><strong><code>type="A"</code> (Uppercase Letters):</strong> Items
+are labeled with uppercase letters: A, B, C, D, etc.</li>
+<li><strong><code>type="i"</code> (Lowercase Roman Numerals):</strong>
+Items are labeled using lowercase Roman numerals: i, ii, iii, iv,
+etc.</li>
+<li><strong><code>type="I"</code> (Uppercase Roman Numerals):</strong>
+Items are labeled using uppercase Roman numerals: I, II, III, IV,
+etc.</li>
+</ul>
+<h3 id="syntax-example">Syntax Example</h3>
+<p>To change the list style, apply the attribute to the opening
+<code>&lt;ol&gt;</code> tag:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">ol</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;A&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>First item labeled with capital letters<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Second item labeled with capital letters<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">li</span><span class="dt">&gt;</span>Third item labeled with capital letters<span class="dt">&lt;/</span><span class="kw">li</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">ol</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In this example, the browser automatically renders the items prefixed
+with "A.", "B.", and "C." respectively.</p>
+<h3 id="html-type-vs-css-list-style-type">HTML <code>type</code> vs. CSS
+<code>list-style-type</code></h3>
+<p>While the CSS property <code>list-style-type</code> offers broader
+styling options and is preferred for purely aesthetic alterations, the
+HTML <code>type</code> attribute is appropriate when the list type is
+intrinsic to the document's content. If changing the numbering scheme
+would alter the meaning or references within the text (for example,
+referring to "Option A" or "Section ii"), using the HTML
+<code>type</code> attribute ensures the content maintains its intended
+structure even if CSS fails to load or the page is parsed by basic text
+readers.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How CSP in Meta Tags Restricts Resource Execution - html</title>
+    <meta name="description" content="A Content Security Policy (CSP) delivered via an HTML <meta> tag restricts resource execution by instructing the browser's rendering engine to enforce a strict whitelist of allowed sources directly from the document head. Once parsed, the policy dictates">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-csp-in-meta-tags-restricts-resource-execution">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How CSP in Meta Tags Restricts Resource Execution - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-csp-in-meta-tags-restricts-resource-execution" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="A Content Security Policy (CSP) delivered via an HTML <meta> tag restricts resource execution by instructing the browser's rendering engine to enforce a strict whitelist of allowed sources directly from the document head. Once parsed, the policy dictates" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-csp-in-meta-tags-restricts-resource-execution">How CSP in
+Meta Tags Restricts Resource Execution</h1>
+<p>A Content Security Policy (CSP) delivered via an HTML
+<code>&lt;meta&gt;</code> tag restricts resource execution by
+instructing the browser's rendering engine to enforce a strict whitelist
+of allowed sources directly from the document head. Once parsed, the
+policy dictates which domains, protocols, and script execution methods
+are permitted, neutralizing threats like Cross-Site Scripting (XSS) by
+automatically blocking unauthorized inline code, third-party scripts,
+stylesheets, and media from loading or running.</p>
+<h2 id="mechanism-of-the-meta-tag-csp">Mechanism of the Meta Tag
+CSP</h2>
+<p>When a server cannot deliver custom HTTP response headers, developers
+can declare a CSP within the HTML document's <code>&lt;head&gt;</code>
+section using the following syntax:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">meta</span><span class="ot"> http-equiv</span><span class="op">=</span><span class="st">&quot;Content-Security-Policy&quot;</span><span class="ot"> content</span><span class="op">=</span><span class="st">&quot;default-src &#39;self&#39;; script-src &#39;self&#39; https://trustedscripts.com;&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>As the browser parses the HTML DOM from top to bottom, it encounters
+the <code>&lt;meta http-equiv="Content-Security-Policy"&gt;</code>
+element. The browser's security context immediately activates the policy
+defined in the <code>content</code> attribute, applying the rules to all
+subsequent elements and resource requests encountered in the
+document.</p>
+<h2 id="how-resource-execution-is-restricted">How Resource Execution is
+Restricted</h2>
+<p>A meta-delivered CSP restricts resource execution through several
+core mechanisms:</p>
+<h3 id="1-source-whitelisting">1. Source Whitelisting</h3>
+<p>The policy defines explicit directives that match resource types
+against permissible origins:</p>
+<ul>
+<li><strong><code>script-src</code>:</strong> Controls the sources from
+which JavaScript can be loaded and executed.</li>
+<li><strong><code>style-src</code>:</strong> Limits where CSS styles can
+originate.</li>
+<li><strong><code>default-src</code>:</strong> Serves as a fallback for
+resource types not explicitly defined (such as images, fonts, and
+media).</li>
+</ul>
+<p>Whenever the browser encounters an external resource—such as
+<code>&lt;script src="https://malicious.com/app.js"&gt;</code>—it
+compares the target URL against the policy. If the domain is not
+explicitly defined in the matching directive, the browser aborts the
+network request and logs a violation in the developer console.</p>
+<h3 id="2-disabling-inline-code-execution">2. Disabling Inline Code
+Execution</h3>
+<p>By default, a CSP blocks all inline JavaScript, including:</p>
+<ul>
+<li>Direct code in <code>&lt;script&gt;</code> tags without specific
+cryptographic hashes.</li>
+<li>Inline event handlers (e.g.,
+<code>onclick="doSomething()"</code>).</li>
+<li><code>javascript:</code> pseudo-protocol URLs.</li>
+</ul>
+<p>This default behavior ensures that an attacker who successfully
+injects HTML markup cannot execute arbitrary JavaScript within the
+context of the user's session.</p>
+<h3 id="3-restricting-dynamic-code-evaluation">3. Restricting Dynamic
+Code Evaluation</h3>
+<p>A standard meta tag CSP disables functions that evaluate strings as
+code, such as <code>eval()</code>, <code>Function()</code>,
+<code>setTimeout("codeString")</code>, and
+<code>setInterval("codeString")</code>. To re-enable these features, an
+administrator must explicitly declare <code>'unsafe-eval'</code>, though
+doing so significantly lowers the security posture.</p>
+<h2 id="placement-and-parsing-timing">Placement and Parsing Timing</h2>
+<p>Because the <code>&lt;meta&gt;</code> tag is parsed sequentially:</p>
+<ul>
+<li>The policy only applies to elements that appear
+<strong>after</strong> the meta tag in the HTML structure.</li>
+<li>If the meta tag is placed at the bottom of the
+<code>&lt;head&gt;</code> or within the <code>&lt;body&gt;</code>, any
+resources defined above it will execute without restriction.</li>
+<li>To maximize security, the CSP meta tag must be the very first
+element inside the <code>&lt;head&gt;</code> tag.</li>
+</ul>
+<h2 id="limitations-of-meta-tag-csp">Limitations of Meta Tag CSP</h2>
+<p>While a meta tag CSP restricts execution effectively for content
+loaded after it, it lacks certain capabilities available to HTTP
+header-based CSPs:</p>
+<ul>
+<li><strong>No Framing Restrictions:</strong> The
+<code>frame-ancestors</code> directive is ignored in meta tags, meaning
+clickjacking protection cannot be implemented this way.</li>
+<li><strong>No Violation Reporting:</strong> Directives like
+<code>report-to</code> and <code>report-uri</code> are not supported
+inside meta tags in modern browsers, meaning security teams cannot
+collect automated alerts when violations occur.</li>
+<li><strong>No <code>sandbox</code> Support:</strong> The
+<code>sandbox</code> directive cannot be enforced via meta tags.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

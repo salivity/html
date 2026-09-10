@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Slot Elements in Shadow DOM Composition - html</title>
+    <meta name="description" content="The HTML <slot> element is a foundational tool in modern Web Components that enables content projection and component composition within the Shadow DOM. By acting as a dynamic placeholder inside an encapsulated shadow tree, the <slot> element allows deve">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-slot-elements-in-shadow-dom-composition">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Slot Elements in Shadow DOM Composition - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-slot-elements-in-shadow-dom-composition" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <slot> element is a foundational tool in modern Web Components that enables content projection and component composition within the Shadow DOM. By acting as a dynamic placeholder inside an encapsulated shadow tree, the <slot> element allows deve" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-slot-elements-in-shadow-dom-composition">HTML Slot Elements
+in Shadow DOM Composition</h1>
+<p>The HTML <code>&lt;slot&gt;</code> element is a foundational tool in
+modern Web Components that enables content projection and component
+composition within the Shadow DOM. By acting as a dynamic placeholder
+inside an encapsulated shadow tree, the <code>&lt;slot&gt;</code>
+element allows developers to insert external markup—known as the Light
+DOM—directly into predefined locations within a component's internal
+layout. This article explains the mechanics of the
+<code>&lt;slot&gt;</code> element, how named and default slots route
+markup, and how this mechanism maintains encapsulation while preserving
+flexibility.</p>
+<h3 id="the-role-of-slots-in-shadow-dom">The Role of Slots in Shadow
+DOM</h3>
+<p>The Shadow DOM provides encapsulation, isolating a Web Component’s
+internal markup and CSS from the global document. However, components
+rarely operate in complete isolation; they often require
+consumer-provided markup, such as custom labels, icons, or complex
+layouts.</p>
+<p>The <code>&lt;slot&gt;</code> element bridges the boundary between
+the external Light DOM and internal Shadow DOM. Instead of moving nodes
+physically into the shadow tree, the browser creates a flattened
+rendering tree where external nodes appear inside the component's visual
+representation at the specified slot locations. This process is called
+content projection or transclusion.</p>
+<h3 id="default-slots">Default Slots</h3>
+<p>A default, or unnamed, slot captures all Light DOM children that do
+not explicitly declare a target slot.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Component Shadow DOM Template --&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;card&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">slot</span><span class="dt">&gt;&lt;/</span><span class="kw">slot</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Component Usage in Light DOM --&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">custom-card</span><span class="dt">&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>This paragraph is projected into the default slot.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">custom-card</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Any child node placed between <code>&lt;custom-card&gt;</code> and
+<code>&lt;/custom-card&gt;</code> is mapped to the unnamed
+<code>&lt;slot&gt;</code> tag, allowing basic wrapping and layout
+management without writing custom DOM manipulation scripts.</p>
+<h3 id="named-slots-for-multi-zone-composition">Named Slots for
+Multi-Zone Composition</h3>
+<p>For more complex Web Components, such as dialogs or application
+shells, layouts require content distributed across distinct areas. Named
+slots handle this pattern by using the <code>name</code> attribute.</p>
+<p>Inside the Shadow DOM:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;modal&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">header</span><span class="dt">&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">slot</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;header&quot;</span><span class="dt">&gt;&lt;/</span><span class="kw">slot</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">header</span><span class="dt">&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">main</span><span class="dt">&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">slot</span><span class="dt">&gt;&lt;/</span><span class="kw">slot</span><span class="dt">&gt;</span> <span class="co">&lt;!-- Default slot for main content --&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">main</span><span class="dt">&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">footer</span><span class="dt">&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&lt;</span><span class="kw">slot</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;footer&quot;</span><span class="dt">&gt;&lt;/</span><span class="kw">slot</span><span class="dt">&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;/</span><span class="kw">footer</span><span class="dt">&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>In the consumer's Light DOM, elements assign themselves to these
+targets using the <code>slot</code> attribute:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">custom-modal</span><span class="dt">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">h2</span><span class="ot"> slot</span><span class="op">=</span><span class="st">&quot;header&quot;</span><span class="dt">&gt;</span>Terms and Conditions<span class="dt">&lt;/</span><span class="kw">h2</span><span class="dt">&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Scroll down to read the agreement.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> slot</span><span class="op">=</span><span class="st">&quot;footer&quot;</span><span class="dt">&gt;</span>Agree<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">custom-modal</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>The browser maps the matching <code>slot</code> attributes to their
+corresponding <code>&lt;slot name="..."&gt;</code> elements, preserving
+structural order inside the component regardless of the order in which
+the markup is written in the Light DOM.</p>
+<h3 id="fallback-content">Fallback Content</h3>
+<p>Slots can define fallback (default) content that renders only when
+the consumer does not provide matching Light DOM nodes.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">slot</span><span class="ot"> name</span><span class="op">=</span><span class="st">&quot;action-button&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">button</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;button&quot;</span><span class="dt">&gt;</span>Default Submit<span class="dt">&lt;/</span><span class="kw">button</span><span class="dt">&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">slot</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>If the parent document supplies an element with
+<code>slot="action-button"</code>, the internal
+<code>&lt;button&gt;</code> is ignored. If no matching node is supplied,
+the browser renders the internal <code>&lt;button&gt;</code>.</p>
+<h3 id="styling-and-dom-boundaries">Styling and DOM Boundaries</h3>
+<p>Slotted content retains its identity within the Light DOM:</p>
+<ul>
+<li><strong>Event Dispatching:</strong> Events originating from slotted
+elements retain their original target context before bubbling up.</li>
+<li><strong>Global Styles:</strong> Elements assigned to slots continue
+to inherit global CSS rules from the main document.</li>
+<li><strong>Component Styling via <code>::slotted()</code>:</strong> A
+Shadow DOM stylesheet can style the top-level assigned elements using
+the <code>::slotted(selector)</code> pseudo-element, giving component
+authors limited, predictable influence over external content without
+violating encapsulation.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

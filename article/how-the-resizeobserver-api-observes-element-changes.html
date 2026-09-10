@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How the ResizeObserver API Observes Element Changes - html</title>
+    <meta name="description" content="The ResizeObserver API provides a native, highly performant mechanism for tracking dimensional changes to specific HTML elements in real time. Unlike traditional approaches that rely on window-level resize events or periodic polling, the ResizeObserver h">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-the-resizeobserver-api-observes-element-changes">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How the ResizeObserver API Observes Element Changes - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-the-resizeobserver-api-observes-element-changes" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The ResizeObserver API provides a native, highly performant mechanism for tracking dimensional changes to specific HTML elements in real time. Unlike traditional approaches that rely on window-level resize events or periodic polling, the ResizeObserver h" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-the-resizeobserver-api-observes-element-changes">How the
+ResizeObserver API Observes Element Changes</h1>
+<p>The ResizeObserver API provides a native, highly performant mechanism
+for tracking dimensional changes to specific HTML elements in real time.
+Unlike traditional approaches that rely on window-level resize events or
+periodic polling, the ResizeObserver hooks directly into the browser’s
+layout engine to detect modifications to an element's box model,
+delivering precise size notifications directly before the browser paints
+pixels to the screen.</p>
+<h3 id="core-mechanics-of-the-resizeobserver">Core Mechanics of the
+ResizeObserver</h3>
+<p>The ResizeObserver works by registering target Document Object Model
+(DOM) elements with an observer instance. When the browser recalculates
+styles and executes its layout phase, it checks whether any observed
+element's observed box dimensions have shifted since the last layout
+cycle.</p>
+<p>A standard implementation follows three basic steps:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 1. Define the observer with a callback function</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> observer <span class="op">=</span> <span class="kw">new</span> <span class="fu">ResizeObserver</span>((entries) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> entry <span class="kw">of</span> entries) {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;Target:&#39;</span><span class="op">,</span> entry<span class="op">.</span><span class="at">target</span>)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;New width:&#39;</span><span class="op">,</span> entry<span class="op">.</span><span class="at">contentRect</span><span class="op">.</span><span class="at">width</span>)<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;New height:&#39;</span><span class="op">,</span> entry<span class="op">.</span><span class="at">contentRect</span><span class="op">.</span><span class="at">height</span>)<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">// 2. Target a specific element</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> targetElement <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&#39;#resizable-box&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. Begin observation</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>observer<span class="op">.</span><span class="fu">observe</span>(targetElement)<span class="op">;</span></span></code></pre></div>
+<h3 id="box-models-and-observation-options">Box Models and Observation
+Options</h3>
+<p>By default, the ResizeObserver monitors changes to an element's
+<code>content-box</code>—the area inside padding, borders, and margins.
+However, modern implementations allow developers to specify which box
+model to track using the <code>box</code> option inside the
+<code>observe()</code> method:</p>
+<ul>
+<li><strong><code>content-box</code></strong>: Tracks the size of the
+content area only, excluding padding and borders.</li>
+<li><strong><code>border-box</code></strong>: Tracks the dimensions
+including the content, padding, and borders.</li>
+<li><strong><code>device-pixel-content-box</code></strong>: Measures the
+content box in physical device pixels rather than CSS pixels, which is
+essential for crisp rendering on <code>&lt;canvas&gt;</code> elements
+across varied pixel-density displays (such as Retina screens).</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>observer<span class="op">.</span><span class="fu">observe</span>(targetElement<span class="op">,</span> { <span class="dt">box</span><span class="op">:</span> <span class="st">&#39;border-box&#39;</span> })<span class="op">;</span></span></code></pre></div>
+<h3 id="the-resizeobserverentry-object">The
+<code>ResizeObserverEntry</code> Object</h3>
+<p>When a change is detected, the callback receives an array of
+<code>ResizeObserverEntry</code> objects. Each entry contains details
+regarding the target element's new geometry:</p>
+<ul>
+<li><strong><code>target</code></strong>: The DOM element currently
+being resized.</li>
+<li><strong><code>contentRect</code></strong>: A legacy
+<code>DOMRectReadOnly</code> snapshot of the element's content box.</li>
+<li><strong><code>borderBoxSize</code></strong>: An array of objects
+reporting <code>inlineSize</code> (width) and <code>blockSize</code>
+(height) based on the border box.</li>
+<li><strong><code>contentBoxSize</code></strong>: An array containing
+<code>inlineSize</code> and <code>blockSize</code> measurements for the
+content box.</li>
+<li><strong><code>devicePixelContentBoxSize</code></strong>: An array
+reporting the dimensions in actual physical pixels.</li>
+</ul>
+<p>Arrays are used for size properties to support CSS multi-column
+layouts and fragmented elements that span across multiple break
+areas.</p>
+<h3 id="event-timing-and-loop-prevention">Event Timing and Loop
+Prevention</h3>
+<p>A critical technical feature of the ResizeObserver API is how it
+handles delivery timing to prevent infinite layout loops.</p>
+<p>Traditional layout listeners often cause "layout thrashing" by
+querying geometry, modifying styles, and triggering re-layouts
+sequentially within the same frame. ResizeObserver avoids this by
+processing observations directly after the layout phase and immediately
+before the browser renders (paints) the frame.</p>
+<p>To prevent infinite loops—such as a resize handler resizing its own
+observed element—the browser employs a depth-checking algorithm:</p>
+<ol type="1">
+<li>The observer detects elements that changed size during layout.</li>
+<li>The browser only processes elements whose depth in the DOM tree is
+greater than the shallowest element modified in the current notification
+loop.</li>
+<li>If resizing an element causes a shallower element (closer to the
+root) to resize, the callback for that shallower element is deferred to
+the next animation frame.</li>
+<li>If cyclic dependencies occur repeatedly, the browser fires an
+<code>error</code> event:
+<code>"ResizeObserver loop limit exceeded"</code>.</li>
+</ol>
+<h3 id="stopping-observations">Stopping Observations</h3>
+<p>To prevent memory leaks and unnecessary processing, elements should
+be released when no longer in use:</p>
+<ul>
+<li><strong><code>observer.unobserve(targetElement)</code></strong>:
+Stops tracking a specific DOM node while keeping the observer active for
+other elements.</li>
+<li><strong><code>observer.disconnect()</code></strong>: Immediately
+ceases tracking across all registered elements associated with that
+observer instance.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

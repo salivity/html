@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Figure and Figcaption Elements Explained - html</title>
+    <meta name="description" content="The <figure> and <figcaption> elements in HTML work together as a semantic unit to encapsulate self-contained media—such as images, diagrams, illustrations, or code snippets—alongside an associated descriptive label. While <figure> acts as the parent">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-figure-and-figcaption-elements-explained">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Figure and Figcaption Elements Explained - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-figure-and-figcaption-elements-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The <figure> and <figcaption> elements in HTML work together as a semantic unit to encapsulate self-contained media—such as images, diagrams, illustrations, or code snippets—alongside an associated descriptive label. While <figure> acts as the parent" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-figure-and-figcaption-elements-explained">HTML Figure and
+Figcaption Elements Explained</h1>
+<p>The <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code>
+elements in HTML work together as a semantic unit to encapsulate
+self-contained media—such as images, diagrams, illustrations, or code
+snippets—alongside an associated descriptive label. While
+<code>&lt;figure&gt;</code> acts as the parent container that isolates
+the content from the primary flow of text,
+<code>&lt;figcaption&gt;</code> serves as an optional direct child that
+provides an accessible caption. Understanding the relationship between
+these two tags is essential for writing clean, accessible, and
+standards-compliant HTML.</p>
+<h3 id="the-parent-child-relationship">The Parent-Child
+Relationship</h3>
+<p>The relationship between <code>&lt;figure&gt;</code> and
+<code>&lt;figcaption&gt;</code> is strictly hierarchical. The
+<code>&lt;figure&gt;</code> element functions as the context wrapper,
+while <code>&lt;figcaption&gt;</code> provides the caption or legend for
+the contents inside that wrapper.</p>
+<p>A <code>&lt;figcaption&gt;</code> cannot exist on its own in standard
+HTML; it is only valid when placed as a direct child of a
+<code>&lt;figure&gt;</code> element. Furthermore, a single
+<code>&lt;figure&gt;</code> can contain at most one
+<code>&lt;figcaption&gt;</code>, although it may contain multiple other
+content elements, such as multiple related images grouped under a single
+shared caption.</p>
+<h3 id="placement-rules">Placement Rules</h3>
+<p>HTML specifications dictate specific placement rules for the
+caption:</p>
+<ul>
+<li>The <code>&lt;figcaption&gt;</code> must be placed either as the
+<strong>first child</strong> (rendering the caption above the media) or
+as the <strong>last child</strong> (rendering the caption below the
+media) within the <code>&lt;figure&gt;</code> container.</li>
+<li>Placing the <code>&lt;figcaption&gt;</code> in between other content
+elements inside the <code>&lt;figure&gt;</code> is invalid HTML.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Caption below the content --&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">figure</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">img</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;chart.png&quot;</span><span class="ot"> alt</span><span class="op">=</span><span class="st">&quot;Sales growth chart for Q3&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">figcaption</span><span class="dt">&gt;</span>Figure 1: Quarterly sales growth reaching a peak in September.<span class="dt">&lt;/</span><span class="kw">figcaption</span><span class="dt">&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">figure</span><span class="dt">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Caption above the content --&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">figure</span><span class="dt">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">figcaption</span><span class="dt">&gt;</span>Listing 1.1: A basic JavaScript function<span class="dt">&lt;/</span><span class="kw">figcaption</span><span class="dt">&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">pre</span><span class="dt">&gt;&lt;</span><span class="kw">code</span><span class="dt">&gt;</span>function greet() { console.log(&quot;Hello, world!&quot;); }<span class="dt">&lt;/</span><span class="kw">code</span><span class="dt">&gt;&lt;/</span><span class="kw">pre</span><span class="dt">&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">figure</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="self-contained-semantics">Self-Contained Semantics</h3>
+<p>Content enclosed within a <code>&lt;figure&gt;</code> is considered
+"self-contained." This means that while the content is referenced by the
+main document, it could logically be moved to another part of the page,
+placed in an appendix, or removed entirely without disrupting the
+primary narrative flow.</p>
+<p>This semantic distinction separates <code>&lt;figure&gt;</code> from
+a standard <code>&lt;div&gt;</code>. A <code>&lt;div&gt;</code> carries
+no semantic meaning, whereas <code>&lt;figure&gt;</code> explicitly
+signals to user agents and search engines that the encapsulated material
+is an independent unit of content.</p>
+<h3 id="accessibility-benefits">Accessibility Benefits</h3>
+<p>The primary advantage of the <code>&lt;figure&gt;</code> and
+<code>&lt;figcaption&gt;</code> relationship lies in web accessibility.
+Assistive technologies, such as screen readers, recognize the connection
+automatically:</p>
+<ul>
+<li>The <code>&lt;figcaption&gt;</code> serves as an accessible label or
+description for the entire <code>&lt;figure&gt;</code> group.</li>
+<li>Browsers expose this pairing through the accessibility tree without
+requiring additional ARIA attributes (such as
+<code>aria-labelledby</code>).</li>
+<li>It distinguishes descriptive, contextual captions from basic image
+<code>alt</code> text. The <code>alt</code> attribute describes the
+visual appearance of an image for non-sighted users, while the
+<code>&lt;figcaption&gt;</code> adds broader editorial context or
+attribution intended for all readers.</li>
+</ul>
+<h3 id="beyond-images">Beyond Images</h3>
+<p>Although most commonly used with the <code>&lt;img&gt;</code> tag,
+the <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code>
+elements are not limited to visual graphics. They can represent any
+independent reference material, including:</p>
+<ul>
+<li>Code snippets (<code>&lt;pre&gt;&lt;code&gt;</code>)</li>
+<li>Data tables (<code>&lt;table&gt;</code>)</li>
+<li>Audio or video players (<code>&lt;audio&gt;</code>,
+<code>&lt;video&gt;</code>)</li>
+<li>Quotations or poems (<code>&lt;blockquote&gt;</code>)</li>
+</ul>
+<p>By combining <code>&lt;figure&gt;</code> and
+<code>&lt;figcaption&gt;</code>, developers establish an unambiguous
+relationship between complex content and its explanatory context.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

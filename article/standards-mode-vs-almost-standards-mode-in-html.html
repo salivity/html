@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standards Mode vs Almost Standards Mode in HTML - html</title>
+    <meta name="description" content="This article explains the difference between Standards Mode and Almost Standards Mode in web browser rendering engines. It covers the historical context of doctype switching, how each mode affects the layout of web pages—particularly regarding images i">
+    <link rel="canonical" href="https://salivity.github.io/html/article/standards-mode-vs-almost-standards-mode-in-html">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Standards Mode vs Almost Standards Mode in HTML - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/standards-mode-vs-almost-standards-mode-in-html" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains the difference between Standards Mode and Almost Standards Mode in web browser rendering engines. It covers the historical context of doctype switching, how each mode affects the layout of web pages—particularly regarding images i" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="standards-mode-vs-almost-standards-mode-in-html">Standards Mode
+vs Almost Standards Mode in HTML</h1>
+<p>This article explains the difference between Standards Mode and
+Almost Standards Mode in web browser rendering engines. It covers the
+historical context of doctype switching, how each mode affects the
+layout of web pages—particularly regarding images in table cells—and the
+specific doctype declarations that trigger these distinct rendering
+behaviors.</p>
+<h2 id="the-origin-of-rendering-modes">The Origin of Rendering
+Modes</h2>
+<p>During the early browser wars, browsers implemented features
+non-standardly. When web standards were formalized by the W3C, browser
+vendors needed a way to render compliant sites correctly without
+breaking existing, non-compliant web pages.</p>
+<p>To solve this, rendering engines introduced "doctype sniffing." The
+browser reads the <code>&lt;!DOCTYPE&gt;</code> declaration at the start
+of an HTML document to decide which rendering mode to use:</p>
+<ul>
+<li><strong>Quirks Mode:</strong> Emulates legacy browser behavior
+(Netscape 4 and Internet Explorer 5).</li>
+<li><strong>Standards Mode (Full Standards Mode):</strong> Adheres
+strictly to modern HTML and CSS specifications.</li>
+<li><strong>Almost Standards Mode (Limited Quirks Mode):</strong>
+Implements modern standards with one specific exception for backwards
+compatibility.</li>
+</ul>
+<h2 id="the-difference-slicing-and-table-cells">The Difference: Slicing
+and Table Cells</h2>
+<p>The single functional difference between Standards Mode and Almost
+Standards Mode lies in how images inside table cells are rendered.</p>
+<h3 id="standards-mode-behavior">Standards Mode Behavior</h3>
+<p>In modern specifications, an <code>&lt;img&gt;</code> tag is an
+inline element by default. Because inline elements are treated like
+text, browsers align them to the text baseline. This leaves a small
+amount of vertical space beneath the image to accommodate font
+descenders (the bottom parts of letters like "g", "y", and "p").</p>
+<p>In full Standards Mode, if an image is placed alone inside a
+<code>&lt;td&gt;</code>, the browser preserves this descender space
+below the image, making the table cell slightly taller than the image
+itself unless the developer explicitly applies CSS like
+<code>display: block</code> or <code>vertical-align: bottom</code>.</p>
+<h3 id="almost-standards-mode-behavior">Almost Standards Mode
+Behavior</h3>
+<p>In the late 1990s and early 2000s, web designers frequently created
+layouts by slicing large graphics into grids of table cells. These
+designs relied on images fitting tightly inside cells with zero extra
+spacing.</p>
+<p>When strict Standards Mode was first introduced, it broke thousands
+of these sliced-table layouts by introducing unwanted gaps beneath
+images. To prevent widespread layout breakage while still allowing
+developers to use modern CSS features, browser engines introduced
+<strong>Almost Standards Mode</strong>.</p>
+<p>In Almost Standards Mode, the rendering engine sizes the table cell
+according to the height of the image itself, suppressing the baseline
+descender space when an image is the only element in the cell.</p>
+<h2 id="how-doctype-sniffing-determines-the-mode">How Doctype Sniffing
+Determines the Mode</h2>
+<p>Browsers determine the mode based on the doctype string.</p>
+<h3 id="triggers-for-full-standards-mode">Triggers for Full Standards
+Mode</h3>
+<ul>
+<li>Modern HTML5 doctype: <code>&lt;!DOCTYPE html&gt;</code></li>
+<li>HTML 4.01 Strict:
+<code>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"&gt;</code></li>
+<li>XHTML 1.0 Strict:
+<code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;</code></li>
+</ul>
+<h3 id="triggers-for-almost-standards-mode">Triggers for Almost
+Standards Mode</h3>
+<ul>
+<li>HTML 4.01 Transitional with a system identifier (URL):
+<code>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;</code></li>
+<li>XHTML 1.0 Transitional with a system identifier (URL):
+<code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</code></li>
+<li>XHTML 1.0 Frameset with a system identifier.</li>
+</ul>
+<p><em>(Note: If the Transitional doctypes omit the URL, the browser
+typically falls back to Quirks Mode rather than Almost Standards
+Mode.)</em></p>
+<h2 id="modern-relevance">Modern Relevance</h2>
+<p>For modern web development, Almost Standards Mode is rarely used
+intentionally. The current standard is to write modern HTML using
+<code>&lt;!DOCTYPE html&gt;</code>, which triggers full Standards Mode
+across all major browsers. If table-based layout issues occur with
+images, developers resolve them directly with CSS rather than relying on
+browser-level rendering compromises.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

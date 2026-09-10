@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Video Track Element for Captions and Subtitles - html</title>
+    <meta name="description" content="The HTML <track> element specifies timed text tracks for <video> and <audio> elements, allowing developers to add subtitles, closed captions, audio descriptions, chapter markers, and metadata. By linking external WebVTT files to media players, it enhance">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-video-track-element-for-captions-and-subtitles">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Video Track Element for Captions and Subtitles - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-video-track-element-for-captions-and-subtitles" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The HTML <track> element specifies timed text tracks for <video> and <audio> elements, allowing developers to add subtitles, closed captions, audio descriptions, chapter markers, and metadata. By linking external WebVTT files to media players, it enhance" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-video-track-element-for-captions-and-subtitles">HTML Video
+Track Element for Captions and Subtitles</h1>
+<p>The HTML <code>&lt;track&gt;</code> element specifies timed text
+tracks for <code>&lt;video&gt;</code> and <code>&lt;audio&gt;</code>
+elements, allowing developers to add subtitles, closed captions, audio
+descriptions, chapter markers, and metadata. By linking external WebVTT
+files to media players, it enhances web accessibility for deaf or
+hard-of-hearing users, provides translations for international
+audiences, and improves comprehension in sound-sensitive
+environments.</p>
+<h3 id="what-is-the-track-element">What is the
+<code>&lt;track&gt;</code> Element?</h3>
+<p>The <code>&lt;track&gt;</code> tag is an empty, self-closing child
+element placed inside an <code>&lt;audio&gt;</code> or
+<code>&lt;video&gt;</code> container. It points to an external
+file—formatted in Web Video Text Tracks (<code>.vtt</code>)—that
+contains timestamped text cues synchronized with media playback.</p>
+<p>A standard implementation looks like this:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">video</span><span class="ot"> controls width</span><span class="op">=</span><span class="st">&quot;640&quot;</span><span class="ot"> height</span><span class="op">=</span><span class="st">&quot;360&quot;</span><span class="ot"> poster</span><span class="op">=</span><span class="st">&quot;thumbnail.jpg&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">source</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;presentation.mp4&quot;</span><span class="ot"> type</span><span class="op">=</span><span class="st">&quot;video/mp4&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">track</span><span class="ot"> </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ot">    kind</span><span class="op">=</span><span class="st">&quot;captions&quot;</span><span class="ot"> </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ot">    src</span><span class="op">=</span><span class="st">&quot;captions-en.vtt&quot;</span><span class="ot"> </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ot">    srclang</span><span class="op">=</span><span class="st">&quot;en&quot;</span><span class="ot"> </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ot">    label</span><span class="op">=</span><span class="st">&quot;English Captions&quot;</span><span class="ot"> </span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ot">    default</span><span class="dt">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">track</span><span class="ot"> </span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ot">    kind</span><span class="op">=</span><span class="st">&quot;subtitles&quot;</span><span class="ot"> </span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ot">    src</span><span class="op">=</span><span class="st">&quot;subtitles-es.vtt&quot;</span><span class="ot"> </span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ot">    srclang</span><span class="op">=</span><span class="st">&quot;es&quot;</span><span class="ot"> </span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ot">    label</span><span class="op">=</span><span class="st">&quot;Español&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">video</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="key-attributes-of-the-track-element">Key Attributes of the
+<code>&lt;track&gt;</code> Element</h3>
+<p>To function properly, the <code>&lt;track&gt;</code> element relies
+on several core attributes:</p>
+<ul>
+<li><strong><code>src</code></strong>: The URL of the <code>.vtt</code>
+text file containing the timed cues.</li>
+<li><strong><code>kind</code></strong>: Defines how the text track is
+intended to be used.</li>
+<li><strong><code>srclang</code></strong>: Specifies the language of the
+track using standard BCP 47 language tags (e.g., <code>en</code>,
+<code>es</code>, <code>fr</code>). This is required if
+<code>kind="subtitles"</code>.</li>
+<li><strong><code>label</code></strong>: A human-readable title
+displayed in the browser's video player settings (e.g., "English SDH" or
+"French Subtitles").</li>
+<li><strong><code>default</code></strong>: A boolean attribute that
+designates the track to be active by default if user preferences do not
+dictate otherwise. Only one track per media element can have this
+attribute.</li>
+</ul>
+<h3 id="types-of-tracks-the-kind-attribute">Types of Tracks: The
+<code>kind</code> Attribute</h3>
+<p>The primary function of the <code>&lt;track&gt;</code> tag is
+dictated by its <code>kind</code> attribute, which accepts five specific
+values:</p>
+<h4 id="1-subtitles-kindsubtitles">1. Subtitles
+(<code>kind="subtitles"</code>)</h4>
+<p>Subtitles provide transcription or translation of dialogue for
+viewers who can hear the audio but may not understand the spoken
+language. They assume the viewer can hear sound effects, background
+music, and emotional tones, focusing strictly on translated or written
+speech.</p>
+<h4 id="2-closed-captions-kindcaptions">2. Closed Captions
+(<code>kind="captions"</code>)</h4>
+<p>Captions provide a complete textual representation of the audio for
+viewers who are deaf or hard of hearing. Unlike subtitles, captions
+include not only the dialogue but also critical non-speech information,
+such as sound effects (e.g., <code>[door slams]</code>), music cues, and
+speaker identification.</p>
+<h4 id="3-descriptions-kinddescriptions">3. Descriptions
+(<code>kind="descriptions"</code>)</h4>
+<p>Descriptions provide a text-based version of the visual action taking
+place on screen. These are intended for synthesis into speech via a
+screen reader to assist blind or visually impaired users who cannot see
+the video track.</p>
+<h4 id="4-chapters-kindchapters">4. Chapters
+(<code>kind="chapters"</code>)</h4>
+<p>Chapter tracks define titles and time ranges to help users navigate
+the media. When supported by the browser or custom media player, chapter
+markers allow viewers to jump directly to specific sections of a long
+video.</p>
+<h4 id="5-metadata-kindmetadata">5. Metadata
+(<code>kind="metadata"</code>)</h4>
+<p>Metadata tracks contain timed data intended for consumption by
+JavaScript scripts rather than being directly displayed to the user.
+This data can trigger real-time actions on the webpage as the video
+progresses, such as synchronizing slide decks, loading interactive
+quizzes, or displaying contextual links.</p>
+<h3 id="benefits-of-using-the-track-element">Benefits of Using the
+<code>&lt;track&gt;</code> Element</h3>
+<p>Implementing the <code>&lt;track&gt;</code> element ensures
+compliance with accessibility standards like the Web Content
+Accessibility Guidelines (WCAG). It also improves user experience by
+allowing viewing in noisy spaces or places where sound must be muted,
+and aids search engine optimization (SEO) by making video content
+crawlable via text.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

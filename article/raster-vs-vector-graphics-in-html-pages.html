@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raster vs Vector Graphics in HTML Pages - html</title>
+    <meta name="description" content="When rendering visual content in HTML pages, raster images and vector graphics represent two fundamentally different approaches to handling visual data. Raster images rely on fixed grids of pixels that lose quality when scaled, whereas vector graphics re">
+    <link rel="canonical" href="https://salivity.github.io/html/article/raster-vs-vector-graphics-in-html-pages">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Raster vs Vector Graphics in HTML Pages - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/raster-vs-vector-graphics-in-html-pages" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="When rendering visual content in HTML pages, raster images and vector graphics represent two fundamentally different approaches to handling visual data. Raster images rely on fixed grids of pixels that lose quality when scaled, whereas vector graphics re" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="raster-vs-vector-graphics-in-html-pages">Raster vs Vector
+Graphics in HTML Pages</h1>
+<p>When rendering visual content in HTML pages, raster images and vector
+graphics represent two fundamentally different approaches to handling
+visual data. Raster images rely on fixed grids of pixels that lose
+quality when scaled, whereas vector graphics rely on mathematical
+formulas defining paths, shapes, and colors that scale infinitely
+without degradation. Understanding these core differences directly
+impacts page performance, responsiveness, visual clarity across
+high-resolution screens, and DOM manipulability.</p>
+<h2 id="underlying-data-structure">Underlying Data Structure</h2>
+<p>Raster images—such as JPEG, PNG, GIF, and WebP—are essentially
+matrices of colored pixels mapped directly to a grid. The browser reads
+this file, decodes the pixel values, and paints them into the designated
+layout box. Because the pixel data is static, the browser cannot invent
+new detail when the display area expands.</p>
+<p>Vector graphics in HTML are primarily implemented via Scalable Vector
+Graphics (SVG). An SVG is an XML-based document describing geometric
+objects, lines, curves, and text through mathematical coordinates.
+Instead of reading pixel values, the browser's rendering engine computes
+the shapes on the fly based on these mathematical definitions.</p>
+<h2 id="scalability-and-display-resolution">Scalability and Display
+Resolution</h2>
+<p>The most visible distinction between raster and vector formats occurs
+during scaling:</p>
+<ul>
+<li><strong>Raster Images:</strong> Designed for specific dimensions.
+When enlarged beyond their native pixel dimensions or displayed on
+modern high-DPI (Retina) screens, raster images become blurry,
+pixelated, or artifacted. To look sharp across devices, developers must
+supply multiple versions of the asset using responsive techniques like
+the <code>&lt;picture&gt;</code> element or the <code>srcset</code>
+attribute.</li>
+<li><strong>Vector Graphics:</strong> Resolution-independent. Because
+vectors are calculated dynamically, an SVG renders with razor-sharp
+edges whether it is displayed as a 16-pixel icon or expanded to cover an
+entire desktop viewport.</li>
+</ul>
+<h2 id="dom-integration-and-interactivity">DOM Integration and
+Interactivity</h2>
+<p>How each format interacts with the HTML Document Object Model (DOM)
+dictates its flexibility:</p>
+<ul>
+<li><strong>Raster Images:</strong> Loaded strictly as external assets
+using elements like <code>&lt;img src="..."&gt;</code> or via CSS
+<code>background-image</code>. The browser treats the file as an opaque,
+indivisible visual block. You cannot target individual elements inside a
+PNG or JPEG with CSS or JavaScript.</li>
+<li><strong>Vector Graphics:</strong> Can be loaded via
+<code>&lt;img&gt;</code> tags or embedded directly inline using
+<code>&lt;svg&gt;</code> tags. When placed inline, every path, circle,
+and polygon becomes an accessible node in the DOM. This allows
+developers to style internal components using CSS (such as changing
+colors on <code>:hover</code>), animate specific elements, and bind
+JavaScript event listeners directly to sub-shapes within the
+graphic.</li>
+</ul>
+<h2 id="rendering-pipeline-and-performance">Rendering Pipeline and
+Performance</h2>
+<p>The browser processes these formats differently, which affects memory
+and rendering performance:</p>
+<ul>
+<li><strong>Raster Processing:</strong> The browser downloads the image,
+decodes the compressed data into an uncompressed bitmap in memory, and
+composites it to the screen. Decoding can be CPU-intensive for massive
+files, but once decoded, rendering the static bitmap is fast for the
+GPU. File sizes increase proportionally with the pixel resolution and
+color depth, regardless of the simplicity of the subject matter.</li>
+<li><strong>Vector Processing:</strong> The browser parses the XML,
+calculates the geometric vectors, and rasterizes the paths into pixels
+in real time. While simple SVGs are lightweight and render
+instantaneously, highly complex vectors containing thousands of nodes,
+paths, or complex gradients can cause noticeable rendering lag and high
+CPU utilization. File size in vector graphics depends entirely on visual
+complexity rather than resolution.</li>
+</ul>
+<h2 id="ideal-use-cases-in-web-development">Ideal Use Cases in Web
+Development</h2>
+<p>Choosing between raster and vector depends entirely on the nature of
+the graphic:</p>
+<ul>
+<li><strong>Use Raster Formats (WebP, JPEG, PNG):</strong> Ideal for
+photographs, photorealistic art, complex textures, and visuals where
+colors vary continuously across millions of individual pixels.</li>
+<li><strong>Use Vector Graphics (SVG):</strong> Ideal for logos, user
+interface icons, simple illustrations, charts, diagrams, and typography,
+where sharp lines, infinite scalability, and small baseline file sizes
+are essential.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

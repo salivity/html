@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How JavaScript FormData Extracts Form Values - html</title>
+    <meta name="description" content="The FormData interface in JavaScript provides a streamlined way to capture and compile input fields from an HTML <form> element into a set of key-value pairs. By passing a form DOM node to the FormData constructor, JavaScript automatically traverses the">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-javascript-formdata-extracts-form-values">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How JavaScript FormData Extracts Form Values - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-javascript-formdata-extracts-form-values" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The FormData interface in JavaScript provides a streamlined way to capture and compile input fields from an HTML <form> element into a set of key-value pairs. By passing a form DOM node to the FormData constructor, JavaScript automatically traverses the" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-javascript-formdata-extracts-form-values">How JavaScript
+FormData Extracts Form Values</h1>
+<p>The <code>FormData</code> interface in JavaScript provides a
+streamlined way to capture and compile input fields from an HTML
+<code>&lt;form&gt;</code> element into a set of key-value pairs. By
+passing a form DOM node to the <code>FormData</code> constructor,
+JavaScript automatically traverses the form's child controls, identifies
+all submittable inputs, and compiles their respective names and values
+into an internal data structure that mirrors standard form
+submission.</p>
+<h3 id="the-construction-process">The Construction Process</h3>
+<p>To extract data, you pass an HTML <code>&lt;form&gt;</code> element
+directly to the constructor:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> formElement <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">querySelector</span>(<span class="st">&#39;form&#39;</span>)<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> formData <span class="op">=</span> <span class="kw">new</span> <span class="bu">FormData</span>(formElement)<span class="op">;</span></span></code></pre></div>
+<p>When invoked with a form reference, the browser executes the HTML
+specification's standard form-data construction algorithm. It inspects
+every control associated with the form and determines whether it
+qualifies as a submittable element.</p>
+<h3 id="criteria-for-extraction">Criteria for Extraction</h3>
+<p>For <code>FormData</code> to extract an input control's value, the
+control must meet specific standard criteria:</p>
+<ol type="1">
+<li><strong>The <code>name</code> Attribute:</strong> Elements must have
+a <code>name</code> attribute. If an <code>&lt;input&gt;</code>,
+<code>&lt;select&gt;</code>, or <code>&lt;textarea&gt;</code> lacks a
+<code>name</code>, it is completely ignored, regardless of whether it
+contains a value. The <code>name</code> becomes the key in the key-value
+pair.</li>
+<li><strong>Enabled State:</strong> Disabled elements
+(<code>disabled</code> attribute present) are excluded from the
+extraction process.</li>
+<li><strong>Selection State (Checkboxes and Radio Buttons):</strong>
+Elements of type <code>checkbox</code> or <code>radio</code> are only
+captured if they are in a <code>:checked</code> state. Unchecked options
+are skipped entirely.</li>
+<li><strong>Valid Form Controls:</strong> Only standard submittable
+elements—<code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>,
+<code>&lt;textarea&gt;</code>, and <code>&lt;button&gt;</code> elements
+(when acting as the submitter)—are processed. Generic elements like
+<code>&lt;div&gt;</code> or <code>&lt;span&gt;</code> are
+disregarded.</li>
+</ol>
+<h3 id="handling-different-data-types">Handling Different Data
+Types</h3>
+<ul>
+<li><strong>Text-based Inputs:</strong> Controls like
+<code>&lt;input type="text"&gt;</code>, <code>&lt;textarea&gt;</code>,
+<code>&lt;select&gt;</code>, and hidden inputs map the element's
+<code>name</code> to its current string <code>value</code>.</li>
+<li><strong>File Inputs:</strong> An
+<code>&lt;input type="file"&gt;</code> does not extract a string path.
+Instead, <code>FormData</code> extracts the native <code>File</code>
+object (or objects, if the <code>multiple</code> attribute is present),
+capturing binary data, file size, and MIME type.</li>
+<li><strong>Duplicate Names:</strong> If multiple inputs share the same
+<code>name</code> (such as multi-select dropdowns or arrays of
+checkboxes), <code>FormData</code> preserves all occurrences under that
+single key rather than overwriting them.</li>
+</ul>
+<h3 id="accessing-the-extracted-pairs">Accessing the Extracted
+Pairs</h3>
+<p>Once initialized, the internal key-value pairs can be read and
+inspected using built-in methods:</p>
+<ul>
+<li><code>formData.get(key)</code>: Returns the first value associated
+with the specified key.</li>
+<li><code>formData.getAll(key)</code>: Returns an array of all values
+associated with a shared key name.</li>
+<li><code>formData.entries()</code>: Returns an iterator over all
+<code>[key, value]</code> pairs, allowing you to convert the data into
+an object or iterate using a <code>for...of</code> loop:</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (<span class="kw">const</span> [key<span class="op">,</span> value] <span class="kw">of</span> formData<span class="op">.</span><span class="fu">entries</span>()) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`</span><span class="sc">${</span>key<span class="sc">}</span><span class="vs">:`</span><span class="op">,</span> value)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Convert directly to a plain JavaScript object</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> formValues <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">fromEntries</span>(formData<span class="op">.</span><span class="fu">entries</span>())<span class="op">;</span></span></code></pre></div>
+<p>This automatic extraction eliminates the need to manually query
+individual inputs and read their values, allowing forms to be processed
+efficiently for asynchronous HTTP requests.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Lang Attribute for Accessibility and i18n - html</title>
+    <meta name="description" content="The lang attribute in the root <html> tag declares the primary language of a webpage, serving as a critical foundation for web accessibility and internationalization. By defining the document's language at the root level, developers enable assistive tech">
+    <link rel="canonical" href="https://salivity.github.io/html/article/html-lang-attribute-for-accessibility-and-i18n">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="HTML Lang Attribute for Accessibility and i18n - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/html-lang-attribute-for-accessibility-and-i18n" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The lang attribute in the root <html> tag declares the primary language of a webpage, serving as a critical foundation for web accessibility and internationalization. By defining the document's language at the root level, developers enable assistive tech" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="html-lang-attribute-for-accessibility-and-i18n">HTML Lang
+Attribute for Accessibility and i18n</h1>
+<p>The <code>lang</code> attribute in the root <code>&lt;html&gt;</code>
+tag declares the primary language of a webpage, serving as a critical
+foundation for web accessibility and internationalization. By defining
+the document's language at the root level, developers enable assistive
+technologies to read content with appropriate pronunciation, help
+browsers apply correct font glyphs and hyphenation patterns, and assist
+translation engines and search systems in properly interpreting the page
+content.</p>
+<h2 id="screen-reader-optimization-and-accessibility">Screen Reader
+Optimization and Accessibility</h2>
+<p>Screen readers and text-to-speech tools rely directly on the
+<code>lang</code> attribute to determine which speech synthesis engine
+to use. Without a declared language, the assistive software defaults to
+the user's system language, which can cause significant comprehension
+issues.</p>
+<ul>
+<li><strong>Pronunciation and Accents:</strong> When the
+<code>lang</code> attribute is set (for example,
+<code>&lt;html lang="es"&gt;</code>), screen readers pronounce words
+using Spanish phonetics and cadence rather than mispronouncing them
+through an English voice engine.</li>
+<li><strong>Braille Translation:</strong> Refreshable braille displays
+use distinct translation tables for different languages. The
+<code>lang</code> tag ensures the output uses the correct braille
+contractions and character codes.</li>
+<li><strong>WCAG Compliance:</strong> Specifying the document language
+satisfies Web Content Accessibility Guidelines (WCAG) Success Criterion
+3.1.1 (Language of Page), a Level A requirement.</li>
+</ul>
+<h2 id="browser-rendering-and-typography">Browser Rendering and
+Typography</h2>
+<p>The root <code>lang</code> attribute informs the browser about
+typographic conventions specific to certain languages and scripts,
+improving the visual reading experience.</p>
+<ul>
+<li><strong>CJK Glyph Selection:</strong> Chinese, Japanese, and Korean
+(CJK) scripts share common characters (Han unification) that require
+subtle visual variations depending on the language. Setting
+<code>lang="ja"</code> or <code>lang="zh-Hans"</code> ensures the
+browser picks the appropriate font glyphs.</li>
+<li><strong>Automated Hyphenation:</strong> CSS properties such as
+<code>hyphens: auto</code> require the browser to know the language of
+the text to apply the correct dictionary-based hyphenation break
+points.</li>
+<li><strong>CSS Language Selectors:</strong> Declaring the language
+allows developers to use the <code>:lang()</code> CSS pseudo-class to
+adjust styles, such as quotation marks (<code>quotes</code>) or fonts,
+tailored to regional preferences.</li>
+</ul>
+<h2 id="translation-engines-and-search-localization">Translation Engines
+and Search Localization</h2>
+<p>Search engines and browser-integrated translation tools leverage the
+root language attribute to process webpage metadata efficiently.</p>
+<ul>
+<li><strong>Translation Prompts:</strong> Modern browsers like Google
+Chrome or Microsoft Edge check the <code>lang</code> attribute against
+the user’s preferred interface language to automatically trigger
+translation banners.</li>
+<li><strong>Content Indexing:</strong> Search engine crawlers use the
+language tag to accurately index and categorize content, ensuring
+localized queries return relevant results to users based on language and
+region.</li>
+</ul>
+<h2 id="best-practices-for-implementation">Best Practices for
+Implementation</h2>
+<p>To implement the attribute effectively, use standard IETF BCP 47
+language tags.</p>
+<ul>
+<li><strong>Primary Language:</strong> Use a two-letter or three-letter
+code for general targeting (e.g., <code>&lt;html lang="en"&gt;</code>
+for English, <code>&lt;html lang="fr"&gt;</code> for French).</li>
+<li><strong>Regional Dialects:</strong> Add regional sub-tags when
+content uses specific local variations (e.g.,
+<code>&lt;html lang="pt-BR"&gt;</code> for Brazilian Portuguese).</li>
+<li><strong>Inline Overrides:</strong> If portions of the page differ
+from the root language, apply the <code>lang</code> attribute locally to
+elements like <code>&lt;span lang="de"&gt;Guten Tag&lt;/span&gt;</code>
+to maintain accurate pronunciation and rendering.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

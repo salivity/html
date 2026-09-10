@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide to the HTML blocking="render" Attribute - html</title>
+    <meta name="description" content="The blocking="render" attribute in modern HTML provides developers with explicit, granular control over how and when external resources block the visual rendering of a web page. Traditionally, browsers relied on rigid, built-in heuristics to decide wheth">
+    <link rel="canonical" href="https://salivity.github.io/html/article/guide-to-the-html-blocking-render-attribute">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Guide to the HTML blocking="render" Attribute - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/guide-to-the-html-blocking-render-attribute" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The blocking="render" attribute in modern HTML provides developers with explicit, granular control over how and when external resources block the visual rendering of a web page. Traditionally, browsers relied on rigid, built-in heuristics to decide wheth" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="guide-to-the-html-blockingrender-attribute">Guide to the HTML
+blocking="render" Attribute</h1>
+<p>The <code>blocking="render"</code> attribute in modern HTML provides
+developers with explicit, granular control over how and when external
+resources block the visual rendering of a web page. Traditionally,
+browsers relied on rigid, built-in heuristics to decide whether
+<code>&lt;script&gt;</code> and <code>&lt;style&gt;</code> tags blocked
+parsing or rendering. By using <code>blocking="render"</code>, you can
+explicitly instruct the browser to halt page painting until a critical
+resource is fully fetched and processed, effectively preventing layout
+shifts and visual flashes without stalling the HTML parser entirely.</p>
+<h2 id="what-is-the-blockingrender-attribute">What is the
+<code>blocking="render"</code> Attribute?</h2>
+<p>Defined in the WHATWG HTML specification,
+<code>blocking="render"</code> can be applied to elements such as
+<code>&lt;script&gt;</code>, <code>&lt;style&gt;</code>, and
+<code>&lt;link&gt;</code> (like stylesheets or module preloads).</p>
+<p>When a browser encounters an element with this attribute, it pauses
+the screen's visual rendering (painting) until that specific resource
+has finished loading and executing. Importantly, unlike classic
+synchronous scripts placed in the <code>&lt;head&gt;</code>,
+<code>blocking="render"</code> does not necessarily stop the browser's
+background parser from parsing the rest of the HTML document; it
+strictly targets the rendering phase.</p>
+<h2 id="the-problem-it-solves">The Problem It Solves</h2>
+<p>Web performance best practices often advocate for loading scripts
+asynchronously using <code>async</code> or <code>defer</code>, or as ES
+modules (<code>&lt;script type="module"&gt;</code>), to prevent
+parser-blocking. However, non-blocking behavior creates two major visual
+issues:</p>
+<ol type="1">
+<li><strong>Flash of Unstyled Content (FOUC):</strong> When styles, web
+fonts, or critical theme scripts (like dark mode toggles) load
+asynchronously, the user may see a raw or incorrectly styled page before
+the resource applies.</li>
+<li><strong>Cumulative Layout Shift (CLS):</strong> Scripts that modify
+layout or inject DOM elements (such as A/B testing tools or dynamic
+navigation) after initial render cause elements to jump abruptly,
+degrading user experience and Web Vitals metrics.</li>
+</ol>
+<p>Before <code>blocking="render"</code>, developers had to choose
+between fast parsing with layout shifts, or completely blocking the HTML
+parser using classic, synchronous scripts. The
+<code>blocking="render"</code> attribute offers a middle ground: allow
+the document to parse, but hold off on painting until the critical
+resource is ready.</p>
+<h2 id="how-to-use-blockingrender">How to Use
+<code>blocking="render"</code></h2>
+<p>The attribute takes a single token value: <code>render</code>.</p>
+<h3 id="on-scripts">On Scripts</h3>
+<p>By default, ES modules (<code>type="module"</code>) are deferred and
+do not block rendering. Adding <code>blocking="render"</code> ensures
+that the page does not paint until the module has executed.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">script</span><span class="ot"> type=</span><span class="st">&quot;module&quot;</span><span class="ot"> src</span><span class="op">=</span><span class="st">&quot;critical-theme.js&quot;</span><span class="ot"> blocking</span><span class="op">=</span><span class="st">&quot;render&quot;</span><span class="dt">&gt;&lt;/</span><span class="kw">script</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>This is especially useful for client-side routing, user
+authentication checks, or theming engines that must execute before the
+first paint to prevent layout or color flickering.</p>
+<h3 id="on-stylesheets">On Stylesheets</h3>
+<p>Most <code>&lt;link rel="stylesheet"&gt;</code> tags in the
+<code>&lt;head&gt;</code> are render-blocking by default. However,
+dynamically injected stylesheets or stylesheets placed later in the
+document might not block painting immediately. Adding the attribute
+guarantees the blocking behavior regardless of placement or injection
+method:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;stylesheet&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;critical.css&quot;</span><span class="ot"> blocking</span><span class="op">=</span><span class="st">&quot;render&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<h3 id="preloading-and-module-preloads">Preloading and Module
+Preloads</h3>
+<p>You can also combine render-blocking with preloading strategies to
+fetch assets with high priority while guaranteeing they apply before
+paint:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">link</span><span class="ot"> rel</span><span class="op">=</span><span class="st">&quot;modulepreload&quot;</span><span class="ot"> href</span><span class="op">=</span><span class="st">&quot;app-init.js&quot;</span><span class="ot"> blocking</span><span class="op">=</span><span class="st">&quot;render&quot;</span><span class="dt">&gt;</span></span></code></pre></div>
+<h2
+id="difference-between-parser-blocking-and-render-blocking">Difference
+Between Parser-Blocking and Render-Blocking</h2>
+<p>Understanding the difference between parsing and rendering clarifies
+the value of this attribute:</p>
+<ul>
+<li><strong>Parser-blocking:</strong> The browser stops reading the HTML
+stream entirely. It cannot discover downstream resources, images, or
+elements until the script downloads and executes.</li>
+<li><strong>Render-blocking (<code>blocking="render"</code>):</strong>
+The browser continues streaming and parsing the HTML, constructing the
+DOM tree and discovering other resources. However, it delays the initial
+paint step. As soon as the marked resource is ready, the browser renders
+the accumulated DOM immediately.</li>
+</ul>
+<h2 id="key-use-cases">Key Use Cases</h2>
+<ul>
+<li><strong>Theming and Dark Mode:</strong> Preventing a blinding white
+flash before applying a stored dark mode preference.</li>
+<li><strong>A/B Testing and Feature Flags:</strong> Modifying page
+content or layouts before the user sees the default variation,
+eliminating visual flickers.</li>
+<li><strong>Client-side Hydration Setup:</strong> Ensuring foundational
+state is populated before any interactive components visually
+display.</li>
+</ul>
+<p>The <code>blocking="render"</code> attribute provides a standardized,
+predictable mechanism to ensure high visual stability for critical
+assets without sacrificing the parser discovery process.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

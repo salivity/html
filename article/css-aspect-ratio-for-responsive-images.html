@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS aspect-ratio for Responsive Images - html</title>
+    <meta name="description" content="This article explains the purpose of the CSS aspect-ratio property when handling responsive HTML images. You will learn how this property prevents Cumulative Layout Shift (CLS), replaces legacy CSS workarounds like the padding hack, and pairs with modern">
+    <link rel="canonical" href="https://salivity.github.io/html/article/css-aspect-ratio-for-responsive-images">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="CSS aspect-ratio for Responsive Images - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/css-aspect-ratio-for-responsive-images" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article explains the purpose of the CSS aspect-ratio property when handling responsive HTML images. You will learn how this property prevents Cumulative Layout Shift (CLS), replaces legacy CSS workarounds like the padding hack, and pairs with modern" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="css-aspect-ratio-for-responsive-images">CSS aspect-ratio for
+Responsive Images</h1>
+<p>This article explains the purpose of the CSS
+<code>aspect-ratio</code> property when handling responsive HTML images.
+You will learn how this property prevents Cumulative Layout Shift (CLS),
+replaces legacy CSS workarounds like the padding hack, and pairs with
+modern CSS rules to ensure images adapt dynamically to different screen
+sizes without distorting or disrupting the user experience.</p>
+<h3 id="preventing-cumulative-layout-shift-cls">Preventing Cumulative
+Layout Shift (CLS)</h3>
+<p>The primary purpose of the <code>aspect-ratio</code> property on
+responsive images is to prevent layout shifts during page load. When a
+browser downloads an HTML document, it renders the text and layout
+before the images have fully downloaded.</p>
+<p>In traditional responsive design, images are often styled with:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>img {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">width</span><span class="ch">:</span> <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">height</span><span class="ch">:</span> <span class="bu">auto</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Without a defined height or ratio, the browser calculates the image
+height as zero until the file finishes downloading. Once loaded, the
+image suddenly expands to its intrinsic height, pushing down the content
+below it. This jump is known as Cumulative Layout Shift (CLS), a Core
+Web Vital metric that harms user experience and search engine
+rankings.</p>
+<p>Setting <code>aspect-ratio</code> informs the browser of the image's
+proportions immediately:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>img {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">width</span><span class="ch">:</span> <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">height</span><span class="ch">:</span> <span class="bu">auto</span><span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">aspect-ratio</span><span class="ch">:</span> <span class="dv">16</span> / <span class="dv">9</span><span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>With this property applied, the browser calculates the required
+vertical space based on the current width and reserves that space before
+the image file is fetched, completely eliminating layout shifting.</p>
+<h3 id="replacing-the-padding-hack">Replacing the Padding Hack</h3>
+<p>Before native support for <code>aspect-ratio</code>, developers
+relied on the "padding hack" to maintain proportional containers. This
+technique required wrapping each image in a container element and
+applying a percentage-based <code>padding-top</code> or
+<code>padding-bottom</code> (for example, <code>56.25%</code> for a 16:9
+ratio), combined with absolute positioning on the image itself.</p>
+<p>The <code>aspect-ratio</code> property eliminates the need for
+wrapper elements and complex positioning rules. Proportions can now be
+declared directly on the <code>&lt;img&gt;</code> element using clean,
+readable syntax such as <code>aspect-ratio: 4 / 3</code> or
+<code>aspect-ratio: 1 / 1</code>.</p>
+<h3 id="preventing-distortion-with-object-fit">Preventing Distortion
+with <code>object-fit</code></h3>
+<p>Responsive designs frequently require images to fit a uniform layout
+even when source files have varying native dimensions. Applying a fixed
+<code>aspect-ratio</code> alongside <code>object-fit: cover</code>
+ensures that images fill their designated box uniformly without
+stretching or squishing:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>img {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">width</span><span class="ch">:</span> <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">aspect-ratio</span><span class="ch">:</span> <span class="dv">3</span> / <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">object-fit</span><span class="ch">:</span> <span class="dv">cover</span><span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="relationship-with-html-width-and-height-attributes">Relationship
+with HTML <code>width</code> and <code>height</code> Attributes</h3>
+<p>Modern browsers automatically map the HTML <code>width</code> and
+<code>height</code> attributes to an internal <code>aspect-ratio</code>
+calculation. For instance,
+<code>&lt;img src="photo.jpg" width="800" height="400"&gt;</code> allows
+the browser to infer a 2:1 ratio.</p>
+<p>The CSS <code>aspect-ratio</code> property is essential when:</p>
+<ul>
+<li>Images are dynamically injected without explicit HTML
+dimensions.</li>
+<li>Art direction requires an image to display in a ratio different from
+its source file (such as cropping a landscape image into a 1:1 square on
+mobile viewports).</li>
+<li>A unified design system enforces strict aspect ratios across
+user-generated content.</li>
+</ul></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Browsers Parse Streaming HTML in Real Time - html</title>
+    <meta name="description" content="Modern web browsers do not wait for an entire HTML document to download before rendering; instead, they rely on incremental or streaming parsing. As the network layer receives data packets from the server, the browser continuously feeds raw bytes into a">
+    <link rel="canonical" href="https://salivity.github.io/html/article/how-browsers-parse-streaming-html-in-real-time">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How Browsers Parse Streaming HTML in Real Time - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/how-browsers-parse-streaming-html-in-real-time" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Modern web browsers do not wait for an entire HTML document to download before rendering; instead, they rely on incremental or streaming parsing. As the network layer receives data packets from the server, the browser continuously feeds raw bytes into a" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-browsers-parse-streaming-html-in-real-time">How Browsers
+Parse Streaming HTML in Real Time</h1>
+<p>Modern web browsers do not wait for an entire HTML document to
+download before rendering; instead, they rely on incremental or
+streaming parsing. As the network layer receives data packets from the
+server, the browser continuously feeds raw bytes into a parsing pipeline
+that converts them into characters, tokens, and Document Object Model
+(DOM) nodes. This incremental execution allows the browser to trigger
+speculative preloading, execute stylesheets, and render partial visual
+content to the screen well before the network connection closes,
+drastically reducing perceived latency.</p>
+<h3 id="the-network-stream-and-byte-decoding">The Network Stream and
+Byte Decoding</h3>
+<p>The process begins at the networking layer using protocols like
+HTTP/1.1 (via chunked transfer encoding), HTTP/2, or HTTP/3. As TCP
+packets arrive, the browser receives the response body as a continuous
+stream of raw bytes.</p>
+<p>The browser passes these bytes into an input stream preprocessor.
+This component decodes the raw binary data into Unicode characters based
+on the document's character encoding (such as UTF-8), which is
+determined by HTTP headers or early <code>&lt;meta charset&gt;</code>
+tags. The decoded characters are immediately pushed into the parsing
+engine in chunks, without waiting for the <code>End-of-File</code> (EOF)
+signal.</p>
+<h3 id="tokenization-via-state-machine">Tokenization via State
+Machine</h3>
+<p>The HTML parser operates as a state machine. It consumes the decoded
+character stream character-by-character to generate tokens. The HTML
+specification defines specific states for this machine, such as:</p>
+<ul>
+<li><strong>Data State:</strong> Emitting plain text characters.</li>
+<li><strong>Tag Open State:</strong> Triggered by encountering a
+<code>&lt;</code> character.</li>
+<li><strong>Tag Name State:</strong> Consuming the element's identifier
+(e.g., <code>div</code>, <code>p</code>, <code>script</code>).</li>
+<li><strong>Attribute States:</strong> Parsing attribute names and
+values.</li>
+</ul>
+<p>Each completed sequence emits a token—such as a
+<code>StartTag</code>, <code>EndTag</code>, <code>Character</code>, or
+<code>Comment</code> token. Because this state machine processes
+characters on the fly, tokens are emitted continuously as network chunks
+arrive.</p>
+<h3 id="incremental-tree-construction">Incremental Tree
+Construction</h3>
+<p>The tokens emitted by the tokenizer are fed immediately to the Tree
+Construction stage. The tree builder maintains an open elements stack to
+track parent-child relationships and enforce the structural rules of
+HTML (including error handling and automatic closing of tags like
+<code>&lt;p&gt;</code> or <code>&lt;li&gt;</code>).</p>
+<p>When a <code>StartTag</code> token arrives:</p>
+<ol type="1">
+<li>The parser instantiates a corresponding DOM node.</li>
+<li>The node is attached to the appropriate parent element on the
+stack.</li>
+<li>The element is pushed onto the stack of open elements.</li>
+</ol>
+<p>When an <code>EndTag</code> token arrives, the corresponding element
+is popped from the stack. Because DOM nodes are instantiated and
+appended in real time, the DOM tree grows incrementally.</p>
+<h3 id="the-render-pipeline-and-partial-painting">The Render Pipeline
+and Partial Painting</h3>
+<p>The browser's layout and paint engines run concurrently with the
+network stream. As nodes are added to the DOM tree:</p>
+<ol type="1">
+<li><strong>Style Calculation:</strong> The browser checks available CSS
+to resolve styles for the new nodes.</li>
+<li><strong>Layout:</strong> The browser computes geometric coordinates
+for visible elements.</li>
+<li><strong>Painting:</strong> Visual pixels are drawn onto layers and
+composed to the screen.</li>
+</ol>
+<p>The browser periodically yields the main thread between processing
+network chunks. This scheduling allows the layout and rendering engines
+to paint partial content—such as headers, navigation bars, and
+top-of-page text—while the remaining body content is still traveling
+across the network.</p>
+<h3 id="handling-parser-blocking-resources">Handling Parser-Blocking
+Resources</h3>
+<p>HTML streaming can be temporarily halted by external
+dependencies:</p>
+<ul>
+<li><strong>Synchronous JavaScript:</strong> When the tokenizer
+encounters an un-deferred <code>&lt;script src="..."&gt;</code> tag,
+parsing stops completely. Because scripts can manipulate the DOM or call
+<code>document.write()</code>, the parser must wait for the script to
+download and execute before resuming.</li>
+<li><strong>Render-Blocking CSS:</strong> While CSS does not pause the
+tokenizer from building the DOM, scripts require CSSOM completion before
+executing. Therefore, a script following an external stylesheet blocks
+the parser until the CSS is downloaded and processed.</li>
+</ul>
+<h3 id="speculative-parsing-and-the-preload-scanner">Speculative Parsing
+and the Preload Scanner</h3>
+<p>To prevent network idle time during parser-blocking stalls, browsers
+implement a secondary, lightweight thread called the <strong>Preload
+Scanner</strong> (or speculative parser).</p>
+<p>While the main parser is blocked by a script or stylesheet, the
+preload scanner scans ahead through the incoming raw HTML bytes. It
+searches for references to external resources such as images,
+stylesheets, and scripts (<code>&lt;link&gt;</code>,
+<code>&lt;script&gt;</code>, <code>&lt;img&gt;</code>), and immediately
+dispatches speculative network requests for them. By the time the main
+HTML parser resumes, these external resources are often already
+downloaded or cached, keeping the pipeline moving without delay.</p></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

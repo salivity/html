@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding cloneNode(true) for Deep DOM Copies - html</title>
+    <meta name="description" content="The cloneNode(true) method in JavaScript is used to create an exact, deep copy of a DOM element, duplicating not only the target node itself but also its entire hierarchy of child nodes, attributes, and text. This article explains how the deep cloning me">
+    <link rel="canonical" href="https://salivity.github.io/html/article/understanding-clonenode-true-for-deep-dom-copies">
+    <link rel="search" type="application/opensearchdescription+xml" title="html" href="/html/opensearch.xml">
+    <link rel="icon" href="/html/favicon.ico">
+    <link rel="stylesheet" href="/html/css/style.css">
+    <link media="print" rel="stylesheet" href="/html/css/print.css">
+    <script src="/html/js/fuse.min.js"></script>
+    <script src="/html/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <script src="/monetize/monetize.js"></script>
+    <script src="/social/social.js"></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Understanding cloneNode(true) for Deep DOM Copies - html" />
+    <meta property="og:url" content="https://salivity.github.io/html/article/understanding-clonenode-true-for-deep-dom-copies" />
+    <meta property="og:image:url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/html/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The cloneNode(true) method in JavaScript is used to create an exact, deep copy of a DOM element, duplicating not only the target node itself but also its entire hierarchy of child nodes, attributes, and text. This article explains how the deep cloning me" />
+    <link rel="manifest" href="/html/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/html/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>html</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="/html/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="understanding-clonenodetrue-for-deep-dom-copies">Understanding
+cloneNode(true) for Deep DOM Copies</h1>
+<p>The <code>cloneNode(true)</code> method in JavaScript is used to
+create an exact, deep copy of a DOM element, duplicating not only the
+target node itself but also its entire hierarchy of child nodes,
+attributes, and text. This article explains how the deep cloning
+mechanism works, the crucial difference between deep and shallow copies,
+what data is preserved or omitted during the process, and essential best
+practices for integrating cloned elements back into the document.</p>
+<h3 id="how-clonenode-works">How <code>cloneNode()</code> Works</h3>
+<p>The <code>Node.prototype.cloneNode()</code> method duplicates a DOM
+element without directly affecting the original document. It accepts a
+single, optional boolean parameter: <code>deep</code>.</p>
+<p>When this parameter is omitted or set to <code>false</code>, the
+method creates a <strong>shallow copy</strong>. A shallow copy
+duplicates only the selected element and its attributes, completely
+ignoring any nested elements, child nodes, or text contained within
+it.</p>
+<p>When the parameter is explicitly set to <code>true</code>—as in
+<code>cloneNode(true)</code>—it triggers a <strong>deep
+copy</strong>.</p>
+<h3 id="the-purpose-of-clonenodetrue">The Purpose of
+<code>cloneNode(true)</code></h3>
+<p>The primary purpose of passing <code>true</code> is to replicate the
+complete subtree of an element. This includes:</p>
+<ul>
+<li><strong>All descendant elements:</strong> Any nested tags (such as
+<code>&lt;div&gt;</code>, <code>&lt;span&gt;</code>,
+<code>&lt;ul&gt;</code>, and <code>&lt;li&gt;</code>) retain their
+complete structural hierarchy.</li>
+<li><strong>Text content:</strong> Any text nodes contained within the
+element and its children are fully preserved.</li>
+<li><strong>HTML attributes:</strong> Every standard and custom
+attribute (such as <code>class</code>, <code>id</code>,
+<code>data-*</code>, and inline styles) across the parent and all child
+nodes is duplicated.</li>
+</ul>
+<h3 id="code-comparison-shallow-vs-deep-copy">Code Comparison: Shallow
+vs. Deep Copy</h3>
+<p>Consider the following HTML structure:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">div</span><span class="ot"> id</span><span class="op">=</span><span class="st">&quot;card&quot;</span><span class="ot"> class</span><span class="op">=</span><span class="st">&quot;container&quot;</span><span class="dt">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">h2</span><span class="dt">&gt;</span>Title<span class="dt">&lt;/</span><span class="kw">h2</span><span class="dt">&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&lt;</span><span class="kw">p</span><span class="dt">&gt;</span>Description text.<span class="dt">&lt;/</span><span class="kw">p</span><span class="dt">&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;/</span><span class="kw">div</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>If you clone this node using both approaches:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> original <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;card&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Shallow copy (false)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> shallow <span class="op">=</span> original<span class="op">.</span><span class="fu">cloneNode</span>(<span class="kw">false</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(shallow)<span class="op">;</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">// Output: &lt;div id=&quot;card&quot; class=&quot;container&quot;&gt;&lt;/div&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">// Deep copy (true)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> deep <span class="op">=</span> original<span class="op">.</span><span class="fu">cloneNode</span>(<span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(deep)<span class="op">;</span> </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Output: &lt;div id=&quot;card&quot; class=&quot;container&quot;&gt;&lt;h2&gt;Title&lt;/h2&gt;&lt;p&gt;Description text.&lt;/p&gt;&lt;/div&gt;</span></span></code></pre></div>
+<p>The shallow copy produces an empty <code>&lt;div&gt;</code> with only
+the original attributes, while the deep copy retains the full structural
+content ready to be modified and inserted elsewhere.</p>
+<h3 id="what-is-not-copied">What Is Not Copied</h3>
+<p>While <code>cloneNode(true)</code> captures the complete HTML
+structure, it has distinct limitations regarding JavaScript state:</p>
+<ol type="1">
+<li><strong>Event Listeners:</strong> Listeners attached via
+<code>addEventListener()</code> or element properties (e.g.,
+<code>element.onclick = fn</code>) are <strong>not</strong> copied to
+the cloned node. Only inline event listeners defined directly in the
+HTML markup (e.g., <code>&lt;button onclick="alert()"&gt;</code>) are
+duplicated.</li>
+<li><strong>Custom Object Properties:</strong> Any custom properties
+assigned directly to the DOM object in JavaScript (e.g.,
+<code>element.myCustomData = 123</code>) are lost.</li>
+<li><strong>Canvas and Media Streams:</strong> Certain complex element
+states, like dynamic drawings on a <code>&lt;canvas&gt;</code> element
+or active <code>&lt;video&gt;</code> streams, are not reproduced in the
+duplicate.</li>
+</ol>
+<h3 id="critical-considerations">Critical Considerations</h3>
+<p>Because <code>cloneNode(true)</code> duplicates all attributes
+verbatim, it also copies <code>id</code> attributes present on the
+original element or any of its descendants. Having multiple elements
+with identical IDs violates HTML standards and causes errors in DOM
+selection.</p>
+<p>When using <code>cloneNode(true)</code>, always update or remove any
+duplicated <code>id</code> values on the cloned element before appending
+it to the active document:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> template <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;user-row&#39;</span>)<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> newRow <span class="op">=</span> template<span class="op">.</span><span class="fu">cloneNode</span>(<span class="kw">true</span>)<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Update ID to maintain unique identifiers</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>newRow<span class="op">.</span><span class="at">id</span> <span class="op">=</span> <span class="st">&#39;user-row-2&#39;</span><span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">document</span><span class="op">.</span><span class="at">body</span><span class="op">.</span><span class="fu">appendChild</span>(newRow)<span class="op">;</span></span></code></pre></div></article>
+        <div id="comments-container"></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/html'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="social-links">
+            </ul>
+        </nav>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/html/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/html/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>
